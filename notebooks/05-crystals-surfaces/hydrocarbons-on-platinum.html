@@ -1,0 +1,981 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>5.2 Hydrocarbons on Platinum &#8212; Molecular and Materials Modelling</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=3c74b3bc" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css?v=9c3e77be" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../../_static/ecp.css?v=3ea87a98" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+    <script src="../../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?v=fab101a9"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../_static/togglebutton.js?v=b8b12719"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"tex": {"macros": {"dd": "\\mathrm{d}"}}, "options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'notebooks/05-crystals-surfaces/hydrocarbons-on-platinum';</script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Volume VI — Reactions and Free Energy" href="../06-reactions-free-energy/index.html" />
+    <link rel="prev" title="5.1 Lattice Constants from an Equation of State" href="equation-of-state.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../00-front-matter/preface.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../_static/logo.svg" class="logo__image only-light" alt="Molecular and Materials Modelling - Home"/>
+    <img src="../../_static/logo.svg" class="logo__image only-dark pst-js-only" alt="Molecular and Materials Modelling - Home"/>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../01-monte-carlo-methods/index.html">Volume I — Statistical Mechanics &amp; Monte Carlo</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../01-monte-carlo-methods/ising-model.html">1.1 The Ising Model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../01-monte-carlo-methods/lattice-gas-kmc.html">1.2 Lattice-Gas Monte Carlo and Kinetic Monte Carlo</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../02-energy-landscapes/index.html">Volume II — Energy Landscapes &amp; Optimization</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../02-energy-landscapes/lennard-jones-clusters.html">2.1 Optimizing Lennard-Jones Clusters</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../03-molecular-dynamics/index.html">Volume III — Molecular Dynamics</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../03-molecular-dynamics/lennard-jones-md.html">3.1 Molecular Dynamics of Lennard-Jones Clusters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../03-molecular-dynamics/replica-exchange.html">3.2 Replica Exchange and the Melting of a Cluster</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../04-electronic-structure/index.html">Volume IV — Electronic Structure</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../04-electronic-structure/silicon-band-structure.html">4.1 The Electronic Band Structure of Silicon</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../04-electronic-structure/oxygen-triplet.html">4.2 The Formation of Molecular Oxygen</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="index.html">Volume V — Crystals and Surfaces</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="equation-of-state.html">5.1 Lattice Constants from an Equation of State</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">5.2 Hydrocarbons on Platinum</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../06-reactions-free-energy/index.html">Volume VI — Reactions and Free Energy</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../06-reactions-free-energy/ethanol-dehydration.html">6.1 The Dehydration of Ethanol</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../06-reactions-free-energy/neb-chloromethane.html">6.2 The S<span class="math notranslate nohighlight">\(_N\)</span>2 Reaction by Nudged Elastic Band</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../06-reactions-free-energy/metadynamics-graphene.html">6.3 Metadynamics: Nitric Acid on Graphene</a></li>
+</ul>
+</details></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-launch-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
+    <i class="fas fa-rocket"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://mybinder.org/v2/gh/ramador09/molecular-materials-modelling-public/main?urlpath=tree/notebooks/05-crystals-surfaces/hydrocarbons-on-platinum.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch on Binder"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img alt="Binder logo" src="../../_static/images/logo_binder.svg">
+  </span>
+<span class="btn__text-container">Binder</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://colab.research.google.com/github/ramador09/molecular-materials-modelling-public/blob/main/notebooks/05-crystals-surfaces/hydrocarbons-on-platinum.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch on Colab"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img alt="Colab logo" src="../../_static/images/logo_colab.png">
+  </span>
+<span class="btn__text-container">Colab</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/ramador09/molecular-materials-modelling-public" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/ramador09/molecular-materials-modelling-public/issues/new?title=Issue%20on%20page%20%2Fnotebooks/05-crystals-surfaces/hydrocarbons-on-platinum.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../_sources/notebooks/05-crystals-surfaces/hydrocarbons-on-platinum.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button pst-navbar-icon"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+<button class="sidebar-toggle secondary-toggle btn btn-sm pst-navbar-icon" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>5.2 Hydrocarbons on Platinum</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#notebook-overview">Notebook overview</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#theory-in-brief">Theory in brief</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#adsorption-energy">Adsorption energy</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#physisorption-and-the-van-der-waals-problem">Physisorption and the van der Waals problem</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#setup">Setup</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1-the-adsorption-system">Exercise 1 — The adsorption system</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#validation-1-a-molecule-above-a-surface">Validation 1 — a molecule above a surface</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-2-the-adsorption-energy-of-benzene">Exercise 2 — The adsorption energy of benzene</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#validation-2-benzene-binds-at-the-measured-strength">Validation 2 — benzene binds at the measured strength</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-3-functional-sensitivity-assignment-6">Exercise 3 — Functional sensitivity (Assignment 6)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#validation-3-dispersion-is-decisive-and-benzene-binds-most">Validation 3 — dispersion is decisive, and benzene binds most</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#going-further">Going further</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#references">References</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="hydrocarbons-on-platinum">
+<h1>5.2 Hydrocarbons on Platinum<a class="headerlink" href="#hydrocarbons-on-platinum" title="Link to this heading">#</a></h1>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">ecp.style</span><span class="w"> </span><span class="kn">import</span> <span class="n">header</span><span class="p">,</span> <span class="n">use_style</span>
+
+<span class="n">use_style</span><span class="p">()</span>
+<span class="n">header</span><span class="p">(</span>
+    <span class="n">volume</span><span class="o">=</span><span class="s2">&quot;Volume V — Crystals and Surfaces&quot;</span><span class="p">,</span>
+    <span class="n">number</span><span class="o">=</span><span class="s2">&quot;5.2&quot;</span><span class="p">,</span>
+    <span class="n">title</span><span class="o">=</span><span class="s2">&quot;Hydrocarbons on Platinum&quot;</span><span class="p">,</span>
+    <span class="n">blurb</span><span class="o">=</span><span class="s2">&quot;How tightly a molecule sticks to a metal surface, and why the answer depends &quot;</span>
+    <span class="s2">&quot;so much on the density functional: benzene, methane, and ethane on Pt(111), where &quot;</span>
+    <span class="s2">&quot;the van der Waals attraction that binds them is exactly what plain functionals &quot;</span>
+    <span class="s2">&quot;miss.&quot;</span><span class="p">,</span>
+    <span class="n">difficulty</span><span class="o">=</span><span class="s2">&quot;intermediate&quot;</span><span class="p">,</span>
+    <span class="n">estimate</span><span class="o">=</span><span class="s2">&quot;75–100 min&quot;</span><span class="p">,</span>
+    <span class="n">source</span><span class="o">=</span><span class="s2">&quot;FS 2023 · Lecture 8 (adsorption and dispersion)&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><style>@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,900&family=Source+Serif+4:wght@400;600&family=JetBrains+Mono:wght@400;600&display=swap');</style>
+<div style="
+    font-family:'Source Serif 4', 'Iowan Old Style', Georgia, serif;
+    background:#faf7f0;
+    border:1px solid #dcd6c8;
+    border-left:6px solid #c0851a;
+    border-radius:6px;
+    padding:26px 30px 22px 30px;
+    margin:4px 0 26px 0;
+    box-shadow:0 1px 0 rgba(0,0,0,.03), 0 8px 24px -18px rgba(22,33,62,.5);">
+
+  <div style="font-family:'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace;font-size:12px;letter-spacing:.12em;
+              text-transform:uppercase;color:#c0851a;font-weight:600;
+              margin-bottom:4px;">
+    Molecular and Materials Modelling
+  </div>
+
+  <div style="display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;">
+    <span style="font-family:'Fraunces', 'Iowan Old Style', Georgia, serif;font-weight:900;font-size:22px;
+                 line-height:1.1;color:#16213e;
+                 font-variation-settings:'opsz' 144;">
+      Volume V — Crystals and Surfaces
+    </span>
+    <span style="font-family:'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace;font-size:12px;letter-spacing:.06em;
+                 color:#46506b;">
+      Notebook&nbsp;5.2
+    </span>
+  </div>
+
+  <div style="font-family:'Source Serif 4', 'Iowan Old Style', Georgia, serif;font-size:15px;color:#46506b;
+                   margin-top:10px;max-width:62ch;">How tightly a molecule sticks to a metal surface, and why the answer depends so much on the density functional: benzene, methane, and ethane on Pt(111), where the van der Waals attraction that binds them is exactly what plain functionals miss.</div>
+
+  <div style="font-family:'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace;font-size:11px;letter-spacing:.04em;
+                   color:#c0851a;margin-top:10px;">Based on FS 2023 · Lecture 8 (adsorption and dispersion)</div>
+
+  <div style="margin-top:16px;"><div class='ecp-meta' style='font-family:'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#46506b;'>Level&nbsp;&middot;&nbsp;intermediate&nbsp;&nbsp;&nbsp;&#8226;&nbsp;&nbsp;&nbsp;Est.&nbsp;&middot;&nbsp;75–100 min</div></div>
+
+  <div style="border-top:1px solid #dcd6c8;margin-top:16px;padding-top:12px;
+              display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;
+              font-family:'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace;font-size:11px;color:#46506b;
+              letter-spacing:.04em;">
+    <span>Raymond Amador</span>
+    <span>v0.1.0 &nbsp;·&nbsp; 2026-06-05 &nbsp;·&nbsp;
+          CC&nbsp;BY&nbsp;4.0 (text) / MIT (code)</span>
+  </div>
+</div></div></div>
+</div>
+<section id="notebook-overview">
+<h2>Notebook overview<a class="headerlink" href="#notebook-overview" title="Link to this heading">#</a></h2>
+<p>Platinum is the workhorse of catalysis, and catalysis begins with <strong>adsorption</strong>: a
+molecule must stick to the surface before it can react. How strongly it sticks, the
+<strong>adsorption energy</strong>, is the single most important number, and for hydrocarbons on a
+metal it is dominated by <strong>van der Waals</strong> (dispersion) attraction, the weak,
+long-range force that ordinary density functionals describe poorly. This exercise
+makes that failure concrete.</p>
+<p>We take the course’s optimised structures of benzene, methane, and ethane on a
+Pt(111) slab, and its committed total energies, and compute the adsorption energy
+<span class="math notranslate nohighlight">\(E_{\rm ads}=E_{\rm mol+slab}-E_{\rm slab}-E_{\rm mol}\)</span>. We compare it across two
+dispersion-aware methods (the <strong>BEEF-vdW</strong> functional and the <strong>Grimme D3</strong>
+correction) and against experiment, and find the central lesson of the exercise: the
+choice of functional moves the adsorption energy by more than an electron-volt, with
+one method underbinding to the point of not binding the alkanes at all, and the other
+overbinding.</p>
+<blockquote>
+<div><p><strong>Provenance.</strong> This notebook develops <strong>Lecture 8</strong> of the course (adsorption
+energies and dispersion on Pt(111)). The slab and adsorption structures
+(<code class="docutils literal notranslate"><span class="pre">pt_slab.xyz</span></code>, <code class="docutils literal notranslate"><span class="pre">benzene_on_pt.xyz</span></code>, …) and the total energies are the course’s own
+committed CP2K results (an anonymised course run); the comparison table reproduces
+the exercise’s. The full course credit is in the footer.</p>
+</div></blockquote>
+<blockquote>
+<div><p><strong>Reading a validation.</strong> Each task closes with a check against an independent
+fact: a real calculation’s adsorption energy against the measured one, the known
+ordering of binding strengths, the size of the dispersion effect. A ✗ flags a
+mismatch; a ✓ is strong evidence, not proof.</p>
+</div></blockquote>
+<blockquote>
+<div><p><strong>Scope.</strong> Energies are the committed density-functional totals (Hartree, converted
+to eV); we analyse them rather than recompute the slab calculations, which are large
+and beyond a notebook. For dispersion see Grimme’s D3 <span class="bibtex-citation" id="id1">[<a class="reference internal" href="#id33" title="Stefan Grimme, Jens Antony, Stephan Ehrlich, and Helge Krieg. A consistent and accurate ab initio parametrization of density functional dispersion correction (DFT-D) for the 94 elements H-Pu. The Journal of Chemical Physics, 132(15):154104, 2010. doi:10.1063/1.3382344.">GAEK10</a>]</span> and the
+BEEF-vdW functional <span class="bibtex-citation" id="id2">[<a class="reference internal" href="#id34" title="Jess Wellendorff, Keld T. Lundgaard, Andreas Møgelhøj, and others. Density functionals for surface science: exchange-correlation model development with Bayesian error estimation. Physical Review B, 85(23):235149, 2012. doi:10.1103/PhysRevB.85.235149.">WLMogelhoj+12</a>]</span>.</p>
+</div></blockquote>
+</section>
+<section id="theory-in-brief">
+<h2>Theory in brief<a class="headerlink" href="#theory-in-brief" title="Link to this heading">#</a></h2>
+<section id="adsorption-energy">
+<h3>Adsorption energy<a class="headerlink" href="#adsorption-energy" title="Link to this heading">#</a></h3>
+<p>The adsorption energy is the energy released when an isolated molecule binds to a
+clean surface,</p>
+<div class="math notranslate nohighlight" id="equation-eq-eads">
+<span class="eqno">(33)<a class="headerlink" href="#equation-eq-eads" title="Link to this equation">#</a></span>\[E_{\rm ads} = E_{\rm mol+slab} - E_{\rm slab} - E_{\rm mol},\]</div>
+<p>negative for a bound state. Each of the three terms is a separate total-energy
+calculation; the adsorption energy is a small difference of three large numbers, so
+it demands consistency and care.</p>
+</section>
+<section id="physisorption-and-the-van-der-waals-problem">
+<h3>Physisorption and the van der Waals problem<a class="headerlink" href="#physisorption-and-the-van-der-waals-problem" title="Link to this heading">#</a></h3>
+<p>Saturated hydrocarbons have no dangling bonds, so they do not form strong chemical
+bonds to platinum; they <strong>physisorb</strong>, held by van der Waals attraction. This force
+comes from correlated electron fluctuations, which a local or semi-local functional
+(LDA, PBE) simply does not contain, so plain functionals badly underbind physisorbed
+molecules. Two fixes appear here: the <strong>Grimme D3</strong> correction adds an empirical
+<span class="math notranslate nohighlight">\(-C_6/r^6\)</span> term atom-by-atom, and the <strong>BEEF-vdW</strong> functional builds a non-local
+correlation term into the functional itself. They do not agree, and neither matches
+experiment exactly: adsorption energies remain a hard test of electronic-structure
+methods.</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="setup">
+<h2>Setup<a class="headerlink" href="#setup" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">ecp</span><span class="w"> </span><span class="kn">import</span> <span class="n">validate</span>
+
+<span class="n">INK</span><span class="p">,</span> <span class="n">AMBER</span><span class="p">,</span> <span class="n">SOFT</span> <span class="o">=</span> <span class="s2">&quot;#16213e&quot;</span><span class="p">,</span> <span class="s2">&quot;#c0851a&quot;</span><span class="p">,</span> <span class="s2">&quot;#46506b&quot;</span>
+<span class="n">HARTREE_EV</span> <span class="o">=</span> <span class="mf">27.211386</span>
+<span class="n">CPK</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;H&quot;</span><span class="p">:</span> <span class="s2">&quot;#d9d9d9&quot;</span><span class="p">,</span> <span class="s2">&quot;C&quot;</span><span class="p">:</span> <span class="s2">&quot;#303030&quot;</span><span class="p">,</span> <span class="s2">&quot;O&quot;</span><span class="p">:</span> <span class="s2">&quot;#c0392b&quot;</span><span class="p">,</span> <span class="s2">&quot;Pt&quot;</span><span class="p">:</span> <span class="s2">&quot;#8fa1b3&quot;</span><span class="p">}</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">data_file</span><span class="p">(</span><span class="n">name</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Locate a shipped data file from the repo root (CI) or the notebook dir (Colab).&quot;&quot;&quot;</span>
+    <span class="k">for</span> <span class="n">base</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;data&quot;</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s2">&quot;notebooks&quot;</span><span class="p">,</span> <span class="s2">&quot;05-crystals-surfaces&quot;</span><span class="p">,</span> <span class="s2">&quot;data&quot;</span><span class="p">)):</span>
+        <span class="n">path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">base</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">path</span>
+    <span class="k">raise</span> <span class="ne">FileNotFoundError</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">read_xyz</span><span class="p">(</span><span class="n">name</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Read an .xyz file: returns (elements, coords) with coords in Å.&quot;&quot;&quot;</span>
+    <span class="n">lines</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">data_file</span><span class="p">(</span><span class="n">name</span><span class="p">))</span><span class="o">.</span><span class="n">read</span><span class="p">()</span><span class="o">.</span><span class="n">splitlines</span><span class="p">()</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">lines</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="n">els</span> <span class="o">=</span> <span class="p">[</span><span class="n">ln</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">ln</span> <span class="ow">in</span> <span class="n">lines</span><span class="p">[</span><span class="mi">2</span><span class="p">:</span><span class="mi">2</span> <span class="o">+</span> <span class="n">n</span><span class="p">]]</span>
+    <span class="n">xyz</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="nb">float</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">ln</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">1</span><span class="p">:</span><span class="mi">4</span><span class="p">]]</span> <span class="k">for</span> <span class="n">ln</span> <span class="ow">in</span> <span class="n">lines</span><span class="p">[</span><span class="mi">2</span><span class="p">:</span><span class="mi">2</span> <span class="o">+</span> <span class="n">n</span><span class="p">]])</span>
+    <span class="k">return</span> <span class="n">els</span><span class="p">,</span> <span class="n">xyz</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="exercise-1-the-adsorption-system">
+<h2>Exercise 1 — The adsorption system<a class="headerlink" href="#exercise-1-the-adsorption-system" title="Link to this heading">#</a></h2>
+<p>The course built the adsorption geometry with ASE: a five-layer Pt(111) slab,
+180 atoms, with the molecule placed above it and the whole thing relaxed. We render
+the committed benzene-on-Pt(111) structure, the slab a metallic raft and the flat
+benzene ring lying parallel just above it, the orientation that maximises van der
+Waals contact.</p>
+<p><strong>Part a)</strong> Load and render the Pt slab and benzene-on-Pt structures. <strong>Part b)</strong>
+Confirm the molecule sits in a vacuum gap above the slab (a surface, not a bulk
+calculation).</p>
+<div class="cell tag_solution tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<figure class="align-default" id="fig-pt-system">
+<img alt="../../_images/2091783412dff684fb96e58a84e1c9e13db758bfda9637e1bc28a6c0b788bb34.png" src="../../_images/2091783412dff684fb96e58a84e1c9e13db758bfda9637e1bc28a6c0b788bb34.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 40 </span><span class="caption-text">The committed adsorption system: a five-layer Pt(111) slab (silver) with a benzene molecule (carbon grey, hydrogen white) lying flat above the top layer. The molecule binds through van der Waals contact with the metal; the slab is repeated periodically in the plane, with vacuum above and below.</span><a class="headerlink" href="#fig-pt-system" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>benzene sits 2.25 Å above the top Pt layer (180 Pt + 12 molecule atoms)
+</pre></div>
+</div>
+</div>
+</div>
+<section id="validation-1-a-molecule-above-a-surface">
+<h3>Validation 1 — a molecule above a surface<a class="headerlink" href="#validation-1-a-molecule-above-a-surface" title="Link to this heading">#</a></h3>
+<p>This must be a surface calculation: the molecule sits in the vacuum a couple of
+ångström above the topmost platinum layer, not buried in it.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">validate</span><span class="o">.</span><span class="n">check</span><span class="p">(</span>
+    <span class="mf">1.5</span> <span class="o">&lt;</span> <span class="n">gap</span> <span class="o">&lt;</span> <span class="mf">4.0</span><span class="p">,</span>
+    <span class="s2">&quot;benzene sits in the vacuum gap above the Pt surface&quot;</span><span class="p">,</span>
+    <span class="sa">f</span><span class="s2">&quot;molecule-to-surface height = </span><span class="si">{</span><span class="n">gap</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> Å&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>✓  benzene sits in the vacuum gap above the Pt surface   [molecule-to-surface height = 2.25 Å]
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>True
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="exercise-2-the-adsorption-energy-of-benzene">
+<h2>Exercise 2 — The adsorption energy of benzene<a class="headerlink" href="#exercise-2-the-adsorption-energy-of-benzene" title="Link to this heading">#</a></h2>
+<p>The adsorption energy is the difference of three committed total-energy calculations
+<a class="reference internal" href="#equation-eq-eads">Eq. 33</a>: the bare slab, the isolated molecule, and the combined system. Below
+are the course’s committed totals (Hartree) for benzene on Pt(111). Their difference,
+converted to eV, is the adsorption energy, and for benzene on Pt it should land near
+the experimental value of about <span class="math notranslate nohighlight">\(-1.7\,\)</span>eV: benzene binds strongly, its whole
+<span class="math notranslate nohighlight">\(\pi\)</span>-face in van der Waals contact with the metal.</p>
+<p><strong>Part a)</strong> Compute <span class="math notranslate nohighlight">\(E_{\rm ads}\)</span> from the three totals. <strong>Part b)</strong> Confirm it
+matches the measured benzene adsorption energy.</p>
+<div class="cell tag_solution tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>E_ads(benzene) = (-21748.964 − -38.177 − -21710.724) Ha × 27.21
+             = -1.70 eV   (experiment -1.72 eV)
+</pre></div>
+</div>
+</div>
+</div>
+<section id="validation-2-benzene-binds-at-the-measured-strength">
+<h3>Validation 2 — benzene binds at the measured strength<a class="headerlink" href="#validation-2-benzene-binds-at-the-measured-strength" title="Link to this heading">#</a></h3>
+<p>The adsorption energy from the real totals must be bound (negative) and close to the
+experimental <span class="math notranslate nohighlight">\(-1.7\,\)</span>eV.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">validate</span><span class="o">.</span><span class="n">close</span><span class="p">(</span><span class="n">E_ads_benzene</span><span class="p">,</span> <span class="n">E_ADS_EXP</span><span class="p">[</span><span class="s2">&quot;benzene&quot;</span><span class="p">],</span> <span class="s2">&quot;the computed benzene adsorption energy matches experiment&quot;</span><span class="p">,</span> <span class="n">atol</span><span class="o">=</span><span class="mf">0.4</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>✓  the computed benzene adsorption energy matches experiment   [got -1.70172 vs expected -1.72 (rtol=1e-06)]
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>True
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="exercise-3-functional-sensitivity-assignment-6">
+<h2>Exercise 3 — Functional sensitivity (Assignment 6)<a class="headerlink" href="#exercise-3-functional-sensitivity-assignment-6" title="Link to this heading">#</a></h2>
+<p>Now the heart of the exercise. The course computed the adsorption energy of all three
+hydrocarbons with two dispersion-aware methods, the <strong>BEEF-vdW</strong> functional and the
+<strong>Grimme D3</strong> correction, and compared them to experiment. The result is sobering:
+the two methods straddle the measured values, BEEF-vdW <strong>underbinding</strong> so badly that
+it leaves methane and ethane <em>unbound</em> (positive adsorption energy), and Grimme D3
+<strong>overbinding</strong> every molecule. The lesson is that for physisorption the dispersion
+treatment, not just the functional, decides the answer.</p>
+<p><strong>Part a)</strong> Plot the adsorption energies of the three hydrocarbons for both methods
+against experiment. <strong>Part b)</strong> Confirm dispersion is decisive: benzene binds most
+strongly throughout, and the two methods bracket experiment.</p>
+<div class="cell tag_solution tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<figure class="align-default" id="fig-pt-functionals">
+<img alt="../../_images/af9c0de7ece8faf1ccabf7e1b02f73b00522d758f45e8fb7534b7541e1d5297a.png" src="../../_images/af9c0de7ece8faf1ccabf7e1b02f73b00522d758f45e8fb7534b7541e1d5297a.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 41 </span><span class="caption-text">Adsorption energies of benzene, methane, and ethane on Pt(111) from the course’s committed results: the BEEF-vdW functional (navy) and the Grimme D3 correction (amber) against experiment (grey). Benzene binds far more strongly than the alkanes in every method. BEEF-vdW underbinds so severely that methane and ethane come out unbound (positive); Grimme D3 overbinds. The spread, well over an electron-volt for benzene, is the functional sensitivity the exercise is named for.</span><a class="headerlink" href="#fig-pt-functionals" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</div>
+</div>
+<section id="validation-3-dispersion-is-decisive-and-benzene-binds-most">
+<h3>Validation 3 — dispersion is decisive, and benzene binds most<a class="headerlink" href="#validation-3-dispersion-is-decisive-and-benzene-binds-most" title="Link to this heading">#</a></h3>
+<p>Two robust facts must hold: benzene is the most strongly bound species in every
+method (its large <span class="math notranslate nohighlight">\(\pi\)</span>-face), and the two dispersion treatments bracket experiment
+for benzene (BEEF-vdW above, Grimme D3 below), the signature of the functional
+sensitivity.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">benzene_strongest</span> <span class="o">=</span> <span class="nb">all</span><span class="p">(</span><span class="n">E_ads</span><span class="p">[</span><span class="n">m</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="n">E_ads</span><span class="p">[</span><span class="n">m</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">()</span> <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;Grimme D3&quot;</span><span class="p">,</span> <span class="s2">&quot;BEEF-vdW&quot;</span><span class="p">,</span> <span class="s2">&quot;experiment&quot;</span><span class="p">))</span>
+<span class="n">brackets</span> <span class="o">=</span> <span class="n">E_ads</span><span class="p">[</span><span class="s2">&quot;BEEF-vdW&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">E_ADS_EXP</span><span class="p">[</span><span class="s2">&quot;benzene&quot;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">E_ads</span><span class="p">[</span><span class="s2">&quot;Grimme D3&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">validate</span><span class="o">.</span><span class="n">check</span><span class="p">(</span>
+    <span class="n">benzene_strongest</span> <span class="ow">and</span> <span class="n">brackets</span><span class="p">,</span>
+    <span class="s2">&quot;benzene binds most strongly, and the two methods bracket experiment&quot;</span><span class="p">,</span>
+    <span class="sa">f</span><span class="s2">&quot;benzene: BEEF-vdW </span><span class="si">{</span><span class="n">E_ads</span><span class="p">[</span><span class="s1">&#39;BEEF-vdW&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2">, exp </span><span class="si">{</span><span class="n">E_ADS_EXP</span><span class="p">[</span><span class="s1">&#39;benzene&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">, D3 </span><span class="si">{</span><span class="n">E_ads</span><span class="p">[</span><span class="s1">&#39;Grimme D3&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2"> eV&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>✓  benzene binds most strongly, and the two methods bracket experiment   [benzene: BEEF-vdW -0.975, exp -1.72, D3 -2.852 eV]
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>True
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="going-further">
+<h2>Going further<a class="headerlink" href="#going-further" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>The deformation energy.</strong> Splitting <span class="math notranslate nohighlight">\(E_{\rm ads}\)</span> into the cost of distorting the
+molecule and slab into their adsorbed shapes plus the pure interaction separates
+geometry from binding.</p></li>
+<li><p><strong>Site dependence.</strong> Repeating the calculation with the molecule over a top, bridge,
+or hollow site maps the corrugation of the surface potential.</p></li>
+<li><p><strong>Coverage.</strong> Larger or smaller surface cells change the adsorbate-adsorbate
+spacing, giving the adsorption energy as a function of coverage.</p></li>
+<li><p><strong>Beyond pairwise dispersion.</strong> Many-body dispersion (MBD) and the RPA go past the
+pairwise <span class="math notranslate nohighlight">\(-C_6/r^6\)</span> picture and tend to improve metal-surface adsorption.</p></li>
+</ul>
+<section id="references">
+<h3>References<a class="headerlink" href="#references" title="Link to this heading">#</a></h3>
+<div class="docutils container" id="id3">
+<div role="list" class="citation-list">
+<div class="citation" id="id33" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id1">GAEK10</a><span class="fn-bracket">]</span></span>
+<p>Stefan Grimme, Jens Antony, Stephan Ehrlich, and Helge Krieg. A consistent and accurate ab initio parametrization of density functional dispersion correction (DFT-D) for the 94 elements H-Pu. <em>The Journal of Chemical Physics</em>, 132(15):154104, 2010. <a class="reference external" href="https://doi.org/10.1063/1.3382344">doi:10.1063/1.3382344</a>.</p>
+</div>
+<div class="citation" id="id34" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id2">WLMogelhoj+12</a><span class="fn-bracket">]</span></span>
+<p>Jess Wellendorff, Keld T. Lundgaard, Andreas Møgelhøj, and others. Density functionals for surface science: exchange-correlation model development with Bayesian error estimation. <em>Physical Review B</em>, 85(23):235149, 2012. <a class="reference external" href="https://doi.org/10.1103/PhysRevB.85.235149">doi:10.1103/PhysRevB.85.235149</a>.</p>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">ecp.style</span><span class="w"> </span><span class="kn">import</span> <span class="n">footer</span>
+
+<span class="n">footer</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><style>@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,900&family=Source+Serif+4:wght@400;600&family=JetBrains+Mono:wght@400;600&display=swap');</style>
+<div style="font-family:'Source Serif 4', 'Iowan Old Style', Georgia, serif;background:#faf7f0;border:1px solid #dcd6c8;
+            border-left:6px solid #c0851a;border-radius:6px;
+            padding:18px 22px;margin:30px 0 8px 0;">
+  <div style="font-family:'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace;font-size:11px;letter-spacing:.12em;
+              text-transform:uppercase;color:#c0851a;font-weight:600;
+              margin-bottom:6px;">Take this notebook with you</div>
+  <div style="font-size:14.5px;color:#16213e;line-height:1.55;max-width:66ch;">
+    Use the download button (&#8595;) in the toolbar above to save this notebook
+    and run it yourself. The published notebooks ship <b>without worked
+    solutions</b>; if you would like the reference solutions &mdash; to teach
+    from or to check your own work &mdash; get in touch: <a href='mailto:hello@ramador.me' style='color:#c0851a;text-decoration:none;border-bottom:1px solid #c0851a;'>hello@ramador.me</a>.
+  </div>
+  <div style="font-size:12px;color:#46506b;line-height:1.5;max-width:66ch;
+              margin-top:10px;border-top:1px solid #dcd6c8;padding-top:8px;">
+    Based on the lecture and exercise materials of <b>Molecular and Materials Modelling</b> (ETH Z&uuml;rich and Empa, FS&nbsp;2023), developed by Prof.&nbsp;Dr.&nbsp;Daniele Passerone (lectures), Dr.&nbsp;Carlo Pignedoli, and the author (exercises); here synthesised, expanded, and restyled by the author.
+  </div>
+</div></div></div>
+</div>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./notebooks/05-crystals-surfaces"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="equation-of-state.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">5.1 Lattice Constants from an Equation of State</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="../06-reactions-free-energy/index.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Volume VI — Reactions and Free Energy</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item"><div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#notebook-overview">Notebook overview</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#theory-in-brief">Theory in brief</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#adsorption-energy">Adsorption energy</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#physisorption-and-the-van-der-waals-problem">Physisorption and the van der Waals problem</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#setup">Setup</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1-the-adsorption-system">Exercise 1 — The adsorption system</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#validation-1-a-molecule-above-a-surface">Validation 1 — a molecule above a surface</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-2-the-adsorption-energy-of-benzene">Exercise 2 — The adsorption energy of benzene</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#validation-2-benzene-binds-at-the-measured-strength">Validation 2 — benzene binds at the measured strength</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-3-functional-sensitivity-assignment-6">Exercise 3 — Functional sensitivity (Assignment 6)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#validation-3-dispersion-is-decisive-and-benzene-binds-most">Validation 3 — dispersion is decisive, and benzene binds most</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#going-further">Going further</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#references">References</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Raymond Amador
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2026 · CC BY 4.0 (text) / MIT (code).
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

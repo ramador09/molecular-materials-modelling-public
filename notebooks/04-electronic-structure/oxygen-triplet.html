@@ -1,0 +1,1189 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>4.2 The Formation of Molecular Oxygen &#8212; Molecular and Materials Modelling</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=3c74b3bc" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css?v=9c3e77be" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../../_static/ecp.css?v=3ea87a98" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+    <script src="../../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?v=fab101a9"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../_static/togglebutton.js?v=b8b12719"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"tex": {"macros": {"dd": "\\mathrm{d}"}}, "options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'notebooks/04-electronic-structure/oxygen-triplet';</script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Volume V — Crystals and Surfaces" href="../05-crystals-surfaces/index.html" />
+    <link rel="prev" title="4.1 The Electronic Band Structure of Silicon" href="silicon-band-structure.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../00-front-matter/preface.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../_static/logo.svg" class="logo__image only-light" alt="Molecular and Materials Modelling - Home"/>
+    <img src="../../_static/logo.svg" class="logo__image only-dark pst-js-only" alt="Molecular and Materials Modelling - Home"/>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../01-monte-carlo-methods/index.html">Volume I — Statistical Mechanics &amp; Monte Carlo</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../01-monte-carlo-methods/ising-model.html">1.1 The Ising Model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../01-monte-carlo-methods/lattice-gas-kmc.html">1.2 Lattice-Gas Monte Carlo and Kinetic Monte Carlo</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../02-energy-landscapes/index.html">Volume II — Energy Landscapes &amp; Optimization</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../02-energy-landscapes/lennard-jones-clusters.html">2.1 Optimizing Lennard-Jones Clusters</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../03-molecular-dynamics/index.html">Volume III — Molecular Dynamics</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../03-molecular-dynamics/lennard-jones-md.html">3.1 Molecular Dynamics of Lennard-Jones Clusters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../03-molecular-dynamics/replica-exchange.html">3.2 Replica Exchange and the Melting of a Cluster</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="index.html">Volume IV — Electronic Structure</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="silicon-band-structure.html">4.1 The Electronic Band Structure of Silicon</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">4.2 The Formation of Molecular Oxygen</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../05-crystals-surfaces/index.html">Volume V — Crystals and Surfaces</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../05-crystals-surfaces/equation-of-state.html">5.1 Lattice Constants from an Equation of State</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../05-crystals-surfaces/hydrocarbons-on-platinum.html">5.2 Hydrocarbons on Platinum</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../06-reactions-free-energy/index.html">Volume VI — Reactions and Free Energy</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../06-reactions-free-energy/ethanol-dehydration.html">6.1 The Dehydration of Ethanol</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../06-reactions-free-energy/neb-chloromethane.html">6.2 The S<span class="math notranslate nohighlight">\(_N\)</span>2 Reaction by Nudged Elastic Band</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../06-reactions-free-energy/metadynamics-graphene.html">6.3 Metadynamics: Nitric Acid on Graphene</a></li>
+</ul>
+</details></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-launch-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
+    <i class="fas fa-rocket"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://mybinder.org/v2/gh/ramador09/molecular-materials-modelling-public/main?urlpath=tree/notebooks/04-electronic-structure/oxygen-triplet.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch on Binder"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img alt="Binder logo" src="../../_static/images/logo_binder.svg">
+  </span>
+<span class="btn__text-container">Binder</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://colab.research.google.com/github/ramador09/molecular-materials-modelling-public/blob/main/notebooks/04-electronic-structure/oxygen-triplet.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch on Colab"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img alt="Colab logo" src="../../_static/images/logo_colab.png">
+  </span>
+<span class="btn__text-container">Colab</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/ramador09/molecular-materials-modelling-public" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/ramador09/molecular-materials-modelling-public/issues/new?title=Issue%20on%20page%20%2Fnotebooks/04-electronic-structure/oxygen-triplet.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../_sources/notebooks/04-electronic-structure/oxygen-triplet.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button pst-navbar-icon"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+<button class="sidebar-toggle secondary-toggle btn btn-sm pst-navbar-icon" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>4.2 The Formation of Molecular Oxygen</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#notebook-overview">Notebook overview</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#theory-in-brief">Theory in brief</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#from-atomic-orbitals-to-molecular-orbitals">From atomic orbitals to molecular orbitals</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#spin-and-the-triplet">Spin, and the triplet</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-the-calculation-gives-us">What the calculation gives us</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#setup">Setup</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1-the-cp2k-input-file">Exercise 1 — The CP2K input file</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#validation-1-the-deck-describes-a-triplet-with-cube-output">Validation 1 — the deck describes a triplet with cube output</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-2-the-electron-density">Exercise 2 — The electron density</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#validation-2-a-physical-electron-density">Validation 2 — a physical electron density</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-3-the-density-difference-assignment-1">Exercise 3 — The density difference (Assignment 1)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#validation-3-electron-conservation">Validation 3 — electron conservation</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-4-the-molecular-orbitals-assignment-2">Exercise 4 — The molecular orbitals (Assignment 2)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#validation-4-proper-one-electron-orbitals">Validation 4 — proper one-electron orbitals</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-5-the-oxygen-atom-assignment-3">Exercise 5 — The oxygen atom (Assignment 3)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#validation-5-the-molecule-has-twice-the-atom-s-electrons">Validation 5 — the molecule has twice the atom’s electrons</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-6-the-eigenvalues-and-the-molecular-orbital-schema-assignment-4">Exercise 6 — The eigenvalues and the molecular-orbital schema (Assignment 4)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#validation-6-two-unpaired-electrons-a-paramagnetic-triplet">Validation 6 — two unpaired electrons, a paramagnetic triplet</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#going-further">Going further</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#references">References</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="the-formation-of-molecular-oxygen">
+<h1>4.2 The Formation of Molecular Oxygen<a class="headerlink" href="#the-formation-of-molecular-oxygen" title="Link to this heading">#</a></h1>
+<!-- One H1 per notebook ("# <number> <Title>"): it sets the sidebar entry,
+     breadcrumb, browser tab, and search result. The branded banner below is
+     generated by the shared `ecp` package. --><div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">ecp.style</span><span class="w"> </span><span class="kn">import</span> <span class="n">header</span><span class="p">,</span> <span class="n">use_style</span>
+
+<span class="n">use_style</span><span class="p">()</span>
+<span class="n">header</span><span class="p">(</span>
+    <span class="n">volume</span><span class="o">=</span><span class="s2">&quot;Volume IV — Electronic Structure&quot;</span><span class="p">,</span>
+    <span class="n">number</span><span class="o">=</span><span class="s2">&quot;4.2&quot;</span><span class="p">,</span>
+    <span class="n">title</span><span class="o">=</span><span class="s2">&quot;The Formation of Molecular Oxygen&quot;</span><span class="p">,</span>
+    <span class="n">blurb</span><span class="o">=</span><span class="s2">&quot;Why oxygen is magnetic, read from a real CP2K calculation: the electron &quot;</span>
+    <span class="s2">&quot;density and the charge that builds up on bonding, the molecular orbitals &quot;</span>
+    <span class="s2">&quot;themselves, and the spin-split eigenvalues that put two unpaired electrons &quot;</span>
+    <span class="s2">&quot;in the π* orbitals and make O₂ a triplet.&quot;</span><span class="p">,</span>
+    <span class="n">difficulty</span><span class="o">=</span><span class="s2">&quot;intermediate&quot;</span><span class="p">,</span>
+    <span class="n">estimate</span><span class="o">=</span><span class="s2">&quot;90–120 min&quot;</span><span class="p">,</span>
+    <span class="n">source</span><span class="o">=</span><span class="s2">&quot;FS 2023 · Lecture 6 (molecular orbital theory)&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><style>@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,900&family=Source+Serif+4:wght@400;600&family=JetBrains+Mono:wght@400;600&display=swap');</style>
+<div style="
+    font-family:'Source Serif 4', 'Iowan Old Style', Georgia, serif;
+    background:#faf7f0;
+    border:1px solid #dcd6c8;
+    border-left:6px solid #c0851a;
+    border-radius:6px;
+    padding:26px 30px 22px 30px;
+    margin:4px 0 26px 0;
+    box-shadow:0 1px 0 rgba(0,0,0,.03), 0 8px 24px -18px rgba(22,33,62,.5);">
+
+  <div style="font-family:'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace;font-size:12px;letter-spacing:.12em;
+              text-transform:uppercase;color:#c0851a;font-weight:600;
+              margin-bottom:4px;">
+    Molecular and Materials Modelling
+  </div>
+
+  <div style="display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;">
+    <span style="font-family:'Fraunces', 'Iowan Old Style', Georgia, serif;font-weight:900;font-size:22px;
+                 line-height:1.1;color:#16213e;
+                 font-variation-settings:'opsz' 144;">
+      Volume IV — Electronic Structure
+    </span>
+    <span style="font-family:'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace;font-size:12px;letter-spacing:.06em;
+                 color:#46506b;">
+      Notebook&nbsp;4.2
+    </span>
+  </div>
+
+  <div style="font-family:'Source Serif 4', 'Iowan Old Style', Georgia, serif;font-size:15px;color:#46506b;
+                   margin-top:10px;max-width:62ch;">Why oxygen is magnetic, read from a real CP2K calculation: the electron density and the charge that builds up on bonding, the molecular orbitals themselves, and the spin-split eigenvalues that put two unpaired electrons in the π* orbitals and make O₂ a triplet.</div>
+
+  <div style="font-family:'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace;font-size:11px;letter-spacing:.04em;
+                   color:#c0851a;margin-top:10px;">Based on FS 2023 · Lecture 6 (molecular orbital theory)</div>
+
+  <div style="margin-top:16px;"><div class='ecp-meta' style='font-family:'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#46506b;'>Level&nbsp;&middot;&nbsp;intermediate&nbsp;&nbsp;&nbsp;&#8226;&nbsp;&nbsp;&nbsp;Est.&nbsp;&middot;&nbsp;90–120 min</div></div>
+
+  <div style="border-top:1px solid #dcd6c8;margin-top:16px;padding-top:12px;
+              display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;
+              font-family:'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace;font-size:11px;color:#46506b;
+              letter-spacing:.04em;">
+    <span>Raymond Amador</span>
+    <span>v0.1.0 &nbsp;·&nbsp; 2026-06-05 &nbsp;·&nbsp;
+          CC&nbsp;BY&nbsp;4.0 (text) / MIT (code)</span>
+  </div>
+</div></div></div>
+</div>
+<section id="notebook-overview">
+<h2>Notebook overview<a class="headerlink" href="#notebook-overview" title="Link to this heading">#</a></h2>
+<p>This exercise examines the formation of <strong>triplet oxygen</strong>, the most stable and
+most common form of O₂. Triplet oxygen has two electrons in its two <strong>degenerate</strong>
+<span class="math notranslate nohighlight">\(\pi^*\)</span> orbitals, and according to <strong>Hund’s rules</strong> the configuration with those
+two electrons unpaired, with parallel spins, is the one nature chooses: the total
+spin is <span class="math notranslate nohighlight">\(S=1\)</span>, a triplet, and the molecule is magnetic. A simple Lewis structure,
+with every electron paired, misses this entirely. Molecular-orbital theory does
+not, and it is the molecular-orbital picture we build and verify here.</p>
+<p>We work from a real density-functional calculation. The course ran O₂ in <strong>CP2K</strong>,
+printing the electron density and the frontier molecular orbitals to cube files,
+and we use that genuine output: we visualise the electron density, compute the
+<strong>density difference</strong> that shows where charge moves when the bond forms, look at
+the <strong>molecular orbitals</strong> one by one, repeat for the single oxygen <strong>atom</strong>, and
+finally read the <strong>spin-split eigenvalues</strong> from the run to build the
+molecular-orbital schema and explain the paramagnetism.</p>
+<blockquote>
+<div><p><strong>Provenance.</strong> This notebook develops <strong>Lecture 6</strong> of the course (the formation
+of molecular oxygen via molecular-orbital theory) and follows its assignments.
+The cube visualisations and eigenvalues are the <em>real</em> CP2K output of the
+exercise (an anonymised course run), with the volumetric cubes downsampled for
+size; the input deck shown is the course’s own. The full course credit is in the
+footer.</p>
+</div></blockquote>
+<blockquote>
+<div><p><strong>Reading a validation.</strong> Each task closes with a check against an independent
+fact: electron conservation, the electron count of the molecule versus the atom,
+the spin imbalance that defines the triplet. A ✗ flags a mismatch to track down,
+not a verdict; a ✓ is strong evidence, not proof.</p>
+</div></blockquote>
+<blockquote>
+<div><p><strong>Scope.</strong> Cube data are visualised as isosurfaces; energies are converted from
+Hartree to eV. For the chemistry see Atkins &amp; Friedman <span class="bibtex-citation" id="id1">[<a class="reference internal" href="#id27" title="Peter W. Atkins and Ronald S. Friedman. Molecular Quantum Mechanics. Oxford University Press, 5 edition, 2011.">AF11</a>]</span>; the
+calculations were run in CP2K, the cube format stores a scalar field on a 3-D
+grid.</p>
+</div></blockquote>
+</section>
+<section id="theory-in-brief">
+<h2>Theory in brief<a class="headerlink" href="#theory-in-brief" title="Link to this heading">#</a></h2>
+<section id="from-atomic-orbitals-to-molecular-orbitals">
+<h3>From atomic orbitals to molecular orbitals<a class="headerlink" href="#from-atomic-orbitals-to-molecular-orbitals" title="Link to this heading">#</a></h3>
+<p>When two atoms bond, their atomic orbitals combine into <strong>molecular orbitals</strong>: an
+in-phase <strong>bonding</strong> combination, lower in energy, with charge piled up between the
+nuclei, and an out-of-phase <strong>antibonding</strong> combination (starred), higher in
+energy, with a node between them. For O₂ the valence <span class="math notranslate nohighlight">\(2s\)</span> and <span class="math notranslate nohighlight">\(2p\)</span> orbitals build
+the set</p>
+<div class="math notranslate nohighlight" id="equation-eq-mo-set">
+<span class="eqno">(29)<a class="headerlink" href="#equation-eq-mo-set" title="Link to this equation">#</a></span>\[\sigma_{2s},\ \sigma_{2s}^{*},\ \sigma_{2p},\ \pi_{2p}{=}\pi_{2p},\ \pi_{2p}^{*}{=}\pi_{2p}^{*},\ \sigma_{2p}^{*},\]</div>
+<p>the two <span class="math notranslate nohighlight">\(\pi_{2p}\)</span> and the two <span class="math notranslate nohighlight">\(\pi_{2p}^{*}\)</span> each a degenerate pair. Oxygen brings
+six valence electrons each, twelve in all, which fill the diagram from the bottom
+and leave the last <strong>two electrons in the degenerate <span class="math notranslate nohighlight">\(\pi^*\)</span> pair</strong>.</p>
+</section>
+<section id="spin-and-the-triplet">
+<h3>Spin, and the triplet<a class="headerlink" href="#spin-and-the-triplet" title="Link to this heading">#</a></h3>
+<p>Two electrons in two equal orbitals follow <strong>Hund’s rule</strong>: one in each, spins
+parallel, because same-spin electrons keep apart (Pauli) and so repel less. The
+spins do not cancel (<span class="math notranslate nohighlight">\(S=1\)</span>), the molecule is a <strong>triplet</strong>, and it is
+<strong>paramagnetic</strong>, with a spin-only moment <span class="math notranslate nohighlight">\(\mu=\sqrt{n(n+2)}\,\mu_B\)</span> for <span class="math notranslate nohighlight">\(n\)</span>
+unpaired electrons. A spin-polarised calculation makes this concrete by solving for
+spin-up (<span class="math notranslate nohighlight">\(\alpha\)</span>) and spin-down (<span class="math notranslate nohighlight">\(\beta\)</span>) electrons separately: the two unpaired
+<span class="math notranslate nohighlight">\(\pi^*\)</span> electrons are both <span class="math notranslate nohighlight">\(\alpha\)</span>, so the molecule has <strong>two more <span class="math notranslate nohighlight">\(\alpha\)</span>
+electrons than <span class="math notranslate nohighlight">\(\beta\)</span></strong>, the numerical fingerprint of the triplet that we will
+read straight off the eigenvalues.</p>
+</section>
+<section id="what-the-calculation-gives-us">
+<h3>What the calculation gives us<a class="headerlink" href="#what-the-calculation-gives-us" title="Link to this heading">#</a></h3>
+<p>Density-functional theory in CP2K returns the electron density <span class="math notranslate nohighlight">\(\rho(\mathbf r)\)</span>,
+the individual Kohn-Sham (molecular) orbitals <span class="math notranslate nohighlight">\(\psi_i(\mathbf r)\)</span>, and their
+energies <span class="math notranslate nohighlight">\(\varepsilon_i\)</span>, written to <strong>cube files</strong> (a scalar on a 3-D grid) and to
+the output log. Subtracting the densities of the separated atoms from the molecule
+gives the <strong>density difference</strong>, a direct picture of the bond; the orbital cubes
+show the <span class="math notranslate nohighlight">\(\sigma\)</span> and <span class="math notranslate nohighlight">\(\pi\)</span> shapes themselves; and the eigenvalues, split by spin,
+build the molecular-orbital schema.</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="setup">
+<h2>Setup<a class="headerlink" href="#setup" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">skimage.measure</span><span class="w"> </span><span class="kn">import</span> <span class="n">marching_cubes</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">ecp</span><span class="w"> </span><span class="kn">import</span> <span class="n">validate</span>
+
+<span class="n">INK</span><span class="p">,</span> <span class="n">AMBER</span><span class="p">,</span> <span class="n">SOFT</span> <span class="o">=</span> <span class="s2">&quot;#16213e&quot;</span><span class="p">,</span> <span class="s2">&quot;#c0851a&quot;</span><span class="p">,</span> <span class="s2">&quot;#46506b&quot;</span>
+<span class="n">HARTREE_EV</span> <span class="o">=</span> <span class="mf">27.211386</span>
+<span class="n">BOHR_A</span> <span class="o">=</span> <span class="mf">0.529177</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">data_file</span><span class="p">(</span><span class="n">name</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Locate a shipped data file from the repo root (CI) or the notebook dir (Colab).&quot;&quot;&quot;</span>
+    <span class="k">for</span> <span class="n">base</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;data&quot;</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s2">&quot;notebooks&quot;</span><span class="p">,</span> <span class="s2">&quot;04-electronic-structure&quot;</span><span class="p">,</span> <span class="s2">&quot;data&quot;</span><span class="p">)):</span>
+        <span class="n">path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">base</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">path</span>
+    <span class="k">raise</span> <span class="ne">FileNotFoundError</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">read_cube</span><span class="p">(</span><span class="n">name</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Parse a Gaussian cube file: voxel vectors, atom positions, and the 3-D grid.&quot;&quot;&quot;</span>
+    <span class="n">lines</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">data_file</span><span class="p">(</span><span class="n">name</span><span class="p">))</span><span class="o">.</span><span class="n">read</span><span class="p">()</span><span class="o">.</span><span class="n">splitlines</span><span class="p">()</span>
+    <span class="n">label</span> <span class="o">=</span> <span class="n">lines</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+    <span class="n">n_at</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">lines</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="n">origin</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">lines</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">1</span><span class="p">:</span><span class="mi">4</span><span class="p">],</span> <span class="nb">float</span><span class="p">)</span>
+    <span class="n">vec</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="nb">float</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">lines</span><span class="p">[</span><span class="mi">3</span> <span class="o">+</span> <span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">1</span><span class="p">:</span><span class="mi">4</span><span class="p">]]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">)])</span>
+    <span class="n">ng</span> <span class="o">=</span> <span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">lines</span><span class="p">[</span><span class="mi">3</span> <span class="o">+</span> <span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">0</span><span class="p">])</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">)]</span>
+    <span class="n">atoms</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="nb">float</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">lines</span><span class="p">[</span><span class="mi">6</span> <span class="o">+</span> <span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">2</span><span class="p">:</span><span class="mi">5</span><span class="p">]]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_at</span><span class="p">)])</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">lines</span><span class="p">[</span><span class="mi">6</span> <span class="o">+</span> <span class="n">n_at</span><span class="p">:])</span><span class="o">.</span><span class="n">split</span><span class="p">(),</span> <span class="nb">float</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">ng</span><span class="p">)</span>
+    <span class="k">return</span> <span class="nb">dict</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="n">label</span><span class="p">,</span> <span class="n">origin</span><span class="o">=</span><span class="n">origin</span><span class="p">,</span> <span class="n">vec</span><span class="o">=</span><span class="n">vec</span><span class="p">,</span> <span class="n">atoms</span><span class="o">=</span><span class="n">atoms</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">,</span>
+                <span class="n">dV</span><span class="o">=</span><span class="nb">abs</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">det</span><span class="p">(</span><span class="n">vec</span><span class="p">)))</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">show_isosurface</span><span class="p">(</span><span class="n">cube</span><span class="p">,</span> <span class="n">levels</span><span class="p">,</span> <span class="n">title</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Render cube isosurfaces (amber = positive lobe, navy = negative) with atoms.&quot;&quot;&quot;</span>
+    <span class="n">d</span><span class="p">,</span> <span class="n">vec</span><span class="p">,</span> <span class="n">origin</span> <span class="o">=</span> <span class="n">cube</span><span class="p">[</span><span class="s2">&quot;data&quot;</span><span class="p">],</span> <span class="n">cube</span><span class="p">[</span><span class="s2">&quot;vec&quot;</span><span class="p">],</span> <span class="n">cube</span><span class="p">[</span><span class="s2">&quot;origin&quot;</span><span class="p">]</span>
+    <span class="n">spacing</span> <span class="o">=</span> <span class="p">(</span><span class="n">vec</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">vec</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">vec</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span>
+    <span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mf">4.6</span><span class="p">,</span> <span class="mf">4.4</span><span class="p">))</span>
+    <span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="n">projection</span><span class="o">=</span><span class="s2">&quot;3d&quot;</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">lvl</span><span class="p">,</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">levels</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">d</span><span class="o">.</span><span class="n">min</span><span class="p">()</span> <span class="o">&lt;</span> <span class="n">lvl</span> <span class="o">&lt;</span> <span class="n">d</span><span class="o">.</span><span class="n">max</span><span class="p">():</span>
+            <span class="n">verts</span><span class="p">,</span> <span class="n">faces</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">marching_cubes</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="n">lvl</span><span class="p">,</span> <span class="n">spacing</span><span class="o">=</span><span class="n">spacing</span><span class="p">)</span>
+            <span class="n">verts</span> <span class="o">=</span> <span class="n">verts</span> <span class="o">+</span> <span class="n">origin</span>
+            <span class="n">ax</span><span class="o">.</span><span class="n">plot_trisurf</span><span class="p">(</span><span class="n">verts</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">verts</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">faces</span><span class="p">,</span> <span class="n">verts</span><span class="p">[:,</span> <span class="mi">2</span><span class="p">],</span>
+                            <span class="n">color</span><span class="o">=</span><span class="n">col</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.45</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">cube</span><span class="p">[</span><span class="s2">&quot;atoms&quot;</span><span class="p">][:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">cube</span><span class="p">[</span><span class="s2">&quot;atoms&quot;</span><span class="p">][:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">cube</span><span class="p">[</span><span class="s2">&quot;atoms&quot;</span><span class="p">][:,</span> <span class="mi">2</span><span class="p">],</span>
+               <span class="n">s</span><span class="o">=</span><span class="mi">140</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;#444&quot;</span><span class="p">,</span> <span class="n">depthshade</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">xticks</span><span class="o">=</span><span class="p">[],</span> <span class="n">yticks</span><span class="o">=</span><span class="p">[],</span> <span class="n">zticks</span><span class="o">=</span><span class="p">[],</span> <span class="n">title</span><span class="o">=</span><span class="n">title</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_box_aspect</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">fig</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="exercise-1-the-cp2k-input-file">
+<h2>Exercise 1 — The CP2K input file<a class="headerlink" href="#exercise-1-the-cp2k-input-file" title="Link to this heading">#</a></h2>
+<p>Every calculation starts from its input deck. The course’s <code class="docutils literal notranslate"><span class="pre">triplet.inp</span></code> is a
+spin-polarised (<code class="docutils literal notranslate"><span class="pre">LSD</span></code>) Hartree-Fock run with the <strong>triplet</strong> imposed through
+<code class="docutils literal notranslate"><span class="pre">MULTIPLICITY</span> <span class="pre">3</span></code> (so <span class="math notranslate nohighlight">\(2S+1=3\)</span>, <span class="math notranslate nohighlight">\(S=1\)</span>), and a <code class="docutils literal notranslate"><span class="pre">&amp;PRINT</span></code> block that writes the cube
+files we will use:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>&amp;DFT
+  LSD                       ! spin-polarised: separate alpha and beta densities
+  MULTIPLICITY 3            ! triplet (two unpaired electrons)
+  &amp;PRINT
+    &amp;E_DENSITY_CUBE         ! write the electron density to a cube file
+    &amp;END E_DENSITY_CUBE
+    &amp;MO_CUBES               ! write molecular-orbital cubes
+      NHOMO 1               ! ... the HOMO (and neighbours)
+      NLUMO 1               ! ... and the LUMO
+    &amp;END MO_CUBES
+  &amp;END PRINT
+&amp;END DFT
+</pre></div>
+</div>
+<p>It ships with this notebook: <a class="reference download internal" download="" href="../../_downloads/bb53ca048881d282c13437edcad1e11d/o2-triplet.inp"><code class="xref download docutils literal notranslate"><span class="pre">triplet.inp</span></code></a>. Those
+two print directives are exactly what generate the density and orbital cubes the
+rest of the exercise visualises.</p>
+<p><strong>Part a)</strong> Read the deck. <strong>Part b)</strong> Confirm it requests a triplet and the cube
+output.</p>
+<div class="cell tag_solution tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>MULTIPLICITY = 3  -&gt;  S = 1 (triplet); writes density cube: True
+</pre></div>
+</div>
+</div>
+</div>
+<section id="validation-1-the-deck-describes-a-triplet-with-cube-output">
+<h3>Validation 1 — the deck describes a triplet with cube output<a class="headerlink" href="#validation-1-the-deck-describes-a-triplet-with-cube-output" title="Link to this heading">#</a></h3>
+<p>The input must specify multiplicity 3 (a spin-1 triplet) and request the electron
+density cube, the two ingredients the rest of the exercise depends on.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">validate</span><span class="o">.</span><span class="n">check</span><span class="p">(</span>
+    <span class="n">multiplicity</span> <span class="o">==</span> <span class="mi">3</span> <span class="ow">and</span> <span class="n">spin_S</span> <span class="o">==</span> <span class="mi">1</span> <span class="ow">and</span> <span class="n">writes_density</span><span class="p">,</span>
+    <span class="s2">&quot;the input deck requests a triplet (multiplicity 3) and writes the density cube&quot;</span><span class="p">,</span>
+    <span class="sa">f</span><span class="s2">&quot;MULTIPLICITY = </span><span class="si">{</span><span class="n">multiplicity</span><span class="si">}</span><span class="s2"> (S = </span><span class="si">{</span><span class="n">spin_S</span><span class="si">:</span><span class="s2">.0f</span><span class="si">}</span><span class="s2">), E_DENSITY_CUBE = </span><span class="si">{</span><span class="n">writes_density</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>✓  the input deck requests a triplet (multiplicity 3) and writes the density cube   [MULTIPLICITY = 3 (S = 1), E_DENSITY_CUBE = True]
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>True
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="exercise-2-the-electron-density">
+<h2>Exercise 2 — The electron density<a class="headerlink" href="#exercise-2-the-electron-density" title="Link to this heading">#</a></h2>
+<p>Once the job finishes it writes the electron density to a cube file: the scalar
+<span class="math notranslate nohighlight">\(\rho(\mathbf r)\)</span> on a 3-D grid. We render it as an <strong>isosurface</strong>, the surface on
+which the density takes a chosen value, with the two oxygen nuclei marked. The
+density is a single smooth cloud enveloping both atoms, the hallmark of a bound
+molecule rather than two separate ones.</p>
+<p><strong>Part a)</strong> Read and render the O₂ electron-density cube. <strong>Part b)</strong> Confirm it is
+a physical density.</p>
+<div class="cell tag_solution tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<figure class="align-default" id="fig-o2-density">
+<img alt="../../_images/384af33c1c524d1498e58c2632d3022b352f7ca5549ae2009698faf7c21993e4.png" src="../../_images/384af33c1c524d1498e58c2632d3022b352f7ca5549ae2009698faf7c21993e4.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 33 </span><span class="caption-text">Isosurface of the O₂ electron density from the CP2K calculation (amber, <span class="math notranslate nohighlight">\(\rho=0.05\,e/a_0^3\)</span>), with the two oxygen nuclei marked. The density forms a single connected cloud spanning both atoms, the signature of a bonded molecule. (Cube downsampled for display.)</span><a class="headerlink" href="#fig-o2-density" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</div>
+</div>
+<section id="validation-2-a-physical-electron-density">
+<h3>Validation 2 — a physical electron density<a class="headerlink" href="#validation-2-a-physical-electron-density" title="Link to this heading">#</a></h3>
+<p>A real electron density is non-negative everywhere. (The integral under-counts
+here only because the cube was downsampled for size, blurring the sharp peaks at
+the nuclei; we check the electron <em>count</em> properly in Exercises 3 and 5.)</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">validate</span><span class="o">.</span><span class="n">check</span><span class="p">(</span>
+    <span class="n">o2_density</span><span class="p">[</span><span class="s2">&quot;data&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">()</span> <span class="o">&gt;</span> <span class="o">-</span><span class="mf">1e-4</span><span class="p">,</span>
+    <span class="s2">&quot;the electron density is non-negative everywhere (to numerical noise)&quot;</span><span class="p">,</span>
+    <span class="sa">f</span><span class="s2">&quot;min ρ = </span><span class="si">{</span><span class="n">o2_density</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">()</span><span class="si">:</span><span class="s2">.2e</span><span class="si">}</span><span class="s2">, max ρ = </span><span class="si">{</span><span class="n">o2_density</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>✓  the electron density is non-negative everywhere (to numerical noise)   [min ρ = -8.76e-06, max ρ = 0.946]
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>True
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="exercise-3-the-density-difference-assignment-1">
+<h2>Exercise 3 — The density difference (Assignment 1)<a class="headerlink" href="#exercise-3-the-density-difference-assignment-1" title="Link to this heading">#</a></h2>
+<p>The total density is striking but not the most informative quantity; the
+<em>difference</em> is. Subtracting the densities of the two separate oxygen atoms from
+the molecule’s density, <span class="math notranslate nohighlight">\(\Delta\rho=\rho_{\mathrm{O_2}}-\rho_{\mathrm{O}}-\rho_{\mathrm{O}}\)</span>,
+isolates exactly the charge that <strong>rearranges when the bond forms</strong>: amber where
+electrons accumulate, navy where they are depleted. Because the molecule and the
+two atoms hold the same total number of electrons, the difference must integrate to
+zero, which is our check.</p>
+<p><strong>Part a)</strong> Render the density-difference cube. <strong>Part b)</strong> Confirm electron number
+is conserved.</p>
+<div class="cell tag_solution tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<figure class="align-default" id="fig-o2-diff">
+<img alt="../../_images/c3e66bec3d37398f39b5a146a7cdc4e7cf5b5149945890106ac772b91300b72d.png" src="../../_images/c3e66bec3d37398f39b5a146a7cdc4e7cf5b5149945890106ac772b91300b72d.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 34 </span><span class="caption-text">Electron-density difference <span class="math notranslate nohighlight">\(\Delta\rho=\rho_{\mathrm{O_2}}-2\rho_{\mathrm{O}}\)</span> from the CP2K calculation: amber where charge accumulates on bonding, navy where it is depleted (<span class="math notranslate nohighlight">\(\pm0.004\,e/a_0^3\)</span>). The redistribution into the bonding region is what a Lewis double bond depicts only schematically. (Cube downsampled for display.)</span><a class="headerlink" href="#fig-o2-diff" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</div>
+</div>
+<section id="validation-3-electron-conservation">
+<h3>Validation 3 — electron conservation<a class="headerlink" href="#validation-3-electron-conservation" title="Link to this heading">#</a></h3>
+<p>Forming a bond moves charge around but neither creates nor destroys it, so the
+density difference must integrate to ≈ 0.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">validate</span><span class="o">.</span><span class="n">close</span><span class="p">(</span><span class="n">delta_n</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="s2">&quot;the density difference integrates to zero (electrons conserved)&quot;</span><span class="p">,</span> <span class="n">atol</span><span class="o">=</span><span class="mf">0.05</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>✓  the density difference integrates to zero (electrons conserved)   [got -0.0194206 vs expected 0 (rtol=1e-06)]
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>True
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="exercise-4-the-molecular-orbitals-assignment-2">
+<h2>Exercise 4 — The molecular orbitals (Assignment 2)<a class="headerlink" href="#exercise-4-the-molecular-orbitals-assignment-2" title="Link to this heading">#</a></h2>
+<p>The calculation also prints individual <strong>molecular orbitals</strong>. Their cube file
+names encode which orbital each is: a comment line reads <code class="docutils literal notranslate"><span class="pre">WAVEFUNCTION</span> <span class="pre">i</span> <span class="pre">spin</span> <span class="pre">s</span> <span class="pre">i.e.</span> <span class="pre">HOMO</span> <span class="pre">-</span> <span class="pre">n</span></code>, so the highest occupied (the HOMO) is <span class="math notranslate nohighlight">\(n=0\)</span>, the one below it
+<span class="math notranslate nohighlight">\(n=1\)</span>, and so on. Decoding those tags identifies three valence orbitals worth
+seeing: a bonding <span class="math notranslate nohighlight">\(\pi_{2p}\)</span>, a bonding <span class="math notranslate nohighlight">\(\sigma_{2p}\)</span>, and the <strong>antibonding
+<span class="math notranslate nohighlight">\(\pi^*\)</span></strong> that is the HOMO and holds the two unpaired electrons. Bonding orbitals
+concentrate charge between the nuclei; the antibonding <span class="math notranslate nohighlight">\(\pi^*\)</span> has a node there,
+visible as the change of lobe colour across the bond.</p>
+<p><strong>Part a)</strong> Render the three orbitals. <strong>Part b)</strong> Confirm they are proper
+(normalised) one-electron orbitals.</p>
+<div class="cell tag_solution tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<figure class="align-default" id="fig-o2-orbitals">
+<img alt="../../_images/14b406209aeb0f2a59793a777015e7c90085457b34e55515650111d8851045e4.png" src="../../_images/14b406209aeb0f2a59793a777015e7c90085457b34e55515650111d8851045e4.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 35 </span><span class="caption-text">Three O₂ molecular orbitals from the CP2K calculation (amber/navy = opposite sign of the wavefunction): the bonding <span class="math notranslate nohighlight">\(\pi_{2p}\)</span> and <span class="math notranslate nohighlight">\(\sigma_{2p}\)</span>, which build up amplitude between the nuclei, and the antibonding <span class="math notranslate nohighlight">\(\pi^*\)</span> (the HOMO), whose node between the atoms is the colour change across the bond. The two electrons in this <span class="math notranslate nohighlight">\(\pi^*\)</span> pair are the unpaired ones. (Cubes downsampled for display.)</span><a class="headerlink" href="#fig-o2-orbitals" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</div>
+</div>
+<section id="validation-4-proper-one-electron-orbitals">
+<h3>Validation 4 — proper one-electron orbitals<a class="headerlink" href="#validation-4-proper-one-electron-orbitals" title="Link to this heading">#</a></h3>
+<p>Each Kohn-Sham orbital is normalised, so <span class="math notranslate nohighlight">\(\int|\psi|^2\,dV\)</span> must be the same for all
+three (the same value the downsampling preserves), confirming they are genuine
+single-electron molecular orbitals.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">validate</span><span class="o">.</span><span class="n">close</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">norms</span><span class="p">),</span> <span class="n">norms</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="s2">&quot;the three orbitals share one normalisation (∫|ψ|² equal)&quot;</span><span class="p">,</span> <span class="n">rtol</span><span class="o">=</span><span class="mf">0.05</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>✓  the three orbitals share one normalisation (∫|ψ|² equal)   [max|Δ| = 0.0329698 (rtol=0.05, atol=1e-09)]
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>True
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="exercise-5-the-oxygen-atom-assignment-3">
+<h2>Exercise 5 — The oxygen atom (Assignment 3)<a class="headerlink" href="#exercise-5-the-oxygen-atom-assignment-3" title="Link to this heading">#</a></h2>
+<p>The same calculation for a single oxygen atom gives a reference. Its density is one
+spherical-ish cloud about a single nucleus, and crucially it holds <strong>half</strong> the
+electrons of the molecule. Comparing the integrated densities is a clean,
+downsampling-proof check: the molecule must contain exactly twice the atom’s
+electrons (16 versus 8), so the <em>ratio</em> of the integrals is 2 even though each
+absolute integral is undercounted by the coarse grid.</p>
+<p><strong>Part a)</strong> Render the O-atom density. <strong>Part b)</strong> Confirm the molecule has twice
+the atom’s electrons.</p>
+<div class="cell tag_solution tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<figure class="align-default" id="fig-o-density">
+<img alt="../../_images/11c8865ec56b1c5b8190ad4a6a437e8ee872810227eb939b42254f453bb89594.png" src="../../_images/11c8865ec56b1c5b8190ad4a6a437e8ee872810227eb939b42254f453bb89594.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 36 </span><span class="caption-text">Electron density of a single oxygen atom from the CP2K calculation (amber, <span class="math notranslate nohighlight">\(\rho=0.05\,e/a_0^3\)</span>): one cloud about one nucleus, holding eight electrons, half the molecule’s sixteen. (Cube downsampled for display.)</span><a class="headerlink" href="#fig-o-density" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>∫ρ(O₂) / ∫ρ(O) = 1.998  (O₂ has 16 electrons, O has 8  -&gt;  ratio 2)
+</pre></div>
+</div>
+</div>
+</div>
+<section id="validation-5-the-molecule-has-twice-the-atom-s-electrons">
+<h3>Validation 5 — the molecule has twice the atom’s electrons<a class="headerlink" href="#validation-5-the-molecule-has-twice-the-atom-s-electrons" title="Link to this heading">#</a></h3>
+<p>The ratio of the integrated densities must be 2: the molecule is two oxygen atoms’
+worth of electrons.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">validate</span><span class="o">.</span><span class="n">close</span><span class="p">(</span><span class="n">ratio</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">,</span> <span class="s2">&quot;O₂ holds twice the electrons of an O atom (integral ratio = 2)&quot;</span><span class="p">,</span> <span class="n">rtol</span><span class="o">=</span><span class="mf">0.03</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>✓  O₂ holds twice the electrons of an O atom (integral ratio = 2)   [got 1.99767 vs expected 2 (rtol=0.03)]
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>True
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="exercise-6-the-eigenvalues-and-the-molecular-orbital-schema-assignment-4">
+<h2>Exercise 6 — The eigenvalues and the molecular-orbital schema (Assignment 4)<a class="headerlink" href="#exercise-6-the-eigenvalues-and-the-molecular-orbital-schema-assignment-4" title="Link to this heading">#</a></h2>
+<p>Finally we read the energies. The output lists the occupied eigenvalues separately
+for spin-up (<span class="math notranslate nohighlight">\(\alpha\)</span>) and spin-down (<span class="math notranslate nohighlight">\(\beta\)</span>), and the asymmetry is the whole
+story: there are <strong>nine occupied <span class="math notranslate nohighlight">\(\alpha\)</span> orbitals but only seven occupied
+<span class="math notranslate nohighlight">\(\beta\)</span></strong>, a difference of two. Those two extra spin-up electrons sit in the
+degenerate <span class="math notranslate nohighlight">\(\pi^*\)</span> pair with no spin-down partners, exactly the unpaired electrons
+of the triplet. Dropping the two core <span class="math notranslate nohighlight">\(1s\)</span> states, we plot the valence levels at
+their real energies and fill them with <span class="math notranslate nohighlight">\(\alpha\)</span> (up) and <span class="math notranslate nohighlight">\(\beta\)</span> (down) electrons,
+reproducing the molecular-orbital schema from the calculation itself.</p>
+<p><strong>Part a)</strong> Build the schema from the real eigenvalues. <strong>Part b)</strong> Confirm the
+spin imbalance, and the paramagnetic moment it implies.</p>
+<div class="cell tag_solution tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<figure class="align-default" id="fig-o2-schema">
+<img alt="../../_images/ee81c46413cdcc9ba8d0ab166727fdd74ed938714a4eb2414de33448f0ced52c.png" src="../../_images/ee81c46413cdcc9ba8d0ab166727fdd74ed938714a4eb2414de33448f0ced52c.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 37 </span><span class="caption-text">Molecular-orbital schema of O₂ built from the real CP2K eigenvalues (valence levels, in eV; the two core 1s states are omitted): spin-up (α, amber) and spin-down (β, navy) electrons fill the levels. Every level is paired except the two degenerate π* orbitals, which hold one α electron each — the two unpaired electrons that make the ground state a triplet and O₂ paramagnetic.</span><a class="headerlink" href="#fig-o2-schema" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>occupied: 9 α, 7 β  -&gt;  2 unpaired electrons; μ = 2.83 μ_B
+</pre></div>
+</div>
+</div>
+</div>
+<section id="validation-6-two-unpaired-electrons-a-paramagnetic-triplet">
+<h3>Validation 6 — two unpaired electrons, a paramagnetic triplet<a class="headerlink" href="#validation-6-two-unpaired-electrons-a-paramagnetic-triplet" title="Link to this heading">#</a></h3>
+<p>The spin-up/spin-down imbalance must be exactly two unpaired electrons, giving spin
+<span class="math notranslate nohighlight">\(S=1\)</span> and the spin-only moment <span class="math notranslate nohighlight">\(\mu=\sqrt{8}\approx2.83\,\mu_B\)</span>: O₂ is a
+paramagnetic triplet, the result a Lewis structure cannot give.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">validate</span><span class="o">.</span><span class="n">check</span><span class="p">(</span>
+    <span class="n">n_unpaired</span> <span class="o">==</span> <span class="mi">2</span> <span class="ow">and</span> <span class="nb">abs</span><span class="p">(</span><span class="n">mu</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">8</span><span class="p">))</span> <span class="o">&lt;</span> <span class="mf">1e-6</span><span class="p">,</span>
+    <span class="s2">&quot;O₂ has two unpaired electrons (S=1) and a non-zero magnetic moment&quot;</span><span class="p">,</span>
+    <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">n_unpaired</span><span class="si">}</span><span class="s2"> unpaired → μ = </span><span class="si">{</span><span class="n">mu</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> μ_B&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>✓  O₂ has two unpaired electrons (S=1) and a non-zero magnetic moment   [2 unpaired → μ = 2.83 μ_B]
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>True
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="going-further">
+<h2>Going further<a class="headerlink" href="#going-further" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>The spin density.</strong> The calculation also wrote a spin-density cube,
+<span class="math notranslate nohighlight">\(\rho_\alpha-\rho_\beta\)</span>; rendering it shows the unpaired-electron density sitting
+exactly in the <span class="math notranslate nohighlight">\(\pi^*\)</span> orbitals.</p></li>
+<li><p><strong>Singlet oxygen.</strong> Pairing the two <span class="math notranslate nohighlight">\(\pi^*\)</span> electrons gives the reactive ¹Δg
+state, 0.98 eV higher; it is multireference, so a single-determinant method
+describes it only crudely.</p></li>
+<li><p><strong>The second row.</strong> B₂ is paramagnetic for the same reason, while C₂ and N₂ are
+not; the <span class="math notranslate nohighlight">\(\sigma_{2p}/\pi_{2p}\)</span> ordering switches before O₂ through s–p mixing.</p></li>
+<li><p><strong>Beyond Hartree-Fock.</strong> O₂’s bond energy needs correlated methods (CCSD(T)) or
+good functionals; Hartree-Fock alone underbinds it badly.</p></li>
+</ul>
+<section id="references">
+<h3>References<a class="headerlink" href="#references" title="Link to this heading">#</a></h3>
+<div class="docutils container" id="id2">
+<div role="list" class="citation-list">
+<div class="citation" id="id27" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id1">AF11</a><span class="fn-bracket">]</span></span>
+<p>Peter W. Atkins and Ronald S. Friedman. <em>Molecular Quantum Mechanics</em>. Oxford University Press, 5 edition, 2011.</p>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">ecp.style</span><span class="w"> </span><span class="kn">import</span> <span class="n">footer</span>
+
+<span class="n">footer</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><style>@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,900&family=Source+Serif+4:wght@400;600&family=JetBrains+Mono:wght@400;600&display=swap');</style>
+<div style="font-family:'Source Serif 4', 'Iowan Old Style', Georgia, serif;background:#faf7f0;border:1px solid #dcd6c8;
+            border-left:6px solid #c0851a;border-radius:6px;
+            padding:18px 22px;margin:30px 0 8px 0;">
+  <div style="font-family:'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace;font-size:11px;letter-spacing:.12em;
+              text-transform:uppercase;color:#c0851a;font-weight:600;
+              margin-bottom:6px;">Take this notebook with you</div>
+  <div style="font-size:14.5px;color:#16213e;line-height:1.55;max-width:66ch;">
+    Use the download button (&#8595;) in the toolbar above to save this notebook
+    and run it yourself. The published notebooks ship <b>without worked
+    solutions</b>; if you would like the reference solutions &mdash; to teach
+    from or to check your own work &mdash; get in touch: <a href='mailto:hello@ramador.me' style='color:#c0851a;text-decoration:none;border-bottom:1px solid #c0851a;'>hello@ramador.me</a>.
+  </div>
+  <div style="font-size:12px;color:#46506b;line-height:1.5;max-width:66ch;
+              margin-top:10px;border-top:1px solid #dcd6c8;padding-top:8px;">
+    Based on the lecture and exercise materials of <b>Molecular and Materials Modelling</b> (ETH Z&uuml;rich and Empa, FS&nbsp;2023), developed by Prof.&nbsp;Dr.&nbsp;Daniele Passerone (lectures), Dr.&nbsp;Carlo Pignedoli, and the author (exercises); here synthesised, expanded, and restyled by the author.
+  </div>
+</div></div></div>
+</div>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./notebooks/04-electronic-structure"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="silicon-band-structure.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">4.1 The Electronic Band Structure of Silicon</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="../05-crystals-surfaces/index.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Volume V — Crystals and Surfaces</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item"><div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#notebook-overview">Notebook overview</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#theory-in-brief">Theory in brief</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#from-atomic-orbitals-to-molecular-orbitals">From atomic orbitals to molecular orbitals</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#spin-and-the-triplet">Spin, and the triplet</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-the-calculation-gives-us">What the calculation gives us</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#setup">Setup</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1-the-cp2k-input-file">Exercise 1 — The CP2K input file</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#validation-1-the-deck-describes-a-triplet-with-cube-output">Validation 1 — the deck describes a triplet with cube output</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-2-the-electron-density">Exercise 2 — The electron density</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#validation-2-a-physical-electron-density">Validation 2 — a physical electron density</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-3-the-density-difference-assignment-1">Exercise 3 — The density difference (Assignment 1)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#validation-3-electron-conservation">Validation 3 — electron conservation</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-4-the-molecular-orbitals-assignment-2">Exercise 4 — The molecular orbitals (Assignment 2)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#validation-4-proper-one-electron-orbitals">Validation 4 — proper one-electron orbitals</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-5-the-oxygen-atom-assignment-3">Exercise 5 — The oxygen atom (Assignment 3)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#validation-5-the-molecule-has-twice-the-atom-s-electrons">Validation 5 — the molecule has twice the atom’s electrons</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-6-the-eigenvalues-and-the-molecular-orbital-schema-assignment-4">Exercise 6 — The eigenvalues and the molecular-orbital schema (Assignment 4)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#validation-6-two-unpaired-electrons-a-paramagnetic-triplet">Validation 6 — two unpaired electrons, a paramagnetic triplet</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#going-further">Going further</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#references">References</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Raymond Amador
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2026 · CC BY 4.0 (text) / MIT (code).
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

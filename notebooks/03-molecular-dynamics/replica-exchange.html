@@ -1,0 +1,1140 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>3.2 Replica Exchange and the Melting of a Cluster &#8212; Molecular and Materials Modelling</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=3c74b3bc" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css?v=9c3e77be" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../../_static/ecp.css?v=3ea87a98" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+    <script src="../../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?v=fab101a9"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../_static/togglebutton.js?v=b8b12719"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"tex": {"macros": {"dd": "\\mathrm{d}"}}, "options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'notebooks/03-molecular-dynamics/replica-exchange';</script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Volume IV — Electronic Structure" href="../04-electronic-structure/index.html" />
+    <link rel="prev" title="3.1 Molecular Dynamics of Lennard-Jones Clusters" href="lennard-jones-md.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../00-front-matter/preface.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../_static/logo.svg" class="logo__image only-light" alt="Molecular and Materials Modelling - Home"/>
+    <img src="../../_static/logo.svg" class="logo__image only-dark pst-js-only" alt="Molecular and Materials Modelling - Home"/>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../01-monte-carlo-methods/index.html">Volume I — Statistical Mechanics &amp; Monte Carlo</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../01-monte-carlo-methods/ising-model.html">1.1 The Ising Model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../01-monte-carlo-methods/lattice-gas-kmc.html">1.2 Lattice-Gas Monte Carlo and Kinetic Monte Carlo</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../02-energy-landscapes/index.html">Volume II — Energy Landscapes &amp; Optimization</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../02-energy-landscapes/lennard-jones-clusters.html">2.1 Optimizing Lennard-Jones Clusters</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="index.html">Volume III — Molecular Dynamics</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="lennard-jones-md.html">3.1 Molecular Dynamics of Lennard-Jones Clusters</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">3.2 Replica Exchange and the Melting of a Cluster</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../04-electronic-structure/index.html">Volume IV — Electronic Structure</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../04-electronic-structure/silicon-band-structure.html">4.1 The Electronic Band Structure of Silicon</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../04-electronic-structure/oxygen-triplet.html">4.2 The Formation of Molecular Oxygen</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../05-crystals-surfaces/index.html">Volume V — Crystals and Surfaces</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../05-crystals-surfaces/equation-of-state.html">5.1 Lattice Constants from an Equation of State</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../05-crystals-surfaces/hydrocarbons-on-platinum.html">5.2 Hydrocarbons on Platinum</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../06-reactions-free-energy/index.html">Volume VI — Reactions and Free Energy</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../06-reactions-free-energy/ethanol-dehydration.html">6.1 The Dehydration of Ethanol</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../06-reactions-free-energy/neb-chloromethane.html">6.2 The S<span class="math notranslate nohighlight">\(_N\)</span>2 Reaction by Nudged Elastic Band</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../06-reactions-free-energy/metadynamics-graphene.html">6.3 Metadynamics: Nitric Acid on Graphene</a></li>
+</ul>
+</details></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-launch-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
+    <i class="fas fa-rocket"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://mybinder.org/v2/gh/ramador09/molecular-materials-modelling-public/main?urlpath=tree/notebooks/03-molecular-dynamics/replica-exchange.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch on Binder"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img alt="Binder logo" src="../../_static/images/logo_binder.svg">
+  </span>
+<span class="btn__text-container">Binder</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://colab.research.google.com/github/ramador09/molecular-materials-modelling-public/blob/main/notebooks/03-molecular-dynamics/replica-exchange.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch on Colab"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img alt="Colab logo" src="../../_static/images/logo_colab.png">
+  </span>
+<span class="btn__text-container">Colab</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/ramador09/molecular-materials-modelling-public" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/ramador09/molecular-materials-modelling-public/issues/new?title=Issue%20on%20page%20%2Fnotebooks/03-molecular-dynamics/replica-exchange.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../_sources/notebooks/03-molecular-dynamics/replica-exchange.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button pst-navbar-icon"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+<button class="sidebar-toggle secondary-toggle btn btn-sm pst-navbar-icon" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>3.2 Replica Exchange and the Melting of a Cluster</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#notebook-overview">Notebook overview</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#theory-in-brief">Theory in brief</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-sampling-problem">The sampling problem</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#parallel-tempering">Parallel tempering</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#thermodynamics-from-the-temperatures">Thermodynamics from the temperatures</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#setup">Setup</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1-the-trapping-problem">Exercise 1 — The trapping problem</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#validation-1-the-single-chain-is-non-ergodic">Validation 1 — the single chain is non-ergodic</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-2-parallel-tempering-escapes-the-barrier">Exercise 2 — Parallel tempering escapes the barrier</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#validation-2-the-cold-replica-now-samples-both-wells-equally">Validation 2 — the cold replica now samples both wells equally</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-3-the-real-run-lammps-parallel-tempering-of-an-argon-cluster">Exercise 3 — The real run: LAMMPS parallel tempering of an argon cluster</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#validation-3-the-replicas-mix-across-temperatures">Validation 3 — the replicas mix across temperatures</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-4-the-caloric-curve-and-the-melting-step">Exercise 4 — The caloric curve and the melting step</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#validation-4-melting-sits-where-it-should">Validation 4 — melting sits where it should</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-5-the-heat-capacity-peak">Exercise 5 — The heat-capacity peak</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#validation-5-the-heat-capacity-peak-is-a-genuine-melting-transition">Validation 5 — the heat-capacity peak is a genuine melting transition</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#going-further">Going further</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#references">References</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="replica-exchange-and-the-melting-of-a-cluster">
+<h1>3.2 Replica Exchange and the Melting of a Cluster<a class="headerlink" href="#replica-exchange-and-the-melting-of-a-cluster" title="Link to this heading">#</a></h1>
+<!-- One H1 per notebook ("# <number> <Title>"): it sets the sidebar entry,
+     breadcrumb, browser tab, and search result. The branded banner below is
+     generated by the shared `ecp` package. --><div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">ecp.style</span><span class="w"> </span><span class="kn">import</span> <span class="n">header</span><span class="p">,</span> <span class="n">use_style</span>
+
+<span class="n">use_style</span><span class="p">()</span>
+<span class="n">header</span><span class="p">(</span>
+    <span class="n">volume</span><span class="o">=</span><span class="s2">&quot;Volume III — Molecular Dynamics&quot;</span><span class="p">,</span>
+    <span class="n">number</span><span class="o">=</span><span class="s2">&quot;3.2&quot;</span><span class="p">,</span>
+    <span class="n">title</span><span class="o">=</span><span class="s2">&quot;Replica Exchange and the Melting of a Cluster&quot;</span><span class="p">,</span>
+    <span class="n">blurb</span><span class="o">=</span><span class="s2">&quot;The sampling problem of rugged landscapes, the parallel-tempering &quot;</span>
+    <span class="s2">&quot;algorithm that solves it by swapping configurations between temperatures, and &quot;</span>
+    <span class="s2">&quot;its payoff in the real LAMMPS run of the course: the caloric curve and &quot;</span>
+    <span class="s2">&quot;heat-capacity peak that locate the melting of a 38-atom argon cluster.&quot;</span><span class="p">,</span>
+    <span class="n">difficulty</span><span class="o">=</span><span class="s2">&quot;intermediate&quot;</span><span class="p">,</span>
+    <span class="n">estimate</span><span class="o">=</span><span class="s2">&quot;90–120 min&quot;</span><span class="p">,</span>
+    <span class="n">source</span><span class="o">=</span><span class="s2">&quot;FS 2023 · Lecture 12 (replica exchange)&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><style>@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,900&family=Source+Serif+4:wght@400;600&family=JetBrains+Mono:wght@400;600&display=swap');</style>
+<div style="
+    font-family:'Source Serif 4', 'Iowan Old Style', Georgia, serif;
+    background:#faf7f0;
+    border:1px solid #dcd6c8;
+    border-left:6px solid #c0851a;
+    border-radius:6px;
+    padding:26px 30px 22px 30px;
+    margin:4px 0 26px 0;
+    box-shadow:0 1px 0 rgba(0,0,0,.03), 0 8px 24px -18px rgba(22,33,62,.5);">
+
+  <div style="font-family:'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace;font-size:12px;letter-spacing:.12em;
+              text-transform:uppercase;color:#c0851a;font-weight:600;
+              margin-bottom:4px;">
+    Molecular and Materials Modelling
+  </div>
+
+  <div style="display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;">
+    <span style="font-family:'Fraunces', 'Iowan Old Style', Georgia, serif;font-weight:900;font-size:22px;
+                 line-height:1.1;color:#16213e;
+                 font-variation-settings:'opsz' 144;">
+      Volume III — Molecular Dynamics
+    </span>
+    <span style="font-family:'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace;font-size:12px;letter-spacing:.06em;
+                 color:#46506b;">
+      Notebook&nbsp;3.2
+    </span>
+  </div>
+
+  <div style="font-family:'Source Serif 4', 'Iowan Old Style', Georgia, serif;font-size:15px;color:#46506b;
+                   margin-top:10px;max-width:62ch;">The sampling problem of rugged landscapes, the parallel-tempering algorithm that solves it by swapping configurations between temperatures, and its payoff in the real LAMMPS run of the course: the caloric curve and heat-capacity peak that locate the melting of a 38-atom argon cluster.</div>
+
+  <div style="font-family:'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace;font-size:11px;letter-spacing:.04em;
+                   color:#c0851a;margin-top:10px;">Based on FS 2023 · Lecture 12 (replica exchange)</div>
+
+  <div style="margin-top:16px;"><div class='ecp-meta' style='font-family:'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#46506b;'>Level&nbsp;&middot;&nbsp;intermediate&nbsp;&nbsp;&nbsp;&#8226;&nbsp;&nbsp;&nbsp;Est.&nbsp;&middot;&nbsp;90–120 min</div></div>
+
+  <div style="border-top:1px solid #dcd6c8;margin-top:16px;padding-top:12px;
+              display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;
+              font-family:'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace;font-size:11px;color:#46506b;
+              letter-spacing:.04em;">
+    <span>Raymond Amador</span>
+    <span>v0.1.0 &nbsp;·&nbsp; 2026-06-05 &nbsp;·&nbsp;
+          CC&nbsp;BY&nbsp;4.0 (text) / MIT (code)</span>
+  </div>
+</div></div></div>
+</div>
+<section id="notebook-overview">
+<h2>Notebook overview<a class="headerlink" href="#notebook-overview" title="Link to this heading">#</a></h2>
+<p>A single molecular-dynamics trajectory has a blind spot. On a rugged landscape,
+with deep minima separated by high barriers, a low-temperature run never has the
+energy to climb out of the basin it starts in, so its averages depend on where it
+began. The previous notebook met this as the trapping of an optimization; here it
+becomes the central problem of <em>sampling</em>. The fix is elegant: run many copies of
+the system at different temperatures at once, and let them trade configurations.
+The hot copies cross barriers freely, the cold copies inherit those crossings
+through the swaps, and the whole set samples the landscape far better than any one
+of them could alone. This is <strong>replica exchange</strong>, or <strong>parallel tempering</strong>.</p>
+<p>This is the exercise from Lecture 12, and we take it in two steps. First we build
+the algorithm on a system simple enough to see exactly what it does: a double well,
+where a single chain stays stuck on one side and parallel tempering visits both.
+Then we turn to the course’s real result. The original ran a 38-atom argon cluster
+in <strong>LAMMPS</strong> with twelve replicas spanning 2 to 40 K, and from the committed output
+we reconstruct the <strong>caloric curve</strong> and the <strong>heat-capacity peak</strong> that pin down
+the cluster’s melting temperature.</p>
+<blockquote>
+<div><p><strong>Provenance.</strong> This notebook develops <strong>Lecture 12</strong> of the course (replica
+exchange / parallel tempering, ensembles, and the heat capacity). The original
+ran a LAMMPS parallel-tempering simulation (the <code class="docutils literal notranslate"><span class="pre">replica-exchange.lammps</span></code> script
+shown in Exercise 3) on the Euler cluster and <em>committed its output</em>; the
+caloric curve in Exercises 4 and 5 is reconstructed from those twelve real
+replica logs by pooling each processor’s potential energy by the reference
+temperature it occupied. The algorithm itself is reproduced in Python. The full
+course credit is in the footer.</p>
+</div></blockquote>
+<blockquote>
+<div><p><strong>Reading a validation.</strong> Each exercise closes with a check against something
+independent: an exact Boltzmann population, the monotonicity of a caloric curve,
+the known melting range of the cluster. A ✗ flags a mismatch to track down, not a
+verdict; a ✓ is strong evidence, not proof.</p>
+</div></blockquote>
+<blockquote>
+<div><p><strong>Units and scope.</strong> The double-well demo uses dimensionless energy and
+temperature. The cluster data is from a real argon run, so energies are in eV and
+temperature in kelvin; with the deck’s <span class="math notranslate nohighlight">\(\varepsilon=0.01042\,\)</span>eV <span class="math notranslate nohighlight">\(=120.9\,k_B\)</span>K
+the reduced temperature is <span class="math notranslate nohighlight">\(T^\*=T/120.9\)</span>. For methods see Allen &amp; Tildesley
+<span class="bibtex-citation" id="id1">[<a class="reference internal" href="#id21" title="Michael P. Allen and Dominic J. Tildesley. Computer Simulation of Liquids. Oxford University Press, 2 edition, 2017.">AT17</a>]</span> and Frenkel &amp; Smit <span class="bibtex-citation" id="id2">[<a class="reference internal" href="#id13" title="Daan Frenkel and Berend Smit. Understanding Molecular Simulation: From Algorithms to Applications. Academic Press, 2 edition, 2002.">FS02</a>]</span>; the
+velocity-rescaling thermostat used in the run is Bussi <em>et al.</em> <span class="bibtex-citation" id="id3">[<a class="reference internal" href="#id23" title="Giovanni Bussi, Davide Donadio, and Michele Parrinello. Canonical sampling through velocity rescaling. The Journal of Chemical Physics, 126(1):014101, 2007. doi:10.1063/1.2408420.">BDP07</a>]</span>.</p>
+</div></blockquote>
+</section>
+<section id="theory-in-brief">
+<h2>Theory in brief<a class="headerlink" href="#theory-in-brief" title="Link to this heading">#</a></h2>
+<section id="the-sampling-problem">
+<h3>The sampling problem<a class="headerlink" href="#the-sampling-problem" title="Link to this heading">#</a></h3>
+<p>A Monte Carlo or molecular-dynamics simulation at temperature <span class="math notranslate nohighlight">\(T\)</span> samples the
+Boltzmann distribution <span class="math notranslate nohighlight">\(P(\mathbf x)\propto e^{-E(\mathbf x)/k_BT}\)</span>. To cross a
+barrier of height <span class="math notranslate nohighlight">\(\Delta E\)</span> it must wait a time <span class="math notranslate nohighlight">\(\sim e^{\Delta E/k_BT}\)</span>, which at
+low temperature is astronomically long. The simulation is then <strong>non-ergodic</strong> on
+any practical timescale: it explores only the basin it started in, and its averages
+are wrong.</p>
+</section>
+<section id="parallel-tempering">
+<h3>Parallel tempering<a class="headerlink" href="#parallel-tempering" title="Link to this heading">#</a></h3>
+<p><strong>Replica exchange</strong> runs <span class="math notranslate nohighlight">\(M\)</span> copies of the system at temperatures
+<span class="math notranslate nohighlight">\(T_1&lt;T_2&lt;\dots&lt;T_M\)</span> simultaneously. Each evolves under ordinary dynamics, and
+periodically two replicas at adjacent temperatures attempt to <strong>swap</strong>
+configurations. The swap is accepted with a Metropolis criterion that preserves
+detailed balance for the joint ensemble:</p>
+<div class="math notranslate nohighlight" id="equation-eq-swap">
+<span class="eqno">(26)<a class="headerlink" href="#equation-eq-swap" title="Link to this equation">#</a></span>\[p_{\rm acc} = \min\!\Big(1,\; e^{(\beta_i-\beta_j)(E_i-E_j)}\Big),
+\qquad \beta = \frac{1}{k_BT}.\]</div>
+<p>A configuration that wandered over a barrier at high temperature can then descend,
+swap by swap, to low temperature, so each replica samples its Boltzmann
+distribution while drawing on the barrier-crossing power of the hot ones. The
+temperatures are spaced (often geometrically) so that neighbouring energy
+distributions overlap and swaps are accepted often enough.</p>
+</section>
+<section id="thermodynamics-from-the-temperatures">
+<h3>Thermodynamics from the temperatures<a class="headerlink" href="#thermodynamics-from-the-temperatures" title="Link to this heading">#</a></h3>
+<p>Running every temperature at once hands us a thermodynamic sweep for free. The
+average energy as a function of temperature is the <strong>caloric curve</strong> <span class="math notranslate nohighlight">\(\langle
+E\rangle(T)\)</span>, and its slope is the <strong>heat capacity</strong></p>
+<div class="math notranslate nohighlight" id="equation-eq-cv">
+<span class="eqno">(27)<a class="headerlink" href="#equation-eq-cv" title="Link to this equation">#</a></span>\[C_v = \frac{d\langle E\rangle}{dT}.\]</div>
+<p>A finite cluster melts over a narrow temperature range where the energy rises
+steeply, so <span class="math notranslate nohighlight">\(C_v\)</span> shows a peak there: the cluster’s melting temperature, read
+straight off the curve.</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="setup">
+<h2>Setup<a class="headerlink" href="#setup" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">ecp</span><span class="w"> </span><span class="kn">import</span> <span class="n">validate</span>
+
+<span class="n">rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">INK</span><span class="p">,</span> <span class="n">AMBER</span><span class="p">,</span> <span class="n">SOFT</span> <span class="o">=</span> <span class="s2">&quot;#16213e&quot;</span><span class="p">,</span> <span class="s2">&quot;#c0851a&quot;</span><span class="p">,</span> <span class="s2">&quot;#46506b&quot;</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">double_well</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">a</span><span class="o">=</span><span class="mf">5.0</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;A symmetric double well: minima at x = ±1, barrier of height a at x = 0.&quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">a</span> <span class="o">*</span> <span class="p">(</span><span class="n">x</span> <span class="o">*</span> <span class="n">x</span> <span class="o">-</span> <span class="mf">1.0</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">data_file</span><span class="p">(</span><span class="n">name</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Locate a shipped data file from the repo root (CI) or the notebook dir (Colab).&quot;&quot;&quot;</span>
+    <span class="k">for</span> <span class="n">base</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;data&quot;</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s2">&quot;notebooks&quot;</span><span class="p">,</span> <span class="s2">&quot;03-molecular-dynamics&quot;</span><span class="p">,</span> <span class="s2">&quot;data&quot;</span><span class="p">)):</span>
+        <span class="n">path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">base</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">path</span>
+    <span class="k">raise</span> <span class="ne">FileNotFoundError</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">read_swap_log</span><span class="p">():</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Read the LAMMPS temper log: returns (steps, idx) where idx[t, p] is the</span>
+<span class="sd">    temperature index that replica p occupies at step t.&quot;&quot;&quot;</span>
+    <span class="n">rows</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="n">data_file</span><span class="p">(</span><span class="s2">&quot;replica-logs/swap.log&quot;</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">rows</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">rows</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">:]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">read_replica_log</span><span class="p">(</span><span class="n">p</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Read replica p&#39;s thermo log: returns Step, Temp, PotEng columns.&quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="n">data_file</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;replica-logs/replica_</span><span class="si">{</span><span class="n">p</span><span class="si">:</span><span class="s2">02d</span><span class="si">}</span><span class="s2">.log&quot;</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="exercise-1-the-trapping-problem">
+<h2>Exercise 1 — The trapping problem<a class="headerlink" href="#exercise-1-the-trapping-problem" title="Link to this heading">#</a></h2>
+<p>Take the symmetric double well <span class="math notranslate nohighlight">\(U(x)=a(x^2-1)^2\)</span> with <span class="math notranslate nohighlight">\(a=5\)</span>, two basins at
+<span class="math notranslate nohighlight">\(x=\pm1\)</span> split by a barrier of height <span class="math notranslate nohighlight">\(5\)</span>. At a low temperature <span class="math notranslate nohighlight">\(T=0.25\)</span> the
+Boltzmann distribution is symmetric, so a correct sampler should spend half its
+time in each basin. A single Metropolis chain started in the right basin does not:
+crossing the barrier costs <span class="math notranslate nohighlight">\(e^{5/0.25}=e^{20}\)</span>, so it stays put for the entire run,
+and its sampled distribution is wrong by a factor of two.</p>
+<p><strong>Part a)</strong> Implement a Metropolis chain <code class="docutils literal notranslate"><span class="pre">mc_chain</span></code>. <strong>Part b)</strong> Run it cold from
+the right basin and confirm it is trapped.</p>
+<div class="cell tag_solution tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<figure class="align-default" id="fig-pt-trapped">
+<img alt="../../_images/4f6280f023086919483e5d9c173a2245828feafac9edbf5e095151f7051d6359.png" src="../../_images/4f6280f023086919483e5d9c173a2245828feafac9edbf5e095151f7051d6359.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 26 </span><span class="caption-text">The double well <span class="math notranslate nohighlight">\(U(x)=5(x^2-1)^2\)</span> (navy) and the distribution sampled by a single Metropolis chain at <span class="math notranslate nohighlight">\(T=0.25\)</span> started in the right basin (amber histogram). The chain never crosses the barrier of height 5, so it samples only the right well: a non-ergodic, and wrong, result, since the symmetric potential should populate both wells equally.</span><a class="headerlink" href="#fig-pt-trapped" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</div>
+</div>
+<section id="validation-1-the-single-chain-is-non-ergodic">
+<h3>Validation 1 — the single chain is non-ergodic<a class="headerlink" href="#validation-1-the-single-chain-is-non-ergodic" title="Link to this heading">#</a></h3>
+<p>Started in the right basin (<span class="math notranslate nohighlight">\(x&gt;0\)</span>), the cold chain must spend essentially all its
+time there: a fraction near one, not the correct one-half.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">validate</span><span class="o">.</span><span class="n">check</span><span class="p">(</span><span class="n">frac_single</span> <span class="o">&gt;</span> <span class="mf">0.9</span><span class="p">,</span> <span class="s2">&quot;a single cold Metropolis chain stays trapped in one well&quot;</span><span class="p">,</span>
+               <span class="sa">f</span><span class="s2">&quot;fraction with x&gt;0 = </span><span class="si">{</span><span class="n">frac_single</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>✓  a single cold Metropolis chain stays trapped in one well   [fraction with x&gt;0 = 1.000]
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>True
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="exercise-2-parallel-tempering-escapes-the-barrier">
+<h2>Exercise 2 — Parallel tempering escapes the barrier<a class="headerlink" href="#exercise-2-parallel-tempering-escapes-the-barrier" title="Link to this heading">#</a></h2>
+<p>Now run several replicas at once, from a cold <span class="math notranslate nohighlight">\(T_1=0.25\)</span> up to a hot <span class="math notranslate nohighlight">\(T_M=4\)</span> where
+the barrier is easily crossed, and attempt swaps between adjacent temperatures with
+the criterion <a class="reference internal" href="#equation-eq-swap">Eq. 26</a>. A configuration that crosses the barrier in a hot
+replica can be swapped down to the cold one, so the cold replica, the one we care
+about, finally samples <em>both</em> wells. Because the potential is symmetric, the exact
+Boltzmann answer is one-half in each, and parallel tempering recovers it.</p>
+<p><strong>Part a)</strong> Implement <code class="docutils literal notranslate"><span class="pre">parallel_tempering</span></code>, returning the cold replica’s samples.
+<strong>Part b)</strong> Confirm the cold replica now populates both wells equally.</p>
+<div class="cell tag_solution tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<figure class="align-default" id="fig-pt-mixed">
+<img alt="../../_images/3f1dced22dfa09cea7caaae48c285229f5239fb6119aef9559c5013bdb93569d.png" src="../../_images/3f1dced22dfa09cea7caaae48c285229f5239fb6119aef9559c5013bdb93569d.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 27 </span><span class="caption-text">Distribution of the cold (<span class="math notranslate nohighlight">\(T=0.25\)</span>) replica under parallel tempering across eight temperatures from 0.25 to 4 (amber), against the exact Boltzmann distribution <span class="math notranslate nohighlight">\(P(x)\propto e^{-U(x)/T}\)</span> (navy). The swaps carry barrier crossings down from the hot replicas, so the cold replica now samples both wells with the correct equal weight: the non-ergodicity of Exercise 1 is cured.</span><a class="headerlink" href="#fig-pt-mixed" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</div>
+</div>
+<section id="validation-2-the-cold-replica-now-samples-both-wells-equally">
+<h3>Validation 2 — the cold replica now samples both wells equally<a class="headerlink" href="#validation-2-the-cold-replica-now-samples-both-wells-equally" title="Link to this heading">#</a></h3>
+<p>With the swaps in place, the cold replica must populate the two symmetric wells
+with equal weight, the exact Boltzmann result: a fraction near one-half.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">validate</span><span class="o">.</span><span class="n">close</span><span class="p">(</span><span class="n">frac_pt</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="s2">&quot;parallel tempering recovers the exact symmetric Boltzmann populations&quot;</span><span class="p">,</span> <span class="n">atol</span><span class="o">=</span><span class="mf">0.12</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>✓  parallel tempering recovers the exact symmetric Boltzmann populations   [got 0.4975 vs expected 0.5 (rtol=1e-06)]
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>True
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="exercise-3-the-real-run-lammps-parallel-tempering-of-an-argon-cluster">
+<h2>Exercise 3 — The real run: LAMMPS parallel tempering of an argon cluster<a class="headerlink" href="#exercise-3-the-real-run-lammps-parallel-tempering-of-an-argon-cluster" title="Link to this heading">#</a></h2>
+<p>The course applied exactly this algorithm to a 38-atom argon cluster in LAMMPS,
+with twelve replicas. The temperatures are spread geometrically from 2 K to 40 K, a
+harmonic wall confines the cluster so atoms cannot evaporate at the hot end, and an
+exchange is attempted every 1000 steps:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>variable t world  2.00 2.60 3.64 5 6.63 9.12 12.07 16 21.97 26.83 32.76 40.00
+pair_style lj/cut 8.5
+pair_coeff 1 1 0.01042 3.405 8.5      # argon: epsilon = 0.01042 eV, sigma = 3.405 A
+fix 1 all nvt temp $t $t 0.1          # a different target temperature per replica
+fix 2 all wall/region rs harmonic 2.0 0.0 0.4   # spherical confinement
+temper 5000000 1000 $t 1 3678 3490    # attempt an exchange every 1000 MD steps
+</pre></div>
+</div>
+<p>The full script ships with this notebook: <a class="reference download internal" download="" href="../../_downloads/221c1daf03582f2ac114708e75f932a6/replica-exchange.lammps"><code class="xref download docutils literal notranslate"><span class="pre">replica-exchange.lammps</span></code></a>.
+Postprocessing the output is the crux. Each processor holds a configuration whose
+<em>temperature</em> changes as swaps are accepted, so to recover the canonical average at
+a fixed temperature we pool every processor’s potential energy by the reference
+temperature it occupied at that step, read from the exchange log. We map the swaps
+here, and turn them into the caloric curve in Exercise 4.</p>
+<p>The committed output ships with this notebook: the swap log
+<a class="reference download internal" download="" href="../../_downloads/0d85f8dcb5b43cca793302b9d8464c59/swap.log"><code class="xref download docutils literal notranslate"><span class="pre">swap.log</span></code></a> records which of the twelve
+temperatures each replica occupies over time, and the twelve per-replica thermo
+logs <code class="docutils literal notranslate"><span class="pre">replica_00.log</span> <span class="pre">…</span> <span class="pre">replica_11.log</span></code> hold each one’s potential energy.</p>
+<p><strong>Part a)</strong> Read the swap log and plot the <strong>temperature index versus step</strong> for a
+few replicas (Assignment 1). <strong>Part b)</strong> Confirm a replica random-walks across the
+whole temperature ladder, the condition for parallel tempering to help.</p>
+<div class="cell tag_solution tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<figure class="align-default" id="fig-pt-walk">
+<img alt="../../_images/b3c0d09601db2ae9b5f5481069daff525ff4bc7230e29e7703d02d113b75b95a.png" src="../../_images/b3c0d09601db2ae9b5f5481069daff525ff4bc7230e29e7703d02d113b75b95a.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 28 </span><span class="caption-text">Temperature random-walk from the real LAMMPS run: the temperature index occupied by three of the twelve replicas over the five-million-step simulation. Accepted swaps carry each replica up and down the whole ladder (2–40 K), so every configuration spends time hot enough to cross barriers and cold enough to refine its structure. This wandering, not a fixed temperature per replica, is what makes the method work.</span><a class="headerlink" href="#fig-pt-walk" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>swap activity: 32.3% of steps change a replica&#39;s temperature; a tracked replica visits 5–10 of the 12 temperatures
+</pre></div>
+</div>
+</div>
+</div>
+<section id="validation-3-the-replicas-mix-across-temperatures">
+<h3>Validation 3 — the replicas mix across temperatures<a class="headerlink" href="#validation-3-the-replicas-mix-across-temperatures" title="Link to this heading">#</a></h3>
+<p>Parallel tempering only helps if configurations actually move through temperature
+space. Every replica must visit a broad span of the ladder, not stay pinned at one
+temperature.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">validate</span><span class="o">.</span><span class="n">check</span><span class="p">(</span>
+    <span class="nb">min</span><span class="p">(</span><span class="n">visited</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">4</span><span class="p">,</span>
+    <span class="s2">&quot;every replica random-walks across a broad span of the temperature ladder&quot;</span><span class="p">,</span>
+    <span class="sa">f</span><span class="s2">&quot;replicas visit </span><span class="si">{</span><span class="nb">min</span><span class="p">(</span><span class="n">visited</span><span class="p">)</span><span class="si">}</span><span class="s2">–</span><span class="si">{</span><span class="nb">max</span><span class="p">(</span><span class="n">visited</span><span class="p">)</span><span class="si">}</span><span class="s2"> of 12 temperatures; swaps active on </span><span class="si">{</span><span class="n">swap_activity</span><span class="si">:</span><span class="s2">.1%</span><span class="si">}</span><span class="s2"> of steps&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>✓  every replica random-walks across a broad span of the temperature ladder   [replicas visit 5–10 of 12 temperatures; swaps active on 32.3% of steps]
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>True
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="exercise-4-the-caloric-curve-and-the-melting-step">
+<h2>Exercise 4 — The caloric curve and the melting step<a class="headerlink" href="#exercise-4-the-caloric-curve-and-the-melting-step" title="Link to this heading">#</a></h2>
+<p>Plot the energy against temperature. Below melting the cluster is a rigid solid,
+and its energy rises only gently as the atoms vibrate a little harder. Through the
+melting range the structure breaks up, and the energy jumps as the latent heat goes
+into disordering the cluster. That steep step, here around <span class="math notranslate nohighlight">\(T^\*\approx0.16\)</span>
+(<span class="math notranslate nohighlight">\(T\approx19\,\)</span>K), is the thermodynamic signature of melting, visible directly in
+the caloric curve.</p>
+<p><strong>Part a)</strong> Plot <span class="math notranslate nohighlight">\(\langle E\rangle\)</span> against <span class="math notranslate nohighlight">\(T^\*\)</span>. <strong>Part b)</strong> Identify the steep
+(melting) section and confirm it lies in the expected range for a 38-atom
+Lennard-Jones cluster, <span class="math notranslate nohighlight">\(T^\*\sim0.1\)</span>–<span class="math notranslate nohighlight">\(0.2\)</span>.</p>
+<div class="cell tag_solution tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<figure class="align-default" id="fig-pt-caloric">
+<img alt="../../_images/9a086d796f29e9c8b4a7b81123b70b5ea72df2849c47d262f974911920765930.png" src="../../_images/9a086d796f29e9c8b4a7b81123b70b5ea72df2849c47d262f974911920765930.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 29 </span><span class="caption-text">Caloric curve of the 38-atom argon cluster from the real LAMMPS parallel-tempering run: average potential energy (eV) versus reduced temperature <span class="math notranslate nohighlight">\(T^\ast=T/120.9\)</span>. The energy rises gently while the cluster is solid, then steeply through the melting range near <span class="math notranslate nohighlight">\(T^\ast\approx0.16\)</span> (amber band) as latent heat disorders the structure, then continues to climb in the liquid.</span><a class="headerlink" href="#fig-pt-caloric" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</div>
+</div>
+<section id="validation-4-melting-sits-where-it-should">
+<h3>Validation 4 — melting sits where it should<a class="headerlink" href="#validation-4-melting-sits-where-it-should" title="Link to this heading">#</a></h3>
+<p>The steepest rise of the caloric curve, the melting transition, must fall in the
+known melting range of a 38-atom Lennard-Jones cluster, <span class="math notranslate nohighlight">\(T^\*\approx0.1\)</span>–<span class="math notranslate nohighlight">\(0.2\)</span>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">validate</span><span class="o">.</span><span class="n">check</span><span class="p">(</span>
+    <span class="mf">0.10</span> <span class="o">&lt;</span> <span class="n">T_melt</span> <span class="o">&lt;</span> <span class="mf">0.22</span><span class="p">,</span>
+    <span class="s2">&quot;the caloric curve&#39;s steepest rise locates cluster melting near T* ~ 0.16&quot;</span><span class="p">,</span>
+    <span class="sa">f</span><span class="s2">&quot;steepest dE/dT at T* = </span><span class="si">{</span><span class="n">T_melt</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2"> (T = </span><span class="si">{</span><span class="n">T_melt</span><span class="o">*</span><span class="n">EPS_K</span><span class="si">:</span><span class="s2">.0f</span><span class="si">}</span><span class="s2"> K)&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>✓  the caloric curve&#39;s steepest rise locates cluster melting near T* ~ 0.16   [steepest dE/dT at T* = 0.157 (T = 19 K)]
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>True
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="exercise-5-the-heat-capacity-peak">
+<h2>Exercise 5 — The heat-capacity peak<a class="headerlink" href="#exercise-5-the-heat-capacity-peak" title="Link to this heading">#</a></h2>
+<p>The heat capacity <span class="math notranslate nohighlight">\(C_v=d\langle E\rangle/dT\)</span> <a class="reference internal" href="#equation-eq-cv">Eq. 27</a> turns the melting step into
+a peak. For a macroscopic system the peak would be a sharp divergence at a
+first-order transition; for a 38-atom cluster it is a finite, rounded bump, but it
+still marks the melting temperature unambiguously. This is the result the course
+was built around: a thermodynamic transition measured by parallel tempering.</p>
+<p><strong>Part a)</strong> Compute <span class="math notranslate nohighlight">\(C_v\)</span> from the caloric curve. <strong>Part b)</strong> Confirm its peak
+coincides with the melting transition of Exercise 4.</p>
+<div class="cell tag_solution tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<figure class="align-default" id="fig-pt-cv">
+<img alt="../../_images/aedbebedffe19962c5106a9ddf856e66e6495fd56c6e45f1947a098db7435431.png" src="../../_images/aedbebedffe19962c5106a9ddf856e66e6495fd56c6e45f1947a098db7435431.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 30 </span><span class="caption-text">Heat capacity <span class="math notranslate nohighlight">\(C_v=d\langle E\rangle/dT\)</span> of the 38-atom argon cluster (in units of <span class="math notranslate nohighlight">\(k_B\)</span>), from the caloric curve of the real parallel-tempering run. The peak at <span class="math notranslate nohighlight">\(T^\ast\approx0.16\)</span> (<span class="math notranslate nohighlight">\(T\approx19\,\)</span>K, amber line) is the rounded, finite-size remnant of the melting transition: the cluster’s melting point, read from its heat capacity.</span><a class="headerlink" href="#fig-pt-cv" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</div>
+</div>
+<section id="validation-5-the-heat-capacity-peak-is-a-genuine-melting-transition">
+<h3>Validation 5 — the heat-capacity peak is a genuine melting transition<a class="headerlink" href="#validation-5-the-heat-capacity-peak-is-a-genuine-melting-transition" title="Link to this heading">#</a></h3>
+<p>The melting feature must be a real <em>peak</em>: the heat capacity rises to it and falls
+away on the high-temperature side, the finite-size signature of the solid melting,
+not a monotonic ramp.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">validate</span><span class="o">.</span><span class="n">check</span><span class="p">(</span>
+    <span class="n">Cv</span><span class="p">[</span><span class="n">i_melt</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">Cv</span><span class="p">[</span><span class="n">i_melt</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="ow">and</span> <span class="n">Cv</span><span class="p">[</span><span class="n">i_melt</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">Cv</span><span class="p">[</span><span class="n">i_melt</span> <span class="o">+</span> <span class="mi">1</span><span class="p">],</span>
+    <span class="s2">&quot;C_v has a local melting peak at the caloric-curve step&quot;</span><span class="p">,</span>
+    <span class="sa">f</span><span class="s2">&quot;C_v/k_B at T* = </span><span class="si">{</span><span class="n">T_melt</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">Cv</span><span class="p">[</span><span class="n">i_melt</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2"> &lt; </span><span class="si">{</span><span class="n">Cv</span><span class="p">[</span><span class="n">i_melt</span><span class="p">]</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2"> &gt; </span><span class="si">{</span><span class="n">Cv</span><span class="p">[</span><span class="n">i_melt</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>✓  C_v has a local melting peak at the caloric-curve step   [C_v/k_B at T* = 0.16: 72.5 &lt; 149.4 &gt; 102.3]
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>True
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="going-further">
+<h2>Going further<a class="headerlink" href="#going-further" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>Better heat capacities.</strong> The committed run is short, so <span class="math notranslate nohighlight">\(C_v\)</span> from energy
+<em>fluctuations</em>, <span class="math notranslate nohighlight">\(C_v=\langle E^2\rangle-\langle E\rangle^2)/k_BT^2\)</span>, is noisy here;
+the multiple-histogram (WHAM) method combines all temperatures to sharpen both the
+caloric curve and the peak.</p></li>
+<li><p><strong>The solid-solid transition.</strong> Below melting the 38-atom cluster also converts
+between its truncated-octahedron and icosahedron forms (Volume II); a finer
+temperature grid resolves the small low-temperature heat-capacity feature this
+produces.</p></li>
+<li><p><strong>Order parameters.</strong> Tracking the Steinhardt <span class="math notranslate nohighlight">\(Q_4\)</span> or <span class="math notranslate nohighlight">\(Q_6\)</span> (notebook 2.1) along
+the replicas shows the structural change <em>through</em> the transition, not just its
+energy.</p></li>
+<li><p><strong>Finding the global minimum.</strong> Because parallel tempering crosses funnels, a low
+replica eventually settles into the global truncated octahedron that defeated the
+single-funnel basin-hopping of Volume II.</p></li>
+</ul>
+<section id="references">
+<h3>References<a class="headerlink" href="#references" title="Link to this heading">#</a></h3>
+<div class="docutils container" id="id4">
+<div role="list" class="citation-list">
+<div class="citation" id="id21" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id1">AT17</a><span class="fn-bracket">]</span></span>
+<p>Michael P. Allen and Dominic J. Tildesley. <em>Computer Simulation of Liquids</em>. Oxford University Press, 2 edition, 2017.</p>
+</div>
+<div class="citation" id="id23" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id3">BDP07</a><span class="fn-bracket">]</span></span>
+<p>Giovanni Bussi, Davide Donadio, and Michele Parrinello. Canonical sampling through velocity rescaling. <em>The Journal of Chemical Physics</em>, 126(1):014101, 2007. <a class="reference external" href="https://doi.org/10.1063/1.2408420">doi:10.1063/1.2408420</a>.</p>
+</div>
+<div class="citation" id="id13" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id2">FS02</a><span class="fn-bracket">]</span></span>
+<p>Daan Frenkel and Berend Smit. <em>Understanding Molecular Simulation: From Algorithms to Applications</em>. Academic Press, 2 edition, 2002.</p>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">ecp.style</span><span class="w"> </span><span class="kn">import</span> <span class="n">footer</span>
+
+<span class="n">footer</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><style>@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,900&family=Source+Serif+4:wght@400;600&family=JetBrains+Mono:wght@400;600&display=swap');</style>
+<div style="font-family:'Source Serif 4', 'Iowan Old Style', Georgia, serif;background:#faf7f0;border:1px solid #dcd6c8;
+            border-left:6px solid #c0851a;border-radius:6px;
+            padding:18px 22px;margin:30px 0 8px 0;">
+  <div style="font-family:'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace;font-size:11px;letter-spacing:.12em;
+              text-transform:uppercase;color:#c0851a;font-weight:600;
+              margin-bottom:6px;">Take this notebook with you</div>
+  <div style="font-size:14.5px;color:#16213e;line-height:1.55;max-width:66ch;">
+    Use the download button (&#8595;) in the toolbar above to save this notebook
+    and run it yourself. The published notebooks ship <b>without worked
+    solutions</b>; if you would like the reference solutions &mdash; to teach
+    from or to check your own work &mdash; get in touch: <a href='mailto:hello@ramador.me' style='color:#c0851a;text-decoration:none;border-bottom:1px solid #c0851a;'>hello@ramador.me</a>.
+  </div>
+  <div style="font-size:12px;color:#46506b;line-height:1.5;max-width:66ch;
+              margin-top:10px;border-top:1px solid #dcd6c8;padding-top:8px;">
+    Based on the lecture and exercise materials of <b>Molecular and Materials Modelling</b> (ETH Z&uuml;rich and Empa, FS&nbsp;2023), developed by Prof.&nbsp;Dr.&nbsp;Daniele Passerone (lectures), Dr.&nbsp;Carlo Pignedoli, and the author (exercises); here synthesised, expanded, and restyled by the author.
+  </div>
+</div></div></div>
+</div>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./notebooks/03-molecular-dynamics"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="lennard-jones-md.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">3.1 Molecular Dynamics of Lennard-Jones Clusters</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="../04-electronic-structure/index.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Volume IV — Electronic Structure</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item"><div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#notebook-overview">Notebook overview</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#theory-in-brief">Theory in brief</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-sampling-problem">The sampling problem</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#parallel-tempering">Parallel tempering</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#thermodynamics-from-the-temperatures">Thermodynamics from the temperatures</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#setup">Setup</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1-the-trapping-problem">Exercise 1 — The trapping problem</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#validation-1-the-single-chain-is-non-ergodic">Validation 1 — the single chain is non-ergodic</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-2-parallel-tempering-escapes-the-barrier">Exercise 2 — Parallel tempering escapes the barrier</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#validation-2-the-cold-replica-now-samples-both-wells-equally">Validation 2 — the cold replica now samples both wells equally</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-3-the-real-run-lammps-parallel-tempering-of-an-argon-cluster">Exercise 3 — The real run: LAMMPS parallel tempering of an argon cluster</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#validation-3-the-replicas-mix-across-temperatures">Validation 3 — the replicas mix across temperatures</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-4-the-caloric-curve-and-the-melting-step">Exercise 4 — The caloric curve and the melting step</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#validation-4-melting-sits-where-it-should">Validation 4 — melting sits where it should</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-5-the-heat-capacity-peak">Exercise 5 — The heat-capacity peak</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#validation-5-the-heat-capacity-peak-is-a-genuine-melting-transition">Validation 5 — the heat-capacity peak is a genuine melting transition</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#going-further">Going further</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#references">References</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Raymond Amador
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2026 · CC BY 4.0 (text) / MIT (code).
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

@@ -1,0 +1,983 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>5.1 Lattice Constants from an Equation of State &#8212; Molecular and Materials Modelling</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=3c74b3bc" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css?v=9c3e77be" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../../_static/ecp.css?v=3ea87a98" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+    <script src="../../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?v=fab101a9"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../_static/togglebutton.js?v=b8b12719"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"tex": {"macros": {"dd": "\\mathrm{d}"}}, "options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'notebooks/05-crystals-surfaces/equation-of-state';</script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="5.2 Hydrocarbons on Platinum" href="hydrocarbons-on-platinum.html" />
+    <link rel="prev" title="Volume V — Crystals and Surfaces" href="index.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../00-front-matter/preface.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../_static/logo.svg" class="logo__image only-light" alt="Molecular and Materials Modelling - Home"/>
+    <img src="../../_static/logo.svg" class="logo__image only-dark pst-js-only" alt="Molecular and Materials Modelling - Home"/>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../01-monte-carlo-methods/index.html">Volume I — Statistical Mechanics &amp; Monte Carlo</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../01-monte-carlo-methods/ising-model.html">1.1 The Ising Model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../01-monte-carlo-methods/lattice-gas-kmc.html">1.2 Lattice-Gas Monte Carlo and Kinetic Monte Carlo</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../02-energy-landscapes/index.html">Volume II — Energy Landscapes &amp; Optimization</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../02-energy-landscapes/lennard-jones-clusters.html">2.1 Optimizing Lennard-Jones Clusters</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../03-molecular-dynamics/index.html">Volume III — Molecular Dynamics</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../03-molecular-dynamics/lennard-jones-md.html">3.1 Molecular Dynamics of Lennard-Jones Clusters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../03-molecular-dynamics/replica-exchange.html">3.2 Replica Exchange and the Melting of a Cluster</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../04-electronic-structure/index.html">Volume IV — Electronic Structure</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../04-electronic-structure/silicon-band-structure.html">4.1 The Electronic Band Structure of Silicon</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../04-electronic-structure/oxygen-triplet.html">4.2 The Formation of Molecular Oxygen</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="index.html">Volume V — Crystals and Surfaces</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">5.1 Lattice Constants from an Equation of State</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hydrocarbons-on-platinum.html">5.2 Hydrocarbons on Platinum</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../06-reactions-free-energy/index.html">Volume VI — Reactions and Free Energy</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../06-reactions-free-energy/ethanol-dehydration.html">6.1 The Dehydration of Ethanol</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../06-reactions-free-energy/neb-chloromethane.html">6.2 The S<span class="math notranslate nohighlight">\(_N\)</span>2 Reaction by Nudged Elastic Band</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../06-reactions-free-energy/metadynamics-graphene.html">6.3 Metadynamics: Nitric Acid on Graphene</a></li>
+</ul>
+</details></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-launch-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
+    <i class="fas fa-rocket"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://mybinder.org/v2/gh/ramador09/molecular-materials-modelling-public/main?urlpath=tree/notebooks/05-crystals-surfaces/equation-of-state.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch on Binder"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img alt="Binder logo" src="../../_static/images/logo_binder.svg">
+  </span>
+<span class="btn__text-container">Binder</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://colab.research.google.com/github/ramador09/molecular-materials-modelling-public/blob/main/notebooks/05-crystals-surfaces/equation-of-state.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch on Colab"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img alt="Colab logo" src="../../_static/images/logo_colab.png">
+  </span>
+<span class="btn__text-container">Colab</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/ramador09/molecular-materials-modelling-public" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/ramador09/molecular-materials-modelling-public/issues/new?title=Issue%20on%20page%20%2Fnotebooks/05-crystals-surfaces/equation-of-state.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../_sources/notebooks/05-crystals-surfaces/equation-of-state.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button pst-navbar-icon"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+<button class="sidebar-toggle secondary-toggle btn btn-sm pst-navbar-icon" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>5.1 Lattice Constants from an Equation of State</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#notebook-overview">Notebook overview</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#theory-in-brief">Theory in brief</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-equation-of-state">The equation of state</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#close-packed-lattices-and-the-axial-ratio">Close-packed lattices and the axial ratio</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#setup">Setup</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1-ase-and-the-atomization-energy-of-n2">Exercise 1 — ASE and the atomization energy of N₂</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#validation-1-the-molecule-is-bound">Validation 1 — the molecule is bound</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-2-the-equation-of-state-of-fcc-silver">Exercise 2 — The equation of state of FCC silver</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#validation-2-silver-s-lattice-constant-and-bulk-modulus">Validation 2 — silver’s lattice constant and bulk modulus</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-3-two-lattice-parameters-hexagonal-nickel">Exercise 3 — Two lattice parameters: hexagonal nickel</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#validation-3-the-ideal-close-packed-axial-ratio">Validation 3 — the ideal close-packed axial ratio</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#going-further">Going further</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#references">References</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="lattice-constants-from-an-equation-of-state">
+<h1>5.1 Lattice Constants from an Equation of State<a class="headerlink" href="#lattice-constants-from-an-equation-of-state" title="Link to this heading">#</a></h1>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">ecp.style</span><span class="w"> </span><span class="kn">import</span> <span class="n">header</span><span class="p">,</span> <span class="n">use_style</span>
+
+<span class="n">use_style</span><span class="p">()</span>
+<span class="n">header</span><span class="p">(</span>
+    <span class="n">volume</span><span class="o">=</span><span class="s2">&quot;Volume V — Crystals and Surfaces&quot;</span><span class="p">,</span>
+    <span class="n">number</span><span class="o">=</span><span class="s2">&quot;5.1&quot;</span><span class="p">,</span>
+    <span class="n">title</span><span class="o">=</span><span class="s2">&quot;Lattice Constants from an Equation of State&quot;</span><span class="p">,</span>
+    <span class="n">blurb</span><span class="o">=</span><span class="s2">&quot;The size of a crystal, from its energy: an equation of state fit to the &quot;</span>
+    <span class="s2">&quot;energy-versus-volume curve of FCC silver gives its lattice constant and bulk &quot;</span>
+    <span class="s2">&quot;modulus, and a two-parameter scan pins down the a and c of hexagonal nickel.&quot;</span><span class="p">,</span>
+    <span class="n">difficulty</span><span class="o">=</span><span class="s2">&quot;introductory&quot;</span><span class="p">,</span>
+    <span class="n">estimate</span><span class="o">=</span><span class="s2">&quot;60–90 min&quot;</span><span class="p">,</span>
+    <span class="n">source</span><span class="o">=</span><span class="s2">&quot;FS 2023 · Lecture 1 (the Atomic Simulation Environment)&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><style>@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,900&family=Source+Serif+4:wght@400;600&family=JetBrains+Mono:wght@400;600&display=swap');</style>
+<div style="
+    font-family:'Source Serif 4', 'Iowan Old Style', Georgia, serif;
+    background:#faf7f0;
+    border:1px solid #dcd6c8;
+    border-left:6px solid #c0851a;
+    border-radius:6px;
+    padding:26px 30px 22px 30px;
+    margin:4px 0 26px 0;
+    box-shadow:0 1px 0 rgba(0,0,0,.03), 0 8px 24px -18px rgba(22,33,62,.5);">
+
+  <div style="font-family:'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace;font-size:12px;letter-spacing:.12em;
+              text-transform:uppercase;color:#c0851a;font-weight:600;
+              margin-bottom:4px;">
+    Molecular and Materials Modelling
+  </div>
+
+  <div style="display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;">
+    <span style="font-family:'Fraunces', 'Iowan Old Style', Georgia, serif;font-weight:900;font-size:22px;
+                 line-height:1.1;color:#16213e;
+                 font-variation-settings:'opsz' 144;">
+      Volume V — Crystals and Surfaces
+    </span>
+    <span style="font-family:'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace;font-size:12px;letter-spacing:.06em;
+                 color:#46506b;">
+      Notebook&nbsp;5.1
+    </span>
+  </div>
+
+  <div style="font-family:'Source Serif 4', 'Iowan Old Style', Georgia, serif;font-size:15px;color:#46506b;
+                   margin-top:10px;max-width:62ch;">The size of a crystal, from its energy: an equation of state fit to the energy-versus-volume curve of FCC silver gives its lattice constant and bulk modulus, and a two-parameter scan pins down the a and c of hexagonal nickel.</div>
+
+  <div style="font-family:'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace;font-size:11px;letter-spacing:.04em;
+                   color:#c0851a;margin-top:10px;">Based on FS 2023 · Lecture 1 (the Atomic Simulation Environment)</div>
+
+  <div style="margin-top:16px;"><div class='ecp-meta' style='font-family:'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#46506b;'>Level&nbsp;&middot;&nbsp;introductory&nbsp;&nbsp;&nbsp;&#8226;&nbsp;&nbsp;&nbsp;Est.&nbsp;&middot;&nbsp;60–90 min</div></div>
+
+  <div style="border-top:1px solid #dcd6c8;margin-top:16px;padding-top:12px;
+              display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;
+              font-family:'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace;font-size:11px;color:#46506b;
+              letter-spacing:.04em;">
+    <span>Raymond Amador</span>
+    <span>v0.1.0 &nbsp;·&nbsp; 2026-06-05 &nbsp;·&nbsp;
+          CC&nbsp;BY&nbsp;4.0 (text) / MIT (code)</span>
+  </div>
+</div></div></div>
+</div>
+<section id="notebook-overview">
+<h2>Notebook overview<a class="headerlink" href="#notebook-overview" title="Link to this heading">#</a></h2>
+<p>How big is a crystal? Its lattice constant is not an input to a calculation but an
+<em>output</em>: the cell size that minimises the total energy. Squeeze the cell and the
+atoms repel; stretch it and the bonds weaken; in between lies the equilibrium volume,
+and the curvature of the energy there is the <strong>bulk modulus</strong>, the crystal’s
+resistance to compression. This is the first thing any electronic-structure code is
+asked to reproduce, and the first exercise of the course.</p>
+<p>We work through it with the <strong>Atomic Simulation Environment</strong> (ASE), exactly the tool
+the course introduced here, and the course’s own committed results. We compute the
+<strong>atomization energy</strong> of an N₂ molecule, fit an <strong>equation of state</strong> to the real
+energy-volume scan of face-centred-cubic silver to extract its lattice constant and
+bulk modulus, and map the energy of hexagonal-close-packed nickel over its <strong>two</strong>
+lattice parameters <span class="math notranslate nohighlight">\(a\)</span> and <span class="math notranslate nohighlight">\(c\)</span> to find both at once.</p>
+<blockquote>
+<div><p><strong>Provenance.</strong> This notebook develops <strong>Lecture 1</strong> of the course (the Atomic
+Simulation Environment, crystal structures, and equations of state). The
+silver and nickel energies are the course’s own committed ASE trajectories
+(<code class="docutils literal notranslate"><span class="pre">Ag.traj</span></code>, <code class="docutils literal notranslate"><span class="pre">Ni.traj</span></code>), computed with the <strong>EMT</strong> effective-medium calculator; the
+N₂ atomization is reproduced here with the same calculator. The full course credit
+is in the footer.</p>
+</div></blockquote>
+<blockquote>
+<div><p><strong>Reading a validation.</strong> Each task closes with a check against an independent
+fact: the known lattice constant of silver, the ideal axial ratio of a
+close-packed lattice. A ✗ flags a mismatch to track down; a ✓ is strong evidence,
+not proof.</p>
+</div></blockquote>
+<blockquote>
+<div><p><strong>Scope.</strong> Energies use the EMT calculator, a fast classical approximation built
+into ASE; it captures the trends and gives lattice constants within a per cent or
+two, where a full density-functional calculation would be quantitative but far
+slower. For ASE see <span class="bibtex-citation" id="id1">[<a class="reference internal" href="#id31" title="Ask Hjorth Larsen, Jens Jørgen Mortensen, Jakob Blomqvist, and others. The atomic simulation environment—a Python library for working with atoms. Journal of Physics: Condensed Matter, 29(27):273002, 2017. doi:10.1088/1361-648X/aa680e.">HLJorgenMB+17</a>]</span>; for the equation of state, Birch
+<span class="bibtex-citation" id="id2">[<a class="reference internal" href="#id32" title="Francis Birch. Finite elastic strain of cubic crystals. Physical Review, 71(11):809–824, 1947. doi:10.1103/PhysRev.71.809.">Bir47</a>]</span>.</p>
+</div></blockquote>
+</section>
+<section id="theory-in-brief">
+<h2>Theory in brief<a class="headerlink" href="#theory-in-brief" title="Link to this heading">#</a></h2>
+<section id="the-equation-of-state">
+<h3>The equation of state<a class="headerlink" href="#the-equation-of-state" title="Link to this heading">#</a></h3>
+<p>The energy of a crystal as a function of its volume <span class="math notranslate nohighlight">\(V\)</span>, the <strong>equation of state</strong>,
+has a minimum at the equilibrium volume <span class="math notranslate nohighlight">\(V_0\)</span>. Near it the energy is parabolic, and
+the curvature defines the <strong>bulk modulus</strong></p>
+<div class="math notranslate nohighlight" id="equation-eq-bulk">
+<span class="eqno">(30)<a class="headerlink" href="#equation-eq-bulk" title="Link to this equation">#</a></span>\[B = V\frac{\partial^2 E}{\partial V^2}\bigg|_{V_0},\]</div>
+<p>the pressure needed to change the volume by a given fraction. Real solids are not
+perfectly parabolic, so we fit the <strong>Birch-Murnaghan</strong> equation of state
+<span class="bibtex-citation" id="id3">[<a class="reference internal" href="#id32" title="Francis Birch. Finite elastic strain of cubic crystals. Physical Review, 71(11):809–824, 1947. doi:10.1103/PhysRev.71.809.">Bir47</a>]</span>, a low-order expansion in strain that captures the asymmetry
+between compression and expansion, and read off <span class="math notranslate nohighlight">\(V_0\)</span> and <span class="math notranslate nohighlight">\(B\)</span> from the fit. For a
+cubic crystal the lattice constant follows from <span class="math notranslate nohighlight">\(V_0\)</span> and the number of atoms per
+cell.</p>
+</section>
+<section id="close-packed-lattices-and-the-axial-ratio">
+<h3>Close-packed lattices and the axial ratio<a class="headerlink" href="#close-packed-lattices-and-the-axial-ratio" title="Link to this heading">#</a></h3>
+<p>A cubic crystal has a single lattice constant, but a hexagonal-close-packed crystal
+has <strong>two</strong>, <span class="math notranslate nohighlight">\(a\)</span> in the basal plane and <span class="math notranslate nohighlight">\(c\)</span> along the stacking axis, so its energy
+must be minimised over a two-dimensional grid. For ideal close packing of hard
+spheres the ratio is fixed at</p>
+<div class="math notranslate nohighlight" id="equation-eq-coa">
+<span class="eqno">(31)<a class="headerlink" href="#equation-eq-coa" title="Link to this equation">#</a></span>\[\frac{c}{a} = \sqrt{\tfrac{8}{3}} \approx 1.633,\]</div>
+<p>and how close a real metal sits to this value measures how nearly its bonding is
+isotropic.</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="setup">
+<h2>Setup<a class="headerlink" href="#setup" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">ase</span><span class="w"> </span><span class="kn">import</span> <span class="n">Atoms</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">ase.io</span><span class="w"> </span><span class="kn">import</span> <span class="n">read</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">ase.calculators.emt</span><span class="w"> </span><span class="kn">import</span> <span class="n">EMT</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">ase.optimize</span><span class="w"> </span><span class="kn">import</span> <span class="n">BFGS</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">ase.eos</span><span class="w"> </span><span class="kn">import</span> <span class="n">EquationOfState</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">ecp</span><span class="w"> </span><span class="kn">import</span> <span class="n">validate</span>
+
+<span class="n">INK</span><span class="p">,</span> <span class="n">AMBER</span><span class="p">,</span> <span class="n">SOFT</span> <span class="o">=</span> <span class="s2">&quot;#16213e&quot;</span><span class="p">,</span> <span class="s2">&quot;#c0851a&quot;</span><span class="p">,</span> <span class="s2">&quot;#46506b&quot;</span>
+<span class="n">EV_A3_TO_GPA</span> <span class="o">=</span> <span class="mf">160.21766</span>                 <span class="c1"># 1 eV/Å³ in gigapascal</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">data_file</span><span class="p">(</span><span class="n">name</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Locate a shipped data file from the repo root (CI) or the notebook dir (Colab).&quot;&quot;&quot;</span>
+    <span class="k">for</span> <span class="n">base</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;data&quot;</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s2">&quot;notebooks&quot;</span><span class="p">,</span> <span class="s2">&quot;05-crystals-surfaces&quot;</span><span class="p">,</span> <span class="s2">&quot;data&quot;</span><span class="p">)):</span>
+        <span class="n">path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">base</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">path</span>
+    <span class="k">raise</span> <span class="ne">FileNotFoundError</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="exercise-1-ase-and-the-atomization-energy-of-n2">
+<h2>Exercise 1 — ASE and the atomization energy of N₂<a class="headerlink" href="#exercise-1-ase-and-the-atomization-energy-of-n2" title="Link to this heading">#</a></h2>
+<p>The course opened with the Atomic Simulation Environment: build an atomic structure,
+attach a calculator, ask for the energy. The first physical quantity is the
+<strong>atomization energy</strong> of a nitrogen molecule, the energy released when two nitrogen
+atoms bond,</p>
+<div class="math notranslate nohighlight" id="equation-eq-atomization">
+<span class="eqno">(32)<a class="headerlink" href="#equation-eq-atomization" title="Link to this equation">#</a></span>\[E_{\rm atom} = 2\,E(\mathrm{N}) - E(\mathrm{N_2}),\]</div>
+<p>positive because the molecule is more stable than the separated atoms. We relax the
+molecule to its bond length, then compare to two isolated atoms, all with the EMT
+calculator. N₂ is famously hard to pull apart (its triple bond is one of the
+strongest in chemistry), so the atomization energy is large.</p>
+<p><strong>Part a)</strong> Build and relax N₂, and an isolated N atom, with EMT. <strong>Part b)</strong> Compute
+the atomization energy and confirm it is large and positive.</p>
+<div class="cell tag_solution tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>E(N2) = 0.263 eV, E(N) = 5.100 eV  -&gt;  atomization energy = 9.94 eV
+relaxed N-N bond length = 0.998 Å  (experiment 1.098 Å)
+</pre></div>
+</div>
+</div>
+</div>
+<section id="validation-1-the-molecule-is-bound">
+<h3>Validation 1 — the molecule is bound<a class="headerlink" href="#validation-1-the-molecule-is-bound" title="Link to this heading">#</a></h3>
+<p>Atomization must cost energy: <span class="math notranslate nohighlight">\(2E(\mathrm N)-E(\mathrm N_2)&gt;0\)</span>, and for the
+triple-bonded N₂ it is several eV.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">validate</span><span class="o">.</span><span class="n">check</span><span class="p">(</span>
+    <span class="n">E_atomization</span> <span class="o">&gt;</span> <span class="mf">3.0</span><span class="p">,</span>
+    <span class="s2">&quot;N₂ is strongly bound (large positive atomization energy)&quot;</span><span class="p">,</span>
+    <span class="sa">f</span><span class="s2">&quot;atomization energy = </span><span class="si">{</span><span class="n">E_atomization</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> eV, bond length </span><span class="si">{</span><span class="n">bond_length</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2"> Å&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>✓  N₂ is strongly bound (large positive atomization energy)   [atomization energy = 9.94 eV, bond length 0.998 Å]
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>True
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="exercise-2-the-equation-of-state-of-fcc-silver">
+<h2>Exercise 2 — The equation of state of FCC silver<a class="headerlink" href="#exercise-2-the-equation-of-state-of-fcc-silver" title="Link to this heading">#</a></h2>
+<p>Now a crystal. The course scanned the volume of face-centred-cubic silver, computing
+the total energy at each, and committed the result as <code class="docutils literal notranslate"><span class="pre">Ag.traj</span></code>. We load that real
+energy-volume curve, fit the <strong>Birch-Murnaghan</strong> equation of state <a class="reference internal" href="#equation-eq-bulk">Eq. 30</a>, and
+read off the equilibrium volume, the lattice constant, and the bulk modulus. For FCC
+there are four atoms in the conventional cubic cell, so the lattice constant is
+<span class="math notranslate nohighlight">\(a=(4V_0)^{1/3}\)</span> from the per-atom volume <span class="math notranslate nohighlight">\(V_0\)</span>.</p>
+<p><strong>Part a)</strong> Load <code class="docutils literal notranslate"><span class="pre">Ag-eos.traj</span></code> and fit the equation of state. <strong>Part b)</strong> Extract the
+lattice constant and bulk modulus, and compare to experiment.</p>
+<div class="cell tag_solution tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<figure class="align-default" id="fig-ag-eos">
+<img alt="../../_images/0479c062ad7c11aeed952e8dfce554938700c37045f153c9b709f8cfb048f598.png" src="../../_images/0479c062ad7c11aeed952e8dfce554938700c37045f153c9b709f8cfb048f598.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 38 </span><span class="caption-text">Equation of state of face-centred-cubic silver from the course’s committed ASE scan: total energy (eV) versus primitive-cell volume (points), with the Birch-Murnaghan fit (curve). The minimum gives the equilibrium volume, hence the lattice constant <span class="math notranslate nohighlight">\(a=4.06\)</span> Å (experiment 4.09 Å); the curvature gives the bulk modulus <span class="math notranslate nohighlight">\(B=100\)</span> GPa (experiment ~100 GPa).</span><a class="headerlink" href="#fig-ag-eos" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>a(Ag) = 4.064 Å (exp 4.09);  bulk modulus B = 100 GPa (exp ~100)
+</pre></div>
+</div>
+</div>
+</div>
+<section id="validation-2-silver-s-lattice-constant-and-bulk-modulus">
+<h3>Validation 2 — silver’s lattice constant and bulk modulus<a class="headerlink" href="#validation-2-silver-s-lattice-constant-and-bulk-modulus" title="Link to this heading">#</a></h3>
+<p>The fit must recover silver’s measured lattice constant, <span class="math notranslate nohighlight">\(a\approx4.09\,\)</span>Å, and a
+bulk modulus near the experimental <span class="math notranslate nohighlight">\(\sim100\,\)</span>GPa.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">validate</span><span class="o">.</span><span class="n">close</span><span class="p">(</span><span class="n">a_Ag</span><span class="p">,</span> <span class="mf">4.09</span><span class="p">,</span> <span class="s2">&quot;the fitted lattice constant matches silver&#39;s measured value&quot;</span><span class="p">,</span> <span class="n">rtol</span><span class="o">=</span><span class="mf">0.02</span><span class="p">)</span>
+<span class="n">validate</span><span class="o">.</span><span class="n">check</span><span class="p">(</span><span class="mi">60</span> <span class="o">&lt;</span> <span class="n">B_GPa</span> <span class="o">&lt;</span> <span class="mi">140</span><span class="p">,</span> <span class="s2">&quot;the bulk modulus is in the right range for silver&quot;</span><span class="p">,</span>
+               <span class="sa">f</span><span class="s2">&quot;B = </span><span class="si">{</span><span class="n">B_GPa</span><span class="si">:</span><span class="s2">.0f</span><span class="si">}</span><span class="s2"> GPa (experiment ~100 GPa)&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>✓  the fitted lattice constant matches silver&#39;s measured value   [got 4.06402 vs expected 4.09 (rtol=0.02)]
+✓  the bulk modulus is in the right range for silver   [B = 100 GPa (experiment ~100 GPa)]
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>True
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="exercise-3-two-lattice-parameters-hexagonal-nickel">
+<h2>Exercise 3 — Two lattice parameters: hexagonal nickel<a class="headerlink" href="#exercise-3-two-lattice-parameters-hexagonal-nickel" title="Link to this heading">#</a></h2>
+<p>A cubic crystal needs one number; a hexagonal-close-packed crystal needs two, the
+in-plane spacing <span class="math notranslate nohighlight">\(a\)</span> and the stacking height <span class="math notranslate nohighlight">\(c\)</span>. The course scanned both on a grid
+and committed the result as <code class="docutils literal notranslate"><span class="pre">Ni.traj</span></code> (a <span class="math notranslate nohighlight">\(10\times10\)</span> mesh in <span class="math notranslate nohighlight">\(a\)</span> and <span class="math notranslate nohighlight">\(c\)</span>). We load
+it, map the energy surface, and find the minimum to read off both lattice constants
+at once. Their ratio <span class="math notranslate nohighlight">\(c/a\)</span> should land near the ideal close-packed value
+<span class="math notranslate nohighlight">\(\sqrt{8/3}\approx1.633\)</span> <a class="reference internal" href="#equation-eq-coa">Eq. 31</a>.</p>
+<p><strong>Part a)</strong> Load <code class="docutils literal notranslate"><span class="pre">Ni-ac-scan.traj</span></code> and plot the energy over the <span class="math notranslate nohighlight">\((a,c)\)</span> grid.
+<strong>Part b)</strong> Locate the minimum and confirm the axial ratio is near ideal.</p>
+<div class="cell tag_solution tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<figure class="align-default" id="fig-ni-surface">
+<img alt="../../_images/88cc14a0d8e2c9d09eaf219ea7d6222297f1e2d5b09fcd1e06f07bb64271f865.png" src="../../_images/88cc14a0d8e2c9d09eaf219ea7d6222297f1e2d5b09fcd1e06f07bb64271f865.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 39 </span><span class="caption-text">Energy surface of hexagonal-close-packed nickel over its two lattice parameters, from the course’s committed <span class="math notranslate nohighlight">\(10\times10\)</span> ASE scan (a fine grid anchored near the known values): energy (colour) versus in-plane spacing <span class="math notranslate nohighlight">\(a\)</span> and stacking height <span class="math notranslate nohighlight">\(c\)</span>. The energy falls toward smaller <span class="math notranslate nohighlight">\(a\)</span> and <span class="math notranslate nohighlight">\(c\)</span>, and the minimum of the scan (amber marker) gives <span class="math notranslate nohighlight">\(a=2.49\)</span> Å and <span class="math notranslate nohighlight">\(c=4.06\)</span> Å, an axial ratio <span class="math notranslate nohighlight">\(c/a=1.633\)</span> exactly at the ideal close-packed value.</span><a class="headerlink" href="#fig-ni-surface" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>a(Ni) = 2.488 Å (exp 2.49), c = 4.063 Å (exp 4.07);  c/a = 1.633 (ideal 1.633)
+</pre></div>
+</div>
+</div>
+</div>
+<section id="validation-3-the-ideal-close-packed-axial-ratio">
+<h3>Validation 3 — the ideal close-packed axial ratio<a class="headerlink" href="#validation-3-the-ideal-close-packed-axial-ratio" title="Link to this heading">#</a></h3>
+<p>Nickel is very nearly an ideal close-packed metal, so the minimum-energy axial ratio
+must sit at <span class="math notranslate nohighlight">\(c/a=\sqrt{8/3}\approx1.633\)</span>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">validate</span><span class="o">.</span><span class="n">close</span><span class="p">(</span><span class="n">coa</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">8</span> <span class="o">/</span> <span class="mi">3</span><span class="p">),</span> <span class="s2">&quot;the hcp axial ratio c/a is at the ideal close-packed value&quot;</span><span class="p">,</span> <span class="n">rtol</span><span class="o">=</span><span class="mf">0.02</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>✓  the hcp axial ratio c/a is at the ideal close-packed value   [got 1.63299 vs expected 1.63299 (rtol=0.02)]
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>True
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="going-further">
+<h2>Going further<a class="headerlink" href="#going-further" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>Density functional theory.</strong> Swapping EMT for a DFT calculator (GPAW, Quantum
+ESPRESSO) makes the lattice constants and bulk moduli quantitative, at the price of
+self-consistent electronic-structure cost; the workflow is identical.</p></li>
+<li><p><strong>Finer equations of state.</strong> Beyond Birch-Murnaghan lie the Vinet and Murnaghan
+forms; comparing fits tests how far the data constrain <span class="math notranslate nohighlight">\(B\)</span> and its pressure
+derivative <span class="math notranslate nohighlight">\(B'\)</span>.</p></li>
+<li><p><strong>Thermal expansion.</strong> Repeating the equation of state with vibrational free energy
+added (the quasi-harmonic approximation) gives the lattice constant as a function
+of temperature.</p></li>
+<li><p><strong>Elastic constants.</strong> Straining the cell along independent directions, rather than
+isotropically, gives the full elastic tensor, of which the bulk modulus is one
+combination.</p></li>
+</ul>
+<section id="references">
+<h3>References<a class="headerlink" href="#references" title="Link to this heading">#</a></h3>
+<div class="docutils container" id="id4">
+<div role="list" class="citation-list">
+<div class="citation" id="id32" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span>Bir47<span class="fn-bracket">]</span></span>
+<span class="backrefs">(<a role="doc-backlink" href="#id2">1</a>,<a role="doc-backlink" href="#id3">2</a>)</span>
+<p>Francis Birch. Finite elastic strain of cubic crystals. <em>Physical Review</em>, 71(11):809–824, 1947. <a class="reference external" href="https://doi.org/10.1103/PhysRev.71.809">doi:10.1103/PhysRev.71.809</a>.</p>
+</div>
+<div class="citation" id="id31" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id1">HLJorgenMB+17</a><span class="fn-bracket">]</span></span>
+<p>Ask Hjorth Larsen, Jens Jørgen Mortensen, Jakob Blomqvist, and others. The atomic simulation environment—a Python library for working with atoms. <em>Journal of Physics: Condensed Matter</em>, 29(27):273002, 2017. <a class="reference external" href="https://doi.org/10.1088/1361-648X/aa680e">doi:10.1088/1361-648X/aa680e</a>.</p>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">ecp.style</span><span class="w"> </span><span class="kn">import</span> <span class="n">footer</span>
+
+<span class="n">footer</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><style>@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,900&family=Source+Serif+4:wght@400;600&family=JetBrains+Mono:wght@400;600&display=swap');</style>
+<div style="font-family:'Source Serif 4', 'Iowan Old Style', Georgia, serif;background:#faf7f0;border:1px solid #dcd6c8;
+            border-left:6px solid #c0851a;border-radius:6px;
+            padding:18px 22px;margin:30px 0 8px 0;">
+  <div style="font-family:'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace;font-size:11px;letter-spacing:.12em;
+              text-transform:uppercase;color:#c0851a;font-weight:600;
+              margin-bottom:6px;">Take this notebook with you</div>
+  <div style="font-size:14.5px;color:#16213e;line-height:1.55;max-width:66ch;">
+    Use the download button (&#8595;) in the toolbar above to save this notebook
+    and run it yourself. The published notebooks ship <b>without worked
+    solutions</b>; if you would like the reference solutions &mdash; to teach
+    from or to check your own work &mdash; get in touch: <a href='mailto:hello@ramador.me' style='color:#c0851a;text-decoration:none;border-bottom:1px solid #c0851a;'>hello@ramador.me</a>.
+  </div>
+  <div style="font-size:12px;color:#46506b;line-height:1.5;max-width:66ch;
+              margin-top:10px;border-top:1px solid #dcd6c8;padding-top:8px;">
+    Based on the lecture and exercise materials of <b>Molecular and Materials Modelling</b> (ETH Z&uuml;rich and Empa, FS&nbsp;2023), developed by Prof.&nbsp;Dr.&nbsp;Daniele Passerone (lectures), Dr.&nbsp;Carlo Pignedoli, and the author (exercises); here synthesised, expanded, and restyled by the author.
+  </div>
+</div></div></div>
+</div>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./notebooks/05-crystals-surfaces"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="index.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Volume V — Crystals and Surfaces</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="hydrocarbons-on-platinum.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">5.2 Hydrocarbons on Platinum</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item"><div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#notebook-overview">Notebook overview</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#theory-in-brief">Theory in brief</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-equation-of-state">The equation of state</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#close-packed-lattices-and-the-axial-ratio">Close-packed lattices and the axial ratio</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#setup">Setup</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1-ase-and-the-atomization-energy-of-n2">Exercise 1 — ASE and the atomization energy of N₂</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#validation-1-the-molecule-is-bound">Validation 1 — the molecule is bound</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-2-the-equation-of-state-of-fcc-silver">Exercise 2 — The equation of state of FCC silver</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#validation-2-silver-s-lattice-constant-and-bulk-modulus">Validation 2 — silver’s lattice constant and bulk modulus</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-3-two-lattice-parameters-hexagonal-nickel">Exercise 3 — Two lattice parameters: hexagonal nickel</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#validation-3-the-ideal-close-packed-axial-ratio">Validation 3 — the ideal close-packed axial ratio</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#going-further">Going further</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#references">References</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Raymond Amador
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2026 · CC BY 4.0 (text) / MIT (code).
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

@@ -1,0 +1,1120 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>4.1 The Electronic Band Structure of Silicon &#8212; Molecular and Materials Modelling</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=3c74b3bc" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css?v=9c3e77be" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../../_static/ecp.css?v=3ea87a98" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+    <script src="../../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?v=fab101a9"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../_static/togglebutton.js?v=b8b12719"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"tex": {"macros": {"dd": "\\mathrm{d}"}}, "options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'notebooks/04-electronic-structure/silicon-band-structure';</script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="4.2 The Formation of Molecular Oxygen" href="oxygen-triplet.html" />
+    <link rel="prev" title="Volume IV — Electronic Structure" href="index.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../00-front-matter/preface.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../_static/logo.svg" class="logo__image only-light" alt="Molecular and Materials Modelling - Home"/>
+    <img src="../../_static/logo.svg" class="logo__image only-dark pst-js-only" alt="Molecular and Materials Modelling - Home"/>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../01-monte-carlo-methods/index.html">Volume I — Statistical Mechanics &amp; Monte Carlo</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../01-monte-carlo-methods/ising-model.html">1.1 The Ising Model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../01-monte-carlo-methods/lattice-gas-kmc.html">1.2 Lattice-Gas Monte Carlo and Kinetic Monte Carlo</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../02-energy-landscapes/index.html">Volume II — Energy Landscapes &amp; Optimization</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../02-energy-landscapes/lennard-jones-clusters.html">2.1 Optimizing Lennard-Jones Clusters</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../03-molecular-dynamics/index.html">Volume III — Molecular Dynamics</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../03-molecular-dynamics/lennard-jones-md.html">3.1 Molecular Dynamics of Lennard-Jones Clusters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../03-molecular-dynamics/replica-exchange.html">3.2 Replica Exchange and the Melting of a Cluster</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="index.html">Volume IV — Electronic Structure</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">4.1 The Electronic Band Structure of Silicon</a></li>
+<li class="toctree-l2"><a class="reference internal" href="oxygen-triplet.html">4.2 The Formation of Molecular Oxygen</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../05-crystals-surfaces/index.html">Volume V — Crystals and Surfaces</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../05-crystals-surfaces/equation-of-state.html">5.1 Lattice Constants from an Equation of State</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../05-crystals-surfaces/hydrocarbons-on-platinum.html">5.2 Hydrocarbons on Platinum</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../06-reactions-free-energy/index.html">Volume VI — Reactions and Free Energy</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../06-reactions-free-energy/ethanol-dehydration.html">6.1 The Dehydration of Ethanol</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../06-reactions-free-energy/neb-chloromethane.html">6.2 The S<span class="math notranslate nohighlight">\(_N\)</span>2 Reaction by Nudged Elastic Band</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../06-reactions-free-energy/metadynamics-graphene.html">6.3 Metadynamics: Nitric Acid on Graphene</a></li>
+</ul>
+</details></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-launch-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
+    <i class="fas fa-rocket"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://mybinder.org/v2/gh/ramador09/molecular-materials-modelling-public/main?urlpath=tree/notebooks/04-electronic-structure/silicon-band-structure.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch on Binder"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img alt="Binder logo" src="../../_static/images/logo_binder.svg">
+  </span>
+<span class="btn__text-container">Binder</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://colab.research.google.com/github/ramador09/molecular-materials-modelling-public/blob/main/notebooks/04-electronic-structure/silicon-band-structure.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch on Colab"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img alt="Colab logo" src="../../_static/images/logo_colab.png">
+  </span>
+<span class="btn__text-container">Colab</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/ramador09/molecular-materials-modelling-public" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/ramador09/molecular-materials-modelling-public/issues/new?title=Issue%20on%20page%20%2Fnotebooks/04-electronic-structure/silicon-band-structure.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../_sources/notebooks/04-electronic-structure/silicon-band-structure.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button pst-navbar-icon"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+<button class="sidebar-toggle secondary-toggle btn btn-sm pst-navbar-icon" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>4.1 The Electronic Band Structure of Silicon</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#notebook-overview">Notebook overview</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#theory-in-brief">Theory in brief</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bloch-s-theorem-and-bands">Bloch’s theorem and bands</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#filling-gaps-and-silicon">Filling, gaps, and silicon</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#density-functional-theory-and-what-it-gets-wrong">Density-functional theory, and what it gets wrong</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#setup">Setup</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1-the-crystal-and-the-dft-calculation">Exercise 1 — The crystal and the DFT calculation</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#validation-1-the-silicon-cell">Validation 1 — the silicon cell</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-2-reading-the-real-dft-output">Exercise 2 — Reading the real DFT output</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#validation-2-the-parse-is-consistent-with-silicon">Validation 2 — the parse is consistent with silicon</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-3-the-band-structure-of-silicon">Exercise 3 — The band structure of silicon</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#validation-3-four-valence-bands-below-the-gap">Validation 3 — four valence bands below the gap</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-4-the-indirect-band-gap">Exercise 4 — The indirect band gap</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#validation-4-silicon-s-indirect-gap">Validation 4 — silicon’s indirect gap</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-5-the-band-gap-problem">Exercise 5 — The band-gap problem</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#validation-5-dft-underestimates-the-gap">Validation 5 — DFT underestimates the gap</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#going-further">Going further</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#references">References</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="the-electronic-band-structure-of-silicon">
+<h1>4.1 The Electronic Band Structure of Silicon<a class="headerlink" href="#the-electronic-band-structure-of-silicon" title="Link to this heading">#</a></h1>
+<!-- One H1 per notebook ("# <number> <Title>"): it sets the sidebar entry,
+     breadcrumb, browser tab, and search result. The branded banner below is
+     generated by the shared `ecp` package. --><div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">ecp.style</span><span class="w"> </span><span class="kn">import</span> <span class="n">header</span><span class="p">,</span> <span class="n">use_style</span>
+
+<span class="n">use_style</span><span class="p">()</span>
+<span class="n">header</span><span class="p">(</span>
+    <span class="n">volume</span><span class="o">=</span><span class="s2">&quot;Volume IV — Electronic Structure&quot;</span><span class="p">,</span>
+    <span class="n">number</span><span class="o">=</span><span class="s2">&quot;4.1&quot;</span><span class="p">,</span>
+    <span class="n">title</span><span class="o">=</span><span class="s2">&quot;The Electronic Band Structure of Silicon&quot;</span><span class="p">,</span>
+    <span class="n">blurb</span><span class="o">=</span><span class="s2">&quot;From a real Quantum ESPRESSO calculation: Bloch states and the &quot;</span>
+    <span class="s2">&quot;Brillouin zone, the band structure of silicon along L–Γ–X, its indirect gap, &quot;</span>
+    <span class="s2">&quot;and the famous failure of density-functional theory to get that gap right.&quot;</span><span class="p">,</span>
+    <span class="n">difficulty</span><span class="o">=</span><span class="s2">&quot;intermediate&quot;</span><span class="p">,</span>
+    <span class="n">estimate</span><span class="o">=</span><span class="s2">&quot;75–105 min&quot;</span><span class="p">,</span>
+    <span class="n">source</span><span class="o">=</span><span class="s2">&quot;FS 2023 · Lecture 5 (band theory of crystals)&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><style>@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,900&family=Source+Serif+4:wght@400;600&family=JetBrains+Mono:wght@400;600&display=swap');</style>
+<div style="
+    font-family:'Source Serif 4', 'Iowan Old Style', Georgia, serif;
+    background:#faf7f0;
+    border:1px solid #dcd6c8;
+    border-left:6px solid #c0851a;
+    border-radius:6px;
+    padding:26px 30px 22px 30px;
+    margin:4px 0 26px 0;
+    box-shadow:0 1px 0 rgba(0,0,0,.03), 0 8px 24px -18px rgba(22,33,62,.5);">
+
+  <div style="font-family:'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace;font-size:12px;letter-spacing:.12em;
+              text-transform:uppercase;color:#c0851a;font-weight:600;
+              margin-bottom:4px;">
+    Molecular and Materials Modelling
+  </div>
+
+  <div style="display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;">
+    <span style="font-family:'Fraunces', 'Iowan Old Style', Georgia, serif;font-weight:900;font-size:22px;
+                 line-height:1.1;color:#16213e;
+                 font-variation-settings:'opsz' 144;">
+      Volume IV — Electronic Structure
+    </span>
+    <span style="font-family:'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace;font-size:12px;letter-spacing:.06em;
+                 color:#46506b;">
+      Notebook&nbsp;4.1
+    </span>
+  </div>
+
+  <div style="font-family:'Source Serif 4', 'Iowan Old Style', Georgia, serif;font-size:15px;color:#46506b;
+                   margin-top:10px;max-width:62ch;">From a real Quantum ESPRESSO calculation: Bloch states and the Brillouin zone, the band structure of silicon along L–Γ–X, its indirect gap, and the famous failure of density-functional theory to get that gap right.</div>
+
+  <div style="font-family:'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace;font-size:11px;letter-spacing:.04em;
+                   color:#c0851a;margin-top:10px;">Based on FS 2023 · Lecture 5 (band theory of crystals)</div>
+
+  <div style="margin-top:16px;"><div class='ecp-meta' style='font-family:'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#46506b;'>Level&nbsp;&middot;&nbsp;intermediate&nbsp;&nbsp;&nbsp;&#8226;&nbsp;&nbsp;&nbsp;Est.&nbsp;&middot;&nbsp;75–105 min</div></div>
+
+  <div style="border-top:1px solid #dcd6c8;margin-top:16px;padding-top:12px;
+              display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;
+              font-family:'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace;font-size:11px;color:#46506b;
+              letter-spacing:.04em;">
+    <span>Raymond Amador</span>
+    <span>v0.1.0 &nbsp;·&nbsp; 2026-06-05 &nbsp;·&nbsp;
+          CC&nbsp;BY&nbsp;4.0 (text) / MIT (code)</span>
+  </div>
+</div></div></div>
+</div>
+<section id="notebook-overview">
+<h2>Notebook overview<a class="headerlink" href="#notebook-overview" title="Link to this heading">#</a></h2>
+<p>Why does silicon carry current the way it does, absorb the light it does, and sit
+at the heart of every chip? The answer is its <strong>band structure</strong>: the map of
+allowed electron energies as a function of crystal momentum. In a periodic solid
+the electronic states organise into bands, and the gap between the filled and
+empty ones decides whether a material is a metal, a semiconductor, or an insulator.
+Computing that map is the central task of electronic-structure theory.</p>
+<p>This is the band-theory exercise of Lecture 5, and unlike the earlier volumes it is
+<strong>code-essential</strong>: density-functional theory cannot be reimplemented in a
+notebook, and the real skill is running the calculation and reading its output. So
+we work with the genuine article. We show the Quantum ESPRESSO input deck the
+course used for silicon, parse the <strong>real committed output</strong> of that
+density-functional calculation, plot the band structure along the high-symmetry
+path L–Γ–X, and read off the indirect gap. Then we confront the result with
+experiment, and meet the most famous systematic error in the field: the
+density-functional <strong>band-gap problem</strong>.</p>
+<blockquote>
+<div><p><strong>Provenance.</strong> This notebook develops <strong>Lecture 5</strong> of the course (band theory
+of crystals). The band structure here is parsed from the <em>real</em> output of the
+course’s Quantum ESPRESSO calculation of silicon (the committed
+<code class="docutils literal notranslate"><span class="pre">exercise-5/TASK_3/done/SI.xml</span></code>), and the input is the course’s own <code class="docutils literal notranslate"><span class="pre">scf.in</span></code>. No
+part of the electronic structure is recomputed or invented; we read and analyse
+the actual DFT result. The full course credit is in the footer.</p>
+</div></blockquote>
+<blockquote>
+<div><p><strong>Reading a validation.</strong> Each exercise closes with a check against an
+independent fact: an electron count, the known position of silicon’s band
+extrema, the measured gap. A ✗ flags a mismatch to track down, not a verdict; a
+✓ is strong evidence, not proof.</p>
+</div></blockquote>
+<blockquote>
+<div><p><strong>Scope.</strong> Energies are in electronvolts (the QE output is converted from
+Hartree). For the solid-state background see Ashcroft &amp; Mermin
+<span class="bibtex-citation" id="id1">[<a class="reference internal" href="#id27" title="Neil W. Ashcroft and N. David Mermin. Solid State Physics. Holt, Rinehart and Winston, 1976.">AM76</a>]</span> and Martin <span class="bibtex-citation" id="id2">[<a class="reference internal" href="#id28" title="Richard M. Martin. Electronic Structure: Basic Theory and Practical Methods. Cambridge University Press, 2 edition, 2020.">Mar20</a>]</span>; for the code,
+Quantum ESPRESSO <span class="bibtex-citation" id="id3">[<a class="reference internal" href="#id29" title="Paolo Giannozzi and others. Quantum espresso: a modular and open-source software project for quantum simulations of materials. Journal of Physics: Condensed Matter, 21(39):395502, 2009. doi:10.1088/0953-8984/21/39/395502.">G+09</a>]</span>; for the functional, PBE <span class="bibtex-citation" id="id4">[<a class="reference internal" href="#id30" title="John P. Perdew, Kieron Burke, and Matthias Ernzerhof. Generalized gradient approximation made simple. Physical Review Letters, 77(18):3865–3868, 1996. doi:10.1103/PhysRevLett.77.3865.">PBE96</a>]</span>.</p>
+</div></blockquote>
+</section>
+<section id="theory-in-brief">
+<h2>Theory in brief<a class="headerlink" href="#theory-in-brief" title="Link to this heading">#</a></h2>
+<section id="bloch-s-theorem-and-bands">
+<h3>Bloch’s theorem and bands<a class="headerlink" href="#bloch-s-theorem-and-bands" title="Link to this heading">#</a></h3>
+<p>In a crystal the potential is periodic, <span class="math notranslate nohighlight">\(V(\mathbf r+\mathbf R)=V(\mathbf r)\)</span> for
+every lattice vector <span class="math notranslate nohighlight">\(\mathbf R\)</span>. <strong>Bloch’s theorem</strong> then says the electronic
+eigenstates can be labelled by a <strong>crystal momentum</strong> <span class="math notranslate nohighlight">\(\mathbf k\)</span> and a band index
+<span class="math notranslate nohighlight">\(n\)</span>, and take the form</p>
+<div class="math notranslate nohighlight" id="equation-eq-bloch">
+<span class="eqno">(28)<a class="headerlink" href="#equation-eq-bloch" title="Link to this equation">#</a></span>\[\psi_{n\mathbf k}(\mathbf r) = e^{i\mathbf k\cdot\mathbf r}\,u_{n\mathbf k}(\mathbf r),
+\qquad u_{n\mathbf k}(\mathbf r+\mathbf R)=u_{n\mathbf k}(\mathbf r),\]</div>
+<p>with energies <span class="math notranslate nohighlight">\(E_n(\mathbf k)\)</span>. Because <span class="math notranslate nohighlight">\(\mathbf k\)</span> and <span class="math notranslate nohighlight">\(\mathbf k+\mathbf G\)</span>
+(for a reciprocal-lattice vector <span class="math notranslate nohighlight">\(\mathbf G\)</span>) give the same state, every distinct
+<span class="math notranslate nohighlight">\(\mathbf k\)</span> lives in one <strong>Brillouin zone</strong>. The function <span class="math notranslate nohighlight">\(E_n(\mathbf k)\)</span>, plotted
+along straight lines between the high-symmetry points of that zone, is the <strong>band
+structure</strong>. For the face-centred-cubic lattice of silicon those points include
+<span class="math notranslate nohighlight">\(\Gamma\)</span> (the zone centre), <span class="math notranslate nohighlight">\(X\)</span> (a face centre), and <span class="math notranslate nohighlight">\(L\)</span> (a corner).</p>
+</section>
+<section id="filling-gaps-and-silicon">
+<h3>Filling, gaps, and silicon<a class="headerlink" href="#filling-gaps-and-silicon" title="Link to this heading">#</a></h3>
+<p>Each band holds two electrons per unit cell (spin up and down) at each <span class="math notranslate nohighlight">\(\mathbf k\)</span>.
+A material with exactly enough electrons to fill some bands completely, leaving the
+rest empty, has a <strong>band gap</strong> between the highest filled state (the valence-band
+maximum, VBM) and the lowest empty one (the conduction-band minimum, CBM), and is a
+semiconductor or insulator; a material with a partly filled band is a metal.
+Silicon crystallises in the diamond structure (an fcc lattice with a two-atom
+basis) and contributes <span class="math notranslate nohighlight">\(4\times2=8\)</span> valence electrons per cell, so <strong>four bands
+fill</strong> and a gap opens above them.</p>
+<p>The gap is <strong>indirect</strong>: the VBM and the CBM sit at <em>different</em> crystal momenta, so
+promoting an electron across it requires a change in <span class="math notranslate nohighlight">\(\mathbf k\)</span> (supplied by a
+phonon), which is why silicon is a poor light emitter. The smallest <em>direct</em> gap,
+at <span class="math notranslate nohighlight">\(\Gamma\)</span>, is much larger.</p>
+</section>
+<section id="density-functional-theory-and-what-it-gets-wrong">
+<h3>Density-functional theory, and what it gets wrong<a class="headerlink" href="#density-functional-theory-and-what-it-gets-wrong" title="Link to this heading">#</a></h3>
+<p>The calculation solves the Kohn-Sham equations of <strong>density-functional theory</strong>
+(DFT): a set of effective single-particle equations whose density reproduces the
+interacting electron density. Quantum ESPRESSO expands the Kohn-Sham orbitals in
+plane waves and uses pseudopotentials for the core electrons. DFT is remarkably
+good for ground-state energies and structures, but the <strong>Kohn-Sham eigenvalue gap
+systematically underestimates the true gap</strong>, often by a factor of two: the
+band-gap problem, a consequence of the missing derivative discontinuity in
+approximate exchange-correlation functionals <span class="bibtex-citation" id="id5">[<a class="reference internal" href="#id31" title="John P. Perdew and Mel Levy. Physical content of the exact kohn-sham orbital energies: band gaps and derivative discontinuities. Physical Review Letters, 51(20):1884–1887, 1983. doi:10.1103/PhysRevLett.51.1884.">PL83</a>]</span>. We will see
+it directly.</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="setup">
+<h2>Setup<a class="headerlink" href="#setup" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">xml.etree.ElementTree</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">ET</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">ecp</span><span class="w"> </span><span class="kn">import</span> <span class="n">validate</span>
+
+<span class="n">INK</span><span class="p">,</span> <span class="n">AMBER</span><span class="p">,</span> <span class="n">SOFT</span> <span class="o">=</span> <span class="s2">&quot;#16213e&quot;</span><span class="p">,</span> <span class="s2">&quot;#c0851a&quot;</span><span class="p">,</span> <span class="s2">&quot;#46506b&quot;</span>
+<span class="n">HARTREE_EV</span> <span class="o">=</span> <span class="mf">27.211386</span>                   <span class="c1"># QE writes energies in Hartree</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">data_file</span><span class="p">(</span><span class="n">name</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Locate a shipped data file whether run from the repo root (CI) or the</span>
+<span class="sd">    notebook&#39;s own directory (Colab/Binder).&quot;&quot;&quot;</span>
+    <span class="k">for</span> <span class="n">base</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;data&quot;</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s2">&quot;notebooks&quot;</span><span class="p">,</span> <span class="s2">&quot;04-electronic-structure&quot;</span><span class="p">,</span> <span class="s2">&quot;data&quot;</span><span class="p">)):</span>
+        <span class="n">path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">base</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">path</span>
+    <span class="k">raise</span> <span class="ne">FileNotFoundError</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="exercise-1-the-crystal-and-the-dft-calculation">
+<h2>Exercise 1 — The crystal and the DFT calculation<a class="headerlink" href="#exercise-1-the-crystal-and-the-dft-calculation" title="Link to this heading">#</a></h2>
+<p>Every band structure begins with a ground-state (self-consistent-field)
+calculation that finds the electron density and the Kohn-Sham potential. The
+course’s Quantum ESPRESSO input for silicon fixes the crystal (an fcc lattice,
+<code class="docutils literal notranslate"><span class="pre">ibrav=2</span></code>, with the diamond two-atom basis), the plane-wave cutoff (<code class="docutils literal notranslate"><span class="pre">ecutwfc=40</span></code>
+Ry), the PBE pseudopotential, and a <span class="math notranslate nohighlight">\(6\times6\times6\)</span> k-mesh for the density:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>&amp;SYSTEM
+  ibrav = 2,  celldm(1) = 10.26,   ! fcc lattice, lattice parameter in bohr
+  nat = 2,  ntyp = 1,              ! two Si atoms per cell (diamond basis)
+  ecutwfc = 40.0,  ecutrho = 300.0 ! plane-wave kinetic-energy cutoffs (Ry)
+/
+ATOMIC_SPECIES
+  Si  28.0855  Si.pbe-n-rrkjus_psl.1.0.0.UPF
+ATOMIC_POSITIONS {alat}
+  Si  0.00 0.00 0.00
+  Si  0.25 0.25 0.25
+K_POINTS automatic
+  6 6 6  1 1 1
+</pre></div>
+</div>
+<p>A second run (<code class="docutils literal notranslate"><span class="pre">calculation='bands'</span></code>) then evaluates the Kohn-Sham eigenvalues along
+the path <strong>L–Γ–X</strong>, which is what we plot. The full SCF deck ships with this
+notebook: <a class="reference download internal" download="" href="../../_downloads/3b4bda7788f12f8b848fe3ad8c347871/si-scf.in"><code class="xref download docutils literal notranslate"><span class="pre">si-scf.in</span></code></a>.</p>
+<p><strong>Part a)</strong> Read the lattice parameter from the input. <strong>Part b)</strong> Confirm the
+crystal is the expected two-atom fcc cell.</p>
+<div class="cell tag_solution tag_remove-input docutils container">
+</div>
+<section id="validation-1-the-silicon-cell">
+<h3>Validation 1 — the silicon cell<a class="headerlink" href="#validation-1-the-silicon-cell" title="Link to this heading">#</a></h3>
+<p>The deck must describe two silicon atoms in a cell with the known lattice constant
+of silicon, <span class="math notranslate nohighlight">\(a=5.43\,\)</span>Å, i.e. <code class="docutils literal notranslate"><span class="pre">celldm(1)</span></code> <span class="math notranslate nohighlight">\(\approx 10.26\,\)</span>bohr.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">validate</span><span class="o">.</span><span class="n">check</span><span class="p">(</span><span class="n">n_atoms</span> <span class="o">==</span> <span class="mi">2</span><span class="p">,</span> <span class="s2">&quot;the cell holds two Si atoms (diamond basis)&quot;</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;nat = </span><span class="si">{</span><span class="n">n_atoms</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="n">validate</span><span class="o">.</span><span class="n">close</span><span class="p">(</span><span class="n">celldm</span> <span class="o">*</span> <span class="mf">0.529177</span><span class="p">,</span> <span class="mf">5.43</span><span class="p">,</span> <span class="s2">&quot;lattice constant matches silicon (5.43 Å)&quot;</span><span class="p">,</span> <span class="n">rtol</span><span class="o">=</span><span class="mf">2e-2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>✓  the cell holds two Si atoms (diamond basis)   [nat = 2]
+✓  lattice constant matches silicon (5.43 Å)   [got 5.4306 vs expected 5.43 (rtol=0.02)]
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>True
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="exercise-2-reading-the-real-dft-output">
+<h2>Exercise 2 — Reading the real DFT output<a class="headerlink" href="#exercise-2-reading-the-real-dft-output" title="Link to this heading">#</a></h2>
+<p>Quantum ESPRESSO writes its results to an XML file. The band-structure run stores,
+for every k-point on the path, the list of Kohn-Sham eigenvalues, along with the
+number of electrons and the Fermi energy. We parse that file directly: this is the
+actual output of the course’s calculation, not a recomputation.</p>
+<p><strong>Part a)</strong> Implement <code class="docutils literal notranslate"><span class="pre">read_qe_bands</span></code> to extract the k-points, eigenvalues (in eV),
+Fermi energy, and electron count. <strong>Part b)</strong> Confirm the electron count implies
+four filled bands.</p>
+<div class="cell tag_solution tag_remove-input docutils container">
+</div>
+<section id="validation-2-the-parse-is-consistent-with-silicon">
+<h3>Validation 2 — the parse is consistent with silicon<a class="headerlink" href="#validation-2-the-parse-is-consistent-with-silicon" title="Link to this heading">#</a></h3>
+<p>The output must report eight valence electrons (so four filled bands), with at
+least one empty band above them, and a sensible number of k-points along the path.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">validate</span><span class="o">.</span><span class="n">check</span><span class="p">(</span>
+    <span class="n">n_elec</span> <span class="o">==</span> <span class="mi">8</span> <span class="ow">and</span> <span class="n">n_occ</span> <span class="o">==</span> <span class="mi">4</span> <span class="ow">and</span> <span class="n">n_bands</span> <span class="o">&gt;</span> <span class="n">n_occ</span> <span class="ow">and</span> <span class="n">n_kpts</span> <span class="o">&gt;</span> <span class="mi">50</span><span class="p">,</span>
+    <span class="s2">&quot;the DFT output describes silicon: 8 electrons, 4 filled bands&quot;</span><span class="p">,</span>
+    <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">n_elec</span><span class="si">:</span><span class="s2">.0f</span><span class="si">}</span><span class="s2"> electrons → </span><span class="si">{</span><span class="n">n_occ</span><span class="si">}</span><span class="s2"> filled bands; </span><span class="si">{</span><span class="n">n_bands</span><span class="si">}</span><span class="s2"> bands at </span><span class="si">{</span><span class="n">n_kpts</span><span class="si">}</span><span class="s2"> k-points&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>✓  the DFT output describes silicon: 8 electrons, 4 filled bands   [8 electrons → 4 filled bands; 8 bands at 100 k-points]
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>True
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="exercise-3-the-band-structure-of-silicon">
+<h2>Exercise 3 — The band structure of silicon<a class="headerlink" href="#exercise-3-the-band-structure-of-silicon" title="Link to this heading">#</a></h2>
+<p>Now plot it. We build a one-dimensional coordinate that measures distance travelled
+along the L–Γ–X path, place a tick at each high-symmetry point, and draw every band
+<span class="math notranslate nohighlight">\(E_n(\mathbf k)\)</span> with energies referenced to the valence-band maximum (the
+conventional zero). Four bands sit below the gap, the rest above; the shape of
+those curves <em>is</em> the electronic structure of silicon.</p>
+<p><strong>Part a)</strong> Build the k-path distance and locate Γ. <strong>Part b)</strong> Plot all bands
+relative to the VBM, marking L, Γ, X.</p>
+<div class="cell tag_solution tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<figure class="align-default" id="fig-si-bands">
+<img alt="../../_images/6614336da189b09fc611e332e5fc12151b215f5e96d3b01143f0526813d0ca9d.png" src="../../_images/6614336da189b09fc611e332e5fc12151b215f5e96d3b01143f0526813d0ca9d.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 31 </span><span class="caption-text">Electronic band structure of silicon from the course’s Quantum ESPRESSO (PBE) calculation, along the high-symmetry path L–Γ–X, with energies referenced to the valence-band maximum (VBM, dashed). The four filled valence bands lie below the shaded gap; the conduction bands above. The VBM sits at <span class="math notranslate nohighlight">\(\Gamma\)</span> (amber) and the conduction-band minimum (CBM, navy) lies along <span class="math notranslate nohighlight">\(\Gamma\)</span>–X, so the fundamental gap is indirect.</span><a class="headerlink" href="#fig-si-bands" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</div>
+</div>
+<section id="validation-3-four-valence-bands-below-the-gap">
+<h3>Validation 3 — four valence bands below the gap<a class="headerlink" href="#validation-3-four-valence-bands-below-the-gap" title="Link to this heading">#</a></h3>
+<p>At every k-point along the path the four valence bands must lie at or below the
+VBM (energy <span class="math notranslate nohighlight">\(\le 0\)</span>), the basic structure of a filled-shell semiconductor.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">validate</span><span class="o">.</span><span class="n">check</span><span class="p">(</span>
+    <span class="n">np</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="n">E</span><span class="p">[:,</span> <span class="p">:</span><span class="n">n_occ</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="mf">1e-6</span><span class="p">),</span>
+    <span class="s2">&quot;the four valence bands lie at or below the valence-band maximum everywhere&quot;</span><span class="p">,</span>
+    <span class="sa">f</span><span class="s2">&quot;max valence energy relative to VBM = </span><span class="si">{</span><span class="n">E</span><span class="p">[:,</span><span class="w"> </span><span class="p">:</span><span class="n">n_occ</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2"> eV&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>✓  the four valence bands lie at or below the valence-band maximum everywhere   [max valence energy relative to VBM = 0.000 eV]
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>True
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="exercise-4-the-indirect-band-gap">
+<h2>Exercise 4 — The indirect band gap<a class="headerlink" href="#exercise-4-the-indirect-band-gap" title="Link to this heading">#</a></h2>
+<p>Read the gap off the bands. The valence-band maximum is the highest point of the
+fourth band; the conduction-band minimum is the lowest point of the fifth. For
+silicon the VBM sits at <span class="math notranslate nohighlight">\(\Gamma\)</span> and the CBM lies about <span class="math notranslate nohighlight">\(0.85\)</span> of the way from
+<span class="math notranslate nohighlight">\(\Gamma\)</span> to X, so the two are at different crystal momenta and the gap is
+<strong>indirect</strong>. The smallest <em>direct</em> gap, both extrema taken at <span class="math notranslate nohighlight">\(\Gamma\)</span>, is far
+larger, which confirms the indirect character.</p>
+<p><strong>Part a)</strong> Find the VBM, the CBM, and their k-points. <strong>Part b)</strong> Compute the
+indirect gap and the direct gap at <span class="math notranslate nohighlight">\(\Gamma\)</span>.</p>
+<div class="cell tag_solution tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>VBM = 6.226 eV at Γ;  CBM = 6.810 eV at ~0.83 of Γ→X
+indirect gap = 0.584 eV;  direct gap at Γ = 2.574 eV
+</pre></div>
+</div>
+</div>
+</div>
+<section id="validation-4-silicon-s-indirect-gap">
+<h3>Validation 4 — silicon’s indirect gap<a class="headerlink" href="#validation-4-silicon-s-indirect-gap" title="Link to this heading">#</a></h3>
+<p>The PBE calculation must reproduce the qualitative band structure of silicon: a VBM
+at <span class="math notranslate nohighlight">\(\Gamma\)</span>, a CBM away from <span class="math notranslate nohighlight">\(\Gamma\)</span> along <span class="math notranslate nohighlight">\(\Gamma\)</span>–X (so an <em>indirect</em> gap), and a
+much larger direct gap at <span class="math notranslate nohighlight">\(\Gamma\)</span>. The indirect gap is the well-known PBE value of
+about <span class="math notranslate nohighlight">\(0.6\,\)</span>eV.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">validate</span><span class="o">.</span><span class="n">check</span><span class="p">(</span><span class="n">vbm_at_gamma</span><span class="p">,</span> <span class="s2">&quot;the valence-band maximum is at Γ&quot;</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;VBM index </span><span class="si">{</span><span class="n">i_vbm</span><span class="si">}</span><span class="s2">, Γ index </span><span class="si">{</span><span class="n">gamma_idx</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="n">validate</span><span class="o">.</span><span class="n">check</span><span class="p">(</span>
+    <span class="n">gap_direct_gamma</span> <span class="o">&gt;</span> <span class="mf">1.5</span> <span class="o">*</span> <span class="n">gap_indirect</span> <span class="ow">and</span> <span class="mf">0.4</span> <span class="o">&lt;</span> <span class="n">cbm_frac</span> <span class="o">&lt;</span> <span class="mf">1.0</span><span class="p">,</span>
+    <span class="s2">&quot;the gap is indirect: CBM lies along Γ–X, direct gap at Γ is much larger&quot;</span><span class="p">,</span>
+    <span class="sa">f</span><span class="s2">&quot;direct@Γ </span><span class="si">{</span><span class="n">gap_direct_gamma</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> eV vs indirect </span><span class="si">{</span><span class="n">gap_indirect</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> eV; CBM at </span><span class="si">{</span><span class="n">cbm_frac</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> of Γ→X&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">validate</span><span class="o">.</span><span class="n">close</span><span class="p">(</span><span class="n">gap_indirect</span><span class="p">,</span> <span class="mf">0.6</span><span class="p">,</span> <span class="s2">&quot;the PBE indirect gap is about 0.6 eV&quot;</span><span class="p">,</span> <span class="n">atol</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>✓  the valence-band maximum is at Γ   [VBM index 45, Γ index 45]
+✓  the gap is indirect: CBM lies along Γ–X, direct gap at Γ is much larger   [direct@Γ 2.57 eV vs indirect 0.58 eV; CBM at 0.83 of Γ→X]
+✓  the PBE indirect gap is about 0.6 eV   [got 0.583652 vs expected 0.6 (rtol=1e-06)]
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>True
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="exercise-5-the-band-gap-problem">
+<h2>Exercise 5 — The band-gap problem<a class="headerlink" href="#exercise-5-the-band-gap-problem" title="Link to this heading">#</a></h2>
+<p>Silicon’s measured band gap is <span class="math notranslate nohighlight">\(1.17\,\)</span>eV. The PBE calculation gives barely half of
+that. This is not a mistake in the run or a lack of convergence: it is the
+<strong>band-gap problem</strong> of density-functional theory. The Kohn-Sham eigenvalues are
+auxiliary quantities chosen to reproduce the <em>density</em>, not the energies to add or
+remove an electron, and approximate exchange-correlation functionals miss a
+<em>derivative discontinuity</em> that the true gap contains <span class="bibtex-citation" id="id6">[<a class="reference internal" href="#id31" title="John P. Perdew and Mel Levy. Physical content of the exact kohn-sham orbital energies: band gaps and derivative discontinuities. Physical Review Letters, 51(20):1884–1887, 1983. doi:10.1103/PhysRevLett.51.1884.">PL83</a>]</span>. The
+upshot is a systematic underestimate, often near a factor of two, that more
+expensive methods (hybrid functionals, <span class="math notranslate nohighlight">\(GW\)</span>) are needed to repair.</p>
+<p><strong>Part a)</strong> Compare the computed gap to experiment. <strong>Part b)</strong> Confirm the
+underestimate.</p>
+<div class="cell tag_solution tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<figure class="align-default" id="fig-si-gap">
+<img alt="../../_images/d99260558e2d02ed10206b67627a533722bef19833b80fa8009c45181e0a7f42.png" src="../../_images/d99260558e2d02ed10206b67627a533722bef19833b80fa8009c45181e0a7f42.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 32 </span><span class="caption-text">The density-functional band-gap problem for silicon: the PBE Kohn-Sham gap (amber) against the experimental value of 1.17 eV (navy). PBE recovers barely half the measured gap, a systematic underestimate rooted in the missing derivative discontinuity of approximate exchange-correlation functionals, not in the convergence of the calculation.</span><a class="headerlink" href="#fig-si-gap" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</div>
+</div>
+<section id="validation-5-dft-underestimates-the-gap">
+<h3>Validation 5 — DFT underestimates the gap<a class="headerlink" href="#validation-5-dft-underestimates-the-gap" title="Link to this heading">#</a></h3>
+<p>The computed gap must fall well short of the experimental <span class="math notranslate nohighlight">\(1.17\,\)</span>eV, the
+signature of the Kohn-Sham band-gap problem.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">validate</span><span class="o">.</span><span class="n">check</span><span class="p">(</span>
+    <span class="n">gap_indirect</span> <span class="o">&lt;</span> <span class="mf">0.7</span> <span class="o">*</span> <span class="n">gap_experiment</span><span class="p">,</span>
+    <span class="s2">&quot;the PBE gap substantially underestimates the experimental value&quot;</span><span class="p">,</span>
+    <span class="sa">f</span><span class="s2">&quot;PBE </span><span class="si">{</span><span class="n">gap_indirect</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> eV vs experiment </span><span class="si">{</span><span class="n">gap_experiment</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> eV (</span><span class="si">{</span><span class="n">gap_indirect</span><span class="o">/</span><span class="n">gap_experiment</span><span class="o">*</span><span class="mi">100</span><span class="si">:</span><span class="s2">.0f</span><span class="si">}</span><span class="s2">%)&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>✓  the PBE gap substantially underestimates the experimental value   [PBE 0.58 eV vs experiment 1.17 eV (50%)]
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>True
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="going-further">
+<h2>Going further<a class="headerlink" href="#going-further" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>Fixing the gap.</strong> Hybrid functionals (HSE) mix in exact exchange and roughly
+halve the error; the <span class="math notranslate nohighlight">\(GW\)</span> approximation computes the true quasiparticle gap and
+gets silicon within a tenth of an eV. Both cost far more than PBE.</p></li>
+<li><p><strong>The density of states.</strong> Integrate the bands over the whole Brillouin zone (not
+just the path) to get <span class="math notranslate nohighlight">\(g(E)\)</span>, which is what optical and transport measurements
+actually probe.</p></li>
+<li><p><strong>Other crystals.</strong> The course also ran silicon carbide and a graphene
+nanoribbon; rerunning this analysis on them shows a wider gap (SiC) and the
+one-dimensional bands of the ribbon.</p></li>
+<li><p><strong>Effective masses.</strong> The curvature of the bands at the VBM and CBM,
+<span class="math notranslate nohighlight">\(1/m^\* = \hbar^{-2}\,d^2E/dk^2\)</span>, sets the mobility of electrons and holes; fit a
+parabola near each extremum to extract it.</p></li>
+</ul>
+<section id="references">
+<h3>References<a class="headerlink" href="#references" title="Link to this heading">#</a></h3>
+<div class="docutils container" id="id7">
+<div role="list" class="citation-list">
+<div class="citation" id="id27" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id1">AM76</a><span class="fn-bracket">]</span></span>
+<p>Neil W. Ashcroft and N. David Mermin. <em>Solid State Physics</em>. Holt, Rinehart and Winston, 1976.</p>
+</div>
+<div class="citation" id="id29" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id3">G+09</a><span class="fn-bracket">]</span></span>
+<p>Paolo Giannozzi and others. Quantum espresso: a modular and open-source software project for quantum simulations of materials. <em>Journal of Physics: Condensed Matter</em>, 21(39):395502, 2009. <a class="reference external" href="https://doi.org/10.1088/0953-8984/21/39/395502">doi:10.1088/0953-8984/21/39/395502</a>.</p>
+</div>
+<div class="citation" id="id28" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id2">Mar20</a><span class="fn-bracket">]</span></span>
+<p>Richard M. Martin. <em>Electronic Structure: Basic Theory and Practical Methods</em>. Cambridge University Press, 2 edition, 2020.</p>
+</div>
+<div class="citation" id="id30" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id4">PBE96</a><span class="fn-bracket">]</span></span>
+<p>John P. Perdew, Kieron Burke, and Matthias Ernzerhof. Generalized gradient approximation made simple. <em>Physical Review Letters</em>, 77(18):3865–3868, 1996. <a class="reference external" href="https://doi.org/10.1103/PhysRevLett.77.3865">doi:10.1103/PhysRevLett.77.3865</a>.</p>
+</div>
+<div class="citation" id="id31" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span>PL83<span class="fn-bracket">]</span></span>
+<span class="backrefs">(<a role="doc-backlink" href="#id5">1</a>,<a role="doc-backlink" href="#id6">2</a>)</span>
+<p>John P. Perdew and Mel Levy. Physical content of the exact kohn-sham orbital energies: band gaps and derivative discontinuities. <em>Physical Review Letters</em>, 51(20):1884–1887, 1983. <a class="reference external" href="https://doi.org/10.1103/PhysRevLett.51.1884">doi:10.1103/PhysRevLett.51.1884</a>.</p>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">ecp.style</span><span class="w"> </span><span class="kn">import</span> <span class="n">footer</span>
+
+<span class="n">footer</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><style>@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,900&family=Source+Serif+4:wght@400;600&family=JetBrains+Mono:wght@400;600&display=swap');</style>
+<div style="font-family:'Source Serif 4', 'Iowan Old Style', Georgia, serif;background:#faf7f0;border:1px solid #dcd6c8;
+            border-left:6px solid #c0851a;border-radius:6px;
+            padding:18px 22px;margin:30px 0 8px 0;">
+  <div style="font-family:'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace;font-size:11px;letter-spacing:.12em;
+              text-transform:uppercase;color:#c0851a;font-weight:600;
+              margin-bottom:6px;">Take this notebook with you</div>
+  <div style="font-size:14.5px;color:#16213e;line-height:1.55;max-width:66ch;">
+    Use the download button (&#8595;) in the toolbar above to save this notebook
+    and run it yourself. The published notebooks ship <b>without worked
+    solutions</b>; if you would like the reference solutions &mdash; to teach
+    from or to check your own work &mdash; get in touch: <a href='mailto:hello@ramador.me' style='color:#c0851a;text-decoration:none;border-bottom:1px solid #c0851a;'>hello@ramador.me</a>.
+  </div>
+  <div style="font-size:12px;color:#46506b;line-height:1.5;max-width:66ch;
+              margin-top:10px;border-top:1px solid #dcd6c8;padding-top:8px;">
+    Based on the lecture and exercise materials of <b>Molecular and Materials Modelling</b> (ETH Z&uuml;rich and Empa, FS&nbsp;2023), developed by Prof.&nbsp;Dr.&nbsp;Daniele Passerone (lectures), Dr.&nbsp;Carlo Pignedoli, and the author (exercises); here synthesised, expanded, and restyled by the author.
+  </div>
+</div></div></div>
+</div>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./notebooks/04-electronic-structure"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="index.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Volume IV — Electronic Structure</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="oxygen-triplet.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">4.2 The Formation of Molecular Oxygen</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item"><div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#notebook-overview">Notebook overview</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#theory-in-brief">Theory in brief</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bloch-s-theorem-and-bands">Bloch’s theorem and bands</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#filling-gaps-and-silicon">Filling, gaps, and silicon</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#density-functional-theory-and-what-it-gets-wrong">Density-functional theory, and what it gets wrong</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#setup">Setup</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1-the-crystal-and-the-dft-calculation">Exercise 1 — The crystal and the DFT calculation</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#validation-1-the-silicon-cell">Validation 1 — the silicon cell</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-2-reading-the-real-dft-output">Exercise 2 — Reading the real DFT output</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#validation-2-the-parse-is-consistent-with-silicon">Validation 2 — the parse is consistent with silicon</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-3-the-band-structure-of-silicon">Exercise 3 — The band structure of silicon</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#validation-3-four-valence-bands-below-the-gap">Validation 3 — four valence bands below the gap</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-4-the-indirect-band-gap">Exercise 4 — The indirect band gap</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#validation-4-silicon-s-indirect-gap">Validation 4 — silicon’s indirect gap</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-5-the-band-gap-problem">Exercise 5 — The band-gap problem</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#validation-5-dft-underestimates-the-gap">Validation 5 — DFT underestimates the gap</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#going-further">Going further</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#references">References</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Raymond Amador
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2026 · CC BY 4.0 (text) / MIT (code).
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

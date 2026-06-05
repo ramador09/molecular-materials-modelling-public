@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="Molecular and Materials Modelling">
+  <rect width="64" height="64" rx="10" fill="#16213e"/>
+  <!-- double-well potential energy surface: the unifying object of the course
+       (Monte Carlo, molecular dynamics, geometry optimization, reaction paths) -->
+  <path d="M12,26 C17,26 19,43 24,43 C28,43 30,31 32,31 C34,31 36,43 40,43 C45,43 47,26 52,26"
+        fill="none" stroke="#faf7f0" stroke-width="2.4" stroke-linecap="round"/>
+  <!-- the particle's path over the barrier (a reaction coordinate / NEB hop) -->
+  <path d="M24,38 C27,24 37,24 40,38" fill="none" stroke="#c0851a" stroke-width="1.4"
+        stroke-linecap="round" stroke-dasharray="1.5 2.6" opacity="0.85"/>
+  <!-- the particle, resting in the left well -->
+  <circle cx="24" cy="39" r="3.2" fill="#c0851a"/>
+</svg>
