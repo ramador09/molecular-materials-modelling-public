@@ -7,6 +7,14 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta property="og:title" content="1.1 The Ising Model" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://ramador.me/molecular-materials-modelling-public/notebooks/01-monte-carlo-methods/ising-model.html" />
+<meta property="og:site_name" content="Molecular and Materials Modelling" />
+<meta property="og:description" content="Notebook overview: The Ising model is the hydrogen atom of statistical mechanics: a lattice of binary spins\sigma_i=\pm1 that prefer to align with their neighbours. Despite its simplicity it is one..." />
+<meta property="og:image" content="https://ramador.me/molecular-materials-modelling-public/_static/og.png" />
+<meta property="og:image:alt" content="Molecular and Materials Modelling" />
+<meta name="description" content="Notebook overview: The Ising model is the hydrogen atom of statistical mechanics: a lattice of binary spins\sigma_i=\pm1 that prefer to align with their neighbours. Despite its simplicity it is one..." />
 
     <title>1.1 The Ising Model &#8212; Molecular and Materials Modelling</title>
   
@@ -850,11 +858,11 @@ specific-heat (Schottky) peak sits where <span class="math notranslate nohighlig
 ✓  Schottky-peak temperature solves K tanh K = 1   [got 0.833557 vs expected 0.8336 (rtol=0.001)]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/tmp/ipykernel_2186/893750000.py:5: RuntimeWarning: invalid value encountered in divide
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/tmp/ipykernel_2189/893750000.py:5: RuntimeWarning: invalid value encountered in divide
   m = np.sinh(hp) / np.sqrt(np.sinh(hp) ** 2 + np.exp(-4 * K))   # = -∂f/∂h
-/tmp/ipykernel_2186/893750000.py:7: RuntimeWarning: overflow encountered in cosh
+/tmp/ipykernel_2189/893750000.py:7: RuntimeWarning: overflow encountered in cosh
   C = K ** 2 / np.cosh(K) ** 2                                   # C/k_B, Schottky
-/tmp/ipykernel_2186/893750000.py:8: RuntimeWarning: overflow encountered in exp
+/tmp/ipykernel_2189/893750000.py:8: RuntimeWarning: overflow encountered in exp
   chi = np.exp(2 * K) * beta                                     # χ at h = 0
 </pre></div>
 </div>
@@ -1363,42 +1371,42 @@ input[type=range].anim-slider {
 </style>
 
 <div class="animation">
-  <img id="_anim_imgb3872098a9a743898e48cda0f3912c54">
+  <img id="_anim_img648e69638c414f69af3199d375c18c09">
   <div class="anim-controls">
-    <input id="_anim_sliderb3872098a9a743898e48cda0f3912c54" type="range" class="anim-slider"
+    <input id="_anim_slider648e69638c414f69af3199d375c18c09" type="range" class="anim-slider"
            name="points" min="0" max="1" step="1" value="0"
-           oninput="animb3872098a9a743898e48cda0f3912c54.set_frame(parseInt(this.value));">
+           oninput="anim648e69638c414f69af3199d375c18c09.set_frame(parseInt(this.value));">
     <div class="anim-buttons">
-      <button title="Decrease speed" aria-label="Decrease speed" onclick="animb3872098a9a743898e48cda0f3912c54.slower()">
+      <button title="Decrease speed" aria-label="Decrease speed" onclick="anim648e69638c414f69af3199d375c18c09.slower()">
           <i class="fa fa-minus"></i></button>
-      <button title="First frame" aria-label="First frame" onclick="animb3872098a9a743898e48cda0f3912c54.first_frame()">
+      <button title="First frame" aria-label="First frame" onclick="anim648e69638c414f69af3199d375c18c09.first_frame()">
         <i class="fa fa-fast-backward"></i></button>
-      <button title="Previous frame" aria-label="Previous frame" onclick="animb3872098a9a743898e48cda0f3912c54.previous_frame()">
+      <button title="Previous frame" aria-label="Previous frame" onclick="anim648e69638c414f69af3199d375c18c09.previous_frame()">
           <i class="fa fa-step-backward"></i></button>
-      <button title="Play backwards" aria-label="Play backwards" onclick="animb3872098a9a743898e48cda0f3912c54.reverse_animation()">
+      <button title="Play backwards" aria-label="Play backwards" onclick="anim648e69638c414f69af3199d375c18c09.reverse_animation()">
           <i class="fa fa-play fa-flip-horizontal"></i></button>
-      <button title="Pause" aria-label="Pause" onclick="animb3872098a9a743898e48cda0f3912c54.pause_animation()">
+      <button title="Pause" aria-label="Pause" onclick="anim648e69638c414f69af3199d375c18c09.pause_animation()">
           <i class="fa fa-pause"></i></button>
-      <button title="Play" aria-label="Play" onclick="animb3872098a9a743898e48cda0f3912c54.play_animation()">
+      <button title="Play" aria-label="Play" onclick="anim648e69638c414f69af3199d375c18c09.play_animation()">
           <i class="fa fa-play"></i></button>
-      <button title="Next frame" aria-label="Next frame" onclick="animb3872098a9a743898e48cda0f3912c54.next_frame()">
+      <button title="Next frame" aria-label="Next frame" onclick="anim648e69638c414f69af3199d375c18c09.next_frame()">
           <i class="fa fa-step-forward"></i></button>
-      <button title="Last frame" aria-label="Last frame" onclick="animb3872098a9a743898e48cda0f3912c54.last_frame()">
+      <button title="Last frame" aria-label="Last frame" onclick="anim648e69638c414f69af3199d375c18c09.last_frame()">
           <i class="fa fa-fast-forward"></i></button>
-      <button title="Increase speed" aria-label="Increase speed" onclick="animb3872098a9a743898e48cda0f3912c54.faster()">
+      <button title="Increase speed" aria-label="Increase speed" onclick="anim648e69638c414f69af3199d375c18c09.faster()">
           <i class="fa fa-plus"></i></button>
     </div>
-    <form title="Repetition mode" aria-label="Repetition mode" action="#n" name="_anim_loop_selectb3872098a9a743898e48cda0f3912c54"
+    <form title="Repetition mode" aria-label="Repetition mode" action="#n" name="_anim_loop_select648e69638c414f69af3199d375c18c09"
           class="anim-state">
-      <input type="radio" name="state" value="once" id="_anim_radio1_b3872098a9a743898e48cda0f3912c54"
+      <input type="radio" name="state" value="once" id="_anim_radio1_648e69638c414f69af3199d375c18c09"
              >
-      <label for="_anim_radio1_b3872098a9a743898e48cda0f3912c54">Once</label>
-      <input type="radio" name="state" value="loop" id="_anim_radio2_b3872098a9a743898e48cda0f3912c54"
+      <label for="_anim_radio1_648e69638c414f69af3199d375c18c09">Once</label>
+      <input type="radio" name="state" value="loop" id="_anim_radio2_648e69638c414f69af3199d375c18c09"
              checked>
-      <label for="_anim_radio2_b3872098a9a743898e48cda0f3912c54">Loop</label>
-      <input type="radio" name="state" value="reflect" id="_anim_radio3_b3872098a9a743898e48cda0f3912c54"
+      <label for="_anim_radio2_648e69638c414f69af3199d375c18c09">Loop</label>
+      <input type="radio" name="state" value="reflect" id="_anim_radio3_648e69638c414f69af3199d375c18c09"
              >
-      <label for="_anim_radio3_b3872098a9a743898e48cda0f3912c54">Reflect</label>
+      <label for="_anim_radio3_648e69638c414f69af3199d375c18c09">Reflect</label>
     </form>
   </div>
 </div>
@@ -1408,9 +1416,9 @@ input[type=range].anim-slider {
   /* Instantiate the Animation class. */
   /* The IDs given should match those used in the template above. */
   (function() {
-    var img_id = "_anim_imgb3872098a9a743898e48cda0f3912c54";
-    var slider_id = "_anim_sliderb3872098a9a743898e48cda0f3912c54";
-    var loop_select_id = "_anim_loop_selectb3872098a9a743898e48cda0f3912c54";
+    var img_id = "_anim_img648e69638c414f69af3199d375c18c09";
+    var slider_id = "_anim_slider648e69638c414f69af3199d375c18c09";
+    var loop_select_id = "_anim_loop_select648e69638c414f69af3199d375c18c09";
     var frames = new Array(201);
     
   frames[0] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAXoAAAF6CAYAAAAXoJOQAAAAOnRFWHRTb2Z0d2FyZQBNYXRwbG90\
@@ -26189,7 +26197,7 @@ QmCC\
     /* set a timeout to make sure all the above elements are created before
        the object is initialized. */
     setTimeout(function() {
-        animb3872098a9a743898e48cda0f3912c54 = new Animation(frames, img_id, slider_id, 33,
+        anim648e69638c414f69af3199d375c18c09 = new Animation(frames, img_id, slider_id, 33,
                                  loop_select_id);
     }, 0);
   })()
