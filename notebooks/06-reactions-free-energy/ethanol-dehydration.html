@@ -643,7 +643,23 @@ becomes orders of magnitude in the predicted rate.</p>
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">data_file</span><span class="p">(</span><span class="n">name</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Locate a shipped data file from the repo root (CI) or the notebook dir (Colab).&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Locate a shipped data file, from the repo root (CI) or the notebook dir (Colab).</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    name : str</span>
+<span class="sd">        File name (or relative path) under a ``data`` directory.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    str</span>
+<span class="sd">        The first existing path found.</span>
+
+<span class="sd">    Raises</span>
+<span class="sd">    ------</span>
+<span class="sd">    FileNotFoundError</span>
+<span class="sd">        If the file is not found under any candidate base.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">for</span> <span class="n">base</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;data&quot;</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s2">&quot;notebooks&quot;</span><span class="p">,</span> <span class="s2">&quot;06-reactions-free-energy&quot;</span><span class="p">,</span> <span class="s2">&quot;data&quot;</span><span class="p">)):</span>
         <span class="n">path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">base</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
@@ -652,7 +668,19 @@ becomes orders of magnitude in the predicted rate.</p>
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">read_xyz</span><span class="p">(</span><span class="n">name</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Read an .xyz file: returns (elements, coords) with coords in Å.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Read an .xyz file.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    name : str</span>
+<span class="sd">        File name (coordinates in Å).</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    tuple</span>
+<span class="sd">        ``(elements, coords)``: a list of element symbols and an (N, 3)</span>
+<span class="sd">        coordinate array in Å.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">lines</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">data_file</span><span class="p">(</span><span class="n">name</span><span class="p">))</span><span class="o">.</span><span class="n">read</span><span class="p">()</span><span class="o">.</span><span class="n">splitlines</span><span class="p">()</span>
     <span class="n">n</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">lines</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">0</span><span class="p">])</span>
     <span class="n">els</span><span class="p">,</span> <span class="n">xyz</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[]</span>
@@ -664,8 +692,24 @@ becomes orders of magnitude in the predicted rate.</p>
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">draw_molecule</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="n">els</span><span class="p">,</span> <span class="n">xyz</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Ball-and-stick: bonds where atoms are within 1.6x the sum of covalent radii</span>
-<span class="sd">    (generous, so the course&#39;s loosely-placed input geometries still show bonds).&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Draw a molecule as a ball-and-stick figure on a 3-D axis.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    ax : mpl_toolkits.mplot3d.axes3d.Axes3D</span>
+<span class="sd">        The 3-D axis to draw on.</span>
+<span class="sd">    els : list of str</span>
+<span class="sd">        Element symbols.</span>
+<span class="sd">    xyz : numpy.ndarray</span>
+<span class="sd">        Coordinates, shape (N, 3), in Å.</span>
+<span class="sd">    title : str, optional</span>
+<span class="sd">        Axis title.</span>
+
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+<span class="sd">    A bond is drawn between two atoms within a generous multiple of the sum of</span>
+<span class="sd">    their covalent radii, so loosely-placed input geometries still show bonds.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">xyz</span> <span class="o">=</span> <span class="n">xyz</span> <span class="o">-</span> <span class="n">xyz</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">els</span><span class="p">)):</span>
         <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">els</span><span class="p">)):</span>
