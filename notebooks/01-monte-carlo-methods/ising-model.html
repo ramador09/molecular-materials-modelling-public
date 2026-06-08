@@ -486,7 +486,8 @@
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#validation-8-the-quench-orders-the-lattice-energetically">Validation 8 — the quench orders the lattice (energetically)</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#going-further">Going further</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#notebook-summary">Notebook summary</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#outlook">Outlook</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#references">References</a></li>
 </ul>
 </li>
@@ -844,11 +845,11 @@ specific-heat (Schottky) peak sits where <span class="math notranslate nohighlig
 ✓  Schottky-peak temperature solves K tanh K = 1   [got 0.833557 vs expected 0.8336 (rtol=0.001)]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/tmp/ipykernel_2200/893750000.py:5: RuntimeWarning: invalid value encountered in divide
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/tmp/ipykernel_2114/893750000.py:5: RuntimeWarning: invalid value encountered in divide
   m = np.sinh(hp) / np.sqrt(np.sinh(hp) ** 2 + np.exp(-4 * K))   # = -∂f/∂h
-/tmp/ipykernel_2200/893750000.py:7: RuntimeWarning: overflow encountered in cosh
+/tmp/ipykernel_2114/893750000.py:7: RuntimeWarning: overflow encountered in cosh
   C = K ** 2 / np.cosh(K) ** 2                                   # C/k_B, Schottky
-/tmp/ipykernel_2200/893750000.py:8: RuntimeWarning: overflow encountered in exp
+/tmp/ipykernel_2114/893750000.py:8: RuntimeWarning: overflow encountered in exp
   chi = np.exp(2 * K) * beta                                     # χ at h = 0
 </pre></div>
 </div>
@@ -1357,42 +1358,42 @@ input[type=range].anim-slider {
 </style>
 
 <div class="animation">
-  <img id="_anim_imgca3e704454a748b4b4429f6b9e56567d">
+  <img id="_anim_img87338b0f699f4cef920939747184a219">
   <div class="anim-controls">
-    <input id="_anim_sliderca3e704454a748b4b4429f6b9e56567d" type="range" class="anim-slider"
+    <input id="_anim_slider87338b0f699f4cef920939747184a219" type="range" class="anim-slider"
            name="points" min="0" max="1" step="1" value="0"
-           oninput="animca3e704454a748b4b4429f6b9e56567d.set_frame(parseInt(this.value));">
+           oninput="anim87338b0f699f4cef920939747184a219.set_frame(parseInt(this.value));">
     <div class="anim-buttons">
-      <button title="Decrease speed" aria-label="Decrease speed" onclick="animca3e704454a748b4b4429f6b9e56567d.slower()">
+      <button title="Decrease speed" aria-label="Decrease speed" onclick="anim87338b0f699f4cef920939747184a219.slower()">
           <i class="fa fa-minus"></i></button>
-      <button title="First frame" aria-label="First frame" onclick="animca3e704454a748b4b4429f6b9e56567d.first_frame()">
+      <button title="First frame" aria-label="First frame" onclick="anim87338b0f699f4cef920939747184a219.first_frame()">
         <i class="fa fa-fast-backward"></i></button>
-      <button title="Previous frame" aria-label="Previous frame" onclick="animca3e704454a748b4b4429f6b9e56567d.previous_frame()">
+      <button title="Previous frame" aria-label="Previous frame" onclick="anim87338b0f699f4cef920939747184a219.previous_frame()">
           <i class="fa fa-step-backward"></i></button>
-      <button title="Play backwards" aria-label="Play backwards" onclick="animca3e704454a748b4b4429f6b9e56567d.reverse_animation()">
+      <button title="Play backwards" aria-label="Play backwards" onclick="anim87338b0f699f4cef920939747184a219.reverse_animation()">
           <i class="fa fa-play fa-flip-horizontal"></i></button>
-      <button title="Pause" aria-label="Pause" onclick="animca3e704454a748b4b4429f6b9e56567d.pause_animation()">
+      <button title="Pause" aria-label="Pause" onclick="anim87338b0f699f4cef920939747184a219.pause_animation()">
           <i class="fa fa-pause"></i></button>
-      <button title="Play" aria-label="Play" onclick="animca3e704454a748b4b4429f6b9e56567d.play_animation()">
+      <button title="Play" aria-label="Play" onclick="anim87338b0f699f4cef920939747184a219.play_animation()">
           <i class="fa fa-play"></i></button>
-      <button title="Next frame" aria-label="Next frame" onclick="animca3e704454a748b4b4429f6b9e56567d.next_frame()">
+      <button title="Next frame" aria-label="Next frame" onclick="anim87338b0f699f4cef920939747184a219.next_frame()">
           <i class="fa fa-step-forward"></i></button>
-      <button title="Last frame" aria-label="Last frame" onclick="animca3e704454a748b4b4429f6b9e56567d.last_frame()">
+      <button title="Last frame" aria-label="Last frame" onclick="anim87338b0f699f4cef920939747184a219.last_frame()">
           <i class="fa fa-fast-forward"></i></button>
-      <button title="Increase speed" aria-label="Increase speed" onclick="animca3e704454a748b4b4429f6b9e56567d.faster()">
+      <button title="Increase speed" aria-label="Increase speed" onclick="anim87338b0f699f4cef920939747184a219.faster()">
           <i class="fa fa-plus"></i></button>
     </div>
-    <form title="Repetition mode" aria-label="Repetition mode" action="#n" name="_anim_loop_selectca3e704454a748b4b4429f6b9e56567d"
+    <form title="Repetition mode" aria-label="Repetition mode" action="#n" name="_anim_loop_select87338b0f699f4cef920939747184a219"
           class="anim-state">
-      <input type="radio" name="state" value="once" id="_anim_radio1_ca3e704454a748b4b4429f6b9e56567d"
+      <input type="radio" name="state" value="once" id="_anim_radio1_87338b0f699f4cef920939747184a219"
              >
-      <label for="_anim_radio1_ca3e704454a748b4b4429f6b9e56567d">Once</label>
-      <input type="radio" name="state" value="loop" id="_anim_radio2_ca3e704454a748b4b4429f6b9e56567d"
+      <label for="_anim_radio1_87338b0f699f4cef920939747184a219">Once</label>
+      <input type="radio" name="state" value="loop" id="_anim_radio2_87338b0f699f4cef920939747184a219"
              checked>
-      <label for="_anim_radio2_ca3e704454a748b4b4429f6b9e56567d">Loop</label>
-      <input type="radio" name="state" value="reflect" id="_anim_radio3_ca3e704454a748b4b4429f6b9e56567d"
+      <label for="_anim_radio2_87338b0f699f4cef920939747184a219">Loop</label>
+      <input type="radio" name="state" value="reflect" id="_anim_radio3_87338b0f699f4cef920939747184a219"
              >
-      <label for="_anim_radio3_ca3e704454a748b4b4429f6b9e56567d">Reflect</label>
+      <label for="_anim_radio3_87338b0f699f4cef920939747184a219">Reflect</label>
     </form>
   </div>
 </div>
@@ -1402,9 +1403,9 @@ input[type=range].anim-slider {
   /* Instantiate the Animation class. */
   /* The IDs given should match those used in the template above. */
   (function() {
-    var img_id = "_anim_imgca3e704454a748b4b4429f6b9e56567d";
-    var slider_id = "_anim_sliderca3e704454a748b4b4429f6b9e56567d";
-    var loop_select_id = "_anim_loop_selectca3e704454a748b4b4429f6b9e56567d";
+    var img_id = "_anim_img87338b0f699f4cef920939747184a219";
+    var slider_id = "_anim_slider87338b0f699f4cef920939747184a219";
+    var loop_select_id = "_anim_loop_select87338b0f699f4cef920939747184a219";
     var frames = new Array(201);
     
   frames[0] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAXoAAAF6CAYAAAAXoJOQAAAAOnRFWHRTb2Z0d2FyZQBNYXRwbG90\
@@ -26183,7 +26184,7 @@ QmCC\
     /* set a timeout to make sure all the above elements are created before
        the object is initialized. */
     setTimeout(function() {
-        animca3e704454a748b4b4429f6b9e56567d = new Animation(frames, img_id, slider_id, 33,
+        anim87338b0f699f4cef920939747184a219 = new Animation(frames, img_id, slider_id, 33,
                                  loop_select_id);
     }, 0);
   })()
@@ -26222,8 +26223,20 @@ stripe, independent of the final magnetisation.</p>
 </div>
 </section>
 </section>
-<section id="going-further">
-<h2>Going further<a class="headerlink" href="#going-further" title="Link to this heading">#</a></h2>
+<section id="notebook-summary">
+<h2>Notebook summary<a class="headerlink" href="#notebook-summary" title="Link to this heading">#</a></h2>
+<p>We built the Ising model from its Hamiltonian and solved it two ways. In one
+dimension the transfer matrix gave the exact free energy and observables, which the
+Metropolis chain reproduced to within sampling error and which show no
+finite-temperature transition. In two dimensions the same sweeps recovered the
+Onsager–Yang spontaneous magnetisation, and the susceptibility and specific-heat
+peaks, sharpened by finite-size scaling, extrapolated to the exact critical
+temperature <span class="math notranslate nohighlight">\(T_c = 2/\ln(1+\sqrt2) \approx 2.269\,J/k_B\)</span>. Along the way we met the
+concrete machinery of Monte Carlo: importance sampling, equilibration, fluctuation
+estimators, and the critical slowing-down that makes <span class="math notranslate nohighlight">\(T_c\)</span> hard to pin down.</p>
+</section>
+<section id="outlook">
+<h2>Outlook<a class="headerlink" href="#outlook" title="Link to this heading">#</a></h2>
 <p>The Ising Hamiltonian is a template; changing the spin variable yields a whole
 family of models with qualitatively different physics:</p>
 <div class="pst-scrollable-table-container"><table class="table">
@@ -26449,7 +26462,8 @@ at <span class="math notranslate nohighlight">\(T_c\)</span> for all sizes — a
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#validation-8-the-quench-orders-the-lattice-energetically">Validation 8 — the quench orders the lattice (energetically)</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#going-further">Going further</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#notebook-summary">Notebook summary</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#outlook">Outlook</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#references">References</a></li>
 </ul>
 </li>

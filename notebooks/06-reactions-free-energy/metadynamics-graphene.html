@@ -462,7 +462,8 @@
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#validation-3-the-surface-is-consistent-with-the-trajectory">Validation 3 — the surface is consistent with the trajectory</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#going-further">Going further</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#notebook-summary">Notebook summary</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#outlook">Outlook</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#references">References</a></li>
 </ul>
 </li>
@@ -789,8 +790,19 @@ between the <code class="docutils literal notranslate"><span class="pre">HILLS</
 </div>
 </section>
 </section>
-<section id="going-further">
-<h2>Going further<a class="headerlink" href="#going-further" title="Link to this heading">#</a></h2>
+<section id="notebook-summary">
+<h2>Notebook summary<a class="headerlink" href="#notebook-summary" title="Link to this heading">#</a></h2>
+<p>We followed a metadynamics run of nitric acid over graphene, computed with
+density-functional tight binding. The three coordination-number collective
+variables wandered over a growing range as the accumulating bias pushed the system
+through configuration space, and summing the deposited Gaussian hills reconstructed
+the free-energy surface. Its minimum coincided with the trajectory’s most-visited
+configuration, a consistency check between the HILLS reconstruction and the
+independent COLVAR record; a longer run would extend the surface to the dissociated
+basin across the barrier.</p>
+</section>
+<section id="outlook">
+<h2>Outlook<a class="headerlink" href="#outlook" title="Link to this heading">#</a></h2>
 <ul class="simple">
 <li><p><strong>Convergence.</strong> A converged free-energy surface needs the bias to grow flat; the
 short run here does not reach that. <strong>Well-tempered</strong> metadynamics shrinks the hills
@@ -922,7 +934,8 @@ unbiased ensemble averages of other observables.</p></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#validation-3-the-surface-is-consistent-with-the-trajectory">Validation 3 — the surface is consistent with the trajectory</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#going-further">Going further</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#notebook-summary">Notebook summary</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#outlook">Outlook</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#references">References</a></li>
 </ul>
 </li>
