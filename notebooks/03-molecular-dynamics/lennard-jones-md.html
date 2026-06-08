@@ -679,7 +679,19 @@ bridge to x-ray and neutron scattering.</p>
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">lj_forces</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Lennard-Jones potential energy and forces (-grad E) for `x` of shape (N, 3).&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Lennard-Jones potential energy and forces for a configuration.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    x : numpy.ndarray</span>
+<span class="sd">        Atomic coordinates, shape (N, 3) or flat, in reduced units.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    tuple</span>
+<span class="sd">        ``(energy, forces)``: the total energy (float) and the forces -∇E,</span>
+<span class="sd">        shape (N, 3).</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
     <span class="n">d</span> <span class="o">=</span> <span class="n">x</span><span class="p">[:,</span> <span class="kc">None</span><span class="p">,</span> <span class="p">:]</span> <span class="o">-</span> <span class="n">x</span><span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="p">:,</span> <span class="p">:]</span>
     <span class="n">r2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">d</span> <span class="o">*</span> <span class="n">d</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
@@ -693,16 +705,55 @@ bridge to x-ray and neutron scattering.</p>
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">kinetic</span><span class="p">(</span><span class="n">v</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Total kinetic energy ½ Σ v² in reduced units (m = 1).</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    v : numpy.ndarray</span>
+<span class="sd">        Velocities, shape (N, 3).</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    float</span>
+<span class="sd">        The kinetic energy.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">v</span> <span class="o">*</span> <span class="n">v</span><span class="p">)</span>
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">temperature</span><span class="p">(</span><span class="n">v</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Instantaneous temperature from equipartition, Eq. (eq-temperature).&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Instantaneous temperature from equipartition (Eq. eq-temperature).</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    v : numpy.ndarray</span>
+<span class="sd">        Velocities, shape (N, 3).</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    float</span>
+<span class="sd">        The reduced temperature 2·KE / (3N - 3), centre-of-mass motion removed.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="mf">2.0</span> <span class="o">*</span> <span class="n">kinetic</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="mi">3</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="o">-</span> <span class="mi">3</span><span class="p">)</span>
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">data_file</span><span class="p">(</span><span class="n">name</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Locate a shipped data file from the repo root (CI) or the notebook dir (Colab).&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Locate a shipped data file, from the repo root (CI) or the notebook dir (Colab).</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    name : str</span>
+<span class="sd">        File name under a ``data`` directory.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    str</span>
+<span class="sd">        The first existing path found.</span>
+
+<span class="sd">    Raises</span>
+<span class="sd">    ------</span>
+<span class="sd">    FileNotFoundError</span>
+<span class="sd">        If no candidate path exists.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">for</span> <span class="n">base</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;data&quot;</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s2">&quot;notebooks&quot;</span><span class="p">,</span> <span class="s2">&quot;03-molecular-dynamics&quot;</span><span class="p">,</span> <span class="s2">&quot;data&quot;</span><span class="p">)):</span>
         <span class="n">path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">base</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
@@ -711,7 +762,18 @@ bridge to x-ray and neutron scattering.</p>
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">read_xyz</span><span class="p">(</span><span class="n">name</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Read an .xyz file, returning coordinates of shape (N, 3) in file units (Å).&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Read a single-frame .xyz file.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    name : str</span>
+<span class="sd">        File name (coordinates in Å).</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    numpy.ndarray</span>
+<span class="sd">        Coordinates of shape (N, 3) in the file&#39;s units (Å).</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">lines</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">data_file</span><span class="p">(</span><span class="n">name</span><span class="p">))</span><span class="o">.</span><span class="n">read</span><span class="p">()</span><span class="o">.</span><span class="n">splitlines</span><span class="p">()</span>
     <span class="n">n</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">lines</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">0</span><span class="p">])</span>
     <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="nb">float</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">ln</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">1</span><span class="p">:</span><span class="mi">4</span><span class="p">]]</span> <span class="k">for</span> <span class="n">ln</span> <span class="ow">in</span> <span class="n">lines</span><span class="p">[</span><span class="mi">2</span><span class="p">:</span><span class="mi">2</span> <span class="o">+</span> <span class="n">n</span><span class="p">]])</span>
@@ -726,7 +788,21 @@ bridge to x-ray and neutron scattering.</p>
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">maxwell_velocities</span><span class="p">(</span><span class="n">T_star</span><span class="p">,</span> <span class="n">seed_rng</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Draw centre-of-mass-free velocities at temperature T_star (reduced units).&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Draw Maxwell-Boltzmann velocities at a target temperature, drift removed.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    T_star : float</span>
+<span class="sd">        Target reduced temperature.</span>
+<span class="sd">    seed_rng : numpy.random.Generator</span>
+<span class="sd">        Random generator to draw from.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    numpy.ndarray</span>
+<span class="sd">        Velocities of shape (N, 3) with zero net momentum, rescaled to the exact</span>
+<span class="sd">        target temperature.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">v</span> <span class="o">=</span> <span class="n">seed_rng</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="n">N</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
     <span class="n">v</span> <span class="o">-=</span> <span class="n">v</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
     <span class="n">v</span> <span class="o">*=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">T_star</span> <span class="o">/</span> <span class="n">temperature</span><span class="p">(</span><span class="n">v</span><span class="p">))</span>
@@ -1140,42 +1216,42 @@ input[type=range].anim-slider {
 </style>
 
 <div class="animation">
-  <img id="_anim_img0259510611434975a36279a4917cccad">
+  <img id="_anim_imge3ef10f25370474a83eab78d79f6bf2e">
   <div class="anim-controls">
-    <input id="_anim_slider0259510611434975a36279a4917cccad" type="range" class="anim-slider"
+    <input id="_anim_slidere3ef10f25370474a83eab78d79f6bf2e" type="range" class="anim-slider"
            name="points" min="0" max="1" step="1" value="0"
-           oninput="anim0259510611434975a36279a4917cccad.set_frame(parseInt(this.value));">
+           oninput="anime3ef10f25370474a83eab78d79f6bf2e.set_frame(parseInt(this.value));">
     <div class="anim-buttons">
-      <button title="Decrease speed" aria-label="Decrease speed" onclick="anim0259510611434975a36279a4917cccad.slower()">
+      <button title="Decrease speed" aria-label="Decrease speed" onclick="anime3ef10f25370474a83eab78d79f6bf2e.slower()">
           <i class="fa fa-minus"></i></button>
-      <button title="First frame" aria-label="First frame" onclick="anim0259510611434975a36279a4917cccad.first_frame()">
+      <button title="First frame" aria-label="First frame" onclick="anime3ef10f25370474a83eab78d79f6bf2e.first_frame()">
         <i class="fa fa-fast-backward"></i></button>
-      <button title="Previous frame" aria-label="Previous frame" onclick="anim0259510611434975a36279a4917cccad.previous_frame()">
+      <button title="Previous frame" aria-label="Previous frame" onclick="anime3ef10f25370474a83eab78d79f6bf2e.previous_frame()">
           <i class="fa fa-step-backward"></i></button>
-      <button title="Play backwards" aria-label="Play backwards" onclick="anim0259510611434975a36279a4917cccad.reverse_animation()">
+      <button title="Play backwards" aria-label="Play backwards" onclick="anime3ef10f25370474a83eab78d79f6bf2e.reverse_animation()">
           <i class="fa fa-play fa-flip-horizontal"></i></button>
-      <button title="Pause" aria-label="Pause" onclick="anim0259510611434975a36279a4917cccad.pause_animation()">
+      <button title="Pause" aria-label="Pause" onclick="anime3ef10f25370474a83eab78d79f6bf2e.pause_animation()">
           <i class="fa fa-pause"></i></button>
-      <button title="Play" aria-label="Play" onclick="anim0259510611434975a36279a4917cccad.play_animation()">
+      <button title="Play" aria-label="Play" onclick="anime3ef10f25370474a83eab78d79f6bf2e.play_animation()">
           <i class="fa fa-play"></i></button>
-      <button title="Next frame" aria-label="Next frame" onclick="anim0259510611434975a36279a4917cccad.next_frame()">
+      <button title="Next frame" aria-label="Next frame" onclick="anime3ef10f25370474a83eab78d79f6bf2e.next_frame()">
           <i class="fa fa-step-forward"></i></button>
-      <button title="Last frame" aria-label="Last frame" onclick="anim0259510611434975a36279a4917cccad.last_frame()">
+      <button title="Last frame" aria-label="Last frame" onclick="anime3ef10f25370474a83eab78d79f6bf2e.last_frame()">
           <i class="fa fa-fast-forward"></i></button>
-      <button title="Increase speed" aria-label="Increase speed" onclick="anim0259510611434975a36279a4917cccad.faster()">
+      <button title="Increase speed" aria-label="Increase speed" onclick="anime3ef10f25370474a83eab78d79f6bf2e.faster()">
           <i class="fa fa-plus"></i></button>
     </div>
-    <form title="Repetition mode" aria-label="Repetition mode" action="#n" name="_anim_loop_select0259510611434975a36279a4917cccad"
+    <form title="Repetition mode" aria-label="Repetition mode" action="#n" name="_anim_loop_selecte3ef10f25370474a83eab78d79f6bf2e"
           class="anim-state">
-      <input type="radio" name="state" value="once" id="_anim_radio1_0259510611434975a36279a4917cccad"
+      <input type="radio" name="state" value="once" id="_anim_radio1_e3ef10f25370474a83eab78d79f6bf2e"
              >
-      <label for="_anim_radio1_0259510611434975a36279a4917cccad">Once</label>
-      <input type="radio" name="state" value="loop" id="_anim_radio2_0259510611434975a36279a4917cccad"
+      <label for="_anim_radio1_e3ef10f25370474a83eab78d79f6bf2e">Once</label>
+      <input type="radio" name="state" value="loop" id="_anim_radio2_e3ef10f25370474a83eab78d79f6bf2e"
              checked>
-      <label for="_anim_radio2_0259510611434975a36279a4917cccad">Loop</label>
-      <input type="radio" name="state" value="reflect" id="_anim_radio3_0259510611434975a36279a4917cccad"
+      <label for="_anim_radio2_e3ef10f25370474a83eab78d79f6bf2e">Loop</label>
+      <input type="radio" name="state" value="reflect" id="_anim_radio3_e3ef10f25370474a83eab78d79f6bf2e"
              >
-      <label for="_anim_radio3_0259510611434975a36279a4917cccad">Reflect</label>
+      <label for="_anim_radio3_e3ef10f25370474a83eab78d79f6bf2e">Reflect</label>
     </form>
   </div>
 </div>
@@ -1185,9 +1261,9 @@ input[type=range].anim-slider {
   /* Instantiate the Animation class. */
   /* The IDs given should match those used in the template above. */
   (function() {
-    var img_id = "_anim_img0259510611434975a36279a4917cccad";
-    var slider_id = "_anim_slider0259510611434975a36279a4917cccad";
-    var loop_select_id = "_anim_loop_select0259510611434975a36279a4917cccad";
+    var img_id = "_anim_imge3ef10f25370474a83eab78d79f6bf2e";
+    var slider_id = "_anim_slidere3ef10f25370474a83eab78d79f6bf2e";
+    var loop_select_id = "_anim_loop_selecte3ef10f25370474a83eab78d79f6bf2e";
     var frames = new Array(120);
     
   frames[0] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAYwAAAGMCAYAAADJOZVKAAAAOnRFWHRTb2Z0d2FyZQBNYXRwbG90\
@@ -22994,7 +23070,7 @@ rhAMAIArBAMA4ArBAAC4QjAAAK4QDACAK/8PszzxMWySO14AAAAASUVORK5CYII=\
     /* set a timeout to make sure all the above elements are created before
        the object is initialized. */
     setTimeout(function() {
-        anim0259510611434975a36279a4917cccad = new Animation(frames, img_id, slider_id, 33,
+        anime3ef10f25370474a83eab78d79f6bf2e = new Animation(frames, img_id, slider_id, 33,
                                  loop_select_id);
     }, 0);
   })()
