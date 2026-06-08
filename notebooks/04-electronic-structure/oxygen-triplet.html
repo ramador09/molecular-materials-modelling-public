@@ -659,7 +659,23 @@ build the molecular-orbital schema.</p>
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">data_file</span><span class="p">(</span><span class="n">name</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Locate a shipped data file from the repo root (CI) or the notebook dir (Colab).&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Locate a shipped data file, from the repo root (CI) or the notebook dir (Colab).</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    name : str</span>
+<span class="sd">        File name (or relative path) under a ``data`` directory.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    str</span>
+<span class="sd">        The first existing path found.</span>
+
+<span class="sd">    Raises</span>
+<span class="sd">    ------</span>
+<span class="sd">    FileNotFoundError</span>
+<span class="sd">        If the file is not found under any candidate base.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">for</span> <span class="n">base</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;data&quot;</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s2">&quot;notebooks&quot;</span><span class="p">,</span> <span class="s2">&quot;04-electronic-structure&quot;</span><span class="p">,</span> <span class="s2">&quot;data&quot;</span><span class="p">)):</span>
         <span class="n">path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">base</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
@@ -668,7 +684,20 @@ build the molecular-orbital schema.</p>
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">read_cube</span><span class="p">(</span><span class="n">name</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Parse a Gaussian cube file: voxel vectors, atom positions, and the 3-D grid.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Parse a Gaussian cube file.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    name : str</span>
+<span class="sd">        Cube file name.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    dict</span>
+<span class="sd">        Keys: ``label``, ``origin`` (3,), ``vec`` (3, 3) voxel vectors, ``atoms``</span>
+<span class="sd">        (n_at, 3) coordinates, ``data`` the 3-D scalar grid, and ``dV`` the</span>
+<span class="sd">        voxel volume.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">lines</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">data_file</span><span class="p">(</span><span class="n">name</span><span class="p">))</span><span class="o">.</span><span class="n">read</span><span class="p">()</span><span class="o">.</span><span class="n">splitlines</span><span class="p">()</span>
     <span class="n">label</span> <span class="o">=</span> <span class="n">lines</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
     <span class="n">n_at</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">lines</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">0</span><span class="p">])</span>
@@ -682,7 +711,22 @@ build the molecular-orbital schema.</p>
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">show_isosurface</span><span class="p">(</span><span class="n">cube</span><span class="p">,</span> <span class="n">levels</span><span class="p">,</span> <span class="n">title</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Render cube isosurfaces (amber = positive lobe, navy = negative) with atoms.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Render cube isosurfaces with the atoms marked, on a new 3-D figure.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    cube : dict</span>
+<span class="sd">        A parsed cube from ``read_cube``.</span>
+<span class="sd">    levels : list of tuple</span>
+<span class="sd">        ``(isovalue, colour)`` pairs (amber for positive lobes, navy for negative).</span>
+<span class="sd">    title : str</span>
+<span class="sd">        Figure title.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    matplotlib.figure.Figure</span>
+<span class="sd">        The figure with the rendered isosurface(s).</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">d</span><span class="p">,</span> <span class="n">vec</span><span class="p">,</span> <span class="n">origin</span> <span class="o">=</span> <span class="n">cube</span><span class="p">[</span><span class="s2">&quot;data&quot;</span><span class="p">],</span> <span class="n">cube</span><span class="p">[</span><span class="s2">&quot;vec&quot;</span><span class="p">],</span> <span class="n">cube</span><span class="p">[</span><span class="s2">&quot;origin&quot;</span><span class="p">]</span>
     <span class="n">spacing</span> <span class="o">=</span> <span class="p">(</span><span class="n">vec</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">vec</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">vec</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span>
     <span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mf">4.6</span><span class="p">,</span> <span class="mf">4.4</span><span class="p">))</span>
@@ -951,7 +995,7 @@ spin imbalance, and the paramagnetic moment it implies.</p>
 <figure class="align-default" id="fig-o2-schema">
 <img alt="../../_images/ee81c46413cdcc9ba8d0ab166727fdd74ed938714a4eb2414de33448f0ced52c.png" src="../../_images/ee81c46413cdcc9ba8d0ab166727fdd74ed938714a4eb2414de33448f0ced52c.png" />
 <figcaption>
-<p><span class="caption-number">Fig. 37 </span><span class="caption-text">Molecular-orbital schema of O₂ built from the real CP2K eigenvalues (valence levels, in eV; the two core 1s states are omitted): spin-up (α, amber) and spin-down (β, navy) electrons fill the levels. Every level is paired except the two degenerate π* orbitals, which hold one α electron each — the two unpaired electrons that make the ground state a triplet and O₂ paramagnetic.</span><a class="headerlink" href="#fig-o2-schema" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 37 </span><span class="caption-text">Molecular-orbital schema of O₂ built from the real CP2K eigenvalues (valence levels, in eV; the two core 1s states are omitted): spin-up (α, amber) and spin-down (β, navy) electrons fill the levels. Every level is paired except the two degenerate π* orbitals, which hold one α electron each: the two unpaired electrons that make the ground state a triplet and O₂ paramagnetic.</span><a class="headerlink" href="#fig-o2-schema" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>occupied: 9 α, 7 β  -&gt;  2 unpaired electrons; μ = 2.83 μ_B
