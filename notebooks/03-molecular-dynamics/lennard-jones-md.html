@@ -555,7 +555,7 @@
               font-family:'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace;font-size:11px;color:#46506b;
               letter-spacing:.04em;">
     <span>Raymond Amador</span>
-    <span>v0.1.0 &nbsp;·&nbsp; 2026-06-07 &nbsp;·&nbsp;
+    <span>v0.1.0 &nbsp;·&nbsp; 2026-06-08 &nbsp;·&nbsp;
           CC&nbsp;BY&nbsp;4.0 (text) / MIT (code)</span>
   </div>
 </div></div></div>
@@ -579,7 +579,8 @@ energy where a naive scheme does not, control temperature with a velocity-rescal
 <strong>thermostat</strong>, compute <span class="math notranslate nohighlight">\(g(r)\)</span> from the trajectory, and watch the cluster melt.</p>
 <blockquote>
 <div><p><strong>Provenance.</strong> This notebook develops <strong>Lecture 9</strong> of the course (molecular
-dynamics, ensembles, time integration, and the radial distribution function).
+dynamics, ensembles, time integration, and the radial distribution function),
+an exercise <strong>designed by the author (Raymond Amador)</strong>.
 The original ran CP2K (the <code class="docutils literal notranslate"><span class="pre">thermalization_38.inp</span></code> and <code class="docutils literal notranslate"><span class="pre">production_38.inp</span></code> decks
 shown in Exercise 1) on the Euler cluster; since the force field is exactly the
 Lennard-Jones potential, the dynamics are reproduced here in Python, and the
@@ -1138,42 +1139,42 @@ input[type=range].anim-slider {
 </style>
 
 <div class="animation">
-  <img id="_anim_img3a7fa2a9fd954ab4b15ee16f182301c7">
+  <img id="_anim_img8ec0b43c4af140ff8d62223fa08ffb85">
   <div class="anim-controls">
-    <input id="_anim_slider3a7fa2a9fd954ab4b15ee16f182301c7" type="range" class="anim-slider"
+    <input id="_anim_slider8ec0b43c4af140ff8d62223fa08ffb85" type="range" class="anim-slider"
            name="points" min="0" max="1" step="1" value="0"
-           oninput="anim3a7fa2a9fd954ab4b15ee16f182301c7.set_frame(parseInt(this.value));">
+           oninput="anim8ec0b43c4af140ff8d62223fa08ffb85.set_frame(parseInt(this.value));">
     <div class="anim-buttons">
-      <button title="Decrease speed" aria-label="Decrease speed" onclick="anim3a7fa2a9fd954ab4b15ee16f182301c7.slower()">
+      <button title="Decrease speed" aria-label="Decrease speed" onclick="anim8ec0b43c4af140ff8d62223fa08ffb85.slower()">
           <i class="fa fa-minus"></i></button>
-      <button title="First frame" aria-label="First frame" onclick="anim3a7fa2a9fd954ab4b15ee16f182301c7.first_frame()">
+      <button title="First frame" aria-label="First frame" onclick="anim8ec0b43c4af140ff8d62223fa08ffb85.first_frame()">
         <i class="fa fa-fast-backward"></i></button>
-      <button title="Previous frame" aria-label="Previous frame" onclick="anim3a7fa2a9fd954ab4b15ee16f182301c7.previous_frame()">
+      <button title="Previous frame" aria-label="Previous frame" onclick="anim8ec0b43c4af140ff8d62223fa08ffb85.previous_frame()">
           <i class="fa fa-step-backward"></i></button>
-      <button title="Play backwards" aria-label="Play backwards" onclick="anim3a7fa2a9fd954ab4b15ee16f182301c7.reverse_animation()">
+      <button title="Play backwards" aria-label="Play backwards" onclick="anim8ec0b43c4af140ff8d62223fa08ffb85.reverse_animation()">
           <i class="fa fa-play fa-flip-horizontal"></i></button>
-      <button title="Pause" aria-label="Pause" onclick="anim3a7fa2a9fd954ab4b15ee16f182301c7.pause_animation()">
+      <button title="Pause" aria-label="Pause" onclick="anim8ec0b43c4af140ff8d62223fa08ffb85.pause_animation()">
           <i class="fa fa-pause"></i></button>
-      <button title="Play" aria-label="Play" onclick="anim3a7fa2a9fd954ab4b15ee16f182301c7.play_animation()">
+      <button title="Play" aria-label="Play" onclick="anim8ec0b43c4af140ff8d62223fa08ffb85.play_animation()">
           <i class="fa fa-play"></i></button>
-      <button title="Next frame" aria-label="Next frame" onclick="anim3a7fa2a9fd954ab4b15ee16f182301c7.next_frame()">
+      <button title="Next frame" aria-label="Next frame" onclick="anim8ec0b43c4af140ff8d62223fa08ffb85.next_frame()">
           <i class="fa fa-step-forward"></i></button>
-      <button title="Last frame" aria-label="Last frame" onclick="anim3a7fa2a9fd954ab4b15ee16f182301c7.last_frame()">
+      <button title="Last frame" aria-label="Last frame" onclick="anim8ec0b43c4af140ff8d62223fa08ffb85.last_frame()">
           <i class="fa fa-fast-forward"></i></button>
-      <button title="Increase speed" aria-label="Increase speed" onclick="anim3a7fa2a9fd954ab4b15ee16f182301c7.faster()">
+      <button title="Increase speed" aria-label="Increase speed" onclick="anim8ec0b43c4af140ff8d62223fa08ffb85.faster()">
           <i class="fa fa-plus"></i></button>
     </div>
-    <form title="Repetition mode" aria-label="Repetition mode" action="#n" name="_anim_loop_select3a7fa2a9fd954ab4b15ee16f182301c7"
+    <form title="Repetition mode" aria-label="Repetition mode" action="#n" name="_anim_loop_select8ec0b43c4af140ff8d62223fa08ffb85"
           class="anim-state">
-      <input type="radio" name="state" value="once" id="_anim_radio1_3a7fa2a9fd954ab4b15ee16f182301c7"
+      <input type="radio" name="state" value="once" id="_anim_radio1_8ec0b43c4af140ff8d62223fa08ffb85"
              >
-      <label for="_anim_radio1_3a7fa2a9fd954ab4b15ee16f182301c7">Once</label>
-      <input type="radio" name="state" value="loop" id="_anim_radio2_3a7fa2a9fd954ab4b15ee16f182301c7"
+      <label for="_anim_radio1_8ec0b43c4af140ff8d62223fa08ffb85">Once</label>
+      <input type="radio" name="state" value="loop" id="_anim_radio2_8ec0b43c4af140ff8d62223fa08ffb85"
              checked>
-      <label for="_anim_radio2_3a7fa2a9fd954ab4b15ee16f182301c7">Loop</label>
-      <input type="radio" name="state" value="reflect" id="_anim_radio3_3a7fa2a9fd954ab4b15ee16f182301c7"
+      <label for="_anim_radio2_8ec0b43c4af140ff8d62223fa08ffb85">Loop</label>
+      <input type="radio" name="state" value="reflect" id="_anim_radio3_8ec0b43c4af140ff8d62223fa08ffb85"
              >
-      <label for="_anim_radio3_3a7fa2a9fd954ab4b15ee16f182301c7">Reflect</label>
+      <label for="_anim_radio3_8ec0b43c4af140ff8d62223fa08ffb85">Reflect</label>
     </form>
   </div>
 </div>
@@ -1183,9 +1184,9 @@ input[type=range].anim-slider {
   /* Instantiate the Animation class. */
   /* The IDs given should match those used in the template above. */
   (function() {
-    var img_id = "_anim_img3a7fa2a9fd954ab4b15ee16f182301c7";
-    var slider_id = "_anim_slider3a7fa2a9fd954ab4b15ee16f182301c7";
-    var loop_select_id = "_anim_loop_select3a7fa2a9fd954ab4b15ee16f182301c7";
+    var img_id = "_anim_img8ec0b43c4af140ff8d62223fa08ffb85";
+    var slider_id = "_anim_slider8ec0b43c4af140ff8d62223fa08ffb85";
+    var loop_select_id = "_anim_loop_select8ec0b43c4af140ff8d62223fa08ffb85";
     var frames = new Array(120);
     
   frames[0] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAYwAAAGMCAYAAADJOZVKAAAAOnRFWHRTb2Z0d2FyZQBNYXRwbG90\
@@ -22992,7 +22993,7 @@ rhAMAIArBAMA4ArBAAC4QjAAAK4QDACAK/8PszzxMWySO14AAAAASUVORK5CYII=\
     /* set a timeout to make sure all the above elements are created before
        the object is initialized. */
     setTimeout(function() {
-        anim3a7fa2a9fd954ab4b15ee16f182301c7 = new Animation(frames, img_id, slider_id, 33,
+        anim8ec0b43c4af140ff8d62223fa08ffb85 = new Animation(frames, img_id, slider_id, 33,
                                  loop_select_id);
     }, 0);
   })()
