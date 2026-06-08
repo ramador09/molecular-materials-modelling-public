@@ -581,8 +581,8 @@
 <p>The Ising model is the <em>hydrogen atom</em> of statistical mechanics: a lattice of
 binary spins <span class="math notranslate nohighlight">\(\sigma_i=\pm1\)</span> that prefer to align with their neighbours.
 Despite its simplicity it is one of the very few interacting many-body systems
-that can be solved <em>exactly</em> — in one dimension by the transfer matrix, in two
-by Onsager’s celebrated 1944 calculation — which makes it the ideal place to
+that can be solved <em>exactly</em> (in one dimension by the transfer matrix, in two
+by Onsager’s celebrated 1944 calculation), which makes it the ideal place to
 learn Monte Carlo sampling: almost every number we measure can be checked
 against a known truth.</p>
 <p>We treat the model from first principles. We write its Hamiltonian and energy,
@@ -590,18 +590,18 @@ solve the <strong>one-dimensional</strong> chain exactly with the transfer matri
 Landau’s domain-wall argument to see <em>why it never orders at finite
 temperature</em>, build the <strong>Metropolis</strong> algorithm and validate it against that
 exact 1D solution, and then cross into <strong>two dimensions</strong>, where a genuine
-phase transition appears at <span class="math notranslate nohighlight">\(k_BT_c\approx2.269\,J\)</span> — locating <span class="math notranslate nohighlight">\(T_c\)</span> from the
+phase transition appears at <span class="math notranslate nohighlight">\(k_BT_c\approx2.269\,J\)</span>, and locating <span class="math notranslate nohighlight">\(T_c\)</span> from the
 Monte Carlo data and comparing it to Onsager’s exact value.</p>
 <blockquote>
-<div><p><strong>Provenance.</strong> This notebook develops <strong>Lecture 2</strong> of the course — the 2D
-Ising model and the foundations of Monte Carlo — whose exercise was developed
+<div><p><strong>Provenance.</strong> This notebook develops <strong>Lecture 2</strong> of the course (the 2D Ising
+model and the foundations of Monte Carlo), whose exercise was developed
 by <strong>Dr. Carlo Pignedoli</strong>. It is here adopted, expanded (the exact 1D
 transfer-matrix solution and the finite-size-scaling analysis), reimplemented,
 and restyled by the author; the full course credit is in the footer.</p>
 </div></blockquote>
 <blockquote>
 <div><p><strong>Reading a validation.</strong> Each exercise ends with a check comparing a
-computed result to an independent fact — a ground-state energy, an exact
+computed result to an independent fact: a ground-state energy, an exact
 limit, the transfer-matrix solution, Onsager’s <span class="math notranslate nohighlight">\(T_c\)</span>. A ✗ does <em>not</em> by
 itself mean the physics is wrong: it means the output didn’t match what the
 check expected, which may be a real error, a different-but-valid convention,
@@ -641,7 +641,7 @@ periodic boundary conditions (<span class="math notranslate nohighlight">\(\sigm
 <span class="math notranslate nohighlight">\(\mathcal{H}_{1D}=-J\sum_i\sigma_i\sigma_{i+1}-h\sum_i\sigma_i\)</span>. Its ground
 state (<span class="math notranslate nohighlight">\(T\to0\)</span>) has all spins aligned at energy <span class="math notranslate nohighlight">\(E_0=-NJ\)</span>. If <span class="math notranslate nohighlight">\(d\)</span> of the <span class="math notranslate nohighlight">\(N\)</span>
 bonds are <em>antiparallel</em> (a “domain wall” on each), the energy is
-<span class="math notranslate nohighlight">\(E/J = -(N-d)+d = -N+2d\)</span> — every domain wall costs <span class="math notranslate nohighlight">\(2J\)</span>.</p>
+<span class="math notranslate nohighlight">\(E/J = -(N-d)+d = -N+2d\)</span>, so every domain wall costs <span class="math notranslate nohighlight">\(2J\)</span>.</p>
 </section>
 <section id="the-exact-one-dimensional-solution-the-transfer-matrix">
 <h3>The exact one-dimensional solution: the transfer matrix<a class="headerlink" href="#the-exact-one-dimensional-solution-the-transfer-matrix" title="Link to this heading">#</a></h3>
@@ -660,7 +660,7 @@ where the eigenvalues are</p>
 the free energy per site is</p>
 <div class="math notranslate nohighlight" id="equation-eq-free-energy">
 <span class="eqno">(4)<a class="headerlink" href="#equation-eq-free-energy" title="Link to this equation">#</a></span>\[f = -k_BT\,\ln\lambda_+ .\]</div>
-<p>Every observable is a derivative of this one scalar — magnetisation
+<p>Every observable is a derivative of this one scalar: magnetisation
 <span class="math notranslate nohighlight">\(m=-\partial f/\partial h\)</span>, susceptibility <span class="math notranslate nohighlight">\(\chi=\partial m/\partial h\)</span>,
 internal energy <span class="math notranslate nohighlight">\(u=f-T\,\partial f/\partial T\)</span>, specific heat
 <span class="math notranslate nohighlight">\(C=-T\,\partial^2 f/\partial T^2\)</span>. At <span class="math notranslate nohighlight">\(h=0\)</span> they take the closed forms</p>
@@ -723,7 +723,7 @@ universality class (the susceptibility and correlation length carry
 is rounded into a peak shifted slightly above <span class="math notranslate nohighlight">\(T_c\)</span>,</p>
 <div class="math notranslate nohighlight" id="equation-eq-fss">
 <span class="eqno">(8)<a class="headerlink" href="#equation-eq-fss" title="Link to this equation">#</a></span>\[T_{\rm peak}(L) = T_c + \frac{A}{L^{1/\nu}} = T_c + \frac{A}{L} \quad (\nu=1),\]</div>
-<p>a finite-size effect we will see directly, and which — fit over several <span class="math notranslate nohighlight">\(L\)</span> —
+<p>a finite-size effect we will see directly, and which, fit over several <span class="math notranslate nohighlight">\(L\)</span>,
 is itself the standard route to the exact <span class="math notranslate nohighlight">\(T_c\)</span>.</p>
 </section>
 </section>
@@ -758,7 +758,7 @@ is itself the standard route to the exact <span class="math notranslate nohighli
 nearest-neighbour bonds (periodic boundaries, so site <span class="math notranslate nohighlight">\(N-1\)</span> couples back to site
 <span class="math notranslate nohighlight">\(0\)</span>), and the magnetisation per spin is the mean spin. The schematic below fixes
 the picture: the ringed spin couples only to its two neighbours, and those are
-exactly the bonds whose energy changes when it flips — the locality we exploit
+exactly the bonds whose energy changes when it flips, the locality we exploit
 in the Metropolis step (Exercise 3).</p>
 <p><strong>Part a)</strong> Implement <code class="docutils literal notranslate"><span class="pre">energy_1d(s)</span></code> and <code class="docutils literal notranslate"><span class="pre">magnetization(s)</span></code>. <strong>Part b)</strong> Confirm
 the fully aligned chain sits at the ground-state energy <span class="math notranslate nohighlight">\(E_0=-NJ\)</span> (all <span class="math notranslate nohighlight">\(N\)</span> bonds
@@ -807,7 +807,7 @@ be exactly <span class="math notranslate nohighlight">\(E_0=-NJ\)</span>. This p
 magnetisation is exact for any field; at <span class="math notranslate nohighlight">\(h=0\)</span> the energy, specific heat and
 susceptibility take the table forms above. Three features are worth seeing: the
 internal energy rises smoothly from <span class="math notranslate nohighlight">\(-J\)</span> (cold, ordered) to <span class="math notranslate nohighlight">\(0\)</span> (hot, random);
-the specific heat shows a <strong>broad Schottky peak with no singularity</strong> — the
+the specific heat shows a <strong>broad Schottky peak with no singularity</strong>: the
 hallmark of <em>no</em> phase transition; and the susceptibility diverges only as
 <span class="math notranslate nohighlight">\(T\to0\)</span>, the signature that order forms only at exactly zero temperature.</p>
 <p><strong>Part a)</strong> Implement <code class="docutils literal notranslate"><span class="pre">exact_1d</span></code>. <strong>Part b)</strong> Plot <span class="math notranslate nohighlight">\(m\)</span>, <span class="math notranslate nohighlight">\(u\)</span>, <span class="math notranslate nohighlight">\(C\)</span>, <span class="math notranslate nohighlight">\(\chi\)</span> versus
@@ -845,11 +845,11 @@ specific-heat (Schottky) peak sits where <span class="math notranslate nohighlig
 ✓  Schottky-peak temperature solves K tanh K = 1   [got 0.833557 vs expected 0.8336 (rtol=0.001)]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/tmp/ipykernel_2114/893750000.py:5: RuntimeWarning: invalid value encountered in divide
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/tmp/ipykernel_2190/578343941.py:21: RuntimeWarning: invalid value encountered in divide
   m = np.sinh(hp) / np.sqrt(np.sinh(hp) ** 2 + np.exp(-4 * K))   # = -∂f/∂h
-/tmp/ipykernel_2114/893750000.py:7: RuntimeWarning: overflow encountered in cosh
+/tmp/ipykernel_2190/578343941.py:23: RuntimeWarning: overflow encountered in cosh
   C = K ** 2 / np.cosh(K) ** 2                                   # C/k_B, Schottky
-/tmp/ipykernel_2114/893750000.py:8: RuntimeWarning: overflow encountered in exp
+/tmp/ipykernel_2190/578343941.py:24: RuntimeWarning: overflow encountered in exp
   chi = np.exp(2 * K) * beta                                     # χ at h = 0
 </pre></div>
 </div>
@@ -874,7 +874,7 @@ the energy change is <strong>local</strong>,</p>
 respect to the Boltzmann distribution, which is what guarantees the chain
 samples the correct ensemble. We update the chain a <em>sublattice at a time</em> (even
 sites, then odd): in 1D the even and odd sites are mutually non-adjacent, so all
-spins of one colour can be proposed at once — a vectorised Metropolis update
+spins of one colour can be proposed at once, a vectorised Metropolis update
 that still respects detailed balance. The decisive test is that the sampled
 internal energy reproduces the <strong>exact</strong> transfer-matrix curve <span class="math notranslate nohighlight">\(u(T)\)</span>.</p>
 <p><strong>Part a)</strong> Implement <code class="docutils literal notranslate"><span class="pre">sweep_1d</span></code>. <strong>Part b)</strong> Scan temperature and overlay the
@@ -894,7 +894,7 @@ Monte Carlo energy on the exact <span class="math notranslate nohighlight">\(u(T
 <section id="validation-3-monte-carlo-reproduces-the-exact-1d-energy">
 <h3>Validation 3 — Monte Carlo reproduces the exact 1D energy<a class="headerlink" href="#validation-3-monte-carlo-reproduces-the-exact-1d-energy" title="Link to this heading">#</a></h3>
 <p>The sampled internal energy must match the transfer-matrix curve across the
-whole temperature scan — an independent, cross-method confirmation that the
+whole temperature scan, an independent cross-method confirmation that the
 Metropolis chain samples the Boltzmann distribution.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -921,7 +921,7 @@ Metropolis chain samples the Boltzmann distribution.</p>
 <section id="exercise-4-spacetime-evolution-and-domain-walls">
 <h2>Exercise 4 — Space–time evolution and domain walls<a class="headerlink" href="#exercise-4-spacetime-evolution-and-domain-walls" title="Link to this heading">#</a></h2>
 <p>Stacking successive snapshots of the chain (space across, Monte Carlo time down)
-makes the <strong>domain walls</strong> — the boundaries between <span class="math notranslate nohighlight">\(+1\)</span> and <span class="math notranslate nohighlight">\(-1\)</span> regions —
+makes the <strong>domain walls</strong> (the boundaries between <span class="math notranslate nohighlight">\(+1\)</span> and <span class="math notranslate nohighlight">\(-1\)</span> regions)
 visible as colour edges. At low temperature walls are rare and long-lived; at
 high temperature the chain is a fluctuating mess. This is the same physics as
 <a class="reference internal" href="#equation-eq-landau">Eq. 5</a> seen dynamically: walls proliferate as <span class="math notranslate nohighlight">\(T\)</span> rises. We quantify it
@@ -934,7 +934,7 @@ temperature.</p>
 <figure class="align-default" id="fig-ising-spacetime">
 <img alt="../../_images/4be0e97099294517d909f6e1ace7d7205b1cecfc879e2e5dddc317e146c86aca.png" src="../../_images/4be0e97099294517d909f6e1ace7d7205b1cecfc879e2e5dddc317e146c86aca.png" />
 <figcaption>
-<p><span class="caption-number">Fig. 4 </span><span class="caption-text">Space–time histories of a periodic 1D Ising chain (horizontal = lattice site, vertical = Monte Carlo time; navy <span class="math notranslate nohighlight">\(=+1\)</span>, amber <span class="math notranslate nohighlight">\(=-1\)</span>). At <span class="math notranslate nohighlight">\(k_BT/J=0.5\)</span> a few long-lived domains persist; at <span class="math notranslate nohighlight">\(T=2.0\)</span> walls appear and wander; at <span class="math notranslate nohighlight">\(T=5.0\)</span> the chain is fully disordered — the dynamical face of Landau’s argument, Eq. (eq-landau).</span><a class="headerlink" href="#fig-ising-spacetime" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 4 </span><span class="caption-text">Space–time histories of a periodic 1D Ising chain (horizontal = lattice site, vertical = Monte Carlo time; navy <span class="math notranslate nohighlight">\(=+1\)</span>, amber <span class="math notranslate nohighlight">\(=-1\)</span>). At <span class="math notranslate nohighlight">\(k_BT/J=0.5\)</span> a few long-lived domains persist; at <span class="math notranslate nohighlight">\(T=2.0\)</span> walls appear and wander; at <span class="math notranslate nohighlight">\(T=5.0\)</span> the chain is fully disordered, the dynamical face of Landau’s argument, Eq. (eq-landau).</span><a class="headerlink" href="#fig-ising-spacetime" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 </div>
@@ -942,7 +942,7 @@ temperature.</p>
 <section id="validation-4-domain-walls-proliferate-with-temperature">
 <h3>Validation 4 — domain walls proliferate with temperature<a class="headerlink" href="#validation-4-domain-walls-proliferate-with-temperature" title="Link to this heading">#</a></h3>
 <p>The equilibrium domain-wall count must rise monotonically from the cold chain to
-the hot one — the quantitative content of Landau’s energy–entropy competition.</p>
+the hot one: the quantitative content of Landau’s energy–entropy competition.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">validate</span><span class="o">.</span><span class="n">check</span><span class="p">(</span>
@@ -968,7 +968,7 @@ the hot one — the quantitative content of Landau’s energy–entropy competit
 <h2>Exercise 5 — Into two dimensions: the order parameter vs. Onsager–Yang<a class="headerlink" href="#exercise-5-into-two-dimensions-the-order-parameter-vs-onsageryang" title="Link to this heading">#</a></h2>
 <p>In 2D a domain wall is an extended loop, so (as argued above) order can survive
 up to a finite <span class="math notranslate nohighlight">\(T_c\)</span>. The Hamiltonian <a class="reference internal" href="#equation-eq-ising-hamiltonian">Eq. 1</a> and the
-Metropolis step <a class="reference internal" href="#equation-eq-deltae">Eq. 9</a> are unchanged — only the lattice topology
+Metropolis step <a class="reference internal" href="#equation-eq-deltae">Eq. 9</a> are unchanged; only the lattice topology
 differs, now with four neighbours. Scan temperature across Onsager’s
 <span class="math notranslate nohighlight">\(T_c\approx2.269\)</span> and compare the Monte Carlo magnetisation to Yang’s exact
 curve <a class="reference internal" href="#equation-eq-yang">Eq. 7</a>. As a second, parameter-free check we enumerate <em>all</em>
@@ -995,7 +995,7 @@ exact <span class="math notranslate nohighlight">\(4\times4\)</span> enumeration
 <h3>Validation 5 — exact 2D magnetisation, two ways<a class="headerlink" href="#validation-5-exact-2d-magnetisation-two-ways" title="Link to this heading">#</a></h3>
 <p>Deep in the ordered phase (<span class="math notranslate nohighlight">\(T=2.0\)</span>) the Monte Carlo magnetisation must match
 Yang’s exact value, and on the small <span class="math notranslate nohighlight">\(4\times4\)</span> lattice the sampler must
-reproduce the exact enumeration — a parameter-free check of the 2D sampler.</p>
+reproduce the exact enumeration, a parameter-free check of the 2D sampler.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">m_at_2</span> <span class="o">=</span> <span class="n">m_2d</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">argmin</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">Ts_2d</span> <span class="o">-</span> <span class="mf">2.0</span><span class="p">))]</span>
@@ -1027,12 +1027,12 @@ relations</p>
 <span class="eqno">(10)<a class="headerlink" href="#equation-eq-fluctuation" title="Link to this equation">#</a></span>\[\chi = \frac{N}{k_BT}\,\mathrm{Var}(m), \qquad
 \frac{C_v}{N k_B} = \frac{1}{N}\,\frac{\mathrm{Var}(E)}{(k_BT)^2},\]</div>
 <p>both develop a peak at the transition. Use the <strong>signed</strong> magnetisation for
-<span class="math notranslate nohighlight">\(\chi\)</span> — in a finite system <span class="math notranslate nohighlight">\(|m|&gt;0\)</span> even in the disordered phase, so
+<span class="math notranslate nohighlight">\(\chi\)</span>: in a finite system <span class="math notranslate nohighlight">\(|m|&gt;0\)</span> even in the disordered phase, so
 <span class="math notranslate nohighlight">\(\mathrm{Var}(|m|)\)</span> would understate the fluctuations. Two caveats shape what a
 <em>finite</em> run can tell us, and we return to them after the figure: on an
 <span class="math notranslate nohighlight">\(L\times L\)</span> lattice each peak sits slightly <strong>above</strong> <span class="math notranslate nohighlight">\(T_c\)</span> by <span class="math notranslate nohighlight">\(O(1/L)\)</span>
-(<a class="reference internal" href="#equation-eq-fss">Eq. 8</a>), and near <span class="math notranslate nohighlight">\(T_c\)</span> the dynamics slow critically, so <span class="math notranslate nohighlight">\(\chi\)</span> — built
-from the slowly-decorrelating magnetisation — is noisier than <span class="math notranslate nohighlight">\(C_v\)</span> and its
+(<a class="reference internal" href="#equation-eq-fss">Eq. 8</a>), and near <span class="math notranslate nohighlight">\(T_c\)</span> the dynamics slow critically, so <span class="math notranslate nohighlight">\(\chi\)</span>, built
+from the slowly-decorrelating magnetisation, is noisier than <span class="math notranslate nohighlight">\(C_v\)</span> and its
 single-run peak less reliable. We therefore quote the <strong>specific-heat</strong> peak as
 our estimate of <span class="math notranslate nohighlight">\(T_c\)</span> and compare it with Onsager’s exact value
 <a class="reference internal" href="#equation-eq-onsager-tc">Eq. 6</a>; the result is <a class="reference internal" href="#fig-ising-response"><span class="std std-numref">Fig. 6</span></a>.</p>
@@ -1044,7 +1044,7 @@ it overshoots.</p>
 <figure class="align-default" id="fig-ising-response">
 <img alt="../../_images/4c3468a72926bc754e1004e3c766d5a92db52524e3c70422716b9ae1f03aa975.png" src="../../_images/4c3468a72926bc754e1004e3c766d5a92db52524e3c70422716b9ae1f03aa975.png" />
 <figcaption>
-<p><span class="caption-number">Fig. 6 </span><span class="caption-text">Susceptibility <span class="math notranslate nohighlight">\(\chi\)</span> (left) and specific heat <span class="math notranslate nohighlight">\(C_v/Nk_B\)</span> (right) of the <span class="math notranslate nohighlight">\(L=24\)</span> 2D Ising lattice versus temperature (amber points), with Onsager’s exact <span class="math notranslate nohighlight">\(T_c\)</span> dashed and each measured peak dotted. Both peaks lie near <span class="math notranslate nohighlight">\(T_c\)</span> but above it, shifted by the finite-size relation Eq. (eq-fss) and scattered by critical slowing down — the susceptibility, built from the slowly-decorrelating magnetisation, overshoots more than the specific heat.</span><a class="headerlink" href="#fig-ising-response" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 6 </span><span class="caption-text">Susceptibility <span class="math notranslate nohighlight">\(\chi\)</span> (left) and specific heat <span class="math notranslate nohighlight">\(C_v/Nk_B\)</span> (right) of the <span class="math notranslate nohighlight">\(L=24\)</span> 2D Ising lattice versus temperature (amber points), with Onsager’s exact <span class="math notranslate nohighlight">\(T_c\)</span> dashed and each measured peak dotted. Both peaks lie near <span class="math notranslate nohighlight">\(T_c\)</span> but above it, shifted by the finite-size relation Eq. (eq-fss) and scattered by critical slowing down; the susceptibility, built from the slowly-decorrelating magnetisation, overshoots more than the specific heat.</span><a class="headerlink" href="#fig-ising-response" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 </div>
@@ -1061,14 +1061,14 @@ amplitude that is larger for the susceptibility. The shift shrinks with size:
 scanning <span class="math notranslate nohighlight">\(L=16,24,32,48\)</span> marches both peaks down toward <span class="math notranslate nohighlight">\(2.269\)</span>.</p></li>
 <li><p><strong>Critical slowing down.</strong> Near <span class="math notranslate nohighlight">\(T_c\)</span> the autocorrelation time of single-spin
 Metropolis diverges as <span class="math notranslate nohighlight">\(\tau\sim L^{z}\)</span> (<span class="math notranslate nohighlight">\(z\approx2.17\)</span>). The susceptibility
-is built from fluctuations of the <em>magnetisation</em> — the slowest mode to
-decorrelate — so for a fixed sweep budget it is under-sampled exactly where it
+is built from fluctuations of the <em>magnetisation</em> (the slowest mode to
+decorrelate), so for a fixed sweep budget it is under-sampled exactly where it
 is largest, and its single-run peak scatters by a grid point or two (which is
 how it can sit visibly above the <span class="math notranslate nohighlight">\(C_v\)</span> peak). The energy decorrelates faster,
 so <span class="math notranslate nohighlight">\(C_v\)</span> is the steadier locator; raising the sweep count pulls the <span class="math notranslate nohighlight">\(\chi\)</span>
 peak back toward <span class="math notranslate nohighlight">\(T_c\)</span>.</p></li>
 </ol>
-<p>So neither peak <em>is</em> <span class="math notranslate nohighlight">\(T_c\)</span> on a finite lattice — they bracket it from above, the
+<p>So neither peak <em>is</em> <span class="math notranslate nohighlight">\(T_c\)</span> on a finite lattice; they bracket it from above, the
 <span class="math notranslate nohighlight">\(C_v\)</span> peak more tightly, which is why we quote it. The larger <span class="math notranslate nohighlight">\(\chi\)</span> overshoot is
 expected, not an error; the systematic route to the exact <span class="math notranslate nohighlight">\(T_c\)</span> is the
 finite-size-scaling extrapolation we carry out next, not any single lattice.</p>
@@ -1104,7 +1104,7 @@ shift <a class="reference internal" href="#equation-eq-fss">Eq. 8</a> and the te
 than pinpoint it. The cure is built into <a class="reference internal" href="#equation-eq-fss">Eq. 8</a>: because
 <span class="math notranslate nohighlight">\(T_{\rm peak}(L)=T_c+A/L\)</span> (with <span class="math notranslate nohighlight">\(\nu=1\)</span> for the 2D Ising model), the peak
 locations fall on a straight line when plotted against <span class="math notranslate nohighlight">\(1/L\)</span>, and the line’s
-<strong>intercept at <span class="math notranslate nohighlight">\(1/L\to0\)</span> is <span class="math notranslate nohighlight">\(T_c\)</span> itself</strong> — the infinite-lattice limit, with the
+<strong>intercept at <span class="math notranslate nohighlight">\(1/L\to0\)</span> is <span class="math notranslate nohighlight">\(T_c\)</span> itself</strong>, the infinite-lattice limit, with the
 finite-size shift extrapolated away. We use the steadier specific-heat peak and
 read each one off its temperature scan with a parabolic fit to the three points
 around the maximum (a sub-grid estimate, since the true peak rarely lands exactly
@@ -1125,7 +1125,7 @@ intercept (<a class="reference internal" href="#fig-ising-fss"><span class="std 
 <section id="validation-7-the-l-to-infty-intercept-recovers-onsager-s-t-c">
 <h3>Validation 7 — the <span class="math notranslate nohighlight">\(L\to\infty\)</span> intercept recovers Onsager’s <span class="math notranslate nohighlight">\(T_c\)</span><a class="headerlink" href="#validation-7-the-l-to-infty-intercept-recovers-onsager-s-t-c" title="Link to this heading">#</a></h3>
 <p>Where any single finite lattice only brackets <span class="math notranslate nohighlight">\(T_c\)</span> from above, the extrapolated
-intercept must land on Onsager’s exact value — the payoff of finite-size scaling,
+intercept must land on Onsager’s exact value, the payoff of finite-size scaling,
 turning the finite-size shift from a nuisance into a quantitative tool.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1152,7 +1152,7 @@ turning the finite-size shift from a nuisance into a quantitative tool.</p>
 <p>Finally we <em>look</em> at the spins. Equilibrium snapshots show the phases directly:
 an ordered lattice far below <span class="math notranslate nohighlight">\(T_c\)</span>, scale-invariant domains of every size <em>at</em>
 <span class="math notranslate nohighlight">\(T_c\)</span>, and salt-and-pepper disorder above it. The dynamics are best seen moving:
-quench a random lattice to low temperature and animate it sweep by sweep — domains
+quench a random lattice to low temperature and animate it sweep by sweep: domains
 nucleate and coarsen, exactly the case where an animation shows what a still
 cannot. The quench can lock into a long-lived <strong>striped</strong> state (two domain walls
 wrapping the periodic lattice) whose magnetisation is small but whose energy is
@@ -1358,42 +1358,42 @@ input[type=range].anim-slider {
 </style>
 
 <div class="animation">
-  <img id="_anim_img87338b0f699f4cef920939747184a219">
+  <img id="_anim_imge6f843bcdfe042cb9c0d104b81931fe9">
   <div class="anim-controls">
-    <input id="_anim_slider87338b0f699f4cef920939747184a219" type="range" class="anim-slider"
+    <input id="_anim_slidere6f843bcdfe042cb9c0d104b81931fe9" type="range" class="anim-slider"
            name="points" min="0" max="1" step="1" value="0"
-           oninput="anim87338b0f699f4cef920939747184a219.set_frame(parseInt(this.value));">
+           oninput="anime6f843bcdfe042cb9c0d104b81931fe9.set_frame(parseInt(this.value));">
     <div class="anim-buttons">
-      <button title="Decrease speed" aria-label="Decrease speed" onclick="anim87338b0f699f4cef920939747184a219.slower()">
+      <button title="Decrease speed" aria-label="Decrease speed" onclick="anime6f843bcdfe042cb9c0d104b81931fe9.slower()">
           <i class="fa fa-minus"></i></button>
-      <button title="First frame" aria-label="First frame" onclick="anim87338b0f699f4cef920939747184a219.first_frame()">
+      <button title="First frame" aria-label="First frame" onclick="anime6f843bcdfe042cb9c0d104b81931fe9.first_frame()">
         <i class="fa fa-fast-backward"></i></button>
-      <button title="Previous frame" aria-label="Previous frame" onclick="anim87338b0f699f4cef920939747184a219.previous_frame()">
+      <button title="Previous frame" aria-label="Previous frame" onclick="anime6f843bcdfe042cb9c0d104b81931fe9.previous_frame()">
           <i class="fa fa-step-backward"></i></button>
-      <button title="Play backwards" aria-label="Play backwards" onclick="anim87338b0f699f4cef920939747184a219.reverse_animation()">
+      <button title="Play backwards" aria-label="Play backwards" onclick="anime6f843bcdfe042cb9c0d104b81931fe9.reverse_animation()">
           <i class="fa fa-play fa-flip-horizontal"></i></button>
-      <button title="Pause" aria-label="Pause" onclick="anim87338b0f699f4cef920939747184a219.pause_animation()">
+      <button title="Pause" aria-label="Pause" onclick="anime6f843bcdfe042cb9c0d104b81931fe9.pause_animation()">
           <i class="fa fa-pause"></i></button>
-      <button title="Play" aria-label="Play" onclick="anim87338b0f699f4cef920939747184a219.play_animation()">
+      <button title="Play" aria-label="Play" onclick="anime6f843bcdfe042cb9c0d104b81931fe9.play_animation()">
           <i class="fa fa-play"></i></button>
-      <button title="Next frame" aria-label="Next frame" onclick="anim87338b0f699f4cef920939747184a219.next_frame()">
+      <button title="Next frame" aria-label="Next frame" onclick="anime6f843bcdfe042cb9c0d104b81931fe9.next_frame()">
           <i class="fa fa-step-forward"></i></button>
-      <button title="Last frame" aria-label="Last frame" onclick="anim87338b0f699f4cef920939747184a219.last_frame()">
+      <button title="Last frame" aria-label="Last frame" onclick="anime6f843bcdfe042cb9c0d104b81931fe9.last_frame()">
           <i class="fa fa-fast-forward"></i></button>
-      <button title="Increase speed" aria-label="Increase speed" onclick="anim87338b0f699f4cef920939747184a219.faster()">
+      <button title="Increase speed" aria-label="Increase speed" onclick="anime6f843bcdfe042cb9c0d104b81931fe9.faster()">
           <i class="fa fa-plus"></i></button>
     </div>
-    <form title="Repetition mode" aria-label="Repetition mode" action="#n" name="_anim_loop_select87338b0f699f4cef920939747184a219"
+    <form title="Repetition mode" aria-label="Repetition mode" action="#n" name="_anim_loop_selecte6f843bcdfe042cb9c0d104b81931fe9"
           class="anim-state">
-      <input type="radio" name="state" value="once" id="_anim_radio1_87338b0f699f4cef920939747184a219"
+      <input type="radio" name="state" value="once" id="_anim_radio1_e6f843bcdfe042cb9c0d104b81931fe9"
              >
-      <label for="_anim_radio1_87338b0f699f4cef920939747184a219">Once</label>
-      <input type="radio" name="state" value="loop" id="_anim_radio2_87338b0f699f4cef920939747184a219"
+      <label for="_anim_radio1_e6f843bcdfe042cb9c0d104b81931fe9">Once</label>
+      <input type="radio" name="state" value="loop" id="_anim_radio2_e6f843bcdfe042cb9c0d104b81931fe9"
              checked>
-      <label for="_anim_radio2_87338b0f699f4cef920939747184a219">Loop</label>
-      <input type="radio" name="state" value="reflect" id="_anim_radio3_87338b0f699f4cef920939747184a219"
+      <label for="_anim_radio2_e6f843bcdfe042cb9c0d104b81931fe9">Loop</label>
+      <input type="radio" name="state" value="reflect" id="_anim_radio3_e6f843bcdfe042cb9c0d104b81931fe9"
              >
-      <label for="_anim_radio3_87338b0f699f4cef920939747184a219">Reflect</label>
+      <label for="_anim_radio3_e6f843bcdfe042cb9c0d104b81931fe9">Reflect</label>
     </form>
   </div>
 </div>
@@ -1403,9 +1403,9 @@ input[type=range].anim-slider {
   /* Instantiate the Animation class. */
   /* The IDs given should match those used in the template above. */
   (function() {
-    var img_id = "_anim_img87338b0f699f4cef920939747184a219";
-    var slider_id = "_anim_slider87338b0f699f4cef920939747184a219";
-    var loop_select_id = "_anim_loop_select87338b0f699f4cef920939747184a219";
+    var img_id = "_anim_imge6f843bcdfe042cb9c0d104b81931fe9";
+    var slider_id = "_anim_slidere6f843bcdfe042cb9c0d104b81931fe9";
+    var loop_select_id = "_anim_loop_selecte6f843bcdfe042cb9c0d104b81931fe9";
     var frames = new Array(201);
     
   frames[0] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAXoAAAF6CAYAAAAXoJOQAAAAOnRFWHRTb2Z0d2FyZQBNYXRwbG90\
@@ -26184,7 +26184,7 @@ QmCC\
     /* set a timeout to make sure all the above elements are created before
        the object is initialized. */
     setTimeout(function() {
-        anim87338b0f699f4cef920939747184a219 = new Animation(frames, img_id, slider_id, 33,
+        anime6f843bcdfe042cb9c0d104b81931fe9 = new Animation(frames, img_id, slider_id, 33,
                                  loop_select_id);
     }, 0);
   })()
@@ -26199,7 +26199,7 @@ QmCC\
 <h3>Validation 8 — the quench orders the lattice (energetically)<a class="headerlink" href="#validation-8-the-quench-orders-the-lattice-energetically" title="Link to this heading">#</a></h3>
 <p>A random start has energy per spin near zero; the ground state sits at <span class="math notranslate nohighlight">\(-2J\)</span> per
 spin. After 200 low-temperature sweeps the energy per spin must fall well below
-<span class="math notranslate nohighlight">\(-1.5J\)</span> — robust evidence of ordering, whether into one domain or a low-energy
+<span class="math notranslate nohighlight">\(-1.5J\)</span>, robust evidence of ordering, whether into one domain or a low-energy
 stripe, independent of the final magnetisation.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -26271,7 +26271,7 @@ family of models with qualitatively different physics:</p>
 </table>
 </div>
 <p>The same structure also describes <strong>lattice gases</strong> (fluid transitions), <strong>binary
-alloys</strong> (phase separation), and <strong>Boltzmann machines</strong> (neural networks) — the
+alloys</strong> (phase separation), and <strong>Boltzmann machines</strong> (neural networks): the
 common thread being collective behaviour emerging from simple local rules.</p>
 <p>Concrete extensions:</p>
 <ul class="simple">
@@ -26281,12 +26281,12 @@ the grid below <span class="math notranslate nohighlight">\(T_c\)</span> and fit
 fixed <span class="math notranslate nohighlight">\(\nu=1\)</span>; push to larger <span class="math notranslate nohighlight">\(L\)</span> (and more sweeps to tame critical slowing
 down), or let <span class="math notranslate nohighlight">\(\nu\)</span> float and fit <span class="math notranslate nohighlight">\(T_{\rm peak}=T_c+A/L^{1/\nu}\)</span> to <em>measure</em>
 the correlation-length exponent. The peak <em>height</em> of <span class="math notranslate nohighlight">\(\chi\)</span> scales as
-<span class="math notranslate nohighlight">\(L^{\gamma/\nu}=L^{7/4}\)</span> — a second exponent from the same data.</p></li>
+<span class="math notranslate nohighlight">\(L^{\gamma/\nu}=L^{7/4}\)</span>, a second exponent from the same data.</p></li>
 <li><p><strong>Cluster algorithms.</strong> Near <span class="math notranslate nohighlight">\(T_c\)</span> single-spin Metropolis suffers <em>critical
 slowing down</em>; the Wolff algorithm flips correlated domains at once and
 decorrelates far faster.</p></li>
 <li><p><strong>The Binder cumulant</strong> <span class="math notranslate nohighlight">\(U_4=1-\langle m^4\rangle/3\langle m^2\rangle^2\)</span> crosses
-at <span class="math notranslate nohighlight">\(T_c\)</span> for all sizes — a sharper locator than the <span class="math notranslate nohighlight">\(C_v\)</span> peak <span class="bibtex-citation" id="id7">[<a class="reference internal" href="#id14" title="Kurt Binder. Finite size scaling analysis of ising model block distribution functions. Zeitschrift für Physik B, 43(2):119–140, 1981. doi:10.1007/BF01293604.">Bin81</a>]</span>.</p></li>
+at <span class="math notranslate nohighlight">\(T_c\)</span> for all sizes, a sharper locator than the <span class="math notranslate nohighlight">\(C_v\)</span> peak <span class="bibtex-citation" id="id7">[<a class="reference internal" href="#id14" title="Kurt Binder. Finite size scaling analysis of ising model block distribution functions. Zeitschrift für Physik B, 43(2):119–140, 1981. doi:10.1007/BF01293604.">Bin81</a>]</span>.</p></li>
 </ul>
 <section id="references">
 <h3>References<a class="headerlink" href="#references" title="Link to this heading">#</a></h3>
