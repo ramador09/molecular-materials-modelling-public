@@ -543,7 +543,7 @@
               font-family:'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace;font-size:11px;color:#46506b;
               letter-spacing:.04em;">
     <span>Raymond Amador</span>
-    <span>v0.1.0 &nbsp;·&nbsp; 2026-06-08 &nbsp;·&nbsp;
+    <span>v0.1.0 &nbsp;·&nbsp; 2026-06-09 &nbsp;·&nbsp;
           CC&nbsp;BY&nbsp;4.0 (text) / MIT (code)</span>
   </div>
 </div></div></div>
@@ -730,16 +730,7 @@ swaps between the two (the chlorine that is bonded becomes the one that leaves).
 <h3>Validation 1 — a short and a long C–Cl bond at each end<a class="headerlink" href="#validation-1-a-short-and-a-long-ccl-bond-at-each-end" title="Link to this heading">#</a></h3>
 <p>Each endpoint has one bonded chlorine (~1.8 Å) and one departing/attacking chlorine
 much farther away: the asymmetry that the reaction reverses.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">validate</span><span class="o">.</span><span class="n">check</span><span class="p">(</span>
-    <span class="n">near_r</span> <span class="o">&lt;</span> <span class="mf">2.2</span> <span class="o">&lt;</span> <span class="n">far_r</span> <span class="ow">and</span> <span class="n">near_p</span> <span class="o">&lt;</span> <span class="mf">2.2</span> <span class="o">&lt;</span> <span class="n">far_p</span><span class="p">,</span>
-    <span class="s2">&quot;each endpoint has one bonded and one distant chlorine&quot;</span><span class="p">,</span>
-    <span class="sa">f</span><span class="s2">&quot;reactant </span><span class="si">{</span><span class="n">near_r</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">far_r</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> Å, product </span><span class="si">{</span><span class="n">near_p</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">far_p</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> Å&quot;</span><span class="p">,</span>
-<span class="p">)</span>
-</pre></div>
-</div>
-</div>
+<div class="cell tag_validation tag_remove-input docutils container">
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>✓  each endpoint has one bonded and one distant chlorine   [reactant 1.76/2.26 Å, product 1.46/2.26 Å]
 </pre></div>
@@ -780,16 +771,7 @@ the endpoints must come out at equal energy, with a positive barrier of the righ
 size (several kcal/mol) peaked near the middle of the band. The path is only
 approximately symmetric: the discrete images cluster unevenly around the transition
 state.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">validate</span><span class="o">.</span><span class="n">check</span><span class="p">(</span>
-    <span class="mi">3</span> <span class="o">&lt;</span> <span class="n">barrier</span> <span class="o">&lt;</span> <span class="mi">15</span> <span class="ow">and</span> <span class="n">thermoneutral</span> <span class="o">&lt;</span> <span class="mf">0.5</span> <span class="ow">and</span> <span class="n">i_ts</span> <span class="ow">in</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">),</span>
-    <span class="s2">&quot;the path is thermoneutral with a central barrier of the right size&quot;</span><span class="p">,</span>
-    <span class="sa">f</span><span class="s2">&quot;barrier </span><span class="si">{</span><span class="n">barrier</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2"> kcal/mol at image </span><span class="si">{</span><span class="n">i_ts</span><span class="si">}</span><span class="s2">; endpoint energy difference </span><span class="si">{</span><span class="n">thermoneutral</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2"> kcal/mol&quot;</span><span class="p">,</span>
-<span class="p">)</span>
-</pre></div>
-</div>
-</div>
+<div class="cell tag_validation tag_remove-input docutils container">
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>✓  the path is thermoneutral with a central barrier of the right size   [barrier 8.0 kcal/mol at image 4; endpoint energy difference 0.000 kcal/mol]
 </pre></div>
@@ -825,16 +807,7 @@ converged by the final steps.</p>
 <h3>Validation 3 — the band has converged<a class="headerlink" href="#validation-3-the-band-has-converged" title="Link to this heading">#</a></h3>
 <p>By the final iterations the barrier must have stopped changing: the last few steps
 should agree to a small fraction of a kcal/mol.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">validate</span><span class="o">.</span><span class="n">check</span><span class="p">(</span>
-    <span class="n">drift</span> <span class="o">&lt;</span> <span class="mf">0.2</span><span class="p">,</span>
-    <span class="s2">&quot;the NEB barrier has converged over the last few steps&quot;</span><span class="p">,</span>
-    <span class="sa">f</span><span class="s2">&quot;change over the final 5 steps = </span><span class="si">{</span><span class="n">drift</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2"> kcal/mol (converged at </span><span class="si">{</span><span class="n">barrier_history</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">,</span>
-<span class="p">)</span>
-</pre></div>
-</div>
-</div>
+<div class="cell tag_validation tag_remove-input docutils container">
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>✓  the NEB barrier has converged over the last few steps   [change over the final 5 steps = 0.000 kcal/mol (converged at 8.01)]
 </pre></div>

@@ -571,7 +571,7 @@
               font-family:'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace;font-size:11px;color:#46506b;
               letter-spacing:.04em;">
     <span>Raymond Amador</span>
-    <span>v0.1.0 &nbsp;·&nbsp; 2026-06-08 &nbsp;·&nbsp;
+    <span>v0.1.0 &nbsp;·&nbsp; 2026-06-09 &nbsp;·&nbsp;
           CC&nbsp;BY&nbsp;4.0 (text) / MIT (code)</span>
   </div>
 </div></div></div>
@@ -779,16 +779,7 @@ satisfied).</p>
 <h3>Validation 1 — the ferromagnetic ground state<a class="headerlink" href="#validation-1-the-ferromagnetic-ground-state" title="Link to this heading">#</a></h3>
 <p>A chain with every spin aligned has all <span class="math notranslate nohighlight">\(N\)</span> bonds satisfied, so its energy must
 be exactly <span class="math notranslate nohighlight">\(E_0=-NJ\)</span>. This pins the sign and normalisation of <code class="docutils literal notranslate"><span class="pre">energy_1d</span></code>.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">N0</span> <span class="o">=</span> <span class="mi">64</span>
-<span class="n">validate</span><span class="o">.</span><span class="n">close</span><span class="p">(</span>
-    <span class="n">energy_1d</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">N0</span><span class="p">)),</span> <span class="o">-</span><span class="n">N0</span> <span class="o">*</span> <span class="n">J</span><span class="p">,</span>
-    <span class="s2">&quot;aligned 1D ground-state energy equals -NJ&quot;</span><span class="p">,</span> <span class="n">rtol</span><span class="o">=</span><span class="mf">1e-12</span><span class="p">,</span>
-<span class="p">)</span>
-</pre></div>
-</div>
-</div>
+<div class="cell tag_validation tag_remove-input docutils container">
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>✓  aligned 1D ground-state energy equals -NJ   [got -64 vs expected -64 (rtol=1e-12)]
 </pre></div>
@@ -829,27 +820,18 @@ temperature (<a class="reference internal" href="#fig-ising-exact1d"><span class
 <p>Three analytic facts pin the 1D solution: the internal energy tends to <span class="math notranslate nohighlight">\(-J\)</span> as
 <span class="math notranslate nohighlight">\(T\to0\)</span> (fully ordered) and to <span class="math notranslate nohighlight">\(0\)</span> as <span class="math notranslate nohighlight">\(T\to\infty\)</span> (fully random), and the
 specific-heat (Schottky) peak sits where <span class="math notranslate nohighlight">\(K\tanh K=1\)</span>, i.e. <span class="math notranslate nohighlight">\(k_BT^*/J\approx0.834\)</span>.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">_</span><span class="p">,</span> <span class="n">u_cold</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">exact_1d</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">1e-3</span><span class="p">]))</span>
-<span class="n">_</span><span class="p">,</span> <span class="n">u_hot</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">exact_1d</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">1e3</span><span class="p">]))</span>
-<span class="n">validate</span><span class="o">.</span><span class="n">close</span><span class="p">(</span><span class="n">u_cold</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="o">-</span><span class="mf">1.0</span><span class="p">,</span> <span class="s2">&quot;1D internal energy → -J as T → 0&quot;</span><span class="p">,</span> <span class="n">rtol</span><span class="o">=</span><span class="mf">1e-6</span><span class="p">)</span>
-<span class="n">validate</span><span class="o">.</span><span class="n">close</span><span class="p">(</span><span class="n">u_hot</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mf">0.0</span><span class="p">,</span> <span class="s2">&quot;1D internal energy → 0 as T → ∞&quot;</span><span class="p">,</span> <span class="n">atol</span><span class="o">=</span><span class="mf">1e-3</span><span class="p">)</span>
-<span class="n">validate</span><span class="o">.</span><span class="n">close</span><span class="p">(</span><span class="n">T_star</span><span class="p">,</span> <span class="mf">0.8336</span><span class="p">,</span> <span class="s2">&quot;Schottky-peak temperature solves K tanh K = 1&quot;</span><span class="p">,</span> <span class="n">rtol</span><span class="o">=</span><span class="mf">1e-3</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
+<div class="cell tag_validation tag_remove-input docutils container">
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>✓  1D internal energy → -J as T → 0   [got -1 vs expected -1 (rtol=1e-06)]
 ✓  1D internal energy → 0 as T → ∞   [got -0.001 vs expected 0 (rtol=1e-06)]
 ✓  Schottky-peak temperature solves K tanh K = 1   [got 0.833557 vs expected 0.8336 (rtol=0.001)]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/tmp/ipykernel_2192/578343941.py:21: RuntimeWarning: invalid value encountered in divide
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/tmp/ipykernel_2206/578343941.py:21: RuntimeWarning: invalid value encountered in divide
   m = np.sinh(hp) / np.sqrt(np.sinh(hp) ** 2 + np.exp(-4 * K))   # = -∂f/∂h
-/tmp/ipykernel_2192/578343941.py:23: RuntimeWarning: overflow encountered in cosh
+/tmp/ipykernel_2206/578343941.py:23: RuntimeWarning: overflow encountered in cosh
   C = K ** 2 / np.cosh(K) ** 2                                   # C/k_B, Schottky
-/tmp/ipykernel_2192/578343941.py:24: RuntimeWarning: overflow encountered in exp
+/tmp/ipykernel_2206/578343941.py:24: RuntimeWarning: overflow encountered in exp
   chi = np.exp(2 * K) * beta                                     # χ at h = 0
 </pre></div>
 </div>
@@ -896,17 +878,7 @@ Monte Carlo energy on the exact <span class="math notranslate nohighlight">\(u(T
 <p>The sampled internal energy must match the transfer-matrix curve across the
 whole temperature scan, an independent cross-method confirmation that the
 Metropolis chain samples the Boltzmann distribution.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">u_exact_grid</span> <span class="o">=</span> <span class="n">exact_1d</span><span class="p">(</span><span class="n">Ts_1d</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span>
-<span class="n">validate</span><span class="o">.</span><span class="n">close</span><span class="p">(</span>
-    <span class="n">u_mc</span><span class="p">,</span> <span class="n">u_exact_grid</span><span class="p">,</span>
-    <span class="s2">&quot;1D MC internal energy matches the exact transfer-matrix u(T)&quot;</span><span class="p">,</span>
-    <span class="n">rtol</span><span class="o">=</span><span class="mf">0.03</span><span class="p">,</span> <span class="n">atol</span><span class="o">=</span><span class="mf">0.02</span><span class="p">,</span>
-<span class="p">)</span>
-</pre></div>
-</div>
-</div>
+<div class="cell tag_validation tag_remove-input docutils container">
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>✓  1D MC internal energy matches the exact transfer-matrix u(T)   [max|Δ| = 0.00791569 (rtol=0.03, atol=0.02)]
 </pre></div>
@@ -943,16 +915,7 @@ temperature.</p>
 <h3>Validation 4 — domain walls proliferate with temperature<a class="headerlink" href="#validation-4-domain-walls-proliferate-with-temperature" title="Link to this heading">#</a></h3>
 <p>The equilibrium domain-wall count must rise monotonically from the cold chain to
 the hot one: the quantitative content of Landau’s energy–entropy competition.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">validate</span><span class="o">.</span><span class="n">check</span><span class="p">(</span>
-    <span class="n">walls</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">walls</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">walls</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span>
-    <span class="s2">&quot;domain-wall count increases with temperature&quot;</span><span class="p">,</span>
-    <span class="sa">f</span><span class="s2">&quot;walls at T=</span><span class="si">{</span><span class="n">T_show</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="p">[</span><span class="nb">round</span><span class="p">(</span><span class="n">w</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">w</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">walls</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
-<span class="p">)</span>
-</pre></div>
-</div>
-</div>
+<div class="cell tag_validation tag_remove-input docutils container">
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>✓  domain-wall count increases with temperature   [walls at T=[0.5, 2.0, 5.0]: [np.float64(1.2), np.float64(20.7), np.float64(33.0)]]
 </pre></div>
@@ -996,16 +959,7 @@ exact <span class="math notranslate nohighlight">\(4\times4\)</span> enumeration
 <p>Deep in the ordered phase (<span class="math notranslate nohighlight">\(T=2.0\)</span>) the Monte Carlo magnetisation must match
 Yang’s exact value, and on the small <span class="math notranslate nohighlight">\(4\times4\)</span> lattice the sampler must
 reproduce the exact enumeration, a parameter-free check of the 2D sampler.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">m_at_2</span> <span class="o">=</span> <span class="n">m_2d</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">argmin</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">Ts_2d</span> <span class="o">-</span> <span class="mf">2.0</span><span class="p">))]</span>
-<span class="n">validate</span><span class="o">.</span><span class="n">close</span><span class="p">(</span><span class="n">m_at_2</span><span class="p">,</span> <span class="n">yang_m</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">Ts_2d</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">argmin</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">Ts_2d</span> <span class="o">-</span> <span class="mf">2.0</span><span class="p">))]]))[</span><span class="mi">0</span><span class="p">],</span>
-               <span class="s2">&quot;2D MC |m| matches the Onsager–Yang exact magnetisation&quot;</span><span class="p">,</span> <span class="n">rtol</span><span class="o">=</span><span class="mf">0.04</span><span class="p">)</span>
-<span class="n">validate</span><span class="o">.</span><span class="n">close</span><span class="p">(</span><span class="n">mc4</span><span class="p">,</span> <span class="n">m_exact4</span><span class="p">,</span>
-               <span class="s2">&quot;2D MC ⟨|m|⟩ matches exact 4×4 enumeration&quot;</span><span class="p">,</span> <span class="n">rtol</span><span class="o">=</span><span class="mf">0.06</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
+<div class="cell tag_validation tag_remove-input docutils container">
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>✓  2D MC |m| matches the Onsager–Yang exact magnetisation   [got 0.92001 vs expected 0.920816 (rtol=0.04)]
 ✓  2D MC ⟨|m|⟩ matches exact 4×4 enumeration   [got 0.722688 vs expected 0.729419 (rtol=0.06)]
@@ -1078,15 +1032,7 @@ finite-size-scaling extrapolation we carry out next, not any single lattice.</p>
 <p>The headline result: the specific-heat peak of a stochastic simulation must land
 on Onsager’s exact <span class="math notranslate nohighlight">\(T_c\)</span>, within a tolerance allowing for the finite-size upward
 shift <a class="reference internal" href="#equation-eq-fss">Eq. 8</a> and the temperature-grid spacing.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">validate</span><span class="o">.</span><span class="n">close</span><span class="p">(</span>
-    <span class="n">Tc_estimate</span><span class="p">,</span> <span class="n">Tc_onsager</span><span class="p">,</span>
-    <span class="s2">&quot;2D specific-heat peak locates Onsager&#39;s exact Tc&quot;</span><span class="p">,</span> <span class="n">rtol</span><span class="o">=</span><span class="mf">0.06</span><span class="p">,</span>
-<span class="p">)</span>
-</pre></div>
-</div>
-</div>
+<div class="cell tag_validation tag_remove-input docutils container">
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>✓  2D specific-heat peak locates Onsager&#39;s exact Tc   [got 2.28571 vs expected 2.26919 (rtol=0.06)]
 </pre></div>
@@ -1127,15 +1073,7 @@ intercept (<a class="reference internal" href="#fig-ising-fss"><span class="std 
 <p>Where any single finite lattice only brackets <span class="math notranslate nohighlight">\(T_c\)</span> from above, the extrapolated
 intercept must land on Onsager’s exact value, the payoff of finite-size scaling,
 turning the finite-size shift from a nuisance into a quantitative tool.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">validate</span><span class="o">.</span><span class="n">close</span><span class="p">(</span>
-    <span class="n">Tc_fss</span><span class="p">,</span> <span class="n">Tc_onsager</span><span class="p">,</span>
-    <span class="s2">&quot;finite-size-scaling intercept (L → ∞) recovers Onsager&#39;s exact Tc&quot;</span><span class="p">,</span> <span class="n">rtol</span><span class="o">=</span><span class="mf">0.05</span><span class="p">,</span>
-<span class="p">)</span>
-</pre></div>
-</div>
-</div>
+<div class="cell tag_validation tag_remove-input docutils container">
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>✓  finite-size-scaling intercept (L → ∞) recovers Onsager&#39;s exact Tc   [got 2.30027 vs expected 2.26919 (rtol=0.05)]
 </pre></div>
@@ -1358,42 +1296,42 @@ input[type=range].anim-slider {
 </style>
 
 <div class="animation">
-  <img id="_anim_img8cb6a170716d4e8fa08338cd95b6afc7">
+  <img id="_anim_imgd7711160e76b44818a3fa55a157483f5">
   <div class="anim-controls">
-    <input id="_anim_slider8cb6a170716d4e8fa08338cd95b6afc7" type="range" class="anim-slider"
+    <input id="_anim_sliderd7711160e76b44818a3fa55a157483f5" type="range" class="anim-slider"
            name="points" min="0" max="1" step="1" value="0"
-           oninput="anim8cb6a170716d4e8fa08338cd95b6afc7.set_frame(parseInt(this.value));">
+           oninput="animd7711160e76b44818a3fa55a157483f5.set_frame(parseInt(this.value));">
     <div class="anim-buttons">
-      <button title="Decrease speed" aria-label="Decrease speed" onclick="anim8cb6a170716d4e8fa08338cd95b6afc7.slower()">
+      <button title="Decrease speed" aria-label="Decrease speed" onclick="animd7711160e76b44818a3fa55a157483f5.slower()">
           <i class="fa fa-minus"></i></button>
-      <button title="First frame" aria-label="First frame" onclick="anim8cb6a170716d4e8fa08338cd95b6afc7.first_frame()">
+      <button title="First frame" aria-label="First frame" onclick="animd7711160e76b44818a3fa55a157483f5.first_frame()">
         <i class="fa fa-fast-backward"></i></button>
-      <button title="Previous frame" aria-label="Previous frame" onclick="anim8cb6a170716d4e8fa08338cd95b6afc7.previous_frame()">
+      <button title="Previous frame" aria-label="Previous frame" onclick="animd7711160e76b44818a3fa55a157483f5.previous_frame()">
           <i class="fa fa-step-backward"></i></button>
-      <button title="Play backwards" aria-label="Play backwards" onclick="anim8cb6a170716d4e8fa08338cd95b6afc7.reverse_animation()">
+      <button title="Play backwards" aria-label="Play backwards" onclick="animd7711160e76b44818a3fa55a157483f5.reverse_animation()">
           <i class="fa fa-play fa-flip-horizontal"></i></button>
-      <button title="Pause" aria-label="Pause" onclick="anim8cb6a170716d4e8fa08338cd95b6afc7.pause_animation()">
+      <button title="Pause" aria-label="Pause" onclick="animd7711160e76b44818a3fa55a157483f5.pause_animation()">
           <i class="fa fa-pause"></i></button>
-      <button title="Play" aria-label="Play" onclick="anim8cb6a170716d4e8fa08338cd95b6afc7.play_animation()">
+      <button title="Play" aria-label="Play" onclick="animd7711160e76b44818a3fa55a157483f5.play_animation()">
           <i class="fa fa-play"></i></button>
-      <button title="Next frame" aria-label="Next frame" onclick="anim8cb6a170716d4e8fa08338cd95b6afc7.next_frame()">
+      <button title="Next frame" aria-label="Next frame" onclick="animd7711160e76b44818a3fa55a157483f5.next_frame()">
           <i class="fa fa-step-forward"></i></button>
-      <button title="Last frame" aria-label="Last frame" onclick="anim8cb6a170716d4e8fa08338cd95b6afc7.last_frame()">
+      <button title="Last frame" aria-label="Last frame" onclick="animd7711160e76b44818a3fa55a157483f5.last_frame()">
           <i class="fa fa-fast-forward"></i></button>
-      <button title="Increase speed" aria-label="Increase speed" onclick="anim8cb6a170716d4e8fa08338cd95b6afc7.faster()">
+      <button title="Increase speed" aria-label="Increase speed" onclick="animd7711160e76b44818a3fa55a157483f5.faster()">
           <i class="fa fa-plus"></i></button>
     </div>
-    <form title="Repetition mode" aria-label="Repetition mode" action="#n" name="_anim_loop_select8cb6a170716d4e8fa08338cd95b6afc7"
+    <form title="Repetition mode" aria-label="Repetition mode" action="#n" name="_anim_loop_selectd7711160e76b44818a3fa55a157483f5"
           class="anim-state">
-      <input type="radio" name="state" value="once" id="_anim_radio1_8cb6a170716d4e8fa08338cd95b6afc7"
+      <input type="radio" name="state" value="once" id="_anim_radio1_d7711160e76b44818a3fa55a157483f5"
              >
-      <label for="_anim_radio1_8cb6a170716d4e8fa08338cd95b6afc7">Once</label>
-      <input type="radio" name="state" value="loop" id="_anim_radio2_8cb6a170716d4e8fa08338cd95b6afc7"
+      <label for="_anim_radio1_d7711160e76b44818a3fa55a157483f5">Once</label>
+      <input type="radio" name="state" value="loop" id="_anim_radio2_d7711160e76b44818a3fa55a157483f5"
              checked>
-      <label for="_anim_radio2_8cb6a170716d4e8fa08338cd95b6afc7">Loop</label>
-      <input type="radio" name="state" value="reflect" id="_anim_radio3_8cb6a170716d4e8fa08338cd95b6afc7"
+      <label for="_anim_radio2_d7711160e76b44818a3fa55a157483f5">Loop</label>
+      <input type="radio" name="state" value="reflect" id="_anim_radio3_d7711160e76b44818a3fa55a157483f5"
              >
-      <label for="_anim_radio3_8cb6a170716d4e8fa08338cd95b6afc7">Reflect</label>
+      <label for="_anim_radio3_d7711160e76b44818a3fa55a157483f5">Reflect</label>
     </form>
   </div>
 </div>
@@ -1403,9 +1341,9 @@ input[type=range].anim-slider {
   /* Instantiate the Animation class. */
   /* The IDs given should match those used in the template above. */
   (function() {
-    var img_id = "_anim_img8cb6a170716d4e8fa08338cd95b6afc7";
-    var slider_id = "_anim_slider8cb6a170716d4e8fa08338cd95b6afc7";
-    var loop_select_id = "_anim_loop_select8cb6a170716d4e8fa08338cd95b6afc7";
+    var img_id = "_anim_imgd7711160e76b44818a3fa55a157483f5";
+    var slider_id = "_anim_sliderd7711160e76b44818a3fa55a157483f5";
+    var loop_select_id = "_anim_loop_selectd7711160e76b44818a3fa55a157483f5";
     var frames = new Array(201);
     
   frames[0] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAXoAAAF6CAYAAAAXoJOQAAAAOnRFWHRTb2Z0d2FyZQBNYXRwbG90\
@@ -26184,7 +26122,7 @@ QmCC\
     /* set a timeout to make sure all the above elements are created before
        the object is initialized. */
     setTimeout(function() {
-        anim8cb6a170716d4e8fa08338cd95b6afc7 = new Animation(frames, img_id, slider_id, 33,
+        animd7711160e76b44818a3fa55a157483f5 = new Animation(frames, img_id, slider_id, 33,
                                  loop_select_id);
     }, 0);
   })()
@@ -26201,17 +26139,7 @@ QmCC\
 spin. After 200 low-temperature sweeps the energy per spin must fall well below
 <span class="math notranslate nohighlight">\(-1.5J\)</span>, robust evidence of ordering, whether into one domain or a low-energy
 stripe, independent of the final magnetisation.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">e_per_spin</span> <span class="o">=</span> <span class="n">energy_2d</span><span class="p">(</span><span class="n">frames</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span> <span class="o">/</span> <span class="p">(</span><span class="n">L_q</span> <span class="o">*</span> <span class="n">L_q</span><span class="p">)</span>
-<span class="n">validate</span><span class="o">.</span><span class="n">check</span><span class="p">(</span>
-    <span class="n">e_per_spin</span> <span class="o">&lt;</span> <span class="o">-</span><span class="mf">1.5</span> <span class="o">*</span> <span class="n">J</span><span class="p">,</span>
-    <span class="s2">&quot;low-temperature quench drives the energy toward the ground state&quot;</span><span class="p">,</span>
-    <span class="sa">f</span><span class="s2">&quot;final E/N = </span><span class="si">{</span><span class="n">e_per_spin</span><span class="o">/</span><span class="n">J</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> J  (ground state -2J),  |m| = </span><span class="si">{</span><span class="nb">abs</span><span class="p">(</span><span class="n">magnetization</span><span class="p">(</span><span class="n">frames</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]))</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
-<span class="p">)</span>
-</pre></div>
-</div>
-</div>
+<div class="cell tag_validation tag_remove-input docutils container">
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>✓  low-temperature quench drives the energy toward the ground state   [final E/N = -1.95 J  (ground state -2J),  |m| = 0.99]
 </pre></div>

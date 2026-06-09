@@ -555,7 +555,7 @@
               font-family:'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace;font-size:11px;color:#46506b;
               letter-spacing:.04em;">
     <span>Raymond Amador</span>
-    <span>v0.1.0 &nbsp;·&nbsp; 2026-06-08 &nbsp;·&nbsp;
+    <span>v0.1.0 &nbsp;·&nbsp; 2026-06-09 &nbsp;·&nbsp;
           CC&nbsp;BY&nbsp;4.0 (text) / MIT (code)</span>
   </div>
 </div></div></div>
@@ -758,13 +758,7 @@ the right basin and confirm it is trapped.</p>
 <h3>Validation 1 — the single chain is non-ergodic<a class="headerlink" href="#validation-1-the-single-chain-is-non-ergodic" title="Link to this heading">#</a></h3>
 <p>Started in the right basin (<span class="math notranslate nohighlight">\(x&gt;0\)</span>), the cold chain must spend essentially all its
 time there: a fraction near one, not the correct one-half.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">validate</span><span class="o">.</span><span class="n">check</span><span class="p">(</span><span class="n">frac_single</span> <span class="o">&gt;</span> <span class="mf">0.9</span><span class="p">,</span> <span class="s2">&quot;a single cold Metropolis chain stays trapped in one well&quot;</span><span class="p">,</span>
-               <span class="sa">f</span><span class="s2">&quot;fraction with x&gt;0 = </span><span class="si">{</span><span class="n">frac_single</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
+<div class="cell tag_validation tag_remove-input docutils container">
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>✓  a single cold Metropolis chain stays trapped in one well   [fraction with x&gt;0 = 1.000]
 </pre></div>
@@ -800,12 +794,7 @@ Boltzmann answer is one-half in each, and parallel tempering recovers it.</p>
 <h3>Validation 2 — the cold replica now samples both wells equally<a class="headerlink" href="#validation-2-the-cold-replica-now-samples-both-wells-equally" title="Link to this heading">#</a></h3>
 <p>With the swaps in place, the cold replica must populate the two symmetric wells
 with equal weight, the exact Boltzmann result: a fraction near one-half.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">validate</span><span class="o">.</span><span class="n">close</span><span class="p">(</span><span class="n">frac_pt</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="s2">&quot;parallel tempering recovers the exact symmetric Boltzmann populations&quot;</span><span class="p">,</span> <span class="n">atol</span><span class="o">=</span><span class="mf">0.12</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
+<div class="cell tag_validation tag_remove-input docutils container">
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>✓  parallel tempering recovers the exact symmetric Boltzmann populations   [got 0.4975 vs expected 0.5 (rtol=1e-06)]
 </pre></div>
@@ -862,16 +851,7 @@ whole temperature ladder, the condition for parallel tempering to help.</p>
 <p>Parallel tempering only helps if configurations actually move through temperature
 space. Every replica must visit a broad span of the ladder, not stay pinned at one
 temperature.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">validate</span><span class="o">.</span><span class="n">check</span><span class="p">(</span>
-    <span class="nb">min</span><span class="p">(</span><span class="n">visited</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">4</span><span class="p">,</span>
-    <span class="s2">&quot;every replica random-walks across a broad span of the temperature ladder&quot;</span><span class="p">,</span>
-    <span class="sa">f</span><span class="s2">&quot;replicas visit </span><span class="si">{</span><span class="nb">min</span><span class="p">(</span><span class="n">visited</span><span class="p">)</span><span class="si">}</span><span class="s2">–</span><span class="si">{</span><span class="nb">max</span><span class="p">(</span><span class="n">visited</span><span class="p">)</span><span class="si">}</span><span class="s2"> of 12 temperatures; swaps active on </span><span class="si">{</span><span class="n">swap_activity</span><span class="si">:</span><span class="s2">.1%</span><span class="si">}</span><span class="s2"> of steps&quot;</span><span class="p">,</span>
-<span class="p">)</span>
-</pre></div>
-</div>
-</div>
+<div class="cell tag_validation tag_remove-input docutils container">
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>✓  every replica random-walks across a broad span of the temperature ladder   [replicas visit 5–10 of 12 temperatures; swaps active on 32.3% of steps]
 </pre></div>
@@ -908,16 +888,7 @@ Lennard-Jones cluster, <span class="math notranslate nohighlight">\(T^\*\sim0.1\
 <h3>Validation 4 — melting sits where it should<a class="headerlink" href="#validation-4-melting-sits-where-it-should" title="Link to this heading">#</a></h3>
 <p>The steepest rise of the caloric curve, the melting transition, must fall in the
 known melting range of a 38-atom Lennard-Jones cluster, <span class="math notranslate nohighlight">\(T^\*\approx0.1\)</span>–<span class="math notranslate nohighlight">\(0.2\)</span>.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">validate</span><span class="o">.</span><span class="n">check</span><span class="p">(</span>
-    <span class="mf">0.10</span> <span class="o">&lt;</span> <span class="n">T_melt</span> <span class="o">&lt;</span> <span class="mf">0.22</span><span class="p">,</span>
-    <span class="s2">&quot;the caloric curve&#39;s steepest rise locates cluster melting near T* ~ 0.16&quot;</span><span class="p">,</span>
-    <span class="sa">f</span><span class="s2">&quot;steepest dE/dT at T* = </span><span class="si">{</span><span class="n">T_melt</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2"> (T = </span><span class="si">{</span><span class="n">T_melt</span><span class="o">*</span><span class="n">EPS_K</span><span class="si">:</span><span class="s2">.0f</span><span class="si">}</span><span class="s2"> K)&quot;</span><span class="p">,</span>
-<span class="p">)</span>
-</pre></div>
-</div>
-</div>
+<div class="cell tag_validation tag_remove-input docutils container">
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>✓  the caloric curve&#39;s steepest rise locates cluster melting near T* ~ 0.16   [steepest dE/dT at T* = 0.157 (T = 19 K)]
 </pre></div>
@@ -953,16 +924,7 @@ coincides with the melting transition of Exercise 4.</p>
 <p>The melting feature must be a real <em>peak</em>: the heat capacity rises to it and falls
 away on the high-temperature side, the finite-size signature of the solid melting,
 not a monotonic ramp.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">validate</span><span class="o">.</span><span class="n">check</span><span class="p">(</span>
-    <span class="n">Cv</span><span class="p">[</span><span class="n">i_melt</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">Cv</span><span class="p">[</span><span class="n">i_melt</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="ow">and</span> <span class="n">Cv</span><span class="p">[</span><span class="n">i_melt</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">Cv</span><span class="p">[</span><span class="n">i_melt</span> <span class="o">+</span> <span class="mi">1</span><span class="p">],</span>
-    <span class="s2">&quot;C_v has a local melting peak at the caloric-curve step&quot;</span><span class="p">,</span>
-    <span class="sa">f</span><span class="s2">&quot;C_v/k_B at T* = </span><span class="si">{</span><span class="n">T_melt</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">Cv</span><span class="p">[</span><span class="n">i_melt</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2"> &lt; </span><span class="si">{</span><span class="n">Cv</span><span class="p">[</span><span class="n">i_melt</span><span class="p">]</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2"> &gt; </span><span class="si">{</span><span class="n">Cv</span><span class="p">[</span><span class="n">i_melt</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
-<span class="p">)</span>
-</pre></div>
-</div>
-</div>
+<div class="cell tag_validation tag_remove-input docutils container">
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>✓  C_v has a local melting peak at the caloric-curve step   [C_v/k_B at T* = 0.16: 72.5 &lt; 149.4 &gt; 102.3]
 </pre></div>

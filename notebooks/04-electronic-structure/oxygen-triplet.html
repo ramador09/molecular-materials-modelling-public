@@ -559,7 +559,7 @@
               font-family:'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace;font-size:11px;color:#46506b;
               letter-spacing:.04em;">
     <span>Raymond Amador</span>
-    <span>v0.1.0 &nbsp;·&nbsp; 2026-06-08 &nbsp;·&nbsp;
+    <span>v0.1.0 &nbsp;·&nbsp; 2026-06-09 &nbsp;·&nbsp;
           CC&nbsp;BY&nbsp;4.0 (text) / MIT (code)</span>
   </div>
 </div></div></div>
@@ -783,16 +783,7 @@ output.</p>
 <h3>Validation 1 — the deck describes a triplet with cube output<a class="headerlink" href="#validation-1-the-deck-describes-a-triplet-with-cube-output" title="Link to this heading">#</a></h3>
 <p>The input must specify multiplicity 3 (a spin-1 triplet) and request the electron
 density cube, the two ingredients the rest of the exercise depends on.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">validate</span><span class="o">.</span><span class="n">check</span><span class="p">(</span>
-    <span class="n">multiplicity</span> <span class="o">==</span> <span class="mi">3</span> <span class="ow">and</span> <span class="n">spin_S</span> <span class="o">==</span> <span class="mi">1</span> <span class="ow">and</span> <span class="n">writes_density</span><span class="p">,</span>
-    <span class="s2">&quot;the input deck requests a triplet (multiplicity 3) and writes the density cube&quot;</span><span class="p">,</span>
-    <span class="sa">f</span><span class="s2">&quot;MULTIPLICITY = </span><span class="si">{</span><span class="n">multiplicity</span><span class="si">}</span><span class="s2"> (S = </span><span class="si">{</span><span class="n">spin_S</span><span class="si">:</span><span class="s2">.0f</span><span class="si">}</span><span class="s2">), E_DENSITY_CUBE = </span><span class="si">{</span><span class="n">writes_density</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
-<span class="p">)</span>
-</pre></div>
-</div>
-</div>
+<div class="cell tag_validation tag_remove-input docutils container">
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>✓  the input deck requests a triplet (multiplicity 3) and writes the density cube   [MULTIPLICITY = 3 (S = 1), E_DENSITY_CUBE = True]
 </pre></div>
@@ -828,16 +819,7 @@ a physical density.</p>
 <p>A real electron density is non-negative everywhere. (The integral under-counts
 here only because the cube was downsampled for size, blurring the sharp peaks at
 the nuclei; we check the electron <em>count</em> properly in Exercises 3 and 5.)</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">validate</span><span class="o">.</span><span class="n">check</span><span class="p">(</span>
-    <span class="n">o2_density</span><span class="p">[</span><span class="s2">&quot;data&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">()</span> <span class="o">&gt;</span> <span class="o">-</span><span class="mf">1e-4</span><span class="p">,</span>
-    <span class="s2">&quot;the electron density is non-negative everywhere (to numerical noise)&quot;</span><span class="p">,</span>
-    <span class="sa">f</span><span class="s2">&quot;min ρ = </span><span class="si">{</span><span class="n">o2_density</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">()</span><span class="si">:</span><span class="s2">.2e</span><span class="si">}</span><span class="s2">, max ρ = </span><span class="si">{</span><span class="n">o2_density</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
-<span class="p">)</span>
-</pre></div>
-</div>
-</div>
+<div class="cell tag_validation tag_remove-input docutils container">
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>✓  the electron density is non-negative everywhere (to numerical noise)   [min ρ = -8.76e-06, max ρ = 0.946]
 </pre></div>
@@ -874,12 +856,7 @@ is conserved.</p>
 <h3>Validation 3 — electron conservation<a class="headerlink" href="#validation-3-electron-conservation" title="Link to this heading">#</a></h3>
 <p>Forming a bond moves charge around but neither creates nor destroys it, so the
 density difference must integrate to ≈ 0.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">validate</span><span class="o">.</span><span class="n">close</span><span class="p">(</span><span class="n">delta_n</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="s2">&quot;the density difference integrates to zero (electrons conserved)&quot;</span><span class="p">,</span> <span class="n">atol</span><span class="o">=</span><span class="mf">0.05</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
+<div class="cell tag_validation tag_remove-input docutils container">
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>✓  the density difference integrates to zero (electrons conserved)   [got -0.0194206 vs expected 0 (rtol=1e-06)]
 </pre></div>
@@ -917,12 +894,7 @@ visible as the change of lobe colour across the bond.</p>
 <p>Each Kohn-Sham orbital is normalised, so <span class="math notranslate nohighlight">\(\int|\psi|^2\,dV\)</span> must be the same for all
 three (the same value the downsampling preserves), confirming they are genuine
 single-electron molecular orbitals.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">validate</span><span class="o">.</span><span class="n">close</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">norms</span><span class="p">),</span> <span class="n">norms</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="s2">&quot;the three orbitals share one normalisation (∫|ψ|² equal)&quot;</span><span class="p">,</span> <span class="n">rtol</span><span class="o">=</span><span class="mf">0.05</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
+<div class="cell tag_validation tag_remove-input docutils container">
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>✓  the three orbitals share one normalisation (∫|ψ|² equal)   [max|Δ| = 0.0329698 (rtol=0.05, atol=1e-09)]
 </pre></div>
@@ -961,12 +933,7 @@ the atom’s electrons.</p>
 <h3>Validation 5 — the molecule has twice the atom’s electrons<a class="headerlink" href="#validation-5-the-molecule-has-twice-the-atom-s-electrons" title="Link to this heading">#</a></h3>
 <p>The ratio of the integrated densities must be 2: the molecule is two oxygen atoms’
 worth of electrons.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">validate</span><span class="o">.</span><span class="n">close</span><span class="p">(</span><span class="n">ratio</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">,</span> <span class="s2">&quot;O₂ holds twice the electrons of an O atom (integral ratio = 2)&quot;</span><span class="p">,</span> <span class="n">rtol</span><span class="o">=</span><span class="mf">0.03</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
+<div class="cell tag_validation tag_remove-input docutils container">
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>✓  O₂ holds twice the electrons of an O atom (integral ratio = 2)   [got 1.99767 vs expected 2 (rtol=0.03)]
 </pre></div>
@@ -1008,16 +975,7 @@ spin imbalance, and the paramagnetic moment it implies.</p>
 <p>The spin-up/spin-down imbalance must be exactly two unpaired electrons, giving spin
 <span class="math notranslate nohighlight">\(S=1\)</span> and the spin-only moment <span class="math notranslate nohighlight">\(\mu=\sqrt{8}\approx2.83\,\mu_B\)</span>: O₂ is a
 paramagnetic triplet, the result a Lewis structure cannot give.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">validate</span><span class="o">.</span><span class="n">check</span><span class="p">(</span>
-    <span class="n">n_unpaired</span> <span class="o">==</span> <span class="mi">2</span> <span class="ow">and</span> <span class="nb">abs</span><span class="p">(</span><span class="n">mu</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">8</span><span class="p">))</span> <span class="o">&lt;</span> <span class="mf">1e-6</span><span class="p">,</span>
-    <span class="s2">&quot;O₂ has two unpaired electrons (S=1) and a non-zero magnetic moment&quot;</span><span class="p">,</span>
-    <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">n_unpaired</span><span class="si">}</span><span class="s2"> unpaired → μ = </span><span class="si">{</span><span class="n">mu</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> μ_B&quot;</span><span class="p">,</span>
-<span class="p">)</span>
-</pre></div>
-</div>
-</div>
+<div class="cell tag_validation tag_remove-input docutils container">
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>✓  O₂ has two unpaired electrons (S=1) and a non-zero magnetic moment   [2 unpaired → μ = 2.83 μ_B]
 </pre></div>

@@ -543,7 +543,7 @@
               font-family:'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace;font-size:11px;color:#46506b;
               letter-spacing:.04em;">
     <span>Raymond Amador</span>
-    <span>v0.1.0 &nbsp;·&nbsp; 2026-06-08 &nbsp;·&nbsp;
+    <span>v0.1.0 &nbsp;·&nbsp; 2026-06-09 &nbsp;·&nbsp;
           CC&nbsp;BY&nbsp;4.0 (text) / MIT (code)</span>
   </div>
 </div></div></div>
@@ -702,16 +702,7 @@ composition (a carbon sheet plus two HNO₃).</p>
 <h3>Validation 1 — graphene plus two nitric-acid molecules<a class="headerlink" href="#validation-1-graphene-plus-two-nitric-acid-molecules" title="Link to this heading">#</a></h3>
 <p>The system must be a carbon sheet (many C) with exactly the atoms of two HNO₃: two N,
 six O, two H.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">validate</span><span class="o">.</span><span class="n">check</span><span class="p">(</span>
-    <span class="n">counts</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;C&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">50</span> <span class="ow">and</span> <span class="n">counts</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;N&quot;</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span> <span class="ow">and</span> <span class="n">counts</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;O&quot;</span><span class="p">)</span> <span class="o">==</span> <span class="mi">6</span> <span class="ow">and</span> <span class="n">counts</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;H&quot;</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span><span class="p">,</span>
-    <span class="s2">&quot;the system is graphene plus two nitric-acid molecules&quot;</span><span class="p">,</span>
-    <span class="sa">f</span><span class="s2">&quot;composition </span><span class="si">{</span><span class="n">counts</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
-<span class="p">)</span>
-</pre></div>
-</div>
-</div>
+<div class="cell tag_validation tag_remove-input docutils container">
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>✓  the system is graphene plus two nitric-acid molecules   [composition {&#39;C&#39;: 60, &#39;H&#39;: 2, &#39;N&#39;: 2, &#39;O&#39;: 6}]
 </pre></div>
@@ -748,16 +739,7 @@ bias has driven each CV over a finite range.</p>
 <h3>Validation 2 — the bias drove exploration<a class="headerlink" href="#validation-2-the-bias-drove-exploration" title="Link to this heading">#</a></h3>
 <p>Metadynamics must move the system: every collective variable has to explore a finite
 range over the run, not sit at a single value.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">validate</span><span class="o">.</span><span class="n">check</span><span class="p">(</span>
-    <span class="nb">bool</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="n">cv_ranges</span> <span class="o">&gt;</span> <span class="mf">0.05</span><span class="p">)),</span>
-    <span class="s2">&quot;all three collective variables explore a finite range&quot;</span><span class="p">,</span>
-    <span class="sa">f</span><span class="s2">&quot;ranges </span><span class="si">{</span><span class="n">cv_ranges</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span><span class="si">}</span><span class="s2"> (CV units)&quot;</span><span class="p">,</span>
-<span class="p">)</span>
-</pre></div>
-</div>
-</div>
+<div class="cell tag_validation tag_remove-input docutils container">
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>✓  all three collective variables explore a finite range   [ranges [0.234 0.165 0.171] (CV units)]
 </pre></div>
@@ -797,17 +779,7 @@ Confirm its minimum coincides with where the trajectory spent the most time.</p>
 <p>Metadynamics fills the basins it visits, so the reconstructed free-energy minimum must
 coincide with where the trajectory actually spent its time, a consistency check
 between the <code class="docutils literal notranslate"><span class="pre">HILLS</span></code> reconstruction and the independent <code class="docutils literal notranslate"><span class="pre">COLVAR</span></code> trajectory.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">span</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">hypot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ptp</span><span class="p">(</span><span class="n">cv</span><span class="p">[:,</span> <span class="n">a</span><span class="p">]),</span> <span class="n">np</span><span class="o">.</span><span class="n">ptp</span><span class="p">(</span><span class="n">cv</span><span class="p">[:,</span> <span class="n">b</span><span class="p">]))</span>
-<span class="n">validate</span><span class="o">.</span><span class="n">check</span><span class="p">(</span>
-    <span class="n">agreement</span> <span class="o">&lt;</span> <span class="mf">0.25</span> <span class="o">*</span> <span class="n">span</span><span class="p">,</span>
-    <span class="s2">&quot;the reconstructed FES minimum sits where the trajectory spent the most time&quot;</span><span class="p">,</span>
-    <span class="sa">f</span><span class="s2">&quot;FES min ↔ most-visited distance = </span><span class="si">{</span><span class="n">agreement</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2"> (</span><span class="si">{</span><span class="mi">100</span><span class="o">*</span><span class="n">agreement</span><span class="o">/</span><span class="n">span</span><span class="si">:</span><span class="s2">.0f</span><span class="si">}</span><span class="s2">% of the explored span)&quot;</span><span class="p">,</span>
-<span class="p">)</span>
-</pre></div>
-</div>
-</div>
+<div class="cell tag_validation tag_remove-input docutils container">
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>✓  the reconstructed FES minimum sits where the trajectory spent the most time   [FES min ↔ most-visited distance = 0.005 (2% of the explored span)]
 </pre></div>

@@ -556,7 +556,7 @@
               font-family:'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace;font-size:11px;color:#46506b;
               letter-spacing:.04em;">
     <span>Raymond Amador</span>
-    <span>v0.1.0 &nbsp;·&nbsp; 2026-06-08 &nbsp;·&nbsp;
+    <span>v0.1.0 &nbsp;·&nbsp; 2026-06-09 &nbsp;·&nbsp;
           CC&nbsp;BY&nbsp;4.0 (text) / MIT (code)</span>
   </div>
 </div></div></div>
@@ -852,12 +852,7 @@ thermostat). <strong>Part b)</strong> Run the cluster in <span class="math notra
 <p>A correct microcanonical trajectory conserves the total energy: its relative
 drift over the run must be tiny, the molecular-dynamics equivalent of “did I
 integrate it right?”.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">validate</span><span class="o">.</span><span class="n">conserved</span><span class="p">(</span><span class="n">E_nve</span><span class="p">,</span> <span class="s2">&quot;velocity-Verlet NVE run conserves total energy&quot;</span><span class="p">,</span> <span class="n">rel_drift</span><span class="o">=</span><span class="mf">1e-3</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
+<div class="cell tag_validation tag_remove-input docutils container">
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>✓  velocity-Verlet NVE run conserves total energy   [max relative drift = 2.50255e-05 (limit 0.001)]
 </pre></div>
@@ -895,16 +890,7 @@ spent an assignment “converging the time steps”.</p>
 <p>At the same timestep the forward-Euler energy drift must exceed the Verlet drift
 by orders of magnitude, the quantitative reason molecular dynamics uses symplectic
 integrators.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">validate</span><span class="o">.</span><span class="n">check</span><span class="p">(</span>
-    <span class="n">drift_euler</span> <span class="o">&gt;</span> <span class="mi">100</span> <span class="o">*</span> <span class="n">drift_verlet</span><span class="p">,</span>
-    <span class="s2">&quot;forward Euler drifts far more than velocity Verlet at equal timestep&quot;</span><span class="p">,</span>
-    <span class="sa">f</span><span class="s2">&quot;Euler drift = </span><span class="si">{</span><span class="n">drift_euler</span><span class="si">:</span><span class="s2">.1e</span><span class="si">}</span><span class="s2">, Verlet drift = </span><span class="si">{</span><span class="n">drift_verlet</span><span class="si">:</span><span class="s2">.1e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
-<span class="p">)</span>
-</pre></div>
-</div>
-</div>
+<div class="cell tag_validation tag_remove-input docutils container">
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>✓  forward Euler drifts far more than velocity Verlet at equal timestep   [Euler drift = 1.2e+00, Verlet drift = 2.2e-05]
 </pre></div>
@@ -941,12 +927,7 @@ thermostat. <strong>Part b)</strong> Confirm the time-averaged temperature equal
 <h3>Validation 3 — the thermostat reaches the target temperature<a class="headerlink" href="#validation-3-the-thermostat-reaches-the-target-temperature" title="Link to this heading">#</a></h3>
 <p>After equilibration the time-averaged temperature must equal the thermostat
 target <span class="math notranslate nohighlight">\(T^\*=0.167\)</span>, the defining property of a canonical simulation.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">validate</span><span class="o">.</span><span class="n">close</span><span class="p">(</span><span class="n">T_mean</span><span class="p">,</span> <span class="n">T_STAR_20K</span><span class="p">,</span> <span class="s2">&quot;thermostat holds the cluster at the target temperature&quot;</span><span class="p">,</span> <span class="n">rtol</span><span class="o">=</span><span class="mf">0.15</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
+<div class="cell tag_validation tag_remove-input docutils container">
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>✓  thermostat holds the cluster at the target temperature   [got 0.166855 vs expected 0.166945 (rtol=0.15)]
 </pre></div>
@@ -990,12 +971,7 @@ run an <span class="math notranslate nohighlight">\(NVE\)</span> production traj
 <h3>Validation 4 — the first peak is the nearest-neighbour shell<a class="headerlink" href="#validation-4-the-first-peak-is-the-nearest-neighbour-shell" title="Link to this heading">#</a></h3>
 <p>The first peak of <span class="math notranslate nohighlight">\(g(r)\)</span> must sit at the Lennard-Jones nearest-neighbour distance
 <span class="math notranslate nohighlight">\(r_{\min}=2^{1/6}\approx1.122\)</span>, where the pair potential is minimised.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">validate</span><span class="o">.</span><span class="n">close</span><span class="p">(</span><span class="n">first_peak</span><span class="p">,</span> <span class="n">RMIN</span><span class="p">,</span> <span class="s2">&quot;g(r) first peak sits at the nearest-neighbour distance&quot;</span><span class="p">,</span> <span class="n">rtol</span><span class="o">=</span><span class="mf">0.06</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
+<div class="cell tag_validation tag_remove-input docutils container">
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>✓  g(r) first peak sits at the nearest-neighbour distance   [got 1.11667 vs expected 1.12246 (rtol=0.06)]
 </pre></div>
@@ -1216,42 +1192,42 @@ input[type=range].anim-slider {
 </style>
 
 <div class="animation">
-  <img id="_anim_imgc463b7f53b604edfb2bfb87228fe51eb">
+  <img id="_anim_img5f63de48c23445f583006d6f0e5729d9">
   <div class="anim-controls">
-    <input id="_anim_sliderc463b7f53b604edfb2bfb87228fe51eb" type="range" class="anim-slider"
+    <input id="_anim_slider5f63de48c23445f583006d6f0e5729d9" type="range" class="anim-slider"
            name="points" min="0" max="1" step="1" value="0"
-           oninput="animc463b7f53b604edfb2bfb87228fe51eb.set_frame(parseInt(this.value));">
+           oninput="anim5f63de48c23445f583006d6f0e5729d9.set_frame(parseInt(this.value));">
     <div class="anim-buttons">
-      <button title="Decrease speed" aria-label="Decrease speed" onclick="animc463b7f53b604edfb2bfb87228fe51eb.slower()">
+      <button title="Decrease speed" aria-label="Decrease speed" onclick="anim5f63de48c23445f583006d6f0e5729d9.slower()">
           <i class="fa fa-minus"></i></button>
-      <button title="First frame" aria-label="First frame" onclick="animc463b7f53b604edfb2bfb87228fe51eb.first_frame()">
+      <button title="First frame" aria-label="First frame" onclick="anim5f63de48c23445f583006d6f0e5729d9.first_frame()">
         <i class="fa fa-fast-backward"></i></button>
-      <button title="Previous frame" aria-label="Previous frame" onclick="animc463b7f53b604edfb2bfb87228fe51eb.previous_frame()">
+      <button title="Previous frame" aria-label="Previous frame" onclick="anim5f63de48c23445f583006d6f0e5729d9.previous_frame()">
           <i class="fa fa-step-backward"></i></button>
-      <button title="Play backwards" aria-label="Play backwards" onclick="animc463b7f53b604edfb2bfb87228fe51eb.reverse_animation()">
+      <button title="Play backwards" aria-label="Play backwards" onclick="anim5f63de48c23445f583006d6f0e5729d9.reverse_animation()">
           <i class="fa fa-play fa-flip-horizontal"></i></button>
-      <button title="Pause" aria-label="Pause" onclick="animc463b7f53b604edfb2bfb87228fe51eb.pause_animation()">
+      <button title="Pause" aria-label="Pause" onclick="anim5f63de48c23445f583006d6f0e5729d9.pause_animation()">
           <i class="fa fa-pause"></i></button>
-      <button title="Play" aria-label="Play" onclick="animc463b7f53b604edfb2bfb87228fe51eb.play_animation()">
+      <button title="Play" aria-label="Play" onclick="anim5f63de48c23445f583006d6f0e5729d9.play_animation()">
           <i class="fa fa-play"></i></button>
-      <button title="Next frame" aria-label="Next frame" onclick="animc463b7f53b604edfb2bfb87228fe51eb.next_frame()">
+      <button title="Next frame" aria-label="Next frame" onclick="anim5f63de48c23445f583006d6f0e5729d9.next_frame()">
           <i class="fa fa-step-forward"></i></button>
-      <button title="Last frame" aria-label="Last frame" onclick="animc463b7f53b604edfb2bfb87228fe51eb.last_frame()">
+      <button title="Last frame" aria-label="Last frame" onclick="anim5f63de48c23445f583006d6f0e5729d9.last_frame()">
           <i class="fa fa-fast-forward"></i></button>
-      <button title="Increase speed" aria-label="Increase speed" onclick="animc463b7f53b604edfb2bfb87228fe51eb.faster()">
+      <button title="Increase speed" aria-label="Increase speed" onclick="anim5f63de48c23445f583006d6f0e5729d9.faster()">
           <i class="fa fa-plus"></i></button>
     </div>
-    <form title="Repetition mode" aria-label="Repetition mode" action="#n" name="_anim_loop_selectc463b7f53b604edfb2bfb87228fe51eb"
+    <form title="Repetition mode" aria-label="Repetition mode" action="#n" name="_anim_loop_select5f63de48c23445f583006d6f0e5729d9"
           class="anim-state">
-      <input type="radio" name="state" value="once" id="_anim_radio1_c463b7f53b604edfb2bfb87228fe51eb"
+      <input type="radio" name="state" value="once" id="_anim_radio1_5f63de48c23445f583006d6f0e5729d9"
              >
-      <label for="_anim_radio1_c463b7f53b604edfb2bfb87228fe51eb">Once</label>
-      <input type="radio" name="state" value="loop" id="_anim_radio2_c463b7f53b604edfb2bfb87228fe51eb"
+      <label for="_anim_radio1_5f63de48c23445f583006d6f0e5729d9">Once</label>
+      <input type="radio" name="state" value="loop" id="_anim_radio2_5f63de48c23445f583006d6f0e5729d9"
              checked>
-      <label for="_anim_radio2_c463b7f53b604edfb2bfb87228fe51eb">Loop</label>
-      <input type="radio" name="state" value="reflect" id="_anim_radio3_c463b7f53b604edfb2bfb87228fe51eb"
+      <label for="_anim_radio2_5f63de48c23445f583006d6f0e5729d9">Loop</label>
+      <input type="radio" name="state" value="reflect" id="_anim_radio3_5f63de48c23445f583006d6f0e5729d9"
              >
-      <label for="_anim_radio3_c463b7f53b604edfb2bfb87228fe51eb">Reflect</label>
+      <label for="_anim_radio3_5f63de48c23445f583006d6f0e5729d9">Reflect</label>
     </form>
   </div>
 </div>
@@ -1261,9 +1237,9 @@ input[type=range].anim-slider {
   /* Instantiate the Animation class. */
   /* The IDs given should match those used in the template above. */
   (function() {
-    var img_id = "_anim_imgc463b7f53b604edfb2bfb87228fe51eb";
-    var slider_id = "_anim_sliderc463b7f53b604edfb2bfb87228fe51eb";
-    var loop_select_id = "_anim_loop_selectc463b7f53b604edfb2bfb87228fe51eb";
+    var img_id = "_anim_img5f63de48c23445f583006d6f0e5729d9";
+    var slider_id = "_anim_slider5f63de48c23445f583006d6f0e5729d9";
+    var loop_select_id = "_anim_loop_select5f63de48c23445f583006d6f0e5729d9";
     var frames = new Array(120);
     
   frames[0] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAYwAAAGMCAYAAADJOZVKAAAAOnRFWHRTb2Z0d2FyZQBNYXRwbG90\
@@ -23070,7 +23046,7 @@ rhAMAIArBAMA4ArBAAC4QjAAAK4QDACAK/8PszzxMWySO14AAAAASUVORK5CYII=\
     /* set a timeout to make sure all the above elements are created before
        the object is initialized. */
     setTimeout(function() {
-        animc463b7f53b604edfb2bfb87228fe51eb = new Animation(frames, img_id, slider_id, 33,
+        anim5f63de48c23445f583006d6f0e5729d9 = new Animation(frames, img_id, slider_id, 33,
                                  loop_select_id);
     }, 0);
   })()
@@ -23086,16 +23062,7 @@ rhAMAIArBAMA4ArBAAC4QjAAAK4QDACAK/8PszzxMWySO14AAAAASUVORK5CYII=\
 <p>Melting must register in <span class="math notranslate nohighlight">\(g(r)\)</span>: the first peak of the hot trajectory is markedly
 lower (broader) than the cold solid’s, because diffusion has blurred the
 nearest-neighbour shell.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">validate</span><span class="o">.</span><span class="n">check</span><span class="p">(</span>
-    <span class="n">peak_hot</span> <span class="o">&lt;</span> <span class="mf">0.6</span> <span class="o">*</span> <span class="n">peak_cold</span><span class="p">,</span>
-    <span class="s2">&quot;the hot liquid g(r) is markedly less ordered than the cold solid&quot;</span><span class="p">,</span>
-    <span class="sa">f</span><span class="s2">&quot;first-peak height: cold </span><span class="si">{</span><span class="n">peak_cold</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2"> vs hot </span><span class="si">{</span><span class="n">peak_hot</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
-<span class="p">)</span>
-</pre></div>
-</div>
-</div>
+<div class="cell tag_validation tag_remove-input docutils container">
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>✓  the hot liquid g(r) is markedly less ordered than the cold solid   [first-peak height: cold 145.2 vs hot 31.5]
 </pre></div>

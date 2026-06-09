@@ -548,7 +548,7 @@
               font-family:'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace;font-size:11px;color:#46506b;
               letter-spacing:.04em;">
     <span>Raymond Amador</span>
-    <span>v0.1.0 &nbsp;·&nbsp; 2026-06-08 &nbsp;·&nbsp;
+    <span>v0.1.0 &nbsp;·&nbsp; 2026-06-09 &nbsp;·&nbsp;
           CC&nbsp;BY&nbsp;4.0 (text) / MIT (code)</span>
   </div>
 </div></div></div>
@@ -754,16 +754,7 @@ state’s stretched C–O bond.</p>
 <p>In the dehydration the C–O bond breaks, so the C–O distance must be markedly longer
 in the transition state than in the equilibrium ethanol (a normal C–O bond is
 ~1.4 Å).</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">validate</span><span class="o">.</span><span class="n">check</span><span class="p">(</span>
-    <span class="n">co_ts</span> <span class="o">&gt;</span> <span class="n">co_ethanol</span> <span class="o">+</span> <span class="mf">0.3</span><span class="p">,</span>
-    <span class="s2">&quot;the transition state has a stretched (breaking) C–O bond&quot;</span><span class="p">,</span>
-    <span class="sa">f</span><span class="s2">&quot;C–O: ethanol </span><span class="si">{</span><span class="n">co_ethanol</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> Å → TS </span><span class="si">{</span><span class="n">co_ts</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> Å&quot;</span><span class="p">,</span>
-<span class="p">)</span>
-</pre></div>
-</div>
-</div>
+<div class="cell tag_validation tag_remove-input docutils container">
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>✓  the transition state has a stretched (breaking) C–O bond   [C–O: ethanol 1.43 Å → TS 1.90 Å]
 </pre></div>
@@ -799,16 +790,7 @@ transition state lies above its reactant.</p>
 <p>A transition state is by definition a maximum along the path, so the barrier must be
 positive for every method, and the reaction must be endothermic (products above
 reactant) as ethanol dehydration is known to be.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">validate</span><span class="o">.</span><span class="n">check</span><span class="p">(</span>
-    <span class="nb">bool</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="n">barrier</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">))</span> <span class="ow">and</span> <span class="nb">bool</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="n">reaction</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)),</span>
-    <span class="s2">&quot;every method gives a positive barrier and an endothermic reaction&quot;</span><span class="p">,</span>
-    <span class="sa">f</span><span class="s2">&quot;barriers </span><span class="si">{</span><span class="n">barrier</span><span class="o">.</span><span class="n">min</span><span class="p">()</span><span class="si">:</span><span class="s2">.0f</span><span class="si">}</span><span class="s2">–</span><span class="si">{</span><span class="n">barrier</span><span class="o">.</span><span class="n">max</span><span class="p">()</span><span class="si">:</span><span class="s2">.0f</span><span class="si">}</span><span class="s2">, reaction energies </span><span class="si">{</span><span class="n">reaction</span><span class="o">.</span><span class="n">min</span><span class="p">()</span><span class="si">:</span><span class="s2">.0f</span><span class="si">}</span><span class="s2">–</span><span class="si">{</span><span class="n">reaction</span><span class="o">.</span><span class="n">max</span><span class="p">()</span><span class="si">:</span><span class="s2">.0f</span><span class="si">}</span><span class="s2"> kcal/mol&quot;</span><span class="p">,</span>
-<span class="p">)</span>
-</pre></div>
-</div>
-</div>
+<div class="cell tag_validation tag_remove-input docutils container">
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>✓  every method gives a positive barrier and an endothermic reaction   [barriers 60–85, reaction energies 11–18 kcal/mol]
 </pre></div>
@@ -853,21 +835,7 @@ B3LYP-TZVP        66.1      11.4
 <h3>Validation 3 — converged at TZVP, and B3LYP lands on experiment<a class="headerlink" href="#validation-3-converged-at-tzvp-and-b3lyp-lands-on-experiment" title="Link to this heading">#</a></h3>
 <p>The barrier must be converged by triple-zeta (DZVP and TZVP within a couple of
 kcal/mol), and the best method, B3LYP-TZVP, must fall in the measured range.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">validate</span><span class="o">.</span><span class="n">check</span><span class="p">(</span>
-    <span class="n">basis_converged</span> <span class="o">&lt;</span> <span class="mf">2.0</span><span class="p">,</span>
-    <span class="s2">&quot;the barrier is basis-set converged by TZVP (DZVP ≈ TZVP)&quot;</span><span class="p">,</span>
-    <span class="sa">f</span><span class="s2">&quot;|B3LYP DZVP − TZVP| = </span><span class="si">{</span><span class="n">basis_converged</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> kcal/mol&quot;</span><span class="p">,</span>
-<span class="p">)</span>
-<span class="n">validate</span><span class="o">.</span><span class="n">check</span><span class="p">(</span>
-    <span class="mi">60</span> <span class="o">&lt;</span> <span class="n">b3lyp_barrier</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">72</span><span class="p">,</span>
-    <span class="s2">&quot;the converged B3LYP-TZVP barrier matches the experimental range&quot;</span><span class="p">,</span>
-    <span class="sa">f</span><span class="s2">&quot;B3LYP-TZVP barrier = </span><span class="si">{</span><span class="n">b3lyp_barrier</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2"> kcal/mol (experiment ~65–70)&quot;</span><span class="p">,</span>
-<span class="p">)</span>
-</pre></div>
-</div>
-</div>
+<div class="cell tag_validation tag_remove-input docutils container">
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>✓  the barrier is basis-set converged by TZVP (DZVP ≈ TZVP)   [|B3LYP DZVP − TZVP| = 0.53 kcal/mol]
 ✓  the converged B3LYP-TZVP barrier matches the experimental range   [B3LYP-TZVP barrier = 66.1 kcal/mol (experiment ~65–70)]
@@ -909,16 +877,7 @@ magnitude.</p>
 <p>Because <span class="math notranslate nohighlight">\(k\propto e^{-\Delta E^{\ddagger}/k_BT}\)</span>, the ~25 kcal/mol spread of barriers
 must translate into many orders of magnitude in rate, the practical reason method
 convergence matters.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">validate</span><span class="o">.</span><span class="n">check</span><span class="p">(</span>
-    <span class="n">rate_spread</span> <span class="o">&gt;</span> <span class="mf">1e3</span><span class="p">,</span>
-    <span class="s2">&quot;the method choice changes the predicted rate by orders of magnitude&quot;</span><span class="p">,</span>
-    <span class="sa">f</span><span class="s2">&quot;fastest/slowest rate = </span><span class="si">{</span><span class="n">rate_spread</span><span class="si">:</span><span class="s2">.1e</span><span class="si">}</span><span class="s2"> at </span><span class="si">{</span><span class="n">T</span><span class="si">:</span><span class="s2">.0f</span><span class="si">}</span><span class="s2"> K&quot;</span><span class="p">,</span>
-<span class="p">)</span>
-</pre></div>
-</div>
-</div>
+<div class="cell tag_validation tag_remove-input docutils container">
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>✓  the method choice changes the predicted rate by orders of magnitude   [fastest/slowest rate = 9.5e+08 at 600 K]
 </pre></div>

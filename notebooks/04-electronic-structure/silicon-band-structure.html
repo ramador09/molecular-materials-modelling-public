@@ -554,7 +554,7 @@
               font-family:'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace;font-size:11px;color:#46506b;
               letter-spacing:.04em;">
     <span>Raymond Amador</span>
-    <span>v0.1.0 &nbsp;·&nbsp; 2026-06-08 &nbsp;·&nbsp;
+    <span>v0.1.0 &nbsp;·&nbsp; 2026-06-09 &nbsp;·&nbsp;
           CC&nbsp;BY&nbsp;4.0 (text) / MIT (code)</span>
   </div>
 </div></div></div>
@@ -721,13 +721,7 @@ crystal is the expected two-atom fcc cell.</p>
 <h3>Validation 1 — the silicon cell<a class="headerlink" href="#validation-1-the-silicon-cell" title="Link to this heading">#</a></h3>
 <p>The deck must describe two silicon atoms in a cell with the known lattice constant
 of silicon, <span class="math notranslate nohighlight">\(a=5.43\,\)</span>Å, i.e. <code class="docutils literal notranslate"><span class="pre">celldm(1)</span></code> <span class="math notranslate nohighlight">\(\approx 10.26\,\)</span>bohr.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">validate</span><span class="o">.</span><span class="n">check</span><span class="p">(</span><span class="n">n_atoms</span> <span class="o">==</span> <span class="mi">2</span><span class="p">,</span> <span class="s2">&quot;the cell holds two Si atoms (diamond basis)&quot;</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;nat = </span><span class="si">{</span><span class="n">n_atoms</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-<span class="n">validate</span><span class="o">.</span><span class="n">close</span><span class="p">(</span><span class="n">celldm</span> <span class="o">*</span> <span class="mf">0.529177</span><span class="p">,</span> <span class="mf">5.43</span><span class="p">,</span> <span class="s2">&quot;lattice constant matches silicon (5.43 Å)&quot;</span><span class="p">,</span> <span class="n">rtol</span><span class="o">=</span><span class="mf">2e-2</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
+<div class="cell tag_validation tag_remove-input docutils container">
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>✓  the cell holds two Si atoms (diamond basis)   [nat = 2]
 ✓  lattice constant matches silicon (5.43 Å)   [got 5.4306 vs expected 5.43 (rtol=0.02)]
@@ -755,16 +749,7 @@ four filled bands.</p>
 <h3>Validation 2 — the parse is consistent with silicon<a class="headerlink" href="#validation-2-the-parse-is-consistent-with-silicon" title="Link to this heading">#</a></h3>
 <p>The output must report eight valence electrons (so four filled bands), with at
 least one empty band above them, and a sensible number of k-points along the path.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">validate</span><span class="o">.</span><span class="n">check</span><span class="p">(</span>
-    <span class="n">n_elec</span> <span class="o">==</span> <span class="mi">8</span> <span class="ow">and</span> <span class="n">n_occ</span> <span class="o">==</span> <span class="mi">4</span> <span class="ow">and</span> <span class="n">n_bands</span> <span class="o">&gt;</span> <span class="n">n_occ</span> <span class="ow">and</span> <span class="n">n_kpts</span> <span class="o">&gt;</span> <span class="mi">50</span><span class="p">,</span>
-    <span class="s2">&quot;the DFT output describes silicon: 8 electrons, 4 filled bands&quot;</span><span class="p">,</span>
-    <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">n_elec</span><span class="si">:</span><span class="s2">.0f</span><span class="si">}</span><span class="s2"> electrons → </span><span class="si">{</span><span class="n">n_occ</span><span class="si">}</span><span class="s2"> filled bands; </span><span class="si">{</span><span class="n">n_bands</span><span class="si">}</span><span class="s2"> bands at </span><span class="si">{</span><span class="n">n_kpts</span><span class="si">}</span><span class="s2"> k-points&quot;</span><span class="p">,</span>
-<span class="p">)</span>
-</pre></div>
-</div>
-</div>
+<div class="cell tag_validation tag_remove-input docutils container">
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>✓  the DFT output describes silicon: 8 electrons, 4 filled bands   [8 electrons → 4 filled bands; 8 bands at 100 k-points]
 </pre></div>
@@ -799,16 +784,7 @@ relative to the VBM, marking L, Γ, X.</p>
 <h3>Validation 3 — four valence bands below the gap<a class="headerlink" href="#validation-3-four-valence-bands-below-the-gap" title="Link to this heading">#</a></h3>
 <p>At every k-point along the path the four valence bands must lie at or below the
 VBM (energy <span class="math notranslate nohighlight">\(\le 0\)</span>), the basic structure of a filled-shell semiconductor.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">validate</span><span class="o">.</span><span class="n">check</span><span class="p">(</span>
-    <span class="n">np</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="n">E</span><span class="p">[:,</span> <span class="p">:</span><span class="n">n_occ</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="mf">1e-6</span><span class="p">),</span>
-    <span class="s2">&quot;the four valence bands lie at or below the valence-band maximum everywhere&quot;</span><span class="p">,</span>
-    <span class="sa">f</span><span class="s2">&quot;max valence energy relative to VBM = </span><span class="si">{</span><span class="n">E</span><span class="p">[:,</span><span class="w"> </span><span class="p">:</span><span class="n">n_occ</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2"> eV&quot;</span><span class="p">,</span>
-<span class="p">)</span>
-</pre></div>
-</div>
-</div>
+<div class="cell tag_validation tag_remove-input docutils container">
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>✓  the four valence bands lie at or below the valence-band maximum everywhere   [max valence energy relative to VBM = 0.000 eV]
 </pre></div>
@@ -844,18 +820,7 @@ indirect gap = 0.584 eV;  direct gap at Γ = 2.574 eV
 at <span class="math notranslate nohighlight">\(\Gamma\)</span>, a CBM away from <span class="math notranslate nohighlight">\(\Gamma\)</span> along <span class="math notranslate nohighlight">\(\Gamma\)</span>–X (so an <em>indirect</em> gap), and a
 much larger direct gap at <span class="math notranslate nohighlight">\(\Gamma\)</span>. The indirect gap is the well-known PBE value of
 about <span class="math notranslate nohighlight">\(0.6\,\)</span>eV.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">validate</span><span class="o">.</span><span class="n">check</span><span class="p">(</span><span class="n">vbm_at_gamma</span><span class="p">,</span> <span class="s2">&quot;the valence-band maximum is at Γ&quot;</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;VBM index </span><span class="si">{</span><span class="n">i_vbm</span><span class="si">}</span><span class="s2">, Γ index </span><span class="si">{</span><span class="n">gamma_idx</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-<span class="n">validate</span><span class="o">.</span><span class="n">check</span><span class="p">(</span>
-    <span class="n">gap_direct_gamma</span> <span class="o">&gt;</span> <span class="mf">1.5</span> <span class="o">*</span> <span class="n">gap_indirect</span> <span class="ow">and</span> <span class="mf">0.4</span> <span class="o">&lt;</span> <span class="n">cbm_frac</span> <span class="o">&lt;</span> <span class="mf">1.0</span><span class="p">,</span>
-    <span class="s2">&quot;the gap is indirect: CBM lies along Γ–X, direct gap at Γ is much larger&quot;</span><span class="p">,</span>
-    <span class="sa">f</span><span class="s2">&quot;direct@Γ </span><span class="si">{</span><span class="n">gap_direct_gamma</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> eV vs indirect </span><span class="si">{</span><span class="n">gap_indirect</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> eV; CBM at </span><span class="si">{</span><span class="n">cbm_frac</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> of Γ→X&quot;</span><span class="p">,</span>
-<span class="p">)</span>
-<span class="n">validate</span><span class="o">.</span><span class="n">close</span><span class="p">(</span><span class="n">gap_indirect</span><span class="p">,</span> <span class="mf">0.6</span><span class="p">,</span> <span class="s2">&quot;the PBE indirect gap is about 0.6 eV&quot;</span><span class="p">,</span> <span class="n">atol</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
+<div class="cell tag_validation tag_remove-input docutils container">
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>✓  the valence-band maximum is at Γ   [VBM index 45, Γ index 45]
 ✓  the gap is indirect: CBM lies along Γ–X, direct gap at Γ is much larger   [direct@Γ 2.57 eV vs indirect 0.58 eV; CBM at 0.83 of Γ→X]
@@ -895,16 +860,7 @@ underestimate.</p>
 <h3>Validation 5 — DFT underestimates the gap<a class="headerlink" href="#validation-5-dft-underestimates-the-gap" title="Link to this heading">#</a></h3>
 <p>The computed gap must fall well short of the experimental <span class="math notranslate nohighlight">\(1.17\,\)</span>eV, the
 signature of the Kohn-Sham band-gap problem.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">validate</span><span class="o">.</span><span class="n">check</span><span class="p">(</span>
-    <span class="n">gap_indirect</span> <span class="o">&lt;</span> <span class="mf">0.7</span> <span class="o">*</span> <span class="n">gap_experiment</span><span class="p">,</span>
-    <span class="s2">&quot;the PBE gap substantially underestimates the experimental value&quot;</span><span class="p">,</span>
-    <span class="sa">f</span><span class="s2">&quot;PBE </span><span class="si">{</span><span class="n">gap_indirect</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> eV vs experiment </span><span class="si">{</span><span class="n">gap_experiment</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> eV (</span><span class="si">{</span><span class="n">gap_indirect</span><span class="o">/</span><span class="n">gap_experiment</span><span class="o">*</span><span class="mi">100</span><span class="si">:</span><span class="s2">.0f</span><span class="si">}</span><span class="s2">%)&quot;</span><span class="p">,</span>
-<span class="p">)</span>
-</pre></div>
-</div>
-</div>
+<div class="cell tag_validation tag_remove-input docutils container">
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>✓  the PBE gap substantially underestimates the experimental value   [PBE 0.58 eV vs experiment 1.17 eV (50%)]
 </pre></div>

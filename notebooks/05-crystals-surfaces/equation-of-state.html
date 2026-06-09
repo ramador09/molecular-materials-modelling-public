@@ -543,7 +543,7 @@
               font-family:'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace;font-size:11px;color:#46506b;
               letter-spacing:.04em;">
     <span>Raymond Amador</span>
-    <span>v0.1.0 &nbsp;·&nbsp; 2026-06-08 &nbsp;·&nbsp;
+    <span>v0.1.0 &nbsp;·&nbsp; 2026-06-09 &nbsp;·&nbsp;
           CC&nbsp;BY&nbsp;4.0 (text) / MIT (code)</span>
   </div>
 </div></div></div>
@@ -689,16 +689,7 @@ relaxed N-N bond length = 0.998 Å  (experiment 1.098 Å)
 <h3>Validation 1 — the molecule is bound<a class="headerlink" href="#validation-1-the-molecule-is-bound" title="Link to this heading">#</a></h3>
 <p>Atomization must cost energy: <span class="math notranslate nohighlight">\(2E(\mathrm N)-E(\mathrm N_2)&gt;0\)</span>, and for the
 triple-bonded N₂ it is several eV.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">validate</span><span class="o">.</span><span class="n">check</span><span class="p">(</span>
-    <span class="n">E_atomization</span> <span class="o">&gt;</span> <span class="mf">3.0</span><span class="p">,</span>
-    <span class="s2">&quot;N₂ is strongly bound (large positive atomization energy)&quot;</span><span class="p">,</span>
-    <span class="sa">f</span><span class="s2">&quot;atomization energy = </span><span class="si">{</span><span class="n">E_atomization</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> eV, bond length </span><span class="si">{</span><span class="n">bond_length</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2"> Å&quot;</span><span class="p">,</span>
-<span class="p">)</span>
-</pre></div>
-</div>
-</div>
+<div class="cell tag_validation tag_remove-input docutils container">
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>✓  N₂ is strongly bound (large positive atomization energy)   [atomization energy = 9.94 eV, bond length 0.998 Å]
 </pre></div>
@@ -737,14 +728,7 @@ lattice constant and bulk modulus, and compare to experiment.</p>
 <h3>Validation 2 — silver’s lattice constant and bulk modulus<a class="headerlink" href="#validation-2-silver-s-lattice-constant-and-bulk-modulus" title="Link to this heading">#</a></h3>
 <p>The fit must recover silver’s measured lattice constant, <span class="math notranslate nohighlight">\(a\approx4.09\,\)</span>Å, and a
 bulk modulus near the experimental <span class="math notranslate nohighlight">\(\sim100\,\)</span>GPa.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">validate</span><span class="o">.</span><span class="n">close</span><span class="p">(</span><span class="n">a_Ag</span><span class="p">,</span> <span class="mf">4.09</span><span class="p">,</span> <span class="s2">&quot;the fitted lattice constant matches silver&#39;s measured value&quot;</span><span class="p">,</span> <span class="n">rtol</span><span class="o">=</span><span class="mf">0.02</span><span class="p">)</span>
-<span class="n">validate</span><span class="o">.</span><span class="n">check</span><span class="p">(</span><span class="mi">60</span> <span class="o">&lt;</span> <span class="n">B_GPa</span> <span class="o">&lt;</span> <span class="mi">140</span><span class="p">,</span> <span class="s2">&quot;the bulk modulus is in the right range for silver&quot;</span><span class="p">,</span>
-               <span class="sa">f</span><span class="s2">&quot;B = </span><span class="si">{</span><span class="n">B_GPa</span><span class="si">:</span><span class="s2">.0f</span><span class="si">}</span><span class="s2"> GPa (experiment ~100 GPa)&quot;</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
+<div class="cell tag_validation tag_remove-input docutils container">
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>✓  the fitted lattice constant matches silver&#39;s measured value   [got 4.06402 vs expected 4.09 (rtol=0.02)]
 ✓  the bulk modulus is in the right range for silver   [B = 100 GPa (experiment ~100 GPa)]
@@ -784,12 +768,7 @@ at once. Their ratio <span class="math notranslate nohighlight">\(c/a\)</span> s
 <h3>Validation 3 — the ideal close-packed axial ratio<a class="headerlink" href="#validation-3-the-ideal-close-packed-axial-ratio" title="Link to this heading">#</a></h3>
 <p>Nickel is very nearly an ideal close-packed metal, so the minimum-energy axial ratio
 must sit at <span class="math notranslate nohighlight">\(c/a=\sqrt{8/3}\approx1.633\)</span>.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">validate</span><span class="o">.</span><span class="n">close</span><span class="p">(</span><span class="n">coa</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">8</span> <span class="o">/</span> <span class="mi">3</span><span class="p">),</span> <span class="s2">&quot;the hcp axial ratio c/a is at the ideal close-packed value&quot;</span><span class="p">,</span> <span class="n">rtol</span><span class="o">=</span><span class="mf">0.02</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
+<div class="cell tag_validation tag_remove-input docutils container">
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>✓  the hcp axial ratio c/a is at the ideal close-packed value   [got 1.63299 vs expected 1.63299 (rtol=0.02)]
 </pre></div>

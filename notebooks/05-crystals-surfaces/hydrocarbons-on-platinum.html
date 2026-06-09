@@ -544,7 +544,7 @@
               font-family:'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace;font-size:11px;color:#46506b;
               letter-spacing:.04em;">
     <span>Raymond Amador</span>
-    <span>v0.1.0 &nbsp;·&nbsp; 2026-06-08 &nbsp;·&nbsp;
+    <span>v0.1.0 &nbsp;·&nbsp; 2026-06-09 &nbsp;·&nbsp;
           CC&nbsp;BY&nbsp;4.0 (text) / MIT (code)</span>
   </div>
 </div></div></div>
@@ -704,16 +704,7 @@ calculation).</p>
 <h3>Validation 1 — a molecule above a surface<a class="headerlink" href="#validation-1-a-molecule-above-a-surface" title="Link to this heading">#</a></h3>
 <p>This must be a surface calculation: the molecule sits in the vacuum a couple of
 ångström above the topmost platinum layer, not buried in it.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">validate</span><span class="o">.</span><span class="n">check</span><span class="p">(</span>
-    <span class="mf">1.5</span> <span class="o">&lt;</span> <span class="n">gap</span> <span class="o">&lt;</span> <span class="mf">4.0</span><span class="p">,</span>
-    <span class="s2">&quot;benzene sits in the vacuum gap above the Pt surface&quot;</span><span class="p">,</span>
-    <span class="sa">f</span><span class="s2">&quot;molecule-to-surface height = </span><span class="si">{</span><span class="n">gap</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> Å&quot;</span><span class="p">,</span>
-<span class="p">)</span>
-</pre></div>
-</div>
-</div>
+<div class="cell tag_validation tag_remove-input docutils container">
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>✓  benzene sits in the vacuum gap above the Pt surface   [molecule-to-surface height = 2.25 Å]
 </pre></div>
@@ -747,12 +738,7 @@ matches the measured benzene adsorption energy.</p>
 <h3>Validation 2 — benzene binds at the measured strength<a class="headerlink" href="#validation-2-benzene-binds-at-the-measured-strength" title="Link to this heading">#</a></h3>
 <p>The adsorption energy from the real totals must be bound (negative) and close to the
 experimental <span class="math notranslate nohighlight">\(-1.7\,\)</span>eV.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">validate</span><span class="o">.</span><span class="n">close</span><span class="p">(</span><span class="n">E_ads_benzene</span><span class="p">,</span> <span class="n">E_ADS_EXP</span><span class="p">[</span><span class="s2">&quot;benzene&quot;</span><span class="p">],</span> <span class="s2">&quot;the computed benzene adsorption energy matches experiment&quot;</span><span class="p">,</span> <span class="n">atol</span><span class="o">=</span><span class="mf">0.4</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
+<div class="cell tag_validation tag_remove-input docutils container">
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>✓  the computed benzene adsorption energy matches experiment   [got -1.70172 vs expected -1.72 (rtol=1e-06)]
 </pre></div>
@@ -792,18 +778,7 @@ strongly throughout, and the two methods bracket experiment.</p>
 method (its large <span class="math notranslate nohighlight">\(\pi\)</span>-face), and the two dispersion treatments bracket experiment
 for benzene (BEEF-vdW above, Grimme D3 below), the signature of the functional
 sensitivity.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">benzene_strongest</span> <span class="o">=</span> <span class="nb">all</span><span class="p">(</span><span class="n">E_ads</span><span class="p">[</span><span class="n">m</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="n">E_ads</span><span class="p">[</span><span class="n">m</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">()</span> <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;Grimme D3&quot;</span><span class="p">,</span> <span class="s2">&quot;BEEF-vdW&quot;</span><span class="p">,</span> <span class="s2">&quot;experiment&quot;</span><span class="p">))</span>
-<span class="n">brackets</span> <span class="o">=</span> <span class="n">E_ads</span><span class="p">[</span><span class="s2">&quot;BEEF-vdW&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">E_ADS_EXP</span><span class="p">[</span><span class="s2">&quot;benzene&quot;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">E_ads</span><span class="p">[</span><span class="s2">&quot;Grimme D3&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
-<span class="n">validate</span><span class="o">.</span><span class="n">check</span><span class="p">(</span>
-    <span class="n">benzene_strongest</span> <span class="ow">and</span> <span class="n">brackets</span><span class="p">,</span>
-    <span class="s2">&quot;benzene binds most strongly, and the two methods bracket experiment&quot;</span><span class="p">,</span>
-    <span class="sa">f</span><span class="s2">&quot;benzene: BEEF-vdW </span><span class="si">{</span><span class="n">E_ads</span><span class="p">[</span><span class="s1">&#39;BEEF-vdW&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2">, exp </span><span class="si">{</span><span class="n">E_ADS_EXP</span><span class="p">[</span><span class="s1">&#39;benzene&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">, D3 </span><span class="si">{</span><span class="n">E_ads</span><span class="p">[</span><span class="s1">&#39;Grimme D3&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2"> eV&quot;</span><span class="p">,</span>
-<span class="p">)</span>
-</pre></div>
-</div>
-</div>
+<div class="cell tag_validation tag_remove-input docutils container">
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>✓  benzene binds most strongly, and the two methods bracket experiment   [benzene: BEEF-vdW -0.975, exp -1.72, D3 -2.852 eV]
 </pre></div>
