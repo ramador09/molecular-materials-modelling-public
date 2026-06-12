@@ -71,3 +71,29 @@ appears in the footer of every page.
 
 ```{tableofcontents}
 ```
+
+```{raw} html
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Course",
+  "name": "Molecular and Materials Modelling",
+  "description": "Interactive computational chemistry and materials-science exercises — density-functional theory, molecular dynamics, and Monte Carlo.",
+  "url": "https://ramador.me/molecular-materials-modelling-public/",
+  "inLanguage": "en",
+  "isAccessibleForFree": true,
+  "teaches": [
+    "computational chemistry",
+    "materials science",
+    "density functional theory",
+    "molecular dynamics",
+    "Monte Carlo"
+  ],
+  "provider": {
+    "@type": "Person",
+    "name": "Raymond Amador",
+    "url": "https://ramador.me/"
+  }
+}
+</script>
+```
