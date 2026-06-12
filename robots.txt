@@ -1,0 +1,5 @@
+# Public course site. Search engines are welcome to crawl and index.
+User-agent: *
+Allow: /
+
+Sitemap: https://ramador.me/molecular-materials-modelling-public/sitemap.xml

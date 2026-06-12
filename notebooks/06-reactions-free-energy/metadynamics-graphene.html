@@ -73,6 +73,7 @@
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'notebooks/06-reactions-free-energy/metadynamics-graphene';</script>
     <script src="../../_static/home-button.js?v=62b63922"></script>
+    <link rel="canonical" href="https://ramador.me/molecular-materials-modelling-public/notebooks/06-reactions-free-energy/metadynamics-graphene.html" />
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="prev" title="6.2 The S\(_N\)2 Reaction by Nudged Elastic Band" href="neb-chloromethane.html" />
@@ -543,7 +544,7 @@
               font-family:'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace;font-size:11px;color:#46506b;
               letter-spacing:.04em;">
     <span>Raymond Amador</span>
-    <span>v0.1.0 &nbsp;·&nbsp; 2026-06-09 &nbsp;·&nbsp;
+    <span>v0.1.0 &nbsp;·&nbsp; 2026-06-12 &nbsp;·&nbsp;
           CC&nbsp;BY&nbsp;4.0 (text) / MIT (code)</span>
   </div>
 </div></div></div>
@@ -687,8 +688,14 @@ full DFT, fast enough for the long biased trajectory metadynamics needs.</p>
 composition (a carbon sheet plus two HNO₃).</p>
 <div class="cell tag_solution tag_remove-input docutils container">
 <div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>findfont: Failed to find font weight 600, now using 700.
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>findfont: Failed to find font weight 600, now using 700.
+</pre></div>
+</div>
 <figure class="align-default" id="fig-mtd-system">
-<img alt="../../_images/6ed12e54f513c30c5af1201b86ae477198ad3a25e25f1692e52397f84c7ccc8d.png" src="../../_images/6ed12e54f513c30c5af1201b86ae477198ad3a25e25f1692e52397f84c7ccc8d.png" />
+<img alt="../../_images/5a3676b5b2f454d6dcee8e20ee1cc6c588311511375ed5b53e2f79bcfc73cf43.png" src="../../_images/5a3676b5b2f454d6dcee8e20ee1cc6c588311511375ed5b53e2f79bcfc73cf43.png" />
 <figcaption>
 <p><span class="caption-number">Fig. 49 </span><span class="caption-text">The committed metadynamics system: a graphene sheet (60 carbon atoms, grey) with two nitric-acid molecules above it (nitrogen blue, oxygen red, hydrogen white). The forces come from density-functional tight binding, cheap enough for the long biased trajectory.</span><a class="headerlink" href="#fig-mtd-system" title="Link to this image">#</a></p>
 </figcaption>
@@ -725,7 +732,7 @@ bias has driven each CV over a finite range.</p>
 <div class="cell tag_solution tag_remove-input docutils container">
 <div class="cell_output docutils container">
 <figure class="align-default" id="fig-mtd-cvs">
-<img alt="../../_images/be99bb4dc465a8aefe66123eeca3682a74d7a4bf1eaf4c07c31fdec0678bbffd.png" src="../../_images/be99bb4dc465a8aefe66123eeca3682a74d7a4bf1eaf4c07c31fdec0678bbffd.png" />
+<img alt="../../_images/a05b7b29457f7dc0fe0b2167ae9517c5be1454d5fb96c83ca003ea01fe36542e.png" src="../../_images/a05b7b29457f7dc0fe0b2167ae9517c5be1454d5fb96c83ca003ea01fe36542e.png" />
 <figcaption>
 <p><span class="caption-number">Fig. 50 </span><span class="caption-text">The three collective variables (coordination numbers) along the metadynamics trajectory, from the committed COLVAR log. Driven by the accumulating bias, each variable explores a range of values rather than settling, the signature of metadynamics pushing the system through configuration space.</span><a class="headerlink" href="#fig-mtd-cvs" title="Link to this image">#</a></p>
 </figcaption>
@@ -764,7 +771,7 @@ Confirm its minimum coincides with where the trajectory spent the most time.</p>
 <div class="cell tag_solution tag_remove-input docutils container">
 <div class="cell_output docutils container">
 <figure class="align-default" id="fig-mtd-fes">
-<img alt="../../_images/34b8a740180354e491419ff7f15a9d12d6eca1fa234669855d66b6d5d633994a.png" src="../../_images/34b8a740180354e491419ff7f15a9d12d6eca1fa234669855d66b6d5d633994a.png" />
+<img alt="../../_images/2c7cb296822715d90288be7ec9d18807ef179750e5b48c9603e1a8a327ab2392.png" src="../../_images/2c7cb296822715d90288be7ec9d18807ef179750e5b48c9603e1a8a327ab2392.png" />
 <figcaption>
 <p><span class="caption-number">Fig. 51 </span><span class="caption-text">Free-energy surface of the nitric-acid/graphene system, reconstructed by summing the metadynamics hills over the C–O and H–C coordination numbers (kcal/mol, relative to the minimum). The basin (dark) is the configuration the short run explored; the trajectory’s most-visited point (amber marker) sits in it, confirming the reconstruction. A longer run would extend the surface to neighbouring basins and the barriers between them.</span><a class="headerlink" href="#fig-mtd-fes" title="Link to this image">#</a></p>
 </figcaption>

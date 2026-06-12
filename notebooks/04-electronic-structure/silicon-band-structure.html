@@ -73,6 +73,7 @@
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'notebooks/04-electronic-structure/silicon-band-structure';</script>
     <script src="../../_static/home-button.js?v=62b63922"></script>
+    <link rel="canonical" href="https://ramador.me/molecular-materials-modelling-public/notebooks/04-electronic-structure/silicon-band-structure.html" />
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="4.2 The Formation of Molecular Oxygen" href="oxygen-triplet.html" />
@@ -554,7 +555,7 @@
               font-family:'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace;font-size:11px;color:#46506b;
               letter-spacing:.04em;">
     <span>Raymond Amador</span>
-    <span>v0.1.0 &nbsp;·&nbsp; 2026-06-09 &nbsp;·&nbsp;
+    <span>v0.1.0 &nbsp;·&nbsp; 2026-06-12 &nbsp;·&nbsp;
           CC&nbsp;BY&nbsp;4.0 (text) / MIT (code)</span>
   </div>
 </div></div></div>
@@ -772,8 +773,11 @@ those curves <em>is</em> the electronic structure of silicon.</p>
 relative to the VBM, marking L, Γ, X.</p>
 <div class="cell tag_solution tag_remove-input docutils container">
 <div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>findfont: Failed to find font weight 600, now using 700.
+</pre></div>
+</div>
 <figure class="align-default" id="fig-si-bands">
-<img alt="../../_images/6614336da189b09fc611e332e5fc12151b215f5e96d3b01143f0526813d0ca9d.png" src="../../_images/6614336da189b09fc611e332e5fc12151b215f5e96d3b01143f0526813d0ca9d.png" />
+<img alt="../../_images/a7434d6e741720ad59cea632b5c80f57795119c062df30f669f43ce0f3edd852.png" src="../../_images/a7434d6e741720ad59cea632b5c80f57795119c062df30f669f43ce0f3edd852.png" />
 <figcaption>
 <p><span class="caption-number">Fig. 31 </span><span class="caption-text">Electronic band structure of silicon from the course’s Quantum ESPRESSO (PBE) calculation, along the high-symmetry path L–Γ–X, with energies referenced to the valence-band maximum (VBM, dashed). The four filled valence bands lie below the shaded gap; the conduction bands above. The VBM sits at <span class="math notranslate nohighlight">\(\Gamma\)</span> (amber) and the conduction-band minimum (CBM, navy) lies along <span class="math notranslate nohighlight">\(\Gamma\)</span>–X, so the fundamental gap is indirect.</span><a class="headerlink" href="#fig-si-bands" title="Link to this image">#</a></p>
 </figcaption>
@@ -849,7 +853,7 @@ underestimate.</p>
 <div class="cell tag_solution tag_remove-input docutils container">
 <div class="cell_output docutils container">
 <figure class="align-default" id="fig-si-gap">
-<img alt="../../_images/d99260558e2d02ed10206b67627a533722bef19833b80fa8009c45181e0a7f42.png" src="../../_images/d99260558e2d02ed10206b67627a533722bef19833b80fa8009c45181e0a7f42.png" />
+<img alt="../../_images/c814b61227a0b39acdb3ed00e4f0e4706f3e774bade15970c4c423640b7729d0.png" src="../../_images/c814b61227a0b39acdb3ed00e4f0e4706f3e774bade15970c4c423640b7729d0.png" />
 <figcaption>
 <p><span class="caption-number">Fig. 32 </span><span class="caption-text">The density-functional band-gap problem for silicon: the PBE Kohn-Sham gap (amber) against the experimental value of 1.17 eV (navy). PBE recovers barely half the measured gap, a systematic underestimate rooted in the missing derivative discontinuity of approximate exchange-correlation functionals, not in the convergence of the calculation.</span><a class="headerlink" href="#fig-si-gap" title="Link to this image">#</a></p>
 </figcaption>

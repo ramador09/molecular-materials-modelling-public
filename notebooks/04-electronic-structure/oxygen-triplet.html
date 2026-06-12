@@ -73,6 +73,7 @@
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'notebooks/04-electronic-structure/oxygen-triplet';</script>
     <script src="../../_static/home-button.js?v=62b63922"></script>
+    <link rel="canonical" href="https://ramador.me/molecular-materials-modelling-public/notebooks/04-electronic-structure/oxygen-triplet.html" />
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="Volume V — Crystals and Surfaces" href="../05-crystals-surfaces/index.html" />
@@ -559,7 +560,7 @@
               font-family:'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace;font-size:11px;color:#46506b;
               letter-spacing:.04em;">
     <span>Raymond Amador</span>
-    <span>v0.1.0 &nbsp;·&nbsp; 2026-06-09 &nbsp;·&nbsp;
+    <span>v0.1.0 &nbsp;·&nbsp; 2026-06-12 &nbsp;·&nbsp;
           CC&nbsp;BY&nbsp;4.0 (text) / MIT (code)</span>
   </div>
 </div></div></div>
@@ -806,8 +807,14 @@ molecule rather than two separate ones.</p>
 a physical density.</p>
 <div class="cell tag_solution tag_remove-input docutils container">
 <div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>findfont: Failed to find font weight 600, now using 700.
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>findfont: Failed to find font weight 600, now using 700.
+</pre></div>
+</div>
 <figure class="align-default" id="fig-o2-density">
-<img alt="../../_images/384af33c1c524d1498e58c2632d3022b352f7ca5549ae2009698faf7c21993e4.png" src="../../_images/384af33c1c524d1498e58c2632d3022b352f7ca5549ae2009698faf7c21993e4.png" />
+<img alt="../../_images/d7190980bb8ea05cd9697e14e2706227ead903629b9b68c38a04056a4b461a68.png" src="../../_images/d7190980bb8ea05cd9697e14e2706227ead903629b9b68c38a04056a4b461a68.png" />
 <figcaption>
 <p><span class="caption-number">Fig. 33 </span><span class="caption-text">Isosurface of the O₂ electron density from the CP2K calculation (amber, <span class="math notranslate nohighlight">\(\rho=0.05\,e/a_0^3\)</span>), with the two oxygen nuclei marked. The density forms a single connected cloud spanning both atoms, the signature of a bonded molecule. (Cube downsampled for display.)</span><a class="headerlink" href="#fig-o2-density" title="Link to this image">#</a></p>
 </figcaption>
@@ -845,7 +852,7 @@ is conserved.</p>
 <div class="cell tag_solution tag_remove-input docutils container">
 <div class="cell_output docutils container">
 <figure class="align-default" id="fig-o2-diff">
-<img alt="../../_images/c3e66bec3d37398f39b5a146a7cdc4e7cf5b5149945890106ac772b91300b72d.png" src="../../_images/c3e66bec3d37398f39b5a146a7cdc4e7cf5b5149945890106ac772b91300b72d.png" />
+<img alt="../../_images/6815181c211615f0bbb512f08eac7834df7bebca1f2810de781323b6cfaff100.png" src="../../_images/6815181c211615f0bbb512f08eac7834df7bebca1f2810de781323b6cfaff100.png" />
 <figcaption>
 <p><span class="caption-number">Fig. 34 </span><span class="caption-text">Electron-density difference <span class="math notranslate nohighlight">\(\Delta\rho=\rho_{\mathrm{O_2}}-2\rho_{\mathrm{O}}\)</span> from the CP2K calculation: amber where charge accumulates on bonding, navy where it is depleted (<span class="math notranslate nohighlight">\(\pm0.004\,e/a_0^3\)</span>). The redistribution into the bonding region is what a Lewis double bond depicts only schematically. (Cube downsampled for display.)</span><a class="headerlink" href="#fig-o2-diff" title="Link to this image">#</a></p>
 </figcaption>
@@ -882,7 +889,7 @@ visible as the change of lobe colour across the bond.</p>
 <div class="cell tag_solution tag_remove-input docutils container">
 <div class="cell_output docutils container">
 <figure class="align-default" id="fig-o2-orbitals">
-<img alt="../../_images/14b406209aeb0f2a59793a777015e7c90085457b34e55515650111d8851045e4.png" src="../../_images/14b406209aeb0f2a59793a777015e7c90085457b34e55515650111d8851045e4.png" />
+<img alt="../../_images/a0851cf36347e9b13c8c47d7c696e76f715ff394663d5dc1686782dac527137b.png" src="../../_images/a0851cf36347e9b13c8c47d7c696e76f715ff394663d5dc1686782dac527137b.png" />
 <figcaption>
 <p><span class="caption-number">Fig. 35 </span><span class="caption-text">Three O₂ molecular orbitals from the CP2K calculation (amber/navy = opposite sign of the wavefunction): the bonding <span class="math notranslate nohighlight">\(\pi_{2p}\)</span> and <span class="math notranslate nohighlight">\(\sigma_{2p}\)</span>, which build up amplitude between the nuclei, and the antibonding <span class="math notranslate nohighlight">\(\pi^*\)</span> (the HOMO), whose node between the atoms is the colour change across the bond. The two electrons in this <span class="math notranslate nohighlight">\(\pi^*\)</span> pair are the unpaired ones. (Cubes downsampled for display.)</span><a class="headerlink" href="#fig-o2-orbitals" title="Link to this image">#</a></p>
 </figcaption>
@@ -919,7 +926,7 @@ the atom’s electrons.</p>
 <div class="cell tag_solution tag_remove-input docutils container">
 <div class="cell_output docutils container">
 <figure class="align-default" id="fig-o-density">
-<img alt="../../_images/11c8865ec56b1c5b8190ad4a6a437e8ee872810227eb939b42254f453bb89594.png" src="../../_images/11c8865ec56b1c5b8190ad4a6a437e8ee872810227eb939b42254f453bb89594.png" />
+<img alt="../../_images/b4ad9b3633e874e0d7bb3dd7186d0ddaf3fa792be0035a069371e847163b23fd.png" src="../../_images/b4ad9b3633e874e0d7bb3dd7186d0ddaf3fa792be0035a069371e847163b23fd.png" />
 <figcaption>
 <p><span class="caption-number">Fig. 36 </span><span class="caption-text">Electron density of a single oxygen atom from the CP2K calculation (amber, <span class="math notranslate nohighlight">\(\rho=0.05\,e/a_0^3\)</span>): one cloud about one nucleus, holding eight electrons, half the molecule’s sixteen. (Cube downsampled for display.)</span><a class="headerlink" href="#fig-o-density" title="Link to this image">#</a></p>
 </figcaption>
@@ -960,7 +967,7 @@ spin imbalance, and the paramagnetic moment it implies.</p>
 <div class="cell tag_solution tag_remove-input docutils container">
 <div class="cell_output docutils container">
 <figure class="align-default" id="fig-o2-schema">
-<img alt="../../_images/ee81c46413cdcc9ba8d0ab166727fdd74ed938714a4eb2414de33448f0ced52c.png" src="../../_images/ee81c46413cdcc9ba8d0ab166727fdd74ed938714a4eb2414de33448f0ced52c.png" />
+<img alt="../../_images/8cff523fec4f0530942f1c2399f47535828be94f3bd08a3fde3adaeb92bac8cc.png" src="../../_images/8cff523fec4f0530942f1c2399f47535828be94f3bd08a3fde3adaeb92bac8cc.png" />
 <figcaption>
 <p><span class="caption-number">Fig. 37 </span><span class="caption-text">Molecular-orbital schema of O₂ built from the real CP2K eigenvalues (valence levels, in eV; the two core 1s states are omitted): spin-up (α, amber) and spin-down (β, navy) electrons fill the levels. Every level is paired except the two degenerate π* orbitals, which hold one α electron each: the two unpaired electrons that make the ground state a triplet and O₂ paramagnetic.</span><a class="headerlink" href="#fig-o2-schema" title="Link to this image">#</a></p>
 </figcaption>

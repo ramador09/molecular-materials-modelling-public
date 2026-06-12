@@ -73,6 +73,7 @@
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'notebooks/06-reactions-free-energy/ethanol-dehydration';</script>
     <script src="../../_static/home-button.js?v=62b63922"></script>
+    <link rel="canonical" href="https://ramador.me/molecular-materials-modelling-public/notebooks/06-reactions-free-energy/ethanol-dehydration.html" />
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="6.2 The S\(_N\)2 Reaction by Nudged Elastic Band" href="neb-chloromethane.html" />
@@ -548,7 +549,7 @@
               font-family:'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace;font-size:11px;color:#46506b;
               letter-spacing:.04em;">
     <span>Raymond Amador</span>
-    <span>v0.1.0 &nbsp;·&nbsp; 2026-06-09 &nbsp;·&nbsp;
+    <span>v0.1.0 &nbsp;·&nbsp; 2026-06-12 &nbsp;·&nbsp;
           CC&nbsp;BY&nbsp;4.0 (text) / MIT (code)</span>
   </div>
 </div></div></div>
@@ -738,8 +739,11 @@ here: <a class="reference download internal" download="" href="../../_downloads/
 state’s stretched C–O bond.</p>
 <div class="cell tag_solution tag_remove-input docutils container">
 <div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>findfont: Failed to find font weight 600, now using 700.
+</pre></div>
+</div>
 <figure class="align-default" id="fig-rxn-structures">
-<img alt="../../_images/e674806121afae1f06761d597f39941e62289f35c8d9d0f0bcca804f456da741.png" src="../../_images/e674806121afae1f06761d597f39941e62289f35c8d9d0f0bcca804f456da741.png" />
+<img alt="../../_images/ebceb0e524eb8b94762653afa43a7d97935f1f9c850eaf0a184bc5d6b8ee603b.png" src="../../_images/ebceb0e524eb8b94762653afa43a7d97935f1f9c850eaf0a184bc5d6b8ee603b.png" />
 <figcaption>
 <p><span class="caption-number">Fig. 42 </span><span class="caption-text">The committed CP2K-optimised structures of the ethanol dehydration: the ethanol reactant, the transition state (the C–O bond stretched, a hydrogen migrating to the leaving oxygen), and the ethene + water products. Carbon grey, oxygen red, hydrogen white.</span><a class="headerlink" href="#fig-rxn-structures" title="Link to this image">#</a></p>
 </figcaption>
@@ -778,7 +782,7 @@ transition state lies above its reactant.</p>
 <div class="cell tag_solution tag_remove-input docutils container">
 <div class="cell_output docutils container">
 <figure class="align-default" id="fig-rxn-profile">
-<img alt="../../_images/56f9a98a53cbc222aff0362e0a699d8f1f6b12f2136b70f762250923d0f58b20.png" src="../../_images/56f9a98a53cbc222aff0362e0a699d8f1f6b12f2136b70f762250923d0f58b20.png" />
+<img alt="../../_images/4bc38e01bc0539bcc0a03cf146e27aa0a289041bbc2a45bb5518839eac38e839.png" src="../../_images/4bc38e01bc0539bcc0a03cf146e27aa0a289041bbc2a45bb5518839eac38e839.png" />
 <figcaption>
 <p><span class="caption-number">Fig. 43 </span><span class="caption-text">Reaction-energy profiles for ethanol dehydration, from the course’s committed total energies: energy relative to ethanol (kcal/mol) at the reactant, transition state, and products, for PBE (navy) and B3LYP (amber) across three basis sets. Every path climbs a large barrier to the transition state and ends above the reactant (endothermic). The minimal SZV basis overshoots; DZVP and TZVP nearly coincide.</span><a class="headerlink" href="#fig-rxn-profile" title="Link to this image">#</a></p>
 </figcaption>
@@ -824,7 +828,7 @@ B3LYP-TZVP        66.1      11.4
 </pre></div>
 </div>
 <figure class="align-default" id="fig-rxn-convergence">
-<img alt="../../_images/6ef0cd7acb60960a0b6021e2fbc0df088ae877894172a6e9488e303999deb9a7.png" src="../../_images/6ef0cd7acb60960a0b6021e2fbc0df088ae877894172a6e9488e303999deb9a7.png" />
+<img alt="../../_images/6076085efa3f9c330e9eec43963fdf8332807e7d03493b044206ff369538cb4b.png" src="../../_images/6076085efa3f9c330e9eec43963fdf8332807e7d03493b044206ff369538cb4b.png" />
 <figcaption>
 <p><span class="caption-number">Fig. 44 </span><span class="caption-text">Activation barrier of ethanol dehydration versus basis-set size for PBE (navy) and B3LYP (amber). The minimal single-zeta SZV basis overshoots badly; the barrier converges from DZVP to TZVP. At convergence the hybrid B3LYP-TZVP (~66 kcal/mol) sits in the experimental range (grey band, ~65–70 kcal/mol); PBE underestimates it.</span><a class="headerlink" href="#fig-rxn-convergence" title="Link to this image">#</a></p>
 </figcaption>
@@ -862,7 +866,7 @@ magnitude.</p>
 <div class="cell tag_solution tag_remove-input docutils container">
 <div class="cell_output docutils container">
 <figure class="align-default" id="fig-rxn-rate">
-<img alt="../../_images/b3bee04c2c3f19c4b34552e68c7773e727b12d4fda80b7d6d20acba2e0359e88.png" src="../../_images/b3bee04c2c3f19c4b34552e68c7773e727b12d4fda80b7d6d20acba2e0359e88.png" />
+<img alt="../../_images/8877f7980453ed110da4f2defff2ea10de00a711fd937c05746cd12e5abd4702.png" src="../../_images/8877f7980453ed110da4f2defff2ea10de00a711fd937c05746cd12e5abd4702.png" />
 <figcaption>
 <p><span class="caption-number">Fig. 45 </span><span class="caption-text">Relative reaction rate <span class="math notranslate nohighlight">\(e^{-\Delta E^{\ddagger}/k_BT}\)</span> at 600 K (log scale) for each method, normalised to the fastest. Because the rate depends exponentially on the barrier, the few-kcal/mol differences between functionals and basis sets become many orders of magnitude in rate: a converged method is not optional.</span><a class="headerlink" href="#fig-rxn-rate" title="Link to this image">#</a></p>
 </figcaption>

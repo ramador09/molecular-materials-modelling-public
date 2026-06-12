@@ -73,6 +73,7 @@
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'notebooks/05-crystals-surfaces/equation-of-state';</script>
     <script src="../../_static/home-button.js?v=62b63922"></script>
+    <link rel="canonical" href="https://ramador.me/molecular-materials-modelling-public/notebooks/05-crystals-surfaces/equation-of-state.html" />
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="5.2 Hydrocarbons on Platinum" href="hydrocarbons-on-platinum.html" />
@@ -543,7 +544,7 @@
               font-family:'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace;font-size:11px;color:#46506b;
               letter-spacing:.04em;">
     <span>Raymond Amador</span>
-    <span>v0.1.0 &nbsp;·&nbsp; 2026-06-09 &nbsp;·&nbsp;
+    <span>v0.1.0 &nbsp;·&nbsp; 2026-06-12 &nbsp;·&nbsp;
           CC&nbsp;BY&nbsp;4.0 (text) / MIT (code)</span>
   </div>
 </div></div></div>
@@ -713,8 +714,11 @@ there are four atoms in the conventional cubic cell, so the lattice constant is
 lattice constant and bulk modulus, and compare to experiment.</p>
 <div class="cell tag_solution tag_remove-input docutils container">
 <div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>findfont: Failed to find font weight 600, now using 700.
+</pre></div>
+</div>
 <figure class="align-default" id="fig-ag-eos">
-<img alt="../../_images/0479c062ad7c11aeed952e8dfce554938700c37045f153c9b709f8cfb048f598.png" src="../../_images/0479c062ad7c11aeed952e8dfce554938700c37045f153c9b709f8cfb048f598.png" />
+<img alt="../../_images/6dd190fd5f0fee078881158c393400563495648496cb736312c7a1a6227c506d.png" src="../../_images/6dd190fd5f0fee078881158c393400563495648496cb736312c7a1a6227c506d.png" />
 <figcaption>
 <p><span class="caption-number">Fig. 38 </span><span class="caption-text">Equation of state of face-centred-cubic silver from the course’s committed ASE scan: total energy (eV) versus primitive-cell volume (points), with the Birch-Murnaghan fit (curve). The minimum gives the equilibrium volume, hence the lattice constant <span class="math notranslate nohighlight">\(a=4.06\)</span> Å (experiment 4.09 Å); the curvature gives the bulk modulus <span class="math notranslate nohighlight">\(B=100\)</span> GPa (experiment ~100 GPa).</span><a class="headerlink" href="#fig-ag-eos" title="Link to this image">#</a></p>
 </figcaption>
@@ -754,7 +758,7 @@ at once. Their ratio <span class="math notranslate nohighlight">\(c/a\)</span> s
 <div class="cell tag_solution tag_remove-input docutils container">
 <div class="cell_output docutils container">
 <figure class="align-default" id="fig-ni-surface">
-<img alt="../../_images/88cc14a0d8e2c9d09eaf219ea7d6222297f1e2d5b09fcd1e06f07bb64271f865.png" src="../../_images/88cc14a0d8e2c9d09eaf219ea7d6222297f1e2d5b09fcd1e06f07bb64271f865.png" />
+<img alt="../../_images/5a9751412a50a96ad1988d7135124921f8f9d2b198d7def780a36ebba29932fc.png" src="../../_images/5a9751412a50a96ad1988d7135124921f8f9d2b198d7def780a36ebba29932fc.png" />
 <figcaption>
 <p><span class="caption-number">Fig. 39 </span><span class="caption-text">Energy surface of hexagonal-close-packed nickel over its two lattice parameters, from the course’s committed <span class="math notranslate nohighlight">\(10\times10\)</span> ASE scan (a fine grid anchored near the known values): energy (colour) versus in-plane spacing <span class="math notranslate nohighlight">\(a\)</span> and stacking height <span class="math notranslate nohighlight">\(c\)</span>. The energy falls toward smaller <span class="math notranslate nohighlight">\(a\)</span> and <span class="math notranslate nohighlight">\(c\)</span>, and the minimum of the scan (amber marker) gives <span class="math notranslate nohighlight">\(a=2.49\)</span> Å and <span class="math notranslate nohighlight">\(c=4.06\)</span> Å, an axial ratio <span class="math notranslate nohighlight">\(c/a=1.633\)</span> exactly at the ideal close-packed value.</span><a class="headerlink" href="#fig-ni-surface" title="Link to this image">#</a></p>
 </figcaption>

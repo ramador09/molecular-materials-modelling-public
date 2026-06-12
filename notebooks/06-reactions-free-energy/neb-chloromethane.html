@@ -73,6 +73,7 @@
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'notebooks/06-reactions-free-energy/neb-chloromethane';</script>
     <script src="../../_static/home-button.js?v=62b63922"></script>
+    <link rel="canonical" href="https://ramador.me/molecular-materials-modelling-public/notebooks/06-reactions-free-energy/neb-chloromethane.html" />
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="6.3 Metadynamics: Nitric Acid on Graphene" href="metadynamics-graphene.html" />
@@ -543,7 +544,7 @@
               font-family:'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace;font-size:11px;color:#46506b;
               letter-spacing:.04em;">
     <span>Raymond Amador</span>
-    <span>v0.1.0 &nbsp;·&nbsp; 2026-06-09 &nbsp;·&nbsp;
+    <span>v0.1.0 &nbsp;·&nbsp; 2026-06-12 &nbsp;·&nbsp;
           CC&nbsp;BY&nbsp;4.0 (text) / MIT (code)</span>
   </div>
 </div></div></div>
@@ -715,8 +716,11 @@ as the reaction passes through a planar <span class="math notranslate nohighligh
 swaps between the two (the chlorine that is bonded becomes the one that leaves).</p>
 <div class="cell tag_solution tag_remove-input docutils container">
 <div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>findfont: Failed to find font weight 600, now using 700.
+</pre></div>
+</div>
 <figure class="align-default" id="fig-sn2-endpoints">
-<img alt="../../_images/d105e71b97ec5a0230c3b21ccfcf09221cd176a05157f1f8718bda6f91f0b133.png" src="../../_images/d105e71b97ec5a0230c3b21ccfcf09221cd176a05157f1f8718bda6f91f0b133.png" />
+<img alt="../../_images/53a61d69d0dbcc9d84c008cd12b0c0e9d9d739f3eeeda0aefb7161a9b338a3bb.png" src="../../_images/53a61d69d0dbcc9d84c008cd12b0c0e9d9d739f3eeeda0aefb7161a9b338a3bb.png" />
 <figcaption>
 <p><span class="caption-number">Fig. 46 </span><span class="caption-text">The committed Sₙ2 endpoints: chloromethane with an attacking chloride (reactant) and the mirror-image product after exchange (carbon grey, hydrogen white, chlorine green). The reaction swaps which chlorine is bonded to carbon; in between, the three hydrogens invert through a planar transition state.</span><a class="headerlink" href="#fig-sn2-endpoints" title="Link to this image">#</a></p>
 </figcaption>
@@ -753,8 +757,11 @@ symmetric barrier; its height is the activation energy of the exchange (Assignme
 the activation barrier and confirm the path is symmetric.</p>
 <div class="cell tag_solution tag_remove-input docutils container">
 <div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>findfont: Failed to find font weight 600, now using 700.
+</pre></div>
+</div>
 <figure class="align-default" id="fig-sn2-mep">
-<img alt="../../_images/0aef138a6d0636d80b01bd25209e73630b05da9ca862636a4abdb6ecbe33a24d.png" src="../../_images/0aef138a6d0636d80b01bd25209e73630b05da9ca862636a4abdb6ecbe33a24d.png" />
+<img alt="../../_images/1b588de913a4b7d62e768889bb141af225d5eabf88fa930c50b4aec5200a36ed.png" src="../../_images/1b588de913a4b7d62e768889bb141af225d5eabf88fa930c50b4aec5200a36ed.png" />
 <figcaption>
 <p><span class="caption-number">Fig. 47 </span><span class="caption-text">Minimum-energy path of the chloride-exchange Sₙ2 reaction from the converged nudged-elastic-band calculation: image energy (kcal/mol, relative to the endpoints) against the reaction coordinate. The path is thermoneutral (equal endpoints) and approximately symmetric, and its single peak, the trigonal-bipyramidal transition state, sits ~8 kcal/mol above the reactant: the gas-phase central barrier of the exchange.</span><a class="headerlink" href="#fig-sn2-mep" title="Link to this image">#</a></p>
 </figcaption>
@@ -796,7 +803,7 @@ converged by the final steps.</p>
 <div class="cell tag_solution tag_remove-input docutils container">
 <div class="cell_output docutils container">
 <figure class="align-default" id="fig-sn2-convergence">
-<img alt="../../_images/3a4998c048b21afcc292b1382321e450d0d61ede9804ea039478edff2baafff1.png" src="../../_images/3a4998c048b21afcc292b1382321e450d0d61ede9804ea039478edff2baafff1.png" />
+<img alt="../../_images/332e1228ea2d2a5297d77b17ad519bee662468111254fb18738faf88323d4dca.png" src="../../_images/332e1228ea2d2a5297d77b17ad519bee662468111254fb18738faf88323d4dca.png" />
 <figcaption>
 <p><span class="caption-number">Fig. 48 </span><span class="caption-text">Convergence of the nudged-elastic-band barrier: the activation energy (highest image relative to the endpoints) versus band-optimisation step. The initial linear interpolation underestimates the barrier; as the chain relaxes onto the minimum-energy path the barrier rises and levels off, converged to ~8 kcal/mol after a few tens of iterations.</span><a class="headerlink" href="#fig-sn2-convergence" title="Link to this image">#</a></p>
 </figcaption>

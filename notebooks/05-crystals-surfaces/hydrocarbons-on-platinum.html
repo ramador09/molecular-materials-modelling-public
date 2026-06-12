@@ -73,6 +73,7 @@
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'notebooks/05-crystals-surfaces/hydrocarbons-on-platinum';</script>
     <script src="../../_static/home-button.js?v=62b63922"></script>
+    <link rel="canonical" href="https://ramador.me/molecular-materials-modelling-public/notebooks/05-crystals-surfaces/hydrocarbons-on-platinum.html" />
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="Volume VI — Reactions and Free Energy" href="../06-reactions-free-energy/index.html" />
@@ -544,7 +545,7 @@
               font-family:'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace;font-size:11px;color:#46506b;
               letter-spacing:.04em;">
     <span>Raymond Amador</span>
-    <span>v0.1.0 &nbsp;·&nbsp; 2026-06-09 &nbsp;·&nbsp;
+    <span>v0.1.0 &nbsp;·&nbsp; 2026-06-12 &nbsp;·&nbsp;
           CC&nbsp;BY&nbsp;4.0 (text) / MIT (code)</span>
   </div>
 </div></div></div>
@@ -689,8 +690,11 @@ Confirm the molecule sits in a vacuum gap above the slab (a surface, not a bulk
 calculation).</p>
 <div class="cell tag_solution tag_remove-input docutils container">
 <div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>findfont: Failed to find font weight 600, now using 700.
+</pre></div>
+</div>
 <figure class="align-default" id="fig-pt-system">
-<img alt="../../_images/e85f01743d16a27cc66b8496b2e9475b26970a6f394fc4c33e9b20f343071f45.png" src="../../_images/e85f01743d16a27cc66b8496b2e9475b26970a6f394fc4c33e9b20f343071f45.png" />
+<img alt="../../_images/030fa902dfa7f9756b7845f9310bcd2d55922296c252519118b0a21e96b48731.png" src="../../_images/030fa902dfa7f9756b7845f9310bcd2d55922296c252519118b0a21e96b48731.png" />
 <figcaption>
 <p><span class="caption-number">Fig. 40 </span><span class="caption-text">The committed adsorption system: a five-layer Pt(111) slab (silver) with a benzene molecule (carbon grey, hydrogen white) lying flat above the top layer. The molecule binds through van der Waals contact with the metal; the slab is repeated periodically in the plane, with vacuum above and below.</span><a class="headerlink" href="#fig-pt-system" title="Link to this image">#</a></p>
 </figcaption>
@@ -765,7 +769,7 @@ strongly throughout, and the two methods bracket experiment.</p>
 <div class="cell tag_solution tag_remove-input docutils container">
 <div class="cell_output docutils container">
 <figure class="align-default" id="fig-pt-functionals">
-<img alt="../../_images/af9c0de7ece8faf1ccabf7e1b02f73b00522d758f45e8fb7534b7541e1d5297a.png" src="../../_images/af9c0de7ece8faf1ccabf7e1b02f73b00522d758f45e8fb7534b7541e1d5297a.png" />
+<img alt="../../_images/618f98867d75f1e8ed0b9fb77eabca6f42dac09cf80ad266350811309b4a4f33.png" src="../../_images/618f98867d75f1e8ed0b9fb77eabca6f42dac09cf80ad266350811309b4a4f33.png" />
 <figcaption>
 <p><span class="caption-number">Fig. 41 </span><span class="caption-text">Adsorption energies of benzene, methane, and ethane on Pt(111) from the course’s committed results: the BEEF-vdW functional (navy) and the Grimme D3 correction (amber) against experiment (grey). Benzene binds far more strongly than the alkanes in every method. BEEF-vdW underbinds so severely that methane and ethane come out unbound (positive); Grimme D3 overbinds. The spread, well over an electron-volt for benzene, is the functional sensitivity the exercise is named for.</span><a class="headerlink" href="#fig-pt-functionals" title="Link to this image">#</a></p>
 </figcaption>
