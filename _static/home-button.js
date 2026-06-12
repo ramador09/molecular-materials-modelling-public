@@ -7,8 +7,6 @@
     if (!bar || bar.querySelector(".home-portfolio-link")) return;
     var a = document.createElement("a");
     a.href = "https://ramador.me/";
-    a.target = "_blank";
-    a.rel = "noopener";
     a.className = "btn btn-sm home-portfolio-link";
     a.title = "Home — ramador.me";
     a.setAttribute("aria-label", "Home — ramador.me");
