@@ -1,0 +1,24 @@
+[build-system]
+requires = ["setuptools>=64"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ecp"
+version = "0.1.0"
+description = "Shared support package for the Elementary Computational Physics notebook series"
+authors = [{ name = "Raymond Amador" }]
+requires-python = ">=3.10"
+dependencies = ["numpy", "scipy", "matplotlib"]
+
+[tool.setuptools]
+packages = ["ecp"]
+
+[tool.setuptools.package-data]
+# Ship the Matplotlib style inside the package so use_style() can find it in
+# every install mode — editable dev checkout, built wheel, and Colab's
+# `pip install git+...` (where ecp lives in site-packages, not a repo root).
+ecp = ["ecp.mplstyle"]
+
+[tool.black]
+line-length = 88
+target-version = ["py312"]

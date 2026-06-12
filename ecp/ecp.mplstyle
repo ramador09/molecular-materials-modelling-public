@@ -1,0 +1,44 @@
+# Elementary Computational Physics — Matplotlib style
+# Centralised here so figure aesthetics are consistent across every notebook.
+# Edit this file to restyle all plots in the series at once.
+
+figure.figsize       : 7.2, 4.4
+figure.dpi           : 110
+savefig.dpi          : 150
+figure.facecolor     : white
+axes.facecolor       : white
+
+font.family          : serif
+font.serif           : Source Serif 4, Iowan Old Style, Georgia, DejaVu Serif
+font.size            : 12
+mathtext.fontset     : cm
+
+axes.titlesize       : 14
+axes.titleweight     : 600
+axes.titlepad        : 10
+axes.labelsize       : 12
+axes.labelcolor      : 16213e
+axes.edgecolor       : 46506b
+axes.linewidth       : 0.9
+axes.grid            : True
+axes.axisbelow       : True
+axes.prop_cycle      : cycler('color', ['16213e', 'c0851a', '3a7d6b', 'a23b3b', '5b5f97', '7a7a7a'])
+
+grid.color           : dcd6c8
+grid.linewidth       : 0.7
+grid.alpha           : 0.8
+
+xtick.color          : 46506b
+ytick.color          : 46506b
+xtick.labelsize      : 11
+ytick.labelsize      : 11
+xtick.direction      : out
+ytick.direction      : out
+
+legend.frameon       : True
+legend.framealpha    : 0.9
+legend.edgecolor     : dcd6c8
+legend.fontsize      : 11
+
+lines.linewidth      : 2.0
+lines.markersize     : 5
