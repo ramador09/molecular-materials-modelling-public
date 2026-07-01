@@ -834,11 +834,11 @@ specific-heat (Schottky) peak sits where <span class="math notranslate nohighlig
 ✓  Schottky-peak temperature solves K tanh K = 1   [got 0.833557 vs expected 0.8336 (rtol=0.001)]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/tmp/ipykernel_2213/578343941.py:21: RuntimeWarning: invalid value encountered in divide
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/tmp/ipykernel_2103/578343941.py:21: RuntimeWarning: invalid value encountered in divide
   m = np.sinh(hp) / np.sqrt(np.sinh(hp) ** 2 + np.exp(-4 * K))   # = -∂f/∂h
-/tmp/ipykernel_2213/578343941.py:23: RuntimeWarning: overflow encountered in cosh
+/tmp/ipykernel_2103/578343941.py:23: RuntimeWarning: overflow encountered in cosh
   C = K ** 2 / np.cosh(K) ** 2                                   # C/k_B, Schottky
-/tmp/ipykernel_2213/578343941.py:24: RuntimeWarning: overflow encountered in exp
+/tmp/ipykernel_2103/578343941.py:24: RuntimeWarning: overflow encountered in exp
   chi = np.exp(2 * K) * beta                                     # χ at h = 0
 </pre></div>
 </div>
@@ -1068,7 +1068,7 @@ intercept (<a class="reference internal" href="#fig-ising-fss"><span class="std 
 <div class="cell tag_solution tag_remove-input docutils container">
 <div class="cell_output docutils container">
 <figure class="align-default" id="fig-ising-fss">
-<img alt="../../_images/bd68d4eae616c90dfad20d680ec117b0342876eacd5f18e78ee469f1f33c4c07.png" src="../../_images/bd68d4eae616c90dfad20d680ec117b0342876eacd5f18e78ee469f1f33c4c07.png" />
+<img alt="../../_images/6dcff047e2e9d753f003391ab39ca3c1e0a0dd330cdcc8fa2245843a1723e95e.png" src="../../_images/6dcff047e2e9d753f003391ab39ca3c1e0a0dd330cdcc8fa2245843a1723e95e.png" />
 <figcaption>
 <p><span class="caption-number">Fig. 7 </span><span class="caption-text">Finite-size scaling of the 2D Ising specific-heat peak: the peak temperature <span class="math notranslate nohighlight">\(T_{\rm peak}(L)\)</span> for <span class="math notranslate nohighlight">\(L=12,16,24,32\)</span> (amber points) versus <span class="math notranslate nohighlight">\(1/L\)</span>, with the linear fit <span class="math notranslate nohighlight">\(T_{\rm peak}=T_c+A/L\)</span> (Eq. eq-fss) extrapolated to <span class="math notranslate nohighlight">\(1/L\to0\)</span>. The intercept (navy square) recovers Onsager’s exact <span class="math notranslate nohighlight">\(T_c\)</span> (dashed), free of the finite-size shift that displaces any single-lattice estimate.</span><a class="headerlink" href="#fig-ising-fss" title="Link to this image">#</a></p>
 </figcaption>
@@ -1303,42 +1303,42 @@ input[type=range].anim-slider {
 </style>
 
 <div class="animation">
-  <img id="_anim_imgeeca69d7e58e40b9b4ec5fb7d613d15c">
+  <img id="_anim_imga3b9dd32fd4341169ab54612a8fc8bc5">
   <div class="anim-controls">
-    <input id="_anim_slidereeca69d7e58e40b9b4ec5fb7d613d15c" type="range" class="anim-slider"
+    <input id="_anim_slidera3b9dd32fd4341169ab54612a8fc8bc5" type="range" class="anim-slider"
            name="points" min="0" max="1" step="1" value="0"
-           oninput="animeeca69d7e58e40b9b4ec5fb7d613d15c.set_frame(parseInt(this.value));">
+           oninput="anima3b9dd32fd4341169ab54612a8fc8bc5.set_frame(parseInt(this.value));">
     <div class="anim-buttons">
-      <button title="Decrease speed" aria-label="Decrease speed" onclick="animeeca69d7e58e40b9b4ec5fb7d613d15c.slower()">
+      <button title="Decrease speed" aria-label="Decrease speed" onclick="anima3b9dd32fd4341169ab54612a8fc8bc5.slower()">
           <i class="fa fa-minus"></i></button>
-      <button title="First frame" aria-label="First frame" onclick="animeeca69d7e58e40b9b4ec5fb7d613d15c.first_frame()">
+      <button title="First frame" aria-label="First frame" onclick="anima3b9dd32fd4341169ab54612a8fc8bc5.first_frame()">
         <i class="fa fa-fast-backward"></i></button>
-      <button title="Previous frame" aria-label="Previous frame" onclick="animeeca69d7e58e40b9b4ec5fb7d613d15c.previous_frame()">
+      <button title="Previous frame" aria-label="Previous frame" onclick="anima3b9dd32fd4341169ab54612a8fc8bc5.previous_frame()">
           <i class="fa fa-step-backward"></i></button>
-      <button title="Play backwards" aria-label="Play backwards" onclick="animeeca69d7e58e40b9b4ec5fb7d613d15c.reverse_animation()">
+      <button title="Play backwards" aria-label="Play backwards" onclick="anima3b9dd32fd4341169ab54612a8fc8bc5.reverse_animation()">
           <i class="fa fa-play fa-flip-horizontal"></i></button>
-      <button title="Pause" aria-label="Pause" onclick="animeeca69d7e58e40b9b4ec5fb7d613d15c.pause_animation()">
+      <button title="Pause" aria-label="Pause" onclick="anima3b9dd32fd4341169ab54612a8fc8bc5.pause_animation()">
           <i class="fa fa-pause"></i></button>
-      <button title="Play" aria-label="Play" onclick="animeeca69d7e58e40b9b4ec5fb7d613d15c.play_animation()">
+      <button title="Play" aria-label="Play" onclick="anima3b9dd32fd4341169ab54612a8fc8bc5.play_animation()">
           <i class="fa fa-play"></i></button>
-      <button title="Next frame" aria-label="Next frame" onclick="animeeca69d7e58e40b9b4ec5fb7d613d15c.next_frame()">
+      <button title="Next frame" aria-label="Next frame" onclick="anima3b9dd32fd4341169ab54612a8fc8bc5.next_frame()">
           <i class="fa fa-step-forward"></i></button>
-      <button title="Last frame" aria-label="Last frame" onclick="animeeca69d7e58e40b9b4ec5fb7d613d15c.last_frame()">
+      <button title="Last frame" aria-label="Last frame" onclick="anima3b9dd32fd4341169ab54612a8fc8bc5.last_frame()">
           <i class="fa fa-fast-forward"></i></button>
-      <button title="Increase speed" aria-label="Increase speed" onclick="animeeca69d7e58e40b9b4ec5fb7d613d15c.faster()">
+      <button title="Increase speed" aria-label="Increase speed" onclick="anima3b9dd32fd4341169ab54612a8fc8bc5.faster()">
           <i class="fa fa-plus"></i></button>
     </div>
-    <form title="Repetition mode" aria-label="Repetition mode" action="#n" name="_anim_loop_selecteeca69d7e58e40b9b4ec5fb7d613d15c"
+    <form title="Repetition mode" aria-label="Repetition mode" action="#n" name="_anim_loop_selecta3b9dd32fd4341169ab54612a8fc8bc5"
           class="anim-state">
-      <input type="radio" name="state" value="once" id="_anim_radio1_eeca69d7e58e40b9b4ec5fb7d613d15c"
+      <input type="radio" name="state" value="once" id="_anim_radio1_a3b9dd32fd4341169ab54612a8fc8bc5"
              >
-      <label for="_anim_radio1_eeca69d7e58e40b9b4ec5fb7d613d15c">Once</label>
-      <input type="radio" name="state" value="loop" id="_anim_radio2_eeca69d7e58e40b9b4ec5fb7d613d15c"
+      <label for="_anim_radio1_a3b9dd32fd4341169ab54612a8fc8bc5">Once</label>
+      <input type="radio" name="state" value="loop" id="_anim_radio2_a3b9dd32fd4341169ab54612a8fc8bc5"
              checked>
-      <label for="_anim_radio2_eeca69d7e58e40b9b4ec5fb7d613d15c">Loop</label>
-      <input type="radio" name="state" value="reflect" id="_anim_radio3_eeca69d7e58e40b9b4ec5fb7d613d15c"
+      <label for="_anim_radio2_a3b9dd32fd4341169ab54612a8fc8bc5">Loop</label>
+      <input type="radio" name="state" value="reflect" id="_anim_radio3_a3b9dd32fd4341169ab54612a8fc8bc5"
              >
-      <label for="_anim_radio3_eeca69d7e58e40b9b4ec5fb7d613d15c">Reflect</label>
+      <label for="_anim_radio3_a3b9dd32fd4341169ab54612a8fc8bc5">Reflect</label>
     </form>
   </div>
 </div>
@@ -1348,9 +1348,9 @@ input[type=range].anim-slider {
   /* Instantiate the Animation class. */
   /* The IDs given should match those used in the template above. */
   (function() {
-    var img_id = "_anim_imgeeca69d7e58e40b9b4ec5fb7d613d15c";
-    var slider_id = "_anim_slidereeca69d7e58e40b9b4ec5fb7d613d15c";
-    var loop_select_id = "_anim_loop_selecteeca69d7e58e40b9b4ec5fb7d613d15c";
+    var img_id = "_anim_imga3b9dd32fd4341169ab54612a8fc8bc5";
+    var slider_id = "_anim_slidera3b9dd32fd4341169ab54612a8fc8bc5";
+    var loop_select_id = "_anim_loop_selecta3b9dd32fd4341169ab54612a8fc8bc5";
     var frames = new Array(201);
     
   frames[0] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAXoAAAF6CAYAAAAXoJOQAAAAOnRFWHRTb2Z0d2FyZQBNYXRwbG90\
@@ -22537,7 +22537,7 @@ hwAAAABJRU5ErkJggg==\
     /* set a timeout to make sure all the above elements are created before
        the object is initialized. */
     setTimeout(function() {
-        animeeca69d7e58e40b9b4ec5fb7d613d15c = new Animation(frames, img_id, slider_id, 33,
+        anima3b9dd32fd4341169ab54612a8fc8bc5 = new Animation(frames, img_id, slider_id, 33,
                                  loop_select_id);
     }, 0);
   })()
