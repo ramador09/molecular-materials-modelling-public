@@ -67,11 +67,16 @@ html[data-theme="dark"] .bd-article h4 {
 html[data-theme="dark"] .bd-article a { color: var(--ecp-accent-bright); }
 html[data-theme="dark"] .bd-article a:hover { color: #ffffff; }
 
-/* ---- Hidden solution cells (stripped, policy=input) ------------------- */
-div.cell[class*="tag_solution"] div.cell_input,
-.ecp-solution-hidden div.cell_input {
-  display: none;
-}
+/* ---- Solution-cell visibility ------------------------------------------
+   Solution INPUTS are hidden on the public site by tools/strip_solutions.py,
+   which replaces the source with a placeholder and adds the `remove-input`
+   tag BEFORE the build -- nothing reaches the HTML, so no CSS is needed (and
+   CSS `display:none` would be no protection anyway: hidden content still
+   ships in the page source). An earlier blanket rule here also suppressed
+   every solution cell on the AUTHOR-ONLY solutions build, which shares this
+   stylesheet -- hiding exactly the worked solution code that site exists to
+   show. Removed 2026-07-03 (same fix as ECP): visibility is decided by the
+   pipelines, never by the stylesheet. */
 
 /* ---- Admonitions match the palette ------------------------------------ */
 .admonition { border-left-color: var(--ecp-accent) !important; }
