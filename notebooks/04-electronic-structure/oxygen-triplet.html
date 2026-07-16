@@ -561,7 +561,7 @@
               font-family:'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace;font-size:11px;color:#46506b;
               letter-spacing:.04em;">
     <span>Raymond Amador</span>
-    <span>v0.1.0 &nbsp;·&nbsp; 2026-07-13 &nbsp;·&nbsp;
+    <span>v0.1.0 &nbsp;·&nbsp; 2026-07-16 &nbsp;·&nbsp;
           CC&nbsp;BY&nbsp;4.0 (text) / MIT (code)</span>
   </div>
 </div></div></div>
@@ -575,7 +575,7 @@ two electrons unpaired, with parallel spins, is the one nature chooses: the tota
 spin is <span class="math notranslate nohighlight">\(S=1\)</span>, a triplet, and the molecule is magnetic. A simple Lewis structure,
 with every electron paired, misses this entirely. Molecular-orbital theory does
 not, and it is the molecular-orbital picture we build and verify here.</p>
-<p>We work from a real density-functional calculation. The course ran O₂ in <strong>CP2K</strong>,
+<p>We work from a real Hartree-Fock calculation. The course ran O₂ in <strong>CP2K</strong>,
 printing the electron density and the frontier molecular orbitals to cube files,
 and we use that genuine output: we visualise the electron density, compute the
 <strong>density difference</strong> that shows where charge moves when the bond forms, look at
@@ -600,7 +600,7 @@ not a verdict; a ✓ is strong evidence, not proof.</p>
 <blockquote>
 <div><p><strong>Scope.</strong> Cube data are visualised as isosurfaces; energies are converted from
 Hartree to eV. For the chemistry see Atkins &amp; Friedman <span class="bibtex-citation" id="id1">[<a class="reference internal" href="#id27" title="Peter W. Atkins and Ronald S. Friedman. Molecular Quantum Mechanics. Oxford University Press, 5 edition, 2011.">AF11</a>]</span>; the
-calculations were run in CP2K, the cube format stores a scalar field on a 3-D
+calculations were run in CP2K; the cube format stores a scalar field on a 3-D
 grid.</p>
 </div></blockquote>
 </section>
@@ -633,8 +633,8 @@ read straight off the eigenvalues.</p>
 </section>
 <section id="what-the-calculation-gives-us">
 <h3>What the calculation gives us<a class="headerlink" href="#what-the-calculation-gives-us" title="Link to this heading">#</a></h3>
-<p>Density-functional theory in CP2K returns the electron density <span class="math notranslate nohighlight">\(\rho(\mathbf r)\)</span>,
-the individual Kohn-Sham (molecular) orbitals <span class="math notranslate nohighlight">\(\psi_i(\mathbf r)\)</span>, and their
+<p>Hartree-Fock in CP2K returns the electron density <span class="math notranslate nohighlight">\(\rho(\mathbf r)\)</span>,
+the individual molecular orbitals <span class="math notranslate nohighlight">\(\psi_i(\mathbf r)\)</span>, and their
 energies <span class="math notranslate nohighlight">\(\varepsilon_i\)</span>, written to <strong>cube files</strong> (a scalar on a 3-D grid) and to
 the output log. Subtracting the densities of the separated atoms from the molecule
 gives the <strong>density difference</strong>, a direct picture of the bond; the orbital cubes
@@ -762,8 +762,8 @@ files we will use:</p>
     &amp;E_DENSITY_CUBE         ! write the electron density to a cube file
     &amp;END E_DENSITY_CUBE
     &amp;MO_CUBES               ! write molecular-orbital cubes
-      NHOMO 1               ! ... the HOMO (and neighbours)
-      NLUMO 1               ! ... and the LUMO
+      NHOMO -1              ! ... every occupied MO (HOMO down)
+      NLUMO 3               ! ... and three lowest unoccupied
     &amp;END MO_CUBES
   &amp;END PRINT
 &amp;END DFT
@@ -899,7 +899,7 @@ visible as the change of lobe colour across the bond.</p>
 </div>
 <section id="validation-4-proper-one-electron-orbitals">
 <h3>Validation 4 — proper one-electron orbitals<a class="headerlink" href="#validation-4-proper-one-electron-orbitals" title="Link to this heading">#</a></h3>
-<p>Each Kohn-Sham orbital is normalised, so <span class="math notranslate nohighlight">\(\int|\psi|^2\,dV\)</span> must be the same for all
+<p>Each Hartree-Fock orbital is normalised, so <span class="math notranslate nohighlight">\(\int|\psi|^2\,dV\)</span> must be the same for all
 three (the same value the downsampling preserves), confirming they are genuine
 single-electron molecular orbitals.</p>
 <div class="cell tag_validation tag_remove-input docutils container">
@@ -963,6 +963,12 @@ degenerate <span class="math notranslate nohighlight">\(\pi^*\)</span> pair with
 of the triplet. Dropping the two core <span class="math notranslate nohighlight">\(1s\)</span> states, we plot the valence levels at
 their real energies and fill them with <span class="math notranslate nohighlight">\(\alpha\)</span> (up) and <span class="math notranslate nohighlight">\(\beta\)</span> (down) electrons,
 reproducing the molecular-orbital schema from the calculation itself.</p>
+<p>One feature departs from the idealised diagram of <a class="reference internal" href="#equation-eq-mo-set">Eq. 29</a>: in the spin-up
+(<span class="math notranslate nohighlight">\(\alpha\)</span>) channel the bonding <span class="math notranslate nohighlight">\(\pi_{2p}\)</span> pair sits just <em>below</em> <span class="math notranslate nohighlight">\(\sigma_{2p}\)</span>,
+because the two unpaired <span class="math notranslate nohighlight">\(\alpha\)</span> electrons in <span class="math notranslate nohighlight">\(\pi^*\)</span> exchange-stabilise the
+same-spin bonding <span class="math notranslate nohighlight">\(\alpha\,\pi_{2p}\)</span>. The spin-down (<span class="math notranslate nohighlight">\(\beta\)</span>) channel, with <span class="math notranslate nohighlight">\(\pi^*\)</span>
+empty, keeps the textbook <span class="math notranslate nohighlight">\(\sigma_{2p}\)</span>-below-<span class="math notranslate nohighlight">\(\pi_{2p}\)</span> order. Either way the last
+two electrons occupy the <span class="math notranslate nohighlight">\(\pi^*\)</span> pair, so the triplet conclusion is unchanged.</p>
 <p><strong>Part a)</strong> Build the schema from the real eigenvalues. <strong>Part b)</strong> Confirm the
 spin imbalance, and the paramagnetic moment it implies.</p>
 <div class="cell tag_solution tag_remove-input docutils container">

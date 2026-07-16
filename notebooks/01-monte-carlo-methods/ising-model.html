@@ -476,7 +476,7 @@
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-6-locating-t-c-the-susceptibility-and-specific-heat-peaks">Exercise 6 — Locating <span class="math notranslate nohighlight">\(T_c\)</span>: the susceptibility and specific-heat peaks</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#why-the-susceptibility-peak-overshoots-t-c">Why the susceptibility peak overshoots <span class="math notranslate nohighlight">\(T_c\)</span></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#why-the-finite-size-peaks-overshoot-t-c">Why the finite-size peaks overshoot <span class="math notranslate nohighlight">\(T_c\)</span></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#validation-6-finite-size-t-c-vs-onsager">Validation 6 — finite-size <span class="math notranslate nohighlight">\(T_c\)</span> vs. Onsager</a></li>
 </ul>
 </li>
@@ -573,7 +573,7 @@
               font-family:'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace;font-size:11px;color:#46506b;
               letter-spacing:.04em;">
     <span>Raymond Amador</span>
-    <span>v0.1.0 &nbsp;·&nbsp; 2026-07-13 &nbsp;·&nbsp;
+    <span>v0.1.0 &nbsp;·&nbsp; 2026-07-16 &nbsp;·&nbsp;
           CC&nbsp;BY&nbsp;4.0 (text) / MIT (code)</span>
   </div>
 </div></div></div>
@@ -592,8 +592,8 @@ solve the <strong>one-dimensional</strong> chain exactly with the transfer matri
 Landau’s domain-wall argument to see <em>why it never orders at finite
 temperature</em>, build the <strong>Metropolis</strong> algorithm and validate it against that
 exact 1D solution, and then cross into <strong>two dimensions</strong>, where a genuine
-phase transition appears at <span class="math notranslate nohighlight">\(k_BT_c\approx2.269\,J\)</span>, and locating <span class="math notranslate nohighlight">\(T_c\)</span> from the
-Monte Carlo data and comparing it to Onsager’s exact value.</p>
+phase transition appears at <span class="math notranslate nohighlight">\(k_BT_c\approx2.269\,J\)</span>, and locate <span class="math notranslate nohighlight">\(T_c\)</span> from the
+Monte Carlo data and compare it to Onsager’s exact value.</p>
 <blockquote>
 <div><p><strong>Provenance.</strong> This notebook develops <strong>Lecture 2</strong> of the course (the 2D Ising
 model and the foundations of Monte Carlo), whose exercise was developed
@@ -816,9 +816,9 @@ temperature (<a class="reference internal" href="#fig-ising-exact1d"><span class
 </pre></div>
 </div>
 <figure class="align-default" id="fig-ising-exact1d">
-<img alt="../../_images/4b4ed704a7cd06ab125e4017586e7dd3b48b12b8423911e95cf3d54f9be0294c.png" src="../../_images/4b4ed704a7cd06ab125e4017586e7dd3b48b12b8423911e95cf3d54f9be0294c.png" />
+<img alt="../../_images/7c24c9c8d42c2ef3111ef4b07d4fd78c47453c64bc3bf9b64d93f0311375d403.png" src="../../_images/7c24c9c8d42c2ef3111ef4b07d4fd78c47453c64bc3bf9b64d93f0311375d403.png" />
 <figcaption>
-<p><span class="caption-number">Fig. 2 </span><span class="caption-text">Exact 1D Ising thermodynamics from the transfer matrix (Eq. eq-free-energy), with <span class="math notranslate nohighlight">\(K=J/k_BT\)</span>: (a) magnetisation <span class="math notranslate nohighlight">\(|m|\)</span>, which vanishes for every <span class="math notranslate nohighlight">\(T&gt;0\)</span>; (b) internal energy per spin <span class="math notranslate nohighlight">\(u=-J\tanh K\)</span>; (c) specific heat <span class="math notranslate nohighlight">\(C/k_B=K^2/\cosh^2 K\)</span> with its broad Schottky peak (amber); (d) susceptibility <span class="math notranslate nohighlight">\(\chi=\beta e^{2K}\)</span>, diverging only as <span class="math notranslate nohighlight">\(T\to0\)</span>. The absence of any singularity at finite <span class="math notranslate nohighlight">\(T\)</span> is the signature that the 1D model has no phase transition.</span><a class="headerlink" href="#fig-ising-exact1d" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 2 </span><span class="caption-text">Exact 1D Ising thermodynamics from the transfer matrix (Eq. eq-free-energy), with <span class="math notranslate nohighlight">\(K=J/k_BT\)</span>: (a) magnetisation <span class="math notranslate nohighlight">\(|m|\)</span> under a tiny symmetry-breaking field <span class="math notranslate nohighlight">\(h=10^{-4}\)</span>, which drives <span class="math notranslate nohighlight">\(|m|\to1\)</span> on the cold side (<span class="math notranslate nohighlight">\(T\to0\)</span>); at true zero field <span class="math notranslate nohighlight">\(m=0\)</span> for every <span class="math notranslate nohighlight">\(T&gt;0\)</span>; (b) internal energy per spin <span class="math notranslate nohighlight">\(u=-J\tanh K\)</span>; (c) specific heat <span class="math notranslate nohighlight">\(C/k_B=K^2/\cosh^2 K\)</span> with its broad Schottky peak (amber); (d) susceptibility <span class="math notranslate nohighlight">\(\chi=\beta e^{2K}\)</span>, diverging only as <span class="math notranslate nohighlight">\(T\to0\)</span>. The absence of any singularity at finite <span class="math notranslate nohighlight">\(T\)</span> is the signature that the 1D model has no phase transition.</span><a class="headerlink" href="#fig-ising-exact1d" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 </div>
@@ -835,11 +835,11 @@ specific-heat (Schottky) peak sits where <span class="math notranslate nohighlig
 ✓  Schottky-peak temperature solves K tanh K = 1   [got 0.833557 vs expected 0.8336 (rtol=0.001)]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/tmp/ipykernel_2319/578343941.py:21: RuntimeWarning: invalid value encountered in divide
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/tmp/ipykernel_2207/578343941.py:21: RuntimeWarning: invalid value encountered in divide
   m = np.sinh(hp) / np.sqrt(np.sinh(hp) ** 2 + np.exp(-4 * K))   # = -∂f/∂h
-/tmp/ipykernel_2319/578343941.py:23: RuntimeWarning: overflow encountered in cosh
+/tmp/ipykernel_2207/578343941.py:23: RuntimeWarning: overflow encountered in cosh
   C = K ** 2 / np.cosh(K) ** 2                                   # C/k_B, Schottky
-/tmp/ipykernel_2319/578343941.py:24: RuntimeWarning: overflow encountered in exp
+/tmp/ipykernel_2207/578343941.py:24: RuntimeWarning: overflow encountered in exp
   chi = np.exp(2 * K) * beta                                     # χ at h = 0
 </pre></div>
 </div>
@@ -1006,34 +1006,36 @@ it overshoots.</p>
 <figure class="align-default" id="fig-ising-response">
 <img alt="../../_images/2990e07a2a3ce97e87159aeeacd4d75295405065fe060b7a737dd354cf09c6e3.png" src="../../_images/2990e07a2a3ce97e87159aeeacd4d75295405065fe060b7a737dd354cf09c6e3.png" />
 <figcaption>
-<p><span class="caption-number">Fig. 6 </span><span class="caption-text">Susceptibility <span class="math notranslate nohighlight">\(\chi\)</span> (left) and specific heat <span class="math notranslate nohighlight">\(C_v/Nk_B\)</span> (right) of the <span class="math notranslate nohighlight">\(L=24\)</span> 2D Ising lattice versus temperature (amber points), with Onsager’s exact <span class="math notranslate nohighlight">\(T_c\)</span> dashed and each measured peak dotted. Both peaks lie near <span class="math notranslate nohighlight">\(T_c\)</span> but above it, shifted by the finite-size relation Eq. (eq-fss) and scattered by critical slowing down; the susceptibility, built from the slowly-decorrelating magnetisation, overshoots more than the specific heat.</span><a class="headerlink" href="#fig-ising-response" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 6 </span><span class="caption-text">Susceptibility <span class="math notranslate nohighlight">\(\chi\)</span> (left) and specific heat <span class="math notranslate nohighlight">\(C_v/Nk_B\)</span> (right) of the <span class="math notranslate nohighlight">\(L=24\)</span> 2D Ising lattice versus temperature (amber points), with Onsager’s exact <span class="math notranslate nohighlight">\(T_c\)</span> dashed and each measured peak dotted. Both peaks lie near <span class="math notranslate nohighlight">\(T_c\)</span> but above it, shifted by the finite-size relation Eq. (eq-fss) and scattered by critical slowing down; the susceptibility, built from the slowly-decorrelating magnetisation, is far noisier, so we read <span class="math notranslate nohighlight">\(T_c\)</span> off the steadier specific-heat peak.</span><a class="headerlink" href="#fig-ising-response" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 </div>
 </div>
-<section id="why-the-susceptibility-peak-overshoots-t-c">
-<h3>Why the susceptibility peak overshoots <span class="math notranslate nohighlight">\(T_c\)</span><a class="headerlink" href="#why-the-susceptibility-peak-overshoots-t-c" title="Link to this heading">#</a></h3>
+<section id="why-the-finite-size-peaks-overshoot-t-c">
+<h3>Why the finite-size peaks overshoot <span class="math notranslate nohighlight">\(T_c\)</span><a class="headerlink" href="#why-the-finite-size-peaks-overshoot-t-c" title="Link to this heading">#</a></h3>
 <p>On an <em>infinite</em> lattice both response functions diverge exactly at <span class="math notranslate nohighlight">\(T_c\)</span>. On a
-finite lattice two distinct effects move the measured peaks upward, and both hit
-<span class="math notranslate nohighlight">\(\chi\)</span> harder than <span class="math notranslate nohighlight">\(C_v\)</span>:</p>
+finite lattice two distinct effects move the measured peaks upward, and together
+they make <span class="math notranslate nohighlight">\(\chi\)</span> the less reliable locator:</p>
 <ol class="arabic simple">
 <li><p><strong>Finite-size shift.</strong> Rounding the divergence places each peak above <span class="math notranslate nohighlight">\(T_c\)</span> by
 <span class="math notranslate nohighlight">\(T_{\rm peak}(L)-T_c\propto1/L\)</span> (<a class="reference internal" href="#equation-eq-fss">Eq. 8</a>), with an <em>observable-dependent</em>
-amplitude that is larger for the susceptibility. The shift shrinks with size:
+amplitude. The shift shrinks with size:
 scanning <span class="math notranslate nohighlight">\(L=16,24,32,48\)</span> marches both peaks down toward <span class="math notranslate nohighlight">\(2.269\)</span>.</p></li>
 <li><p><strong>Critical slowing down.</strong> Near <span class="math notranslate nohighlight">\(T_c\)</span> the autocorrelation time of single-spin
 Metropolis diverges as <span class="math notranslate nohighlight">\(\tau\sim L^{z}\)</span> (<span class="math notranslate nohighlight">\(z\approx2.17\)</span>). The susceptibility
 is built from fluctuations of the <em>magnetisation</em> (the slowest mode to
 decorrelate), so for a fixed sweep budget it is under-sampled exactly where it
-is largest, and its single-run peak scatters by a grid point or two (which is
-how it can sit visibly above the <span class="math notranslate nohighlight">\(C_v\)</span> peak). The energy decorrelates faster,
+is largest, and its single-run peak scatters by a grid point or two: here it
+lands on the same grid node as the <span class="math notranslate nohighlight">\(C_v\)</span> peak, though run to run it drifts
+above or below. The energy decorrelates faster,
 so <span class="math notranslate nohighlight">\(C_v\)</span> is the steadier locator; raising the sweep count pulls the <span class="math notranslate nohighlight">\(\chi\)</span>
 peak back toward <span class="math notranslate nohighlight">\(T_c\)</span>.</p></li>
 </ol>
-<p>So neither peak <em>is</em> <span class="math notranslate nohighlight">\(T_c\)</span> on a finite lattice; they bracket it from above, the
-<span class="math notranslate nohighlight">\(C_v\)</span> peak more tightly, which is why we quote it. The larger <span class="math notranslate nohighlight">\(\chi\)</span> overshoot is
-expected, not an error; the systematic route to the exact <span class="math notranslate nohighlight">\(T_c\)</span> is the
-finite-size-scaling extrapolation we carry out next, not any single lattice.</p>
+<p>So neither peak <em>is</em> <span class="math notranslate nohighlight">\(T_c\)</span> on a finite lattice; both sit above it, and the <span class="math notranslate nohighlight">\(C_v\)</span>
+peak is the steadier of the two, which is why we quote it. The <span class="math notranslate nohighlight">\(\chi\)</span> peak’s
+larger run-to-run scatter is expected, not an error; the systematic route to the
+exact <span class="math notranslate nohighlight">\(T_c\)</span> is the finite-size-scaling extrapolation we carry out next, not any
+single lattice.</p>
 </section>
 <section id="validation-6-finite-size-t-c-vs-onsager">
 <h3>Validation 6 — finite-size <span class="math notranslate nohighlight">\(T_c\)</span> vs. Onsager<a class="headerlink" href="#validation-6-finite-size-t-c-vs-onsager" title="Link to this heading">#</a></h3>
@@ -1069,7 +1071,7 @@ intercept (<a class="reference internal" href="#fig-ising-fss"><span class="std 
 <div class="cell tag_solution tag_remove-input docutils container">
 <div class="cell_output docutils container">
 <figure class="align-default" id="fig-ising-fss">
-<img alt="../../_images/6dcff047e2e9d753f003391ab39ca3c1e0a0dd330cdcc8fa2245843a1723e95e.png" src="../../_images/6dcff047e2e9d753f003391ab39ca3c1e0a0dd330cdcc8fa2245843a1723e95e.png" />
+<img alt="../../_images/bd68d4eae616c90dfad20d680ec117b0342876eacd5f18e78ee469f1f33c4c07.png" src="../../_images/bd68d4eae616c90dfad20d680ec117b0342876eacd5f18e78ee469f1f33c4c07.png" />
 <figcaption>
 <p><span class="caption-number">Fig. 7 </span><span class="caption-text">Finite-size scaling of the 2D Ising specific-heat peak: the peak temperature <span class="math notranslate nohighlight">\(T_{\rm peak}(L)\)</span> for <span class="math notranslate nohighlight">\(L=12,16,24,32\)</span> (amber points) versus <span class="math notranslate nohighlight">\(1/L\)</span>, with the linear fit <span class="math notranslate nohighlight">\(T_{\rm peak}=T_c+A/L\)</span> (Eq. eq-fss) extrapolated to <span class="math notranslate nohighlight">\(1/L\to0\)</span>. The intercept (navy square) recovers Onsager’s exact <span class="math notranslate nohighlight">\(T_c\)</span> (dashed), free of the finite-size shift that displaces any single-lattice estimate.</span><a class="headerlink" href="#fig-ising-fss" title="Link to this image">#</a></p>
 </figcaption>
@@ -1304,42 +1306,42 @@ input[type=range].anim-slider {
 </style>
 
 <div class="animation">
-  <img id="_anim_img9f04d2bf6f9441d385696aa123104dde">
+  <img id="_anim_img77cbd7881dc641e2bd64e2bd0dcb00f9">
   <div class="anim-controls">
-    <input id="_anim_slider9f04d2bf6f9441d385696aa123104dde" type="range" class="anim-slider"
+    <input id="_anim_slider77cbd7881dc641e2bd64e2bd0dcb00f9" type="range" class="anim-slider"
            name="points" min="0" max="1" step="1" value="0"
-           oninput="anim9f04d2bf6f9441d385696aa123104dde.set_frame(parseInt(this.value));">
+           oninput="anim77cbd7881dc641e2bd64e2bd0dcb00f9.set_frame(parseInt(this.value));">
     <div class="anim-buttons">
-      <button title="Decrease speed" aria-label="Decrease speed" onclick="anim9f04d2bf6f9441d385696aa123104dde.slower()">
+      <button title="Decrease speed" aria-label="Decrease speed" onclick="anim77cbd7881dc641e2bd64e2bd0dcb00f9.slower()">
           <i class="fa fa-minus"></i></button>
-      <button title="First frame" aria-label="First frame" onclick="anim9f04d2bf6f9441d385696aa123104dde.first_frame()">
+      <button title="First frame" aria-label="First frame" onclick="anim77cbd7881dc641e2bd64e2bd0dcb00f9.first_frame()">
         <i class="fa fa-fast-backward"></i></button>
-      <button title="Previous frame" aria-label="Previous frame" onclick="anim9f04d2bf6f9441d385696aa123104dde.previous_frame()">
+      <button title="Previous frame" aria-label="Previous frame" onclick="anim77cbd7881dc641e2bd64e2bd0dcb00f9.previous_frame()">
           <i class="fa fa-step-backward"></i></button>
-      <button title="Play backwards" aria-label="Play backwards" onclick="anim9f04d2bf6f9441d385696aa123104dde.reverse_animation()">
+      <button title="Play backwards" aria-label="Play backwards" onclick="anim77cbd7881dc641e2bd64e2bd0dcb00f9.reverse_animation()">
           <i class="fa fa-play fa-flip-horizontal"></i></button>
-      <button title="Pause" aria-label="Pause" onclick="anim9f04d2bf6f9441d385696aa123104dde.pause_animation()">
+      <button title="Pause" aria-label="Pause" onclick="anim77cbd7881dc641e2bd64e2bd0dcb00f9.pause_animation()">
           <i class="fa fa-pause"></i></button>
-      <button title="Play" aria-label="Play" onclick="anim9f04d2bf6f9441d385696aa123104dde.play_animation()">
+      <button title="Play" aria-label="Play" onclick="anim77cbd7881dc641e2bd64e2bd0dcb00f9.play_animation()">
           <i class="fa fa-play"></i></button>
-      <button title="Next frame" aria-label="Next frame" onclick="anim9f04d2bf6f9441d385696aa123104dde.next_frame()">
+      <button title="Next frame" aria-label="Next frame" onclick="anim77cbd7881dc641e2bd64e2bd0dcb00f9.next_frame()">
           <i class="fa fa-step-forward"></i></button>
-      <button title="Last frame" aria-label="Last frame" onclick="anim9f04d2bf6f9441d385696aa123104dde.last_frame()">
+      <button title="Last frame" aria-label="Last frame" onclick="anim77cbd7881dc641e2bd64e2bd0dcb00f9.last_frame()">
           <i class="fa fa-fast-forward"></i></button>
-      <button title="Increase speed" aria-label="Increase speed" onclick="anim9f04d2bf6f9441d385696aa123104dde.faster()">
+      <button title="Increase speed" aria-label="Increase speed" onclick="anim77cbd7881dc641e2bd64e2bd0dcb00f9.faster()">
           <i class="fa fa-plus"></i></button>
     </div>
-    <form title="Repetition mode" aria-label="Repetition mode" action="#n" name="_anim_loop_select9f04d2bf6f9441d385696aa123104dde"
+    <form title="Repetition mode" aria-label="Repetition mode" action="#n" name="_anim_loop_select77cbd7881dc641e2bd64e2bd0dcb00f9"
           class="anim-state">
-      <input type="radio" name="state" value="once" id="_anim_radio1_9f04d2bf6f9441d385696aa123104dde"
+      <input type="radio" name="state" value="once" id="_anim_radio1_77cbd7881dc641e2bd64e2bd0dcb00f9"
              >
-      <label for="_anim_radio1_9f04d2bf6f9441d385696aa123104dde">Once</label>
-      <input type="radio" name="state" value="loop" id="_anim_radio2_9f04d2bf6f9441d385696aa123104dde"
+      <label for="_anim_radio1_77cbd7881dc641e2bd64e2bd0dcb00f9">Once</label>
+      <input type="radio" name="state" value="loop" id="_anim_radio2_77cbd7881dc641e2bd64e2bd0dcb00f9"
              checked>
-      <label for="_anim_radio2_9f04d2bf6f9441d385696aa123104dde">Loop</label>
-      <input type="radio" name="state" value="reflect" id="_anim_radio3_9f04d2bf6f9441d385696aa123104dde"
+      <label for="_anim_radio2_77cbd7881dc641e2bd64e2bd0dcb00f9">Loop</label>
+      <input type="radio" name="state" value="reflect" id="_anim_radio3_77cbd7881dc641e2bd64e2bd0dcb00f9"
              >
-      <label for="_anim_radio3_9f04d2bf6f9441d385696aa123104dde">Reflect</label>
+      <label for="_anim_radio3_77cbd7881dc641e2bd64e2bd0dcb00f9">Reflect</label>
     </form>
   </div>
 </div>
@@ -1349,9 +1351,9 @@ input[type=range].anim-slider {
   /* Instantiate the Animation class. */
   /* The IDs given should match those used in the template above. */
   (function() {
-    var img_id = "_anim_img9f04d2bf6f9441d385696aa123104dde";
-    var slider_id = "_anim_slider9f04d2bf6f9441d385696aa123104dde";
-    var loop_select_id = "_anim_loop_select9f04d2bf6f9441d385696aa123104dde";
+    var img_id = "_anim_img77cbd7881dc641e2bd64e2bd0dcb00f9";
+    var slider_id = "_anim_slider77cbd7881dc641e2bd64e2bd0dcb00f9";
+    var loop_select_id = "_anim_loop_select77cbd7881dc641e2bd64e2bd0dcb00f9";
     var frames = new Array(201);
     
   frames[0] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAXoAAAF6CAYAAAAXoJOQAAAAOnRFWHRTb2Z0d2FyZQBNYXRwbG90\
@@ -22538,7 +22540,7 @@ hwAAAABJRU5ErkJggg==\
     /* set a timeout to make sure all the above elements are created before
        the object is initialized. */
     setTimeout(function() {
-        anim9f04d2bf6f9441d385696aa123104dde = new Animation(frames, img_id, slider_id, 33,
+        anim77cbd7881dc641e2bd64e2bd0dcb00f9 = new Animation(frames, img_id, slider_id, 33,
                                  loop_select_id);
     }, 0);
   })()
@@ -22574,8 +22576,9 @@ dimension the transfer matrix gave the exact free energy and observables, which 
 Metropolis chain reproduced to within sampling error and which show no
 finite-temperature transition. In two dimensions the same sweeps recovered the
 Onsager–Yang spontaneous magnetisation, and the susceptibility and specific-heat
-peaks, sharpened by finite-size scaling, extrapolated to the exact critical
-temperature <span class="math notranslate nohighlight">\(T_c = 2/\ln(1+\sqrt2) \approx 2.269\,J/k_B\)</span>. Along the way we met the
+peaks located the transition; extrapolating the steadier specific-heat peak to
+infinite size (finite-size scaling) recovered the exact critical temperature
+<span class="math notranslate nohighlight">\(T_c = 2/\ln(1+\sqrt2) \approx 2.269\,J/k_B\)</span>. Along the way we met the
 concrete machinery of Monte Carlo: importance sampling, equilibration, fluctuation
 estimators, and the critical slowing-down that makes <span class="math notranslate nohighlight">\(T_c\)</span> hard to pin down.</p>
 </section>
@@ -22794,7 +22797,7 @@ at <span class="math notranslate nohighlight">\(T_c\)</span> for all sizes, a sh
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-6-locating-t-c-the-susceptibility-and-specific-heat-peaks">Exercise 6 — Locating <span class="math notranslate nohighlight">\(T_c\)</span>: the susceptibility and specific-heat peaks</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#why-the-susceptibility-peak-overshoots-t-c">Why the susceptibility peak overshoots <span class="math notranslate nohighlight">\(T_c\)</span></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#why-the-finite-size-peaks-overshoot-t-c">Why the finite-size peaks overshoot <span class="math notranslate nohighlight">\(T_c\)</span></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#validation-6-finite-size-t-c-vs-onsager">Validation 6 — finite-size <span class="math notranslate nohighlight">\(T_c\)</span> vs. Onsager</a></li>
 </ul>
 </li>

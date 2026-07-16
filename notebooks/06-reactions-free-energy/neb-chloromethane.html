@@ -497,7 +497,7 @@
     <span class="s2">&quot;exchange on chloromethane, and the top of that path is the activation barrier.&quot;</span><span class="p">,</span>
     <span class="n">difficulty</span><span class="o">=</span><span class="s2">&quot;intermediate&quot;</span><span class="p">,</span>
     <span class="n">estimate</span><span class="o">=</span><span class="s2">&quot;75–100 min&quot;</span><span class="p">,</span>
-    <span class="n">source</span><span class="o">=</span><span class="s2">&quot;FS 2023 · Lecture 11 (nudged elastic band and free energy)&quot;</span><span class="p">,</span>
+    <span class="n">source</span><span class="o">=</span><span class="s2">&quot;FS 2023 · Lecture 13 (nudged elastic band and free energy)&quot;</span><span class="p">,</span>
 <span class="p">)</span>
 </pre></div>
 </div>
@@ -536,7 +536,7 @@
                    margin-top:10px;max-width:62ch;">Finding the path a reaction takes, not just its endpoints: the nudged elastic band relaxes a chain of images into the minimum-energy path for chloride exchange on chloromethane, and the top of that path is the activation barrier.</div>
 
   <div style="font-family:'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace;font-size:11px;letter-spacing:.04em;
-                   color:#c0851a;margin-top:10px;">Based on FS 2023 · Lecture 11 (nudged elastic band and free energy)</div>
+                   color:#c0851a;margin-top:10px;">Based on FS 2023 · Lecture 13 (nudged elastic band and free energy)</div>
 
   <div style="margin-top:16px;"><div class='ecp-meta' style='font-family:'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#46506b;'>Level&nbsp;&middot;&nbsp;intermediate&nbsp;&nbsp;&nbsp;&#8226;&nbsp;&nbsp;&nbsp;Est.&nbsp;&middot;&nbsp;75–100 min</div></div>
 
@@ -545,7 +545,7 @@
               font-family:'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace;font-size:11px;color:#46506b;
               letter-spacing:.04em;">
     <span>Raymond Amador</span>
-    <span>v0.1.0 &nbsp;·&nbsp; 2026-07-13 &nbsp;·&nbsp;
+    <span>v0.1.0 &nbsp;·&nbsp; 2026-07-16 &nbsp;·&nbsp;
           CC&nbsp;BY&nbsp;4.0 (text) / MIT (code)</span>
   </div>
 </div></div></div>
@@ -561,15 +561,15 @@ of the system between the two endpoints, connects them with springs, and relaxes
 chain onto the minimum-energy path.</p>
 <p>We take the course’s NEB calculation in CP2K and its committed output: the optimised
 reactant and product geometries, and the energy of every image at every iteration of
-the band optimisation. We render the two endpoints and the umbrella inversion between
-them, read the converged band to plot the energy profile and extract the activation
-barrier, and watch the band converge onto the minimum-energy path over the
-optimisation.</p>
+the band optimisation. We render the two endpoints, whose bonded and departing
+chlorines exchange roles, read the converged band to plot the energy profile and
+extract the activation barrier, and watch the band converge onto the minimum-energy
+path over the optimisation.</p>
 <blockquote>
-<div><p><strong>Provenance.</strong> This notebook develops <strong>Lecture 11</strong> of the course (nudged elastic
+<div><p><strong>Provenance.</strong> This notebook develops <strong>Lecture 13</strong> of the course (nudged elastic
 band and free-energy calculations), an exercise <strong>designed by the author
-(Raymond Amador)</strong>. The endpoint structures (<code class="docutils literal notranslate"><span class="pre">a.xyz</span></code>, <code class="docutils literal notranslate"><span class="pre">b.xyz</span></code>) and
-the band energies (<code class="docutils literal notranslate"><span class="pre">ch3cl-neb-1.ener</span></code>) are the course’s own committed CP2K results.
+(Raymond Amador)</strong>. The endpoint structures (<code class="docutils literal notranslate"><span class="pre">sn2-reactant.xyz</span></code>, <code class="docutils literal notranslate"><span class="pre">sn2-product.xyz</span></code>)
+and the band energies (<code class="docutils literal notranslate"><span class="pre">sn2-neb.ener</span></code>) are the course’s own committed CP2K results.
 The full course credit is in the footer.</p>
 </div></blockquote>
 <blockquote>
@@ -708,11 +708,13 @@ its midpoint.</p>
 </section>
 <section id="exercise-1-the-reactant-and-product">
 <h2>Exercise 1 — The reactant and product<a class="headerlink" href="#exercise-1-the-reactant-and-product" title="Link to this heading">#</a></h2>
-<p>The two endpoints are the same molecule mirror-imaged: in the reactant the carbon is
-bonded to one chlorine with the other chloride loosely approaching from behind; in the
-product the bonding has swapped. We render both. The hallmark of the Sₙ2 mechanism is
-that the three hydrogens <strong>invert</strong> between them, like an umbrella turning inside out,
-as the reaction passes through a planar <span class="math notranslate nohighlight">\(\mathrm{CH_3}\)</span> transition state.</p>
+<p>The two endpoints are the same molecule with its two chlorines interchanged: in the
+reactant the carbon is bonded to one chlorine with the other chloride loosely
+approaching from behind; in the product the bonding has swapped. We render both. The
+hallmark of the Sₙ2 mechanism is that the three hydrogens <strong>invert</strong> as the reaction
+passes through a planar <span class="math notranslate nohighlight">\(\mathrm{CH_3}\)</span> transition state, like an umbrella turning
+inside out. These committed endpoints share the same pyramidal <span class="math notranslate nohighlight">\(\mathrm{CH_3}\)</span>, so
+that flip lives in the band between them, not in the two endpoint structures.</p>
 <p><strong>Part a)</strong> Render the reactant and product. <strong>Part b)</strong> Confirm the C–Cl bonding
 swaps between the two (the chlorine that is bonded becomes the one that leaves).</p>
 <div class="cell tag_solution tag_remove-input docutils container">
@@ -723,7 +725,7 @@ swaps between the two (the chlorine that is bonded becomes the one that leaves).
 <figure class="align-default" id="fig-sn2-endpoints">
 <img alt="../../_images/53a61d69d0dbcc9d84c008cd12b0c0e9d9d739f3eeeda0aefb7161a9b338a3bb.png" src="../../_images/53a61d69d0dbcc9d84c008cd12b0c0e9d9d739f3eeeda0aefb7161a9b338a3bb.png" />
 <figcaption>
-<p><span class="caption-number">Fig. 46 </span><span class="caption-text">The committed Sₙ2 endpoints: chloromethane with an attacking chloride (reactant) and the mirror-image product after exchange (carbon grey, hydrogen white, chlorine green). The reaction swaps which chlorine is bonded to carbon; in between, the three hydrogens invert through a planar transition state.</span><a class="headerlink" href="#fig-sn2-endpoints" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 46 </span><span class="caption-text">The committed Sₙ2 endpoints: chloromethane with an attacking chloride (reactant) and the product after exchange (carbon grey, hydrogen white, chlorine green). The reaction swaps which chlorine is bonded to carbon; along the path between them, the three hydrogens invert through a planar transition state.</span><a class="headerlink" href="#fig-sn2-endpoints" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>reactant C–Cl distances: 1.76, 2.26 Å;  product: 1.46, 2.26 Å
@@ -733,7 +735,7 @@ swaps between the two (the chlorine that is bonded becomes the one that leaves).
 </div>
 <section id="validation-1-a-short-and-a-long-ccl-bond-at-each-end">
 <h3>Validation 1 — a short and a long C–Cl bond at each end<a class="headerlink" href="#validation-1-a-short-and-a-long-ccl-bond-at-each-end" title="Link to this heading">#</a></h3>
-<p>Each endpoint has one bonded chlorine (~1.8 Å) and one departing/attacking chlorine
+<p>Each endpoint has one bonded chlorine (1.5–1.8 Å) and one departing/attacking chlorine
 much farther away: the asymmetry that the reaction reverses.</p>
 <div class="cell tag_validation tag_remove-input docutils container">
 <div class="cell_output docutils container">
@@ -752,8 +754,8 @@ much farther away: the asymmetry that the reaction reverses.</p>
 <p>The band optimisation writes the energy of every image at every step to a <code class="docutils literal notranslate"><span class="pre">.ener</span></code>
 file; its last line is the converged path. We read the ten image energies, measure
 each relative to the endpoints, and plot the profile against the reaction coordinate
-(the cumulative distance along the band, Assignment 4). The result is a single
-symmetric barrier; its height is the activation energy of the exchange (Assignment 2).</p>
+(the cumulative distance along the band). The result is a single symmetric barrier;
+its height is the activation energy of the exchange.</p>
 <p><strong>Part a)</strong> Read the converged band and plot the energy profile. <strong>Part b)</strong> Extract
 the activation barrier and confirm the path is symmetric.</p>
 <div class="cell tag_solution tag_remove-input docutils container">
@@ -774,9 +776,10 @@ the activation barrier and confirm the path is symmetric.</p>
 </div>
 <section id="validation-2-a-central-barrier-on-a-thermoneutral-path">
 <h3>Validation 2 — a central barrier on a thermoneutral path<a class="headerlink" href="#validation-2-a-central-barrier-on-a-thermoneutral-path" title="Link to this heading">#</a></h3>
-<p>The chloride exchange is thermoneutral (reactant and product are mirror images), so
-the endpoints must come out at equal energy, with a positive barrier of the right
-size (several kcal/mol) peaked near the middle of the band. The path is only
+<p>The chloride exchange is thermoneutral (reactant and product are the same molecule with
+its two identical chlorines swapped), so the endpoints must come out at equal energy,
+with a positive barrier of the right size (several kcal/mol) peaked near the middle of
+the band. The path is only
 approximately symmetric: the discrete images cluster unevenly around the transition
 state.</p>
 <div class="cell tag_validation tag_remove-input docutils container">
@@ -796,9 +799,9 @@ state.</p>
 <p>The band does not start on the minimum-energy path; it relaxes onto it. Each row of
 the <code class="docutils literal notranslate"><span class="pre">.ener</span></code> file is one optimisation step, so plotting the barrier (the highest image,
 relative to the endpoints) against step shows the band settling. It starts from the
-linear interpolation between the endpoints, which cuts the corner and underestimates
-the barrier, and climbs as the chain finds the true ridge, converging after a few tens
-of iterations.</p>
+straight-line interpolation between the endpoints, whose strained geometries
+overestimate the barrier, and relaxes downward as the chain finds the true ridge,
+converging after a few tens of iterations.</p>
 <p><strong>Part a)</strong> Compute the barrier at every optimisation step. <strong>Part b)</strong> Confirm it has
 converged by the final steps.</p>
 <div class="cell tag_solution tag_remove-input docutils container">
@@ -806,7 +809,7 @@ converged by the final steps.</p>
 <figure class="align-default" id="fig-sn2-convergence">
 <img alt="../../_images/332e1228ea2d2a5297d77b17ad519bee662468111254fb18738faf88323d4dca.png" src="../../_images/332e1228ea2d2a5297d77b17ad519bee662468111254fb18738faf88323d4dca.png" />
 <figcaption>
-<p><span class="caption-number">Fig. 48 </span><span class="caption-text">Convergence of the nudged-elastic-band barrier: the activation energy (highest image relative to the endpoints) versus band-optimisation step. The initial linear interpolation underestimates the barrier; as the chain relaxes onto the minimum-energy path the barrier rises and levels off, converged to ~8 kcal/mol after a few tens of iterations.</span><a class="headerlink" href="#fig-sn2-convergence" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 48 </span><span class="caption-text">Convergence of the nudged-elastic-band barrier: the activation energy (highest image relative to the endpoints) versus band-optimisation step. The initial straight-line interpolation overestimates the barrier through its strained geometries; as the chain relaxes onto the minimum-energy path the barrier falls and levels off, converged to ~8 kcal/mol after a few tens of iterations.</span><a class="headerlink" href="#fig-sn2-convergence" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 </div>
@@ -833,8 +836,8 @@ should agree to a small fraction of a kcal/mol.</p>
 the nudged elastic band, reading the course’s committed band energies. The
 converged path is a single barrier on a thermoneutral profile, with the
 trigonal-bipyramidal transition state about <span class="math notranslate nohighlight">\(8\,\)</span>kcal/mol above the reactant, and
-following the barrier over the band optimisation showed it climbing from the
-corner-cutting linear interpolation onto the true ridge. The endpoints fix the
+following the barrier over the band optimisation showed it relaxing downward from the
+strained straight-line interpolation onto the true ridge. The endpoints fix the
 chemistry; the band finds the route between them.</p>
 </section>
 <section id="outlook">

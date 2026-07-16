@@ -557,7 +557,7 @@
               font-family:'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace;font-size:11px;color:#46506b;
               letter-spacing:.04em;">
     <span>Raymond Amador</span>
-    <span>v0.1.0 &nbsp;·&nbsp; 2026-07-13 &nbsp;·&nbsp;
+    <span>v0.1.0 &nbsp;·&nbsp; 2026-07-16 &nbsp;·&nbsp;
           CC&nbsp;BY&nbsp;4.0 (text) / MIT (code)</span>
   </div>
 </div></div></div>
@@ -602,8 +602,9 @@ verdict; a ✓ is strong evidence, not proof.</p>
 temperature. The cluster data is from a real argon run, so energies are in eV and
 temperature in kelvin; with the deck’s <span class="math notranslate nohighlight">\(\varepsilon=0.01042\,\)</span>eV <span class="math notranslate nohighlight">\(=120.9\,k_B\)</span>K
 the reduced temperature is <span class="math notranslate nohighlight">\(T^\*=T/120.9\)</span>. For methods see Allen &amp; Tildesley
-<span class="bibtex-citation" id="id1">[<a class="reference internal" href="#id21" title="Michael P. Allen and Dominic J. Tildesley. Computer Simulation of Liquids. Oxford University Press, 2 edition, 2017.">AT17</a>]</span> and Frenkel &amp; Smit <span class="bibtex-citation" id="id2">[<a class="reference internal" href="#id13" title="Daan Frenkel and Berend Smit. Understanding Molecular Simulation: From Algorithms to Applications. Academic Press, 2 edition, 2002.">FS02</a>]</span>; the
-velocity-rescaling thermostat used in the run is Bussi <em>et al.</em> <span class="bibtex-citation" id="id3">[<a class="reference internal" href="#id23" title="Giovanni Bussi, Davide Donadio, and Michele Parrinello. Canonical sampling through velocity rescaling. The Journal of Chemical Physics, 126(1):014101, 2007. doi:10.1063/1.2408420.">BDP07</a>]</span>.</p>
+<span class="bibtex-citation" id="id1">[<a class="reference internal" href="#id20" title="Michael P. Allen and Dominic J. Tildesley. Computer Simulation of Liquids. Oxford University Press, 2 edition, 2017.">AT17</a>]</span> and Frenkel &amp; Smit <span class="bibtex-citation" id="id2">[<a class="reference internal" href="#id12" title="Daan Frenkel and Berend Smit. Understanding Molecular Simulation: From Algorithms to Applications. Academic Press, 2 edition, 2002.">FS02</a>]</span>; each replica runs
+constant-temperature dynamics under a Nosé-Hoover thermostat (<code class="docutils literal notranslate"><span class="pre">fix</span> <span class="pre">nvt</span></code> in the
+Exercise 3 deck).</p>
 </div></blockquote>
 </section>
 <section id="theory-in-brief">
@@ -843,7 +844,7 @@ whole temperature ladder, the condition for parallel tempering to help.</p>
 <figure class="align-default" id="fig-pt-walk">
 <img alt="../../_images/60f966104feecd5585a93c2de4b3dd2b5b67722adb266aefded3fb7ae77b1ef2.png" src="../../_images/60f966104feecd5585a93c2de4b3dd2b5b67722adb266aefded3fb7ae77b1ef2.png" />
 <figcaption>
-<p><span class="caption-number">Fig. 28 </span><span class="caption-text">Temperature random-walk from the real LAMMPS run: the temperature index occupied by three of the twelve replicas over the five-million-step simulation. Accepted swaps carry each replica up and down the whole ladder (2–40 K), so every configuration spends time hot enough to cross barriers and cold enough to refine its structure. This wandering, not a fixed temperature per replica, is what makes the method work.</span><a class="headerlink" href="#fig-pt-walk" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 28 </span><span class="caption-text">Temperature random-walk from the real LAMMPS run: the temperature index occupied by three of the twelve replicas over the five-million-step simulation. Accepted swaps carry each replica up and down a broad span of the ladder (one reaches the cold 2 K end, another the hot 40 K end), so configurations mix across temperatures instead of staying pinned to one. This wandering, not a fixed temperature per replica, is what makes the method work.</span><a class="headerlink" href="#fig-pt-walk" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>swap activity: 32.3% of steps change a replica&#39;s temperature; a tracked replica visits 5–10 of the 12 temperatures
@@ -956,7 +957,7 @@ of the 38-atom cluster.</p>
 <h2>Outlook<a class="headerlink" href="#outlook" title="Link to this heading">#</a></h2>
 <ul class="simple">
 <li><p><strong>Better heat capacities.</strong> The committed run is short, so <span class="math notranslate nohighlight">\(C_v\)</span> from energy
-<em>fluctuations</em>, <span class="math notranslate nohighlight">\(C_v=\langle E^2\rangle-\langle E\rangle^2)/k_BT^2\)</span>, is noisy here;
+<em>fluctuations</em>, <span class="math notranslate nohighlight">\(C_v=(\langle E^2\rangle-\langle E\rangle^2)/(k_BT^2)\)</span>, is noisy here;
 the multiple-histogram (WHAM) method combines all temperatures to sharpen both the
 caloric curve and the peak.</p></li>
 <li><p><strong>The solid-solid transition.</strong> Below melting the 38-atom cluster also converts
@@ -972,17 +973,13 @@ single-funnel basin-hopping of Volume II.</p></li>
 </ul>
 <section id="references">
 <h3>References<a class="headerlink" href="#references" title="Link to this heading">#</a></h3>
-<div class="docutils container" id="id4">
+<div class="docutils container" id="id3">
 <div role="list" class="citation-list">
-<div class="citation" id="id21" role="doc-biblioentry">
+<div class="citation" id="id20" role="doc-biblioentry">
 <span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id1">AT17</a><span class="fn-bracket">]</span></span>
 <p>Michael P. Allen and Dominic J. Tildesley. <em>Computer Simulation of Liquids</em>. Oxford University Press, 2 edition, 2017.</p>
 </div>
-<div class="citation" id="id23" role="doc-biblioentry">
-<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id3">BDP07</a><span class="fn-bracket">]</span></span>
-<p>Giovanni Bussi, Davide Donadio, and Michele Parrinello. Canonical sampling through velocity rescaling. <em>The Journal of Chemical Physics</em>, 126(1):014101, 2007. <a class="reference external" href="https://doi.org/10.1063/1.2408420">doi:10.1063/1.2408420</a>.</p>
-</div>
-<div class="citation" id="id13" role="doc-biblioentry">
+<div class="citation" id="id12" role="doc-biblioentry">
 <span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id2">FS02</a><span class="fn-bracket">]</span></span>
 <p>Daan Frenkel and Berend Smit. <em>Understanding Molecular Simulation: From Algorithms to Applications</em>. Academic Press, 2 edition, 2002.</p>
 </div>

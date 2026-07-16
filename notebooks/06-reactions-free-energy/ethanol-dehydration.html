@@ -550,7 +550,7 @@
               font-family:'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace;font-size:11px;color:#46506b;
               letter-spacing:.04em;">
     <span>Raymond Amador</span>
-    <span>v0.1.0 &nbsp;·&nbsp; 2026-07-13 &nbsp;·&nbsp;
+    <span>v0.1.0 &nbsp;·&nbsp; 2026-07-16 &nbsp;·&nbsp;
           CC&nbsp;BY&nbsp;4.0 (text) / MIT (code)</span>
   </div>
 </div></div></div>
@@ -574,7 +574,7 @@ turn the barrier into a reaction rate.</p>
 <div><p><strong>Provenance.</strong> This notebook develops <strong>Lecture 7</strong> of the course (the dehydration
 of ethanol, density functionals, and basis sets), an exercise <strong>designed by the
 author (Raymond Amador)</strong>. The molecular structures
-(<code class="docutils literal notranslate"><span class="pre">ethanol.xyz</span></code>, <code class="docutils literal notranslate"><span class="pre">ethene.xyz</span></code>, <code class="docutils literal notranslate"><span class="pre">H2O.xyz</span></code>, <code class="docutils literal notranslate"><span class="pre">ts.xyz</span></code>) and the total energies are the
+(<code class="docutils literal notranslate"><span class="pre">ethanol.xyz</span></code>, <code class="docutils literal notranslate"><span class="pre">ethene.xyz</span></code>, <code class="docutils literal notranslate"><span class="pre">water.xyz</span></code>, <code class="docutils literal notranslate"><span class="pre">ts.xyz</span></code>) and the total energies are the
 course’s own committed CP2K results; energies were computed with PBE and B3LYP. The
 full course credit is in the footer.</p>
 </div></blockquote>
@@ -859,8 +859,8 @@ kcal/mol), and the best method, B3LYP-TZVP, must fall in the measured range.</p>
 theory <a class="reference internal" href="#equation-eq-eyring">Eq. 35</a> the rate constant scales as <span class="math notranslate nohighlight">\(e^{-\Delta E^{\ddagger}/k_BT}\)</span>, so
 the spread of barriers between methods becomes a spread of many orders of magnitude in
 the predicted rate. We show this directly: the relative rate at a typical reaction
-temperature, computed from each method’s barrier, ranges over more than ten decades
-(Assignment 6).</p>
+temperature, computed from each method’s barrier, ranges over nearly nine orders of
+magnitude (Assignment 6).</p>
 <p><strong>Part a)</strong> Compute the relative Boltzmann rate factor at <span class="math notranslate nohighlight">\(T=600\,\)</span>K for each method.
 <strong>Part b)</strong> Confirm the method choice changes the predicted rate by many orders of
 magnitude.</p>

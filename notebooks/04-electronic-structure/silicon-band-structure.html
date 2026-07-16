@@ -556,7 +556,7 @@
               font-family:'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace;font-size:11px;color:#46506b;
               letter-spacing:.04em;">
     <span>Raymond Amador</span>
-    <span>v0.1.0 &nbsp;·&nbsp; 2026-07-13 &nbsp;·&nbsp;
+    <span>v0.1.0 &nbsp;·&nbsp; 2026-07-16 &nbsp;·&nbsp;
           CC&nbsp;BY&nbsp;4.0 (text) / MIT (code)</span>
   </div>
 </div></div></div>
@@ -583,9 +583,9 @@ density-functional <strong>band-gap problem</strong>.</p>
 of crystals), an exercise <strong>originally designed by Dr. Carlo Pignedoli</strong>, here
 redesigned and rephrased by the author. The band structure is parsed from the <em>real</em> output of the
 course’s Quantum ESPRESSO calculation of silicon (the committed
-<code class="docutils literal notranslate"><span class="pre">exercise-5/TASK_3/done/SI.xml</span></code>), and the input is the course’s own <code class="docutils literal notranslate"><span class="pre">scf.in</span></code>. No
-part of the electronic structure is recomputed or invented; we read and analyse
-the actual DFT result. The full course credit is in the footer.</p>
+<code class="docutils literal notranslate"><span class="pre">exercise-5/TASK_3/done/SI.xml</span></code>), shown alongside the course’s own silicon SCF
+deck (<code class="docutils literal notranslate"><span class="pre">scf.in</span></code>). No part of the electronic structure is recomputed or invented;
+we read and analyse the actual DFT result. The full course credit is in the footer.</p>
 </div></blockquote>
 <blockquote>
 <div><p><strong>Reading a validation.</strong> Each exercise closes with a check against an
@@ -616,7 +616,7 @@ eigenstates can be labelled by a <strong>crystal momentum</strong> <span class="
 <span class="math notranslate nohighlight">\(\mathbf k\)</span> lives in one <strong>Brillouin zone</strong>. The function <span class="math notranslate nohighlight">\(E_n(\mathbf k)\)</span>, plotted
 along straight lines between the high-symmetry points of that zone, is the <strong>band
 structure</strong>. For the face-centred-cubic lattice of silicon those points include
-<span class="math notranslate nohighlight">\(\Gamma\)</span> (the zone centre), <span class="math notranslate nohighlight">\(X\)</span> (a face centre), and <span class="math notranslate nohighlight">\(L\)</span> (a corner).</p>
+<span class="math notranslate nohighlight">\(\Gamma\)</span> (the zone centre), <span class="math notranslate nohighlight">\(X\)</span> (a face centre), and <span class="math notranslate nohighlight">\(L\)</span> (a hexagonal-face centre).</p>
 </section>
 <section id="filling-gaps-and-silicon">
 <h3>Filling, gaps, and silicon<a class="headerlink" href="#filling-gaps-and-silicon" title="Link to this heading">#</a></h3>
@@ -714,7 +714,13 @@ K_POINTS automatic
 </div>
 <p>A second run (<code class="docutils literal notranslate"><span class="pre">calculation='bands'</span></code>) then evaluates the Kohn-Sham eigenvalues along
 the path <strong>L–Γ–X</strong>, which is what we plot. The full SCF deck ships with this
-notebook: <a class="reference download internal" download="" href="../../_downloads/3b4bda7788f12f8b848fe3ad8c347871/si-scf.in"><code class="xref download docutils literal notranslate"><span class="pre">si-scf.in</span></code></a>.</p>
+notebook: <a class="reference download internal" download="" href="../../_downloads/3b4bda7788f12f8b848fe3ad8c347871/si-scf.in"><code class="xref download docutils literal notranslate"><span class="pre">si-scf.in</span></code></a>. One honest caveat: the committed
+band-structure file we parse in Exercise 2 is the course’s own PBE result for
+silicon, computed at essentially this lattice constant but with a different
+(norm-conserving) pseudopotential and smaller plane-wave cutoffs than this deck’s
+ultrasoft setup. The two shipped files are thus related PBE calculations rather than
+a byte-exact input-output pair, and both describe silicon at <span class="math notranslate nohighlight">\(a\approx 5.43\,\)</span>Å, so
+the band structure and its indirect gap are unchanged.</p>
 <p><strong>Part a)</strong> Read the lattice parameter from the input. <strong>Part b)</strong> Confirm the
 crystal is the expected two-atom fcc cell.</p>
 <div class="cell tag_solution tag_remove-input docutils container">

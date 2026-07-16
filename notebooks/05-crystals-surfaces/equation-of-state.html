@@ -545,7 +545,7 @@
               font-family:'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace;font-size:11px;color:#46506b;
               letter-spacing:.04em;">
     <span>Raymond Amador</span>
-    <span>v0.1.0 &nbsp;·&nbsp; 2026-07-13 &nbsp;·&nbsp;
+    <span>v0.1.0 &nbsp;·&nbsp; 2026-07-16 &nbsp;·&nbsp;
           CC&nbsp;BY&nbsp;4.0 (text) / MIT (code)</span>
   </div>
 </div></div></div>
@@ -569,7 +569,7 @@ lattice parameters <span class="math notranslate nohighlight">\(a\)</span> and <
 Simulation Environment, crystal structures, and equations of state), an exercise
 <strong>designed by the author (Raymond Amador)</strong>. The
 silver and nickel energies are the course’s own committed ASE trajectories
-(<code class="docutils literal notranslate"><span class="pre">Ag.traj</span></code>, <code class="docutils literal notranslate"><span class="pre">Ni.traj</span></code>), computed with the <strong>EMT</strong> effective-medium calculator; the
+(<code class="docutils literal notranslate"><span class="pre">Ag-eos.traj</span></code>, <code class="docutils literal notranslate"><span class="pre">Ni-ac-scan.traj</span></code>), computed with the <strong>EMT</strong> effective-medium calculator; the
 N₂ atomization is reproduced here with the same calculator. The full course credit
 is in the footer.</p>
 </div></blockquote>
@@ -706,9 +706,9 @@ triple-bonded N₂ it is several eV.</p>
 <section id="exercise-2-the-equation-of-state-of-fcc-silver">
 <h2>Exercise 2 — The equation of state of FCC silver<a class="headerlink" href="#exercise-2-the-equation-of-state-of-fcc-silver" title="Link to this heading">#</a></h2>
 <p>Now a crystal. The course scanned the volume of face-centred-cubic silver, computing
-the total energy at each, and committed the result as <code class="docutils literal notranslate"><span class="pre">Ag.traj</span></code>. We load that real
-energy-volume curve, fit the <strong>Birch-Murnaghan</strong> equation of state <a class="reference internal" href="#equation-eq-bulk">Eq. 30</a>, and
-read off the equilibrium volume, the lattice constant, and the bulk modulus. For FCC
+the total energy at each, and committed the result as <code class="docutils literal notranslate"><span class="pre">Ag-eos.traj</span></code>. We load that real
+energy-volume curve, fit the <strong>Birch-Murnaghan</strong> equation of state, and
+read off the equilibrium volume, the lattice constant, and the bulk modulus <a class="reference internal" href="#equation-eq-bulk">Eq. 30</a>. For FCC
 there are four atoms in the conventional cubic cell, so the lattice constant is
 <span class="math notranslate nohighlight">\(a=(4V_0)^{1/3}\)</span> from the per-atom volume <span class="math notranslate nohighlight">\(V_0\)</span>.</p>
 <p><strong>Part a)</strong> Load <code class="docutils literal notranslate"><span class="pre">Ag-eos.traj</span></code> and fit the equation of state. <strong>Part b)</strong> Extract the
@@ -719,7 +719,7 @@ lattice constant and bulk modulus, and compare to experiment.</p>
 </pre></div>
 </div>
 <figure class="align-default" id="fig-ag-eos">
-<img alt="../../_images/6dd190fd5f0fee078881158c393400563495648496cb736312c7a1a6227c506d.png" src="../../_images/6dd190fd5f0fee078881158c393400563495648496cb736312c7a1a6227c506d.png" />
+<img alt="../../_images/6f4fee9c3b2a3774ae4b1dc6f76e3c900676541427aa06e85ee2d5b74a1bc703.png" src="../../_images/6f4fee9c3b2a3774ae4b1dc6f76e3c900676541427aa06e85ee2d5b74a1bc703.png" />
 <figcaption>
 <p><span class="caption-number">Fig. 38 </span><span class="caption-text">Equation of state of face-centred-cubic silver from the course’s committed ASE scan: total energy (eV) versus primitive-cell volume (points), with the Birch-Murnaghan fit (curve). The minimum gives the equilibrium volume, hence the lattice constant <span class="math notranslate nohighlight">\(a=4.06\)</span> Å (experiment 4.09 Å); the curvature gives the bulk modulus <span class="math notranslate nohighlight">\(B=100\)</span> GPa (experiment ~100 GPa).</span><a class="headerlink" href="#fig-ag-eos" title="Link to this image">#</a></p>
 </figcaption>
@@ -735,7 +735,7 @@ lattice constant and bulk modulus, and compare to experiment.</p>
 bulk modulus near the experimental <span class="math notranslate nohighlight">\(\sim100\,\)</span>GPa.</p>
 <div class="cell tag_validation tag_remove-input docutils container">
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>✓  the fitted lattice constant matches silver&#39;s measured value   [got 4.06402 vs expected 4.09 (rtol=0.02)]
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>✓  the fitted lattice constant matches silver&#39;s measured value   [got 4.06418 vs expected 4.09 (rtol=0.02)]
 ✓  the bulk modulus is in the right range for silver   [B = 100 GPa (experiment ~100 GPa)]
 </pre></div>
 </div>
@@ -750,7 +750,7 @@ bulk modulus near the experimental <span class="math notranslate nohighlight">\(
 <h2>Exercise 3 — Two lattice parameters: hexagonal nickel<a class="headerlink" href="#exercise-3-two-lattice-parameters-hexagonal-nickel" title="Link to this heading">#</a></h2>
 <p>A cubic crystal needs one number; a hexagonal-close-packed crystal needs two, the
 in-plane spacing <span class="math notranslate nohighlight">\(a\)</span> and the stacking height <span class="math notranslate nohighlight">\(c\)</span>. The course scanned both on a grid
-and committed the result as <code class="docutils literal notranslate"><span class="pre">Ni.traj</span></code> (a <span class="math notranslate nohighlight">\(10\times10\)</span> mesh in <span class="math notranslate nohighlight">\(a\)</span> and <span class="math notranslate nohighlight">\(c\)</span>). We load
+and committed the result as <code class="docutils literal notranslate"><span class="pre">Ni-ac-scan.traj</span></code> (a <span class="math notranslate nohighlight">\(10\times10\)</span> mesh in <span class="math notranslate nohighlight">\(a\)</span> and <span class="math notranslate nohighlight">\(c\)</span>). We load
 it, map the energy surface, and find the minimum to read off both lattice constants
 at once. Their ratio <span class="math notranslate nohighlight">\(c/a\)</span> should land near the ideal close-packed value
 <span class="math notranslate nohighlight">\(\sqrt{8/3}\approx1.633\)</span> <a class="reference internal" href="#equation-eq-coa">Eq. 31</a>.</p>
@@ -759,12 +759,12 @@ at once. Their ratio <span class="math notranslate nohighlight">\(c/a\)</span> s
 <div class="cell tag_solution tag_remove-input docutils container">
 <div class="cell_output docutils container">
 <figure class="align-default" id="fig-ni-surface">
-<img alt="../../_images/5a9751412a50a96ad1988d7135124921f8f9d2b198d7def780a36ebba29932fc.png" src="../../_images/5a9751412a50a96ad1988d7135124921f8f9d2b198d7def780a36ebba29932fc.png" />
+<img alt="../../_images/d7320e3ed07aa49e9d592230942ab33d8ba6e504253b8907cedc3c79924d3bef.png" src="../../_images/d7320e3ed07aa49e9d592230942ab33d8ba6e504253b8907cedc3c79924d3bef.png" />
 <figcaption>
-<p><span class="caption-number">Fig. 39 </span><span class="caption-text">Energy surface of hexagonal-close-packed nickel over its two lattice parameters, from the course’s committed <span class="math notranslate nohighlight">\(10\times10\)</span> ASE scan (a fine grid anchored near the known values): energy (colour) versus in-plane spacing <span class="math notranslate nohighlight">\(a\)</span> and stacking height <span class="math notranslate nohighlight">\(c\)</span>. The energy falls toward smaller <span class="math notranslate nohighlight">\(a\)</span> and <span class="math notranslate nohighlight">\(c\)</span>, and the minimum of the scan (amber marker) gives <span class="math notranslate nohighlight">\(a=2.49\)</span> Å and <span class="math notranslate nohighlight">\(c=4.06\)</span> Å, an axial ratio <span class="math notranslate nohighlight">\(c/a=1.633\)</span> exactly at the ideal close-packed value.</span><a class="headerlink" href="#fig-ni-surface" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 39 </span><span class="caption-text">Energy surface of hexagonal-close-packed nickel over its two lattice parameters, from a committed <span class="math notranslate nohighlight">\(10\times10\)</span> EMT scan that brackets the energy minimum: energy (colour) versus in-plane spacing <span class="math notranslate nohighlight">\(a\)</span> and stacking height <span class="math notranslate nohighlight">\(c\)</span>. The interior minimum (amber marker) sits at <span class="math notranslate nohighlight">\(a\approx2.47\)</span> Å and <span class="math notranslate nohighlight">\(c\approx4.01\)</span> Å, an axial ratio <span class="math notranslate nohighlight">\(c/a\approx1.62\)</span> — essentially the ideal close-packed value <span class="math notranslate nohighlight">\(\sqrt{8/3}=1.633\)</span>.</span><a class="headerlink" href="#fig-ni-surface" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>a(Ni) = 2.488 Å (exp 2.49), c = 4.063 Å (exp 4.07);  c/a = 1.633 (ideal 1.633)
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>a(Ni) = 2.473 Å (exp 2.49), c = 4.014 Å (exp 4.07);  c/a = 1.623 (ideal 1.633)
 </pre></div>
 </div>
 </div>
@@ -775,7 +775,7 @@ at once. Their ratio <span class="math notranslate nohighlight">\(c/a\)</span> s
 must sit at <span class="math notranslate nohighlight">\(c/a=\sqrt{8/3}\approx1.633\)</span>.</p>
 <div class="cell tag_validation tag_remove-input docutils container">
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>✓  the hcp axial ratio c/a is at the ideal close-packed value   [got 1.63299 vs expected 1.63299 (rtol=0.02)]
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>✓  the hcp axial ratio c/a is at the ideal close-packed value   [got 1.6233 vs expected 1.63299 (rtol=0.02)]
 </pre></div>
 </div>
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>True
