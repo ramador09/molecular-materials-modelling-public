@@ -1,0 +1,23 @@
+# Citation metadata (Citation File Format). GitHub renders this as the
+# "Cite this repository" button; Zenodo reads it when a release is archived.
+# Exercise provenance (Dr. Carlo Pignedoli, Prof. Daniele Passerone) is
+# credited in the Preface and notebook footers.
+cff-version: 1.2.0
+message: If you use or adapt this companion, please cite it as below.
+type: software
+title: Molecular and Materials Modelling
+authors:
+  - family-names: Amador
+    given-names: Raymond
+version: 1.0.0
+date-released: "2026-07-17"
+url: "https://ramador.me/molecular-materials-modelling-public/"
+repository-code: "https://github.com/ramador09/molecular-materials-modelling"
+license:
+  - CC-BY-4.0
+  - MIT
+keywords:
+  - molecular dynamics
+  - materials modelling
+  - computational chemistry
+  - jupyter-book
