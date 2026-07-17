@@ -67,6 +67,22 @@ it; elsewhere the author's exercises develop Prof. Passerone's lectures. Here it
 all synthesised, expanded, and restyled into a single companion. The same credit
 appears in the footer of every page.
 
+## A note on how this companion was written
+
+These notebooks were written in collaboration with a generative AI assistant
+(Anthropic's Claude), and the fact belongs in the open, in a series whose central
+rule is that nothing is trusted unchecked. The scientific content and its
+provenance are exactly as credited above. The design of the companion is the
+author's: the thematic organisation, the fidelity-first rule that the course's
+real simulation inputs and outputs are shown and analysed rather than reinvented,
+the validation discipline, and the per-notebook specifications from which every
+page was built. The assistant drafted prose and code to those specifications; the
+author reviewed, corrected, and approved every page, and the final word on each is
+a human's. And the rule that matters most applies to the authors too: neither was
+taken on trust — every exercise ends by checking its result against something the
+computation did *not* assume, so the reader never has to take anyone's word, human
+or machine, for a single number.
+
 ## Volumes
 
 ```{tableofcontents}
