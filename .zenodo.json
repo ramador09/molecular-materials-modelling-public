@@ -1,0 +1,12 @@
+{
+  "title": "Molecular and Materials Modelling",
+  "upload_type": "lesson",
+  "description": "<p>Computational companion to the ETH Zürich graduate course <em>Molecular and Materials Modelling</em> (Spring 2023): 12 executable notebooks spanning Ising models, lattice-gas kinetic Monte Carlo, Lennard-Jones fluids, replica exchange, oxygen adsorption, silicon band structure, molecular crystals, and surface reactions. Every notebook executes in CI with strict validation gates. Exercise provenance (Dr. Carlo Pignedoli, Prof. Daniele Passerone) is credited in the Preface and notebook footers.</p><p>Read the companion at <a href=\"https://ramador.me/molecular-materials-modelling-public/\">ramador.me/molecular-materials-modelling-public</a>. This archive captures the runnable, solution-stripped public mirror. Text is licensed CC BY 4.0; code cells are MIT.</p>",
+  "creators": [{"name": "Amador, Raymond"}],
+  "license": "cc-by-4.0",
+  "keywords": ["molecular dynamics", "materials modelling", "computational chemistry", "jupyter-book"],
+  "related_identifiers": [
+    {"relation": "isSupplementTo", "identifier": "https://ramador.me/molecular-materials-modelling-public/", "scheme": "url"}
+  ],
+  "version": "1.0.0"
+}
