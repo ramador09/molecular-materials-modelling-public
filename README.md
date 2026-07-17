@@ -1,11 +1,16 @@
-# Elementary Computational Physics — runnable notebooks (public mirror)
+# Molecular and Materials Modelling — runnable notebooks (public mirror)
 
-This repository is the **public, runnable mirror** of *Elementary Computational
-Physics — A Python Notebook Companion* by Raymond Amador.
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.21418786.svg)](https://doi.org/10.5281/zenodo.21418786)
 
-- 📖 **Read the rendered book:** <https://ramador09.github.io/elementary-computational-physics-public/>
+This repository is the **public, runnable mirror** of *Molecular and Materials
+Modelling*, the computational companion to the ETH Zürich graduate course
+(Spring Semester 2023), by Raymond Amador.
+
+- 📖 **Read the rendered book:** <https://ramador.me/molecular-materials-modelling-public/>
 - ▶️ **Run a notebook:** use the **Binder** or **Colab** button on any page of
   the book, or open a file under [`notebooks/`](notebooks/) directly.
+- 🔖 **Cite it:** DOI [10.5281/zenodo.21418786](https://doi.org/10.5281/zenodo.21418786)
+  (full metadata in `CITATION.cff`).
 
 The notebooks here are published **without worked solutions** — each exercise
 keeps its problem statement, target figures, and validation checks, but the

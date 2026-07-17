@@ -10,6 +10,7 @@ authors:
   - family-names: Amador
     given-names: Raymond
 version: 1.0.0
+doi: 10.5281/zenodo.21418786
 date-released: "2026-07-17"
 url: "https://ramador.me/molecular-materials-modelling-public/"
 repository-code: "https://github.com/ramador09/molecular-materials-modelling"
