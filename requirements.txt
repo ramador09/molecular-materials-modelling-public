@@ -1,0 +1,13 @@
+# Runtime requirements for the public, runnable mirror (Binder / repo2docker).
+# Kept lean: what the notebooks need to run, plus an editable install of the
+# local `ecp` package so `import ecp` works. The Matplotlib style ships inside
+# the package (ecp/ecp.mplstyle), so use_style() works in every install mode.
+numpy
+scipy
+matplotlib
+sympy
+ipython
+ipykernel
+ipywidgets
+nbformat
+-e .
