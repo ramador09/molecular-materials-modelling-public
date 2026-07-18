@@ -546,7 +546,7 @@
               font-family:'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace;font-size:11px;color:#46506b;
               letter-spacing:.04em;">
     <span>Raymond Amador</span>
-    <span>v1.0.0 &nbsp;·&nbsp; 2026-07-17 &nbsp;·&nbsp;
+    <span>v1.0.0 &nbsp;·&nbsp; 2026-07-18 &nbsp;·&nbsp;
           CC&nbsp;BY&nbsp;4.0 (text) / MIT (code)</span>
   </div>
 </div></div></div>
@@ -626,7 +626,9 @@ methods.</p>
 <span class="kn">from</span><span class="w"> </span><span class="nn">ecp</span><span class="w"> </span><span class="kn">import</span> <span class="n">validate</span>
 
 <span class="n">INK</span><span class="p">,</span> <span class="n">AMBER</span><span class="p">,</span> <span class="n">SOFT</span> <span class="o">=</span> <span class="s2">&quot;#16213e&quot;</span><span class="p">,</span> <span class="s2">&quot;#c0851a&quot;</span><span class="p">,</span> <span class="s2">&quot;#46506b&quot;</span>
-<span class="n">HARTREE_EV</span> <span class="o">=</span> <span class="mf">27.211386</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">scipy.constants</span><span class="w"> </span><span class="kn">import</span> <span class="n">physical_constants</span>
+
+<span class="n">HARTREE_EV</span> <span class="o">=</span> <span class="n">physical_constants</span><span class="p">[</span><span class="s2">&quot;Hartree energy in eV&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
 <span class="n">CPK</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;H&quot;</span><span class="p">:</span> <span class="s2">&quot;#d9d9d9&quot;</span><span class="p">,</span> <span class="s2">&quot;C&quot;</span><span class="p">:</span> <span class="s2">&quot;#303030&quot;</span><span class="p">,</span> <span class="s2">&quot;O&quot;</span><span class="p">:</span> <span class="s2">&quot;#c0392b&quot;</span><span class="p">,</span> <span class="s2">&quot;Pt&quot;</span><span class="p">:</span> <span class="s2">&quot;#8fa1b3&quot;</span><span class="p">}</span>
 
 
@@ -695,7 +697,7 @@ calculation).</p>
 </pre></div>
 </div>
 <figure class="align-default" id="fig-pt-system">
-<img alt="../../_images/25e03e1f9c445e3a533c59d44bed5086b3d6154b0de0ca856197f345c0cbb315.png" src="../../_images/25e03e1f9c445e3a533c59d44bed5086b3d6154b0de0ca856197f345c0cbb315.png" />
+<img alt="../../_images/09ffc2a2ecd7e937e0c8f9ed652180e6a0ddcb56018f7dd995e3978c2e21dbc6.png" src="../../_images/09ffc2a2ecd7e937e0c8f9ed652180e6a0ddcb56018f7dd995e3978c2e21dbc6.png" />
 <figcaption>
 <p><span class="caption-number">Fig. 40 </span><span class="caption-text">The committed adsorption system: a five-layer Pt(111) slab (silver) with a benzene molecule (carbon grey, hydrogen white) lying flat above the top layer. The molecule binds to the metal, its whole face in contact; the slab is repeated periodically in the plane, with vacuum above and below.</span><a class="headerlink" href="#fig-pt-system" title="Link to this image">#</a></p>
 </figcaption>
@@ -770,7 +772,7 @@ strongly throughout, and the two methods bracket experiment.</p>
 <div class="cell tag_solution tag_remove-input docutils container">
 <div class="cell_output docutils container">
 <figure class="align-default" id="fig-pt-functionals">
-<img alt="../../_images/618f98867d75f1e8ed0b9fb77eabca6f42dac09cf80ad266350811309b4a4f33.png" src="../../_images/618f98867d75f1e8ed0b9fb77eabca6f42dac09cf80ad266350811309b4a4f33.png" />
+<img alt="../../_images/5f6a4419a9a4e047ed1397ec2979393f1107eaeca2f5f18fb730bf23df9830da.png" src="../../_images/5f6a4419a9a4e047ed1397ec2979393f1107eaeca2f5f18fb730bf23df9830da.png" />
 <figcaption>
 <p><span class="caption-number">Fig. 41 </span><span class="caption-text">Adsorption energies of benzene, methane, and ethane on Pt(111) from the course’s committed results: the BEEF-vdW functional (navy) and the Grimme D3 correction (amber) against experiment (grey). Benzene binds far more strongly than the alkanes in every method. BEEF-vdW underbinds so severely that methane and ethane come out unbound (positive); Grimme D3 overbinds. The spread, well over an electron-volt for benzene, is the functional sensitivity the exercise is named for.</span><a class="headerlink" href="#fig-pt-functionals" title="Link to this image">#</a></p>
 </figcaption>

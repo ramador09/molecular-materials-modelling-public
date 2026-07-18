@@ -67,6 +67,10 @@ it; elsewhere the author's exercises develop Prof. Passerone's lectures. Here it
 all synthesised, expanded, and restyled into a single companion. The same credit
 appears in the footer of every page.
 
+To cite this companion, use its DOI,
+[10.5281/zenodo.21418786](https://doi.org/10.5281/zenodo.21418786) (all versions;
+full metadata in the repository's `CITATION.cff`).
+
 ## A note on how this companion was written
 
 These notebooks were written in collaboration with a generative AI assistant

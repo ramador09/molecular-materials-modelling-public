@@ -557,7 +557,7 @@
               font-family:'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace;font-size:11px;color:#46506b;
               letter-spacing:.04em;">
     <span>Raymond Amador</span>
-    <span>v1.0.0 &nbsp;·&nbsp; 2026-07-17 &nbsp;·&nbsp;
+    <span>v1.0.0 &nbsp;·&nbsp; 2026-07-18 &nbsp;·&nbsp;
           CC&nbsp;BY&nbsp;4.0 (text) / MIT (code)</span>
   </div>
 </div></div></div>
@@ -753,7 +753,7 @@ the right basin and confirm it is trapped.</p>
 </pre></div>
 </div>
 <figure class="align-default" id="fig-pt-trapped">
-<img alt="../../_images/4d4e287a54d4543edbe00113b37d6ba4bd31d691164d45951310a838af2d1cbb.png" src="../../_images/4d4e287a54d4543edbe00113b37d6ba4bd31d691164d45951310a838af2d1cbb.png" />
+<img alt="../../_images/3e514b991856c993cbb5899406074f91aef454f9906f60500210a2658b7f7db5.png" src="../../_images/3e514b991856c993cbb5899406074f91aef454f9906f60500210a2658b7f7db5.png" />
 <figcaption>
 <p><span class="caption-number">Fig. 26 </span><span class="caption-text">The double well <span class="math notranslate nohighlight">\(U(x)=5(x^2-1)^2\)</span> (navy) and the distribution sampled by a single Metropolis chain at <span class="math notranslate nohighlight">\(T=0.25\)</span> started in the right basin (amber histogram). The chain never crosses the barrier of height 5, so it samples only the right well: a non-ergodic, and wrong, result, since the symmetric potential should populate both wells equally.</span><a class="headerlink" href="#fig-pt-trapped" title="Link to this image">#</a></p>
 </figcaption>
@@ -789,7 +789,7 @@ Boltzmann answer is one-half in each, and parallel tempering recovers it.</p>
 <div class="cell tag_solution tag_remove-input docutils container">
 <div class="cell_output docutils container">
 <figure class="align-default" id="fig-pt-mixed">
-<img alt="../../_images/b190c3b2990de64138e25ef49e9efda026fda538f75702958b4f1be250d39355.png" src="../../_images/b190c3b2990de64138e25ef49e9efda026fda538f75702958b4f1be250d39355.png" />
+<img alt="../../_images/3b3d9225e8d03a1207258e4962e4d0207d6562551299002d393695f8183df640.png" src="../../_images/3b3d9225e8d03a1207258e4962e4d0207d6562551299002d393695f8183df640.png" />
 <figcaption>
 <p><span class="caption-number">Fig. 27 </span><span class="caption-text">Distribution of the cold (<span class="math notranslate nohighlight">\(T=0.25\)</span>) replica under parallel tempering across eight temperatures from 0.25 to 4 (amber), against the exact Boltzmann distribution <span class="math notranslate nohighlight">\(P(x)\propto e^{-U(x)/T}\)</span> (navy). The swaps carry barrier crossings down from the hot replicas, so the cold replica now samples both wells with the correct equal weight: the non-ergodicity of Exercise 1 is cured.</span><a class="headerlink" href="#fig-pt-mixed" title="Link to this image">#</a></p>
 </figcaption>
@@ -842,7 +842,7 @@ whole temperature ladder, the condition for parallel tempering to help.</p>
 <div class="cell tag_solution tag_remove-input docutils container">
 <div class="cell_output docutils container">
 <figure class="align-default" id="fig-pt-walk">
-<img alt="../../_images/60f966104feecd5585a93c2de4b3dd2b5b67722adb266aefded3fb7ae77b1ef2.png" src="../../_images/60f966104feecd5585a93c2de4b3dd2b5b67722adb266aefded3fb7ae77b1ef2.png" />
+<img alt="../../_images/c84996e3768473d0d5caf635e8a9047242518b93db10c790b8963724043cc28a.png" src="../../_images/c84996e3768473d0d5caf635e8a9047242518b93db10c790b8963724043cc28a.png" />
 <figcaption>
 <p><span class="caption-number">Fig. 28 </span><span class="caption-text">Temperature random-walk from the real LAMMPS run: the temperature index occupied by three of the twelve replicas over the five-million-step simulation. Accepted swaps carry each replica up and down a broad span of the ladder (one reaches the cold 2 K end, another the hot 40 K end), so configurations mix across temperatures instead of staying pinned to one. This wandering, not a fixed temperature per replica, is what makes the method work.</span><a class="headerlink" href="#fig-pt-walk" title="Link to this image">#</a></p>
 </figcaption>
@@ -883,7 +883,7 @@ Lennard-Jones cluster, <span class="math notranslate nohighlight">\(T^\*\sim0.1\
 <div class="cell tag_solution tag_remove-input docutils container">
 <div class="cell_output docutils container">
 <figure class="align-default" id="fig-pt-caloric">
-<img alt="../../_images/4eaff2ead77d7dde1fbf045106be36d68d578c6d11970cf26cf28cc7f85bc99c.png" src="../../_images/4eaff2ead77d7dde1fbf045106be36d68d578c6d11970cf26cf28cc7f85bc99c.png" />
+<img alt="../../_images/0f660e0d7a42538018a715b4a915042add3b85b96aded50e7d28acc8b9f9a59b.png" src="../../_images/0f660e0d7a42538018a715b4a915042add3b85b96aded50e7d28acc8b9f9a59b.png" />
 <figcaption>
 <p><span class="caption-number">Fig. 29 </span><span class="caption-text">Caloric curve of the 38-atom argon cluster from the real LAMMPS parallel-tempering run: average potential energy (eV) versus reduced temperature <span class="math notranslate nohighlight">\(T^\ast=T/120.9\)</span>. The energy rises gently while the cluster is solid, then steeply through the melting range near <span class="math notranslate nohighlight">\(T^\ast\approx0.16\)</span> (amber band) as latent heat disorders the structure, then continues to climb in the liquid.</span><a class="headerlink" href="#fig-pt-caloric" title="Link to this image">#</a></p>
 </figcaption>
@@ -918,7 +918,7 @@ coincides with the melting transition of Exercise 4.</p>
 <div class="cell tag_solution tag_remove-input docutils container">
 <div class="cell_output docutils container">
 <figure class="align-default" id="fig-pt-cv">
-<img alt="../../_images/2993aec684fcda0183b7bc4c9bd04f2a310de52b50ca1c7e2b1f15141ef8f76d.png" src="../../_images/2993aec684fcda0183b7bc4c9bd04f2a310de52b50ca1c7e2b1f15141ef8f76d.png" />
+<img alt="../../_images/eb13f2719e1485a1f37f63d02b39368b6a230897084ae9219271d6f423affe7f.png" src="../../_images/eb13f2719e1485a1f37f63d02b39368b6a230897084ae9219271d6f423affe7f.png" />
 <figcaption>
 <p><span class="caption-number">Fig. 30 </span><span class="caption-text">Heat capacity <span class="math notranslate nohighlight">\(C_v=d\langle E\rangle/dT\)</span> of the 38-atom argon cluster (in units of <span class="math notranslate nohighlight">\(k_B\)</span>), from the caloric curve of the real parallel-tempering run. The peak at <span class="math notranslate nohighlight">\(T^\ast\approx0.16\)</span> (<span class="math notranslate nohighlight">\(T\approx19\,\)</span>K, amber line) is the rounded, finite-size remnant of the melting transition: the cluster’s melting point, read from its heat capacity.</span><a class="headerlink" href="#fig-pt-cv" title="Link to this image">#</a></p>
 </figcaption>

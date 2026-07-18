@@ -556,7 +556,7 @@
               font-family:'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace;font-size:11px;color:#46506b;
               letter-spacing:.04em;">
     <span>Raymond Amador</span>
-    <span>v1.0.0 &nbsp;·&nbsp; 2026-07-17 &nbsp;·&nbsp;
+    <span>v1.0.0 &nbsp;·&nbsp; 2026-07-18 &nbsp;·&nbsp;
           CC&nbsp;BY&nbsp;4.0 (text) / MIT (code)</span>
   </div>
 </div></div></div>
@@ -660,7 +660,9 @@ it directly.</p>
 <span class="kn">from</span><span class="w"> </span><span class="nn">ecp</span><span class="w"> </span><span class="kn">import</span> <span class="n">validate</span>
 
 <span class="n">INK</span><span class="p">,</span> <span class="n">AMBER</span><span class="p">,</span> <span class="n">SOFT</span> <span class="o">=</span> <span class="s2">&quot;#16213e&quot;</span><span class="p">,</span> <span class="s2">&quot;#c0851a&quot;</span><span class="p">,</span> <span class="s2">&quot;#46506b&quot;</span>
-<span class="n">HARTREE_EV</span> <span class="o">=</span> <span class="mf">27.211386</span>                   <span class="c1"># QE writes energies in Hartree</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">scipy.constants</span><span class="w"> </span><span class="kn">import</span> <span class="n">physical_constants</span>
+
+<span class="n">HARTREE_EV</span> <span class="o">=</span> <span class="n">physical_constants</span><span class="p">[</span><span class="s2">&quot;Hartree energy in eV&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>  <span class="c1"># QE writes energies in Hartree</span>
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">data_file</span><span class="p">(</span><span class="n">name</span><span class="p">):</span>
@@ -784,7 +786,7 @@ relative to the VBM, marking L, Γ, X.</p>
 </pre></div>
 </div>
 <figure class="align-default" id="fig-si-bands">
-<img alt="../../_images/a7434d6e741720ad59cea632b5c80f57795119c062df30f669f43ce0f3edd852.png" src="../../_images/a7434d6e741720ad59cea632b5c80f57795119c062df30f669f43ce0f3edd852.png" />
+<img alt="../../_images/bdc9f902809205b54319cabf48abae249fa484fd114207413826da203609b552.png" src="../../_images/bdc9f902809205b54319cabf48abae249fa484fd114207413826da203609b552.png" />
 <figcaption>
 <p><span class="caption-number">Fig. 31 </span><span class="caption-text">Electronic band structure of silicon from the course’s Quantum ESPRESSO (PBE) calculation, along the high-symmetry path L–Γ–X, with energies referenced to the valence-band maximum (VBM, dashed). The four filled valence bands lie below the shaded gap; the conduction bands above. The VBM sits at <span class="math notranslate nohighlight">\(\Gamma\)</span> (amber) and the conduction-band minimum (CBM, navy) lies along <span class="math notranslate nohighlight">\(\Gamma\)</span>–X, so the fundamental gap is indirect.</span><a class="headerlink" href="#fig-si-bands" title="Link to this image">#</a></p>
 </figcaption>
@@ -860,7 +862,7 @@ underestimate.</p>
 <div class="cell tag_solution tag_remove-input docutils container">
 <div class="cell_output docutils container">
 <figure class="align-default" id="fig-si-gap">
-<img alt="../../_images/c814b61227a0b39acdb3ed00e4f0e4706f3e774bade15970c4c423640b7729d0.png" src="../../_images/c814b61227a0b39acdb3ed00e4f0e4706f3e774bade15970c4c423640b7729d0.png" />
+<img alt="../../_images/6cd81b872ef7575216665c7755520d1084da5df69e54e2543c54deb8b62c19ce.png" src="../../_images/6cd81b872ef7575216665c7755520d1084da5df69e54e2543c54deb8b62c19ce.png" />
 <figcaption>
 <p><span class="caption-number">Fig. 32 </span><span class="caption-text">The density-functional band-gap problem for silicon: the PBE Kohn-Sham gap (amber) against the experimental value of 1.17 eV (navy). PBE recovers barely half the measured gap, a systematic underestimate rooted in the missing derivative discontinuity of approximate exchange-correlation functionals, not in the convergence of the calculation.</span><a class="headerlink" href="#fig-si-gap" title="Link to this image">#</a></p>
 </figcaption>
