@@ -35,8 +35,8 @@
   </noscript>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
-<link href="../../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+  <link href="../../_static/styles/theme.css?digest=55c26ed414f5f8a31ebb" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=55c26ed414f5f8a31ebb" rel="stylesheet" />
 
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=3c74b3bc" />
@@ -48,10 +48,10 @@
     <link rel="stylesheet" type="text/css" href="../../_static/ecp.css?v=4837e097" />
   
   <!-- So that users can add custom icons -->
-  <script src="../../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <script defer src="../../_static/scripts/fontawesome.js?digest=55c26ed414f5f8a31ebb"></script>
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
-<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=55c26ed414f5f8a31ebb" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=55c26ed414f5f8a31ebb" />
 
     <script src="../../_static/documentation_options.js?v=9eb32ce0"></script>
     <script src="../../_static/doctools.js?v=9a2dae69"></script>
@@ -72,6 +72,7 @@
     <script>window.MathJax = {"tex": {"macros": {"dd": "\\mathrm{d}"}}, "options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'notebooks/01-monte-carlo-methods/lattice-gas-kmc';</script>
+    <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
     <script src="../../_static/home-button.js?v=6d5ef4fc"></script>
     <script src="../../_static/goatcounter.js?v=ce435452"></script>
     <link rel="canonical" href="https://ramador.me/molecular-materials-modelling-public/notebooks/01-monte-carlo-methods/lattice-gas-kmc.html" />
@@ -82,20 +83,26 @@
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="" />
+  
+    
+    <script src="../../_static/searchtools.js"></script>
+    <script src="../../_static/language_data.js"></script>
+    <script src="../../searchindex.js"></script>
+  
   </head>
-  
-  
-  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
-
+  <body data-default-mode="">
   
   
   <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+
   
   <div id="pst-scroll-pixel-helper"></div>
   
   <button type="button" class="btn rounded-pill" id="pst-back-to-top">
     <i class="fa-solid fa-arrow-up"></i>Back to top</button>
-
+  
+  
+  
   
   <dialog id="pst-search-dialog">
     
@@ -121,7 +128,51 @@
 </div>
 
   
-    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
     </header>
   
 
@@ -445,7 +496,7 @@
                 <h2> Contents </h2>
             </div>
             <nav aria-label="Page">
-                <ul class="visible nav section-nav flex-column">
+                <ul class="pst-show_toc_level nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#notebook-overview">Notebook overview</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#theory-in-brief">Theory in brief</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-lattice-gas-model">The lattice-gas model</a></li>
@@ -543,7 +594,7 @@
               font-family:'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace;font-size:11px;color:#46506b;
               letter-spacing:.04em;">
     <span>Raymond Amador</span>
-    <span>v1.0.0 &nbsp;·&nbsp; 2026-07-18 &nbsp;·&nbsp;
+    <span>v1.0.0 &nbsp;·&nbsp; 2026-07-20 &nbsp;·&nbsp;
           CC&nbsp;BY&nbsp;4.0 (text) / MIT (code)</span>
   </div>
 </div></div></div>
@@ -1109,42 +1160,42 @@ input[type=range].anim-slider {
 </style>
 
 <div class="animation">
-  <img id="_anim_img299c4d99d3f04350804f42553b16ce86">
+  <img id="_anim_img0e69c9dbdd6f465cae5c929364818516">
   <div class="anim-controls">
-    <input id="_anim_slider299c4d99d3f04350804f42553b16ce86" type="range" class="anim-slider"
+    <input id="_anim_slider0e69c9dbdd6f465cae5c929364818516" type="range" class="anim-slider"
            name="points" min="0" max="1" step="1" value="0"
-           oninput="anim299c4d99d3f04350804f42553b16ce86.set_frame(parseInt(this.value));">
+           oninput="anim0e69c9dbdd6f465cae5c929364818516.set_frame(parseInt(this.value));">
     <div class="anim-buttons">
-      <button title="Decrease speed" aria-label="Decrease speed" onclick="anim299c4d99d3f04350804f42553b16ce86.slower()">
+      <button title="Decrease speed" aria-label="Decrease speed" onclick="anim0e69c9dbdd6f465cae5c929364818516.slower()">
           <i class="fa fa-minus"></i></button>
-      <button title="First frame" aria-label="First frame" onclick="anim299c4d99d3f04350804f42553b16ce86.first_frame()">
+      <button title="First frame" aria-label="First frame" onclick="anim0e69c9dbdd6f465cae5c929364818516.first_frame()">
         <i class="fa fa-fast-backward"></i></button>
-      <button title="Previous frame" aria-label="Previous frame" onclick="anim299c4d99d3f04350804f42553b16ce86.previous_frame()">
+      <button title="Previous frame" aria-label="Previous frame" onclick="anim0e69c9dbdd6f465cae5c929364818516.previous_frame()">
           <i class="fa fa-step-backward"></i></button>
-      <button title="Play backwards" aria-label="Play backwards" onclick="anim299c4d99d3f04350804f42553b16ce86.reverse_animation()">
+      <button title="Play backwards" aria-label="Play backwards" onclick="anim0e69c9dbdd6f465cae5c929364818516.reverse_animation()">
           <i class="fa fa-play fa-flip-horizontal"></i></button>
-      <button title="Pause" aria-label="Pause" onclick="anim299c4d99d3f04350804f42553b16ce86.pause_animation()">
+      <button title="Pause" aria-label="Pause" onclick="anim0e69c9dbdd6f465cae5c929364818516.pause_animation()">
           <i class="fa fa-pause"></i></button>
-      <button title="Play" aria-label="Play" onclick="anim299c4d99d3f04350804f42553b16ce86.play_animation()">
+      <button title="Play" aria-label="Play" onclick="anim0e69c9dbdd6f465cae5c929364818516.play_animation()">
           <i class="fa fa-play"></i></button>
-      <button title="Next frame" aria-label="Next frame" onclick="anim299c4d99d3f04350804f42553b16ce86.next_frame()">
+      <button title="Next frame" aria-label="Next frame" onclick="anim0e69c9dbdd6f465cae5c929364818516.next_frame()">
           <i class="fa fa-step-forward"></i></button>
-      <button title="Last frame" aria-label="Last frame" onclick="anim299c4d99d3f04350804f42553b16ce86.last_frame()">
+      <button title="Last frame" aria-label="Last frame" onclick="anim0e69c9dbdd6f465cae5c929364818516.last_frame()">
           <i class="fa fa-fast-forward"></i></button>
-      <button title="Increase speed" aria-label="Increase speed" onclick="anim299c4d99d3f04350804f42553b16ce86.faster()">
+      <button title="Increase speed" aria-label="Increase speed" onclick="anim0e69c9dbdd6f465cae5c929364818516.faster()">
           <i class="fa fa-plus"></i></button>
     </div>
-    <form title="Repetition mode" aria-label="Repetition mode" action="#n" name="_anim_loop_select299c4d99d3f04350804f42553b16ce86"
+    <form title="Repetition mode" aria-label="Repetition mode" action="#n" name="_anim_loop_select0e69c9dbdd6f465cae5c929364818516"
           class="anim-state">
-      <input type="radio" name="state" value="once" id="_anim_radio1_299c4d99d3f04350804f42553b16ce86"
+      <input type="radio" name="state" value="once" id="_anim_radio1_0e69c9dbdd6f465cae5c929364818516"
              >
-      <label for="_anim_radio1_299c4d99d3f04350804f42553b16ce86">Once</label>
-      <input type="radio" name="state" value="loop" id="_anim_radio2_299c4d99d3f04350804f42553b16ce86"
+      <label for="_anim_radio1_0e69c9dbdd6f465cae5c929364818516">Once</label>
+      <input type="radio" name="state" value="loop" id="_anim_radio2_0e69c9dbdd6f465cae5c929364818516"
              checked>
-      <label for="_anim_radio2_299c4d99d3f04350804f42553b16ce86">Loop</label>
-      <input type="radio" name="state" value="reflect" id="_anim_radio3_299c4d99d3f04350804f42553b16ce86"
+      <label for="_anim_radio2_0e69c9dbdd6f465cae5c929364818516">Loop</label>
+      <input type="radio" name="state" value="reflect" id="_anim_radio3_0e69c9dbdd6f465cae5c929364818516"
              >
-      <label for="_anim_radio3_299c4d99d3f04350804f42553b16ce86">Reflect</label>
+      <label for="_anim_radio3_0e69c9dbdd6f465cae5c929364818516">Reflect</label>
     </form>
   </div>
 </div>
@@ -1154,9 +1205,9 @@ input[type=range].anim-slider {
   /* Instantiate the Animation class. */
   /* The IDs given should match those used in the template above. */
   (function() {
-    var img_id = "_anim_img299c4d99d3f04350804f42553b16ce86";
-    var slider_id = "_anim_slider299c4d99d3f04350804f42553b16ce86";
-    var loop_select_id = "_anim_loop_select299c4d99d3f04350804f42553b16ce86";
+    var img_id = "_anim_img0e69c9dbdd6f465cae5c929364818516";
+    var slider_id = "_anim_slider0e69c9dbdd6f465cae5c929364818516";
+    var loop_select_id = "_anim_loop_select0e69c9dbdd6f465cae5c929364818516";
     var frames = new Array(161);
     
   frames[0] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZwAAAGMCAYAAADulxSiAAAAOnRFWHRTb2Z0d2FyZQBNYXRwbG90\
@@ -78919,7 +78970,7 @@ YII=\
     /* set a timeout to make sure all the above elements are created before
        the object is initialized. */
     setTimeout(function() {
-        anim299c4d99d3f04350804f42553b16ce86 = new Animation(frames, img_id, slider_id, 33,
+        anim0e69c9dbdd6f465cae5c929364818516 = new Animation(frames, img_id, slider_id, 33,
                                  loop_select_id);
     }, 0);
   })()
@@ -79178,42 +79229,42 @@ input[type=range].anim-slider {
 </style>
 
 <div class="animation">
-  <img id="_anim_imgb6c31261588443e5906668f2a5fb6068">
+  <img id="_anim_img27b738ad14094c9ea94cf439f947ae9f">
   <div class="anim-controls">
-    <input id="_anim_sliderb6c31261588443e5906668f2a5fb6068" type="range" class="anim-slider"
+    <input id="_anim_slider27b738ad14094c9ea94cf439f947ae9f" type="range" class="anim-slider"
            name="points" min="0" max="1" step="1" value="0"
-           oninput="animb6c31261588443e5906668f2a5fb6068.set_frame(parseInt(this.value));">
+           oninput="anim27b738ad14094c9ea94cf439f947ae9f.set_frame(parseInt(this.value));">
     <div class="anim-buttons">
-      <button title="Decrease speed" aria-label="Decrease speed" onclick="animb6c31261588443e5906668f2a5fb6068.slower()">
+      <button title="Decrease speed" aria-label="Decrease speed" onclick="anim27b738ad14094c9ea94cf439f947ae9f.slower()">
           <i class="fa fa-minus"></i></button>
-      <button title="First frame" aria-label="First frame" onclick="animb6c31261588443e5906668f2a5fb6068.first_frame()">
+      <button title="First frame" aria-label="First frame" onclick="anim27b738ad14094c9ea94cf439f947ae9f.first_frame()">
         <i class="fa fa-fast-backward"></i></button>
-      <button title="Previous frame" aria-label="Previous frame" onclick="animb6c31261588443e5906668f2a5fb6068.previous_frame()">
+      <button title="Previous frame" aria-label="Previous frame" onclick="anim27b738ad14094c9ea94cf439f947ae9f.previous_frame()">
           <i class="fa fa-step-backward"></i></button>
-      <button title="Play backwards" aria-label="Play backwards" onclick="animb6c31261588443e5906668f2a5fb6068.reverse_animation()">
+      <button title="Play backwards" aria-label="Play backwards" onclick="anim27b738ad14094c9ea94cf439f947ae9f.reverse_animation()">
           <i class="fa fa-play fa-flip-horizontal"></i></button>
-      <button title="Pause" aria-label="Pause" onclick="animb6c31261588443e5906668f2a5fb6068.pause_animation()">
+      <button title="Pause" aria-label="Pause" onclick="anim27b738ad14094c9ea94cf439f947ae9f.pause_animation()">
           <i class="fa fa-pause"></i></button>
-      <button title="Play" aria-label="Play" onclick="animb6c31261588443e5906668f2a5fb6068.play_animation()">
+      <button title="Play" aria-label="Play" onclick="anim27b738ad14094c9ea94cf439f947ae9f.play_animation()">
           <i class="fa fa-play"></i></button>
-      <button title="Next frame" aria-label="Next frame" onclick="animb6c31261588443e5906668f2a5fb6068.next_frame()">
+      <button title="Next frame" aria-label="Next frame" onclick="anim27b738ad14094c9ea94cf439f947ae9f.next_frame()">
           <i class="fa fa-step-forward"></i></button>
-      <button title="Last frame" aria-label="Last frame" onclick="animb6c31261588443e5906668f2a5fb6068.last_frame()">
+      <button title="Last frame" aria-label="Last frame" onclick="anim27b738ad14094c9ea94cf439f947ae9f.last_frame()">
           <i class="fa fa-fast-forward"></i></button>
-      <button title="Increase speed" aria-label="Increase speed" onclick="animb6c31261588443e5906668f2a5fb6068.faster()">
+      <button title="Increase speed" aria-label="Increase speed" onclick="anim27b738ad14094c9ea94cf439f947ae9f.faster()">
           <i class="fa fa-plus"></i></button>
     </div>
-    <form title="Repetition mode" aria-label="Repetition mode" action="#n" name="_anim_loop_selectb6c31261588443e5906668f2a5fb6068"
+    <form title="Repetition mode" aria-label="Repetition mode" action="#n" name="_anim_loop_select27b738ad14094c9ea94cf439f947ae9f"
           class="anim-state">
-      <input type="radio" name="state" value="once" id="_anim_radio1_b6c31261588443e5906668f2a5fb6068"
+      <input type="radio" name="state" value="once" id="_anim_radio1_27b738ad14094c9ea94cf439f947ae9f"
              >
-      <label for="_anim_radio1_b6c31261588443e5906668f2a5fb6068">Once</label>
-      <input type="radio" name="state" value="loop" id="_anim_radio2_b6c31261588443e5906668f2a5fb6068"
+      <label for="_anim_radio1_27b738ad14094c9ea94cf439f947ae9f">Once</label>
+      <input type="radio" name="state" value="loop" id="_anim_radio2_27b738ad14094c9ea94cf439f947ae9f"
              checked>
-      <label for="_anim_radio2_b6c31261588443e5906668f2a5fb6068">Loop</label>
-      <input type="radio" name="state" value="reflect" id="_anim_radio3_b6c31261588443e5906668f2a5fb6068"
+      <label for="_anim_radio2_27b738ad14094c9ea94cf439f947ae9f">Loop</label>
+      <input type="radio" name="state" value="reflect" id="_anim_radio3_27b738ad14094c9ea94cf439f947ae9f"
              >
-      <label for="_anim_radio3_b6c31261588443e5906668f2a5fb6068">Reflect</label>
+      <label for="_anim_radio3_27b738ad14094c9ea94cf439f947ae9f">Reflect</label>
     </form>
   </div>
 </div>
@@ -79223,9 +79274,9 @@ input[type=range].anim-slider {
   /* Instantiate the Animation class. */
   /* The IDs given should match those used in the template above. */
   (function() {
-    var img_id = "_anim_imgb6c31261588443e5906668f2a5fb6068";
-    var slider_id = "_anim_sliderb6c31261588443e5906668f2a5fb6068";
-    var loop_select_id = "_anim_loop_selectb6c31261588443e5906668f2a5fb6068";
+    var img_id = "_anim_img27b738ad14094c9ea94cf439f947ae9f";
+    var slider_id = "_anim_slider27b738ad14094c9ea94cf439f947ae9f";
+    var loop_select_id = "_anim_loop_select27b738ad14094c9ea94cf439f947ae9f";
     var frames = new Array(11);
     
   frames[0] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAbAAAAGcCAYAAAC4IPVnAAAAOnRFWHRTb2Z0d2FyZQBNYXRwbG90\
@@ -81904,7 +81955,7 @@ AICV/h9+Hpg2D2LScAAAAABJRU5ErkJggg==\
     /* set a timeout to make sure all the above elements are created before
        the object is initialized. */
     setTimeout(function() {
-        animb6c31261588443e5906668f2a5fb6068 = new Animation(frames, img_id, slider_id, 33,
+        anim27b738ad14094c9ea94cf439f947ae9f = new Animation(frames, img_id, slider_id, 33,
                                  loop_select_id);
     }, 0);
   })()
@@ -82082,7 +82133,7 @@ seconds, letting KMC bridge to experimental deposition rates.</p></li>
     <i class="fa-solid fa-list"></i> Contents
   </div>
   <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
-    <ul class="visible nav section-nav flex-column">
+    <ul class="pst-show_toc_level nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#notebook-overview">Notebook overview</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#theory-in-brief">Theory in brief</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-lattice-gas-model">The lattice-gas model</a></li>
@@ -82169,8 +82220,8 @@ By Raymond Amador
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script defer src="../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
-<script defer src="../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+  <script defer src="../../_static/scripts/bootstrap.js?digest=55c26ed414f5f8a31ebb"></script>
+<script defer src="../../_static/scripts/pydata-sphinx-theme.js?digest=55c26ed414f5f8a31ebb"></script>
 
   <footer class="bd-footer">
   </footer>
