@@ -594,7 +594,7 @@
               font-family:'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace;font-size:11px;color:#46506b;
               letter-spacing:.04em;">
     <span>Raymond Amador</span>
-    <span>v1.0.0 &nbsp;·&nbsp; 2026-07-20 &nbsp;·&nbsp;
+    <span>v1.0.0 &nbsp;·&nbsp; 2026-07-22 &nbsp;·&nbsp;
           CC&nbsp;BY&nbsp;4.0 (text) / MIT (code)</span>
   </div>
 </div></div></div>
@@ -877,7 +877,7 @@ lattice and compare <span class="math notranslate nohighlight">\(\langle E\rangl
 lattice: the decisive check that the move samples the correct ensemble.</p>
 <div class="cell tag_validation tag_remove-input docutils container">
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>✓  MC ⟨E⟩ matches exact enumeration (L=2, N=3)   [got -0.08392 vs expected -0.0837896 (rtol=0.05)]
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>✓  MC ⟨E⟩ matches exact enumeration (L=2, N=3)   [got -0.08392 vs expected -0.0837896 (rtol=0.05, atol=1e-09)]
 </pre></div>
 </div>
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>True
@@ -909,7 +909,7 @@ prediction <a class="reference internal" href="#equation-eq-ideal-pairs">Eq. 16<
 ideal-gas limit.</p>
 <div class="cell tag_validation tag_remove-input docutils container">
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>✓  d_e=0 pair count matches the ideal-gas combinatorics   [got 1.90067 vs expected 1.90141 (rtol=0.05)]
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>✓  d_e=0 pair count matches the ideal-gas combinatorics   [got 1.90067 vs expected 1.90141 (rtol=0.05, atol=1e-09)]
 </pre></div>
 </div>
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>True
@@ -940,9 +940,6 @@ equilibrates.</p>
 estimate <a class="reference internal" href="#equation-eq-dimer-estimate">Eq. 17</a> and compare to the input.</p>
 <div class="cell tag_solution tag_remove-input docutils container">
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>findfont: Failed to find font weight 600, now using 700.
-</pre></div>
-</div>
 <figure class="align-default" id="fig-lattice-gas-clustering">
 <img alt="../../_images/2efa9c61e770ddf9c4cf478f85f2458b652e65342cef9c5b8ca943518437f099.png" src="../../_images/2efa9c61e770ddf9c4cf478f85f2458b652e65342cef9c5b8ca943518437f099.png" />
 <figcaption>
@@ -1160,42 +1157,42 @@ input[type=range].anim-slider {
 </style>
 
 <div class="animation">
-  <img id="_anim_img1cc7e7a2d2754891a1038d0be6586c9b">
+  <img id="_anim_img9b2d8c9f1d0b4b879bb03782b4048efa">
   <div class="anim-controls">
-    <input id="_anim_slider1cc7e7a2d2754891a1038d0be6586c9b" type="range" class="anim-slider"
+    <input id="_anim_slider9b2d8c9f1d0b4b879bb03782b4048efa" type="range" class="anim-slider"
            name="points" min="0" max="1" step="1" value="0"
-           oninput="anim1cc7e7a2d2754891a1038d0be6586c9b.set_frame(parseInt(this.value));">
+           oninput="anim9b2d8c9f1d0b4b879bb03782b4048efa.set_frame(parseInt(this.value));">
     <div class="anim-buttons">
-      <button title="Decrease speed" aria-label="Decrease speed" onclick="anim1cc7e7a2d2754891a1038d0be6586c9b.slower()">
+      <button title="Decrease speed" aria-label="Decrease speed" onclick="anim9b2d8c9f1d0b4b879bb03782b4048efa.slower()">
           <i class="fa fa-minus"></i></button>
-      <button title="First frame" aria-label="First frame" onclick="anim1cc7e7a2d2754891a1038d0be6586c9b.first_frame()">
+      <button title="First frame" aria-label="First frame" onclick="anim9b2d8c9f1d0b4b879bb03782b4048efa.first_frame()">
         <i class="fa fa-fast-backward"></i></button>
-      <button title="Previous frame" aria-label="Previous frame" onclick="anim1cc7e7a2d2754891a1038d0be6586c9b.previous_frame()">
+      <button title="Previous frame" aria-label="Previous frame" onclick="anim9b2d8c9f1d0b4b879bb03782b4048efa.previous_frame()">
           <i class="fa fa-step-backward"></i></button>
-      <button title="Play backwards" aria-label="Play backwards" onclick="anim1cc7e7a2d2754891a1038d0be6586c9b.reverse_animation()">
+      <button title="Play backwards" aria-label="Play backwards" onclick="anim9b2d8c9f1d0b4b879bb03782b4048efa.reverse_animation()">
           <i class="fa fa-play fa-flip-horizontal"></i></button>
-      <button title="Pause" aria-label="Pause" onclick="anim1cc7e7a2d2754891a1038d0be6586c9b.pause_animation()">
+      <button title="Pause" aria-label="Pause" onclick="anim9b2d8c9f1d0b4b879bb03782b4048efa.pause_animation()">
           <i class="fa fa-pause"></i></button>
-      <button title="Play" aria-label="Play" onclick="anim1cc7e7a2d2754891a1038d0be6586c9b.play_animation()">
+      <button title="Play" aria-label="Play" onclick="anim9b2d8c9f1d0b4b879bb03782b4048efa.play_animation()">
           <i class="fa fa-play"></i></button>
-      <button title="Next frame" aria-label="Next frame" onclick="anim1cc7e7a2d2754891a1038d0be6586c9b.next_frame()">
+      <button title="Next frame" aria-label="Next frame" onclick="anim9b2d8c9f1d0b4b879bb03782b4048efa.next_frame()">
           <i class="fa fa-step-forward"></i></button>
-      <button title="Last frame" aria-label="Last frame" onclick="anim1cc7e7a2d2754891a1038d0be6586c9b.last_frame()">
+      <button title="Last frame" aria-label="Last frame" onclick="anim9b2d8c9f1d0b4b879bb03782b4048efa.last_frame()">
           <i class="fa fa-fast-forward"></i></button>
-      <button title="Increase speed" aria-label="Increase speed" onclick="anim1cc7e7a2d2754891a1038d0be6586c9b.faster()">
+      <button title="Increase speed" aria-label="Increase speed" onclick="anim9b2d8c9f1d0b4b879bb03782b4048efa.faster()">
           <i class="fa fa-plus"></i></button>
     </div>
-    <form title="Repetition mode" aria-label="Repetition mode" action="#n" name="_anim_loop_select1cc7e7a2d2754891a1038d0be6586c9b"
+    <form title="Repetition mode" aria-label="Repetition mode" action="#n" name="_anim_loop_select9b2d8c9f1d0b4b879bb03782b4048efa"
           class="anim-state">
-      <input type="radio" name="state" value="once" id="_anim_radio1_1cc7e7a2d2754891a1038d0be6586c9b"
+      <input type="radio" name="state" value="once" id="_anim_radio1_9b2d8c9f1d0b4b879bb03782b4048efa"
              >
-      <label for="_anim_radio1_1cc7e7a2d2754891a1038d0be6586c9b">Once</label>
-      <input type="radio" name="state" value="loop" id="_anim_radio2_1cc7e7a2d2754891a1038d0be6586c9b"
+      <label for="_anim_radio1_9b2d8c9f1d0b4b879bb03782b4048efa">Once</label>
+      <input type="radio" name="state" value="loop" id="_anim_radio2_9b2d8c9f1d0b4b879bb03782b4048efa"
              checked>
-      <label for="_anim_radio2_1cc7e7a2d2754891a1038d0be6586c9b">Loop</label>
-      <input type="radio" name="state" value="reflect" id="_anim_radio3_1cc7e7a2d2754891a1038d0be6586c9b"
+      <label for="_anim_radio2_9b2d8c9f1d0b4b879bb03782b4048efa">Loop</label>
+      <input type="radio" name="state" value="reflect" id="_anim_radio3_9b2d8c9f1d0b4b879bb03782b4048efa"
              >
-      <label for="_anim_radio3_1cc7e7a2d2754891a1038d0be6586c9b">Reflect</label>
+      <label for="_anim_radio3_9b2d8c9f1d0b4b879bb03782b4048efa">Reflect</label>
     </form>
   </div>
 </div>
@@ -1205,9 +1202,9 @@ input[type=range].anim-slider {
   /* Instantiate the Animation class. */
   /* The IDs given should match those used in the template above. */
   (function() {
-    var img_id = "_anim_img1cc7e7a2d2754891a1038d0be6586c9b";
-    var slider_id = "_anim_slider1cc7e7a2d2754891a1038d0be6586c9b";
-    var loop_select_id = "_anim_loop_select1cc7e7a2d2754891a1038d0be6586c9b";
+    var img_id = "_anim_img9b2d8c9f1d0b4b879bb03782b4048efa";
+    var slider_id = "_anim_slider9b2d8c9f1d0b4b879bb03782b4048efa";
+    var loop_select_id = "_anim_loop_select9b2d8c9f1d0b4b879bb03782b4048efa";
     var frames = new Array(161);
     
   frames[0] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZwAAAGMCAYAAADulxSiAAAAOnRFWHRTb2Z0d2FyZQBNYXRwbG90\
@@ -78970,7 +78967,7 @@ YII=\
     /* set a timeout to make sure all the above elements are created before
        the object is initialized. */
     setTimeout(function() {
-        anim1cc7e7a2d2754891a1038d0be6586c9b = new Animation(frames, img_id, slider_id, 33,
+        anim9b2d8c9f1d0b4b879bb03782b4048efa = new Animation(frames, img_id, slider_id, 33,
                                  loop_select_id);
     }, 0);
   })()
@@ -78998,11 +78995,8 @@ spread. <strong>Part b)</strong> Select many events from a fixed catalogue and c
 frequencies track the rates.</p>
 <div class="cell tag_solution tag_remove-input docutils container">
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>findfont: Failed to find font weight 600, now using 700.
-</pre></div>
-</div>
 <figure class="align-default" id="fig-kmc-statistics">
-<img alt="../../_images/19d1b5c4f15577c69283824afcf28a996ce613c18052b7ba58640521e11ad881.png" src="../../_images/19d1b5c4f15577c69283824afcf28a996ce613c18052b7ba58640521e11ad881.png" />
+<img alt="../../_images/d4074d12c0881421cc46d99a9834e0856d7b4aebc9f730dd5ce88c8f7cc2c97b.png" src="../../_images/d4074d12c0881421cc46d99a9834e0856d7b4aebc9f730dd5ce88c8f7cc2c97b.png" />
 <figcaption>
 <p><span class="caption-number">Fig. 13 </span><span class="caption-text">The two statistical guarantees of the residence-time KMC algorithm: (a) the waiting times <span class="math notranslate nohighlight">\(\Delta t=-\ln\rho/R\)</span> for fixed total rate <span class="math notranslate nohighlight">\(R=7.3\)</span> follow the exponential law <span class="math notranslate nohighlight">\(R\,e^{-R\Delta t}\)</span> (mean and standard deviation both <span class="math notranslate nohighlight">\(1/R\)</span>); (b) over many steps each event <span class="math notranslate nohighlight">\(k\)</span> is executed with frequency equal to <span class="math notranslate nohighlight">\(r_k/R\)</span>.</span><a class="headerlink" href="#fig-kmc-statistics" title="Link to this image">#</a></p>
 </figcaption>
@@ -79015,8 +79009,8 @@ frequencies track the rates.</p>
 exponential signature), and the event frequencies must match <span class="math notranslate nohighlight">\(r_k/R\)</span>.</p>
 <div class="cell tag_validation tag_remove-input docutils container">
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>✓  KMC waiting-time mean equals 1/R   [got 0.136917 vs expected 0.136986 (rtol=0.02)]
-✓  KMC waiting time is exponential (std = mean)   [got 0.137384 vs expected 0.136986 (rtol=0.03)]
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>✓  KMC waiting-time mean equals 1/R   [got 0.136917 vs expected 0.136986 (rtol=0.02, atol=1e-09)]
+✓  KMC waiting time is exponential (std = mean)   [got 0.137384 vs expected 0.136986 (rtol=0.03, atol=1e-09)]
 ✓  KMC selects events with frequency proportional to rate   [max|Δ| = 0.00059974 (rtol=0.03, atol=0.003)]
 </pre></div>
 </div>
@@ -79229,42 +79223,42 @@ input[type=range].anim-slider {
 </style>
 
 <div class="animation">
-  <img id="_anim_img76e2bc3b9f2e432b80c9da39890593a9">
+  <img id="_anim_imgc9afaac5f2624aa18e72a7c6b77f850c">
   <div class="anim-controls">
-    <input id="_anim_slider76e2bc3b9f2e432b80c9da39890593a9" type="range" class="anim-slider"
+    <input id="_anim_sliderc9afaac5f2624aa18e72a7c6b77f850c" type="range" class="anim-slider"
            name="points" min="0" max="1" step="1" value="0"
-           oninput="anim76e2bc3b9f2e432b80c9da39890593a9.set_frame(parseInt(this.value));">
+           oninput="animc9afaac5f2624aa18e72a7c6b77f850c.set_frame(parseInt(this.value));">
     <div class="anim-buttons">
-      <button title="Decrease speed" aria-label="Decrease speed" onclick="anim76e2bc3b9f2e432b80c9da39890593a9.slower()">
+      <button title="Decrease speed" aria-label="Decrease speed" onclick="animc9afaac5f2624aa18e72a7c6b77f850c.slower()">
           <i class="fa fa-minus"></i></button>
-      <button title="First frame" aria-label="First frame" onclick="anim76e2bc3b9f2e432b80c9da39890593a9.first_frame()">
+      <button title="First frame" aria-label="First frame" onclick="animc9afaac5f2624aa18e72a7c6b77f850c.first_frame()">
         <i class="fa fa-fast-backward"></i></button>
-      <button title="Previous frame" aria-label="Previous frame" onclick="anim76e2bc3b9f2e432b80c9da39890593a9.previous_frame()">
+      <button title="Previous frame" aria-label="Previous frame" onclick="animc9afaac5f2624aa18e72a7c6b77f850c.previous_frame()">
           <i class="fa fa-step-backward"></i></button>
-      <button title="Play backwards" aria-label="Play backwards" onclick="anim76e2bc3b9f2e432b80c9da39890593a9.reverse_animation()">
+      <button title="Play backwards" aria-label="Play backwards" onclick="animc9afaac5f2624aa18e72a7c6b77f850c.reverse_animation()">
           <i class="fa fa-play fa-flip-horizontal"></i></button>
-      <button title="Pause" aria-label="Pause" onclick="anim76e2bc3b9f2e432b80c9da39890593a9.pause_animation()">
+      <button title="Pause" aria-label="Pause" onclick="animc9afaac5f2624aa18e72a7c6b77f850c.pause_animation()">
           <i class="fa fa-pause"></i></button>
-      <button title="Play" aria-label="Play" onclick="anim76e2bc3b9f2e432b80c9da39890593a9.play_animation()">
+      <button title="Play" aria-label="Play" onclick="animc9afaac5f2624aa18e72a7c6b77f850c.play_animation()">
           <i class="fa fa-play"></i></button>
-      <button title="Next frame" aria-label="Next frame" onclick="anim76e2bc3b9f2e432b80c9da39890593a9.next_frame()">
+      <button title="Next frame" aria-label="Next frame" onclick="animc9afaac5f2624aa18e72a7c6b77f850c.next_frame()">
           <i class="fa fa-step-forward"></i></button>
-      <button title="Last frame" aria-label="Last frame" onclick="anim76e2bc3b9f2e432b80c9da39890593a9.last_frame()">
+      <button title="Last frame" aria-label="Last frame" onclick="animc9afaac5f2624aa18e72a7c6b77f850c.last_frame()">
           <i class="fa fa-fast-forward"></i></button>
-      <button title="Increase speed" aria-label="Increase speed" onclick="anim76e2bc3b9f2e432b80c9da39890593a9.faster()">
+      <button title="Increase speed" aria-label="Increase speed" onclick="animc9afaac5f2624aa18e72a7c6b77f850c.faster()">
           <i class="fa fa-plus"></i></button>
     </div>
-    <form title="Repetition mode" aria-label="Repetition mode" action="#n" name="_anim_loop_select76e2bc3b9f2e432b80c9da39890593a9"
+    <form title="Repetition mode" aria-label="Repetition mode" action="#n" name="_anim_loop_selectc9afaac5f2624aa18e72a7c6b77f850c"
           class="anim-state">
-      <input type="radio" name="state" value="once" id="_anim_radio1_76e2bc3b9f2e432b80c9da39890593a9"
+      <input type="radio" name="state" value="once" id="_anim_radio1_c9afaac5f2624aa18e72a7c6b77f850c"
              >
-      <label for="_anim_radio1_76e2bc3b9f2e432b80c9da39890593a9">Once</label>
-      <input type="radio" name="state" value="loop" id="_anim_radio2_76e2bc3b9f2e432b80c9da39890593a9"
+      <label for="_anim_radio1_c9afaac5f2624aa18e72a7c6b77f850c">Once</label>
+      <input type="radio" name="state" value="loop" id="_anim_radio2_c9afaac5f2624aa18e72a7c6b77f850c"
              checked>
-      <label for="_anim_radio2_76e2bc3b9f2e432b80c9da39890593a9">Loop</label>
-      <input type="radio" name="state" value="reflect" id="_anim_radio3_76e2bc3b9f2e432b80c9da39890593a9"
+      <label for="_anim_radio2_c9afaac5f2624aa18e72a7c6b77f850c">Loop</label>
+      <input type="radio" name="state" value="reflect" id="_anim_radio3_c9afaac5f2624aa18e72a7c6b77f850c"
              >
-      <label for="_anim_radio3_76e2bc3b9f2e432b80c9da39890593a9">Reflect</label>
+      <label for="_anim_radio3_c9afaac5f2624aa18e72a7c6b77f850c">Reflect</label>
     </form>
   </div>
 </div>
@@ -79274,9 +79268,9 @@ input[type=range].anim-slider {
   /* Instantiate the Animation class. */
   /* The IDs given should match those used in the template above. */
   (function() {
-    var img_id = "_anim_img76e2bc3b9f2e432b80c9da39890593a9";
-    var slider_id = "_anim_slider76e2bc3b9f2e432b80c9da39890593a9";
-    var loop_select_id = "_anim_loop_select76e2bc3b9f2e432b80c9da39890593a9";
+    var img_id = "_anim_imgc9afaac5f2624aa18e72a7c6b77f850c";
+    var slider_id = "_anim_sliderc9afaac5f2624aa18e72a7c6b77f850c";
+    var loop_select_id = "_anim_loop_selectc9afaac5f2624aa18e72a7c6b77f850c";
     var frames = new Array(11);
     
   frames[0] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAbAAAAGcCAYAAAC4IPVnAAAAOnRFWHRTb2Z0d2FyZQBNYXRwbG90\
@@ -81955,7 +81949,7 @@ AICV/h9+Hpg2D2LScAAAAABJRU5ErkJggg==\
     /* set a timeout to make sure all the above elements are created before
        the object is initialized. */
     setTimeout(function() {
-        anim76e2bc3b9f2e432b80c9da39890593a9 = new Animation(frames, img_id, slider_id, 33,
+        animc9afaac5f2624aa18e72a7c6b77f850c = new Animation(frames, img_id, slider_id, 33,
                                  loop_select_id);
     }, 0);
   })()

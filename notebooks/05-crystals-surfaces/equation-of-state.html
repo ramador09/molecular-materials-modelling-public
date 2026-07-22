@@ -578,7 +578,7 @@
               font-family:'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace;font-size:11px;color:#46506b;
               letter-spacing:.04em;">
     <span>Raymond Amador</span>
-    <span>v1.0.0 &nbsp;·&nbsp; 2026-07-20 &nbsp;·&nbsp;
+    <span>v1.0.0 &nbsp;·&nbsp; 2026-07-22 &nbsp;·&nbsp;
           CC&nbsp;BY&nbsp;4.0 (text) / MIT (code)</span>
   </div>
 </div></div></div>
@@ -748,9 +748,6 @@ there are four atoms in the conventional cubic cell, so the lattice constant is
 lattice constant and bulk modulus, and compare to experiment.</p>
 <div class="cell tag_solution tag_remove-input docutils container">
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>findfont: Failed to find font weight 600, now using 700.
-</pre></div>
-</div>
 <figure class="align-default" id="fig-ag-eos">
 <img alt="../../_images/fe273105de5bce02f7e5cba51fa68006eb5103439392fd7a3a4a5542676a7867.png" src="../../_images/fe273105de5bce02f7e5cba51fa68006eb5103439392fd7a3a4a5542676a7867.png" />
 <figcaption>
@@ -768,7 +765,7 @@ lattice constant and bulk modulus, and compare to experiment.</p>
 bulk modulus near the experimental <span class="math notranslate nohighlight">\(\sim100\,\)</span>GPa.</p>
 <div class="cell tag_validation tag_remove-input docutils container">
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>✓  the fitted lattice constant matches silver&#39;s measured value   [got 4.06418 vs expected 4.09 (rtol=0.02)]
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>✓  the fitted lattice constant matches silver&#39;s measured value   [got 4.06418 vs expected 4.09 (rtol=0.02, atol=1e-09)]
 ✓  the bulk modulus is in the right range for silver   [B = 100 GPa (experiment ~100 GPa)]
 </pre></div>
 </div>
@@ -794,7 +791,7 @@ at once. Their ratio <span class="math notranslate nohighlight">\(c/a\)</span> s
 <figure class="align-default" id="fig-ni-surface">
 <img alt="../../_images/30f063d60a123ea3b8eff2bd83a11070b297ee482c77bf0726d1175e1dbba4b7.png" src="../../_images/30f063d60a123ea3b8eff2bd83a11070b297ee482c77bf0726d1175e1dbba4b7.png" />
 <figcaption>
-<p><span class="caption-number">Fig. 39 </span><span class="caption-text">Energy surface of hexagonal-close-packed nickel over its two lattice parameters, from a committed <span class="math notranslate nohighlight">\(10\times10\)</span> EMT scan that brackets the energy minimum: energy (colour) versus in-plane spacing <span class="math notranslate nohighlight">\(a\)</span> and stacking height <span class="math notranslate nohighlight">\(c\)</span>. The interior minimum (amber marker) sits at <span class="math notranslate nohighlight">\(a\approx2.47\)</span> Å and <span class="math notranslate nohighlight">\(c\approx4.01\)</span> Å, an axial ratio <span class="math notranslate nohighlight">\(c/a\approx1.62\)</span> — essentially the ideal close-packed value <span class="math notranslate nohighlight">\(\sqrt{8/3}=1.633\)</span>.</span><a class="headerlink" href="#fig-ni-surface" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 39 </span><span class="caption-text">Energy surface of hexagonal-close-packed nickel over its two lattice parameters, from a committed <span class="math notranslate nohighlight">\(10\times10\)</span> EMT scan that brackets the energy minimum: energy (colour) versus in-plane spacing <span class="math notranslate nohighlight">\(a\)</span> and stacking height <span class="math notranslate nohighlight">\(c\)</span>. The interior minimum (amber marker) sits at <span class="math notranslate nohighlight">\(a\approx2.49\)</span> Å and <span class="math notranslate nohighlight">\(c\approx4.06\)</span> Å, an axial ratio <span class="math notranslate nohighlight">\(c/a\approx1.633\)</span> — essentially the ideal close-packed value <span class="math notranslate nohighlight">\(\sqrt{8/3}=1.633\)</span>.</span><a class="headerlink" href="#fig-ni-surface" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>a(Ni) = 2.473 Å (exp 2.49), c = 4.014 Å (exp 4.07);  c/a = 1.623 (ideal 1.633)
@@ -808,7 +805,7 @@ at once. Their ratio <span class="math notranslate nohighlight">\(c/a\)</span> s
 must sit at <span class="math notranslate nohighlight">\(c/a=\sqrt{8/3}\approx1.633\)</span>.</p>
 <div class="cell tag_validation tag_remove-input docutils container">
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>✓  the hcp axial ratio c/a is at the ideal close-packed value   [got 1.6233 vs expected 1.63299 (rtol=0.02)]
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>✓  the hcp axial ratio c/a is at the ideal close-packed value   [got 1.6233 vs expected 1.63299 (rtol=0.02, atol=1e-09)]
 </pre></div>
 </div>
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>True

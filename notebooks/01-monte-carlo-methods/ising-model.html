@@ -604,7 +604,7 @@
               font-family:'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace;font-size:11px;color:#46506b;
               letter-spacing:.04em;">
     <span>Raymond Amador</span>
-    <span>v1.0.0 &nbsp;·&nbsp; 2026-07-20 &nbsp;·&nbsp;
+    <span>v1.0.0 &nbsp;·&nbsp; 2026-07-22 &nbsp;·&nbsp;
           CC&nbsp;BY&nbsp;4.0 (text) / MIT (code)</span>
   </div>
 </div></div></div>
@@ -814,7 +814,7 @@ satisfied).</p>
 be exactly <span class="math notranslate nohighlight">\(E_0=-NJ\)</span>. This pins the sign and normalisation of <code class="docutils literal notranslate"><span class="pre">energy_1d</span></code>.</p>
 <div class="cell tag_validation tag_remove-input docutils container">
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>✓  aligned 1D ground-state energy equals -NJ   [got -64 vs expected -64 (rtol=1e-12)]
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>✓  aligned 1D ground-state energy equals -NJ   [got -64 vs expected -64 (rtol=1e-12, atol=1e-09)]
 </pre></div>
 </div>
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>True
@@ -840,12 +840,6 @@ temperature (<a class="reference internal" href="#fig-ising-exact1d"><span class
 </div>
 <div class="cell tag_solution tag_remove-input docutils container">
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>findfont: Failed to find font weight 600, now using 700.
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>findfont: Failed to find font weight 600, now using 700.
-</pre></div>
-</div>
 <figure class="align-default" id="fig-ising-exact1d">
 <img alt="../../_images/8730f9746241032eaad01eed155b8ec3379d811a681dc3171ada5342e24ed767.png" src="../../_images/8730f9746241032eaad01eed155b8ec3379d811a681dc3171ada5342e24ed767.png" />
 <figcaption>
@@ -861,17 +855,9 @@ temperature (<a class="reference internal" href="#fig-ising-exact1d"><span class
 specific-heat (Schottky) peak sits where <span class="math notranslate nohighlight">\(K\tanh K=1\)</span>, i.e. <span class="math notranslate nohighlight">\(k_BT^*/J\approx0.834\)</span>.</p>
 <div class="cell tag_validation tag_remove-input docutils container">
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>✓  1D internal energy → -J as T → 0   [got -1 vs expected -1 (rtol=1e-06)]
-✓  1D internal energy → 0 as T → ∞   [got -0.001 vs expected 0 (rtol=1e-06)]
-✓  Schottky-peak temperature solves K tanh K = 1   [got 0.833557 vs expected 0.8336 (rtol=0.001)]
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/tmp/ipykernel_2202/578343941.py:21: RuntimeWarning: invalid value encountered in divide
-  m = np.sinh(hp) / np.sqrt(np.sinh(hp) ** 2 + np.exp(-4 * K))   # = -∂f/∂h
-/tmp/ipykernel_2202/578343941.py:23: RuntimeWarning: overflow encountered in cosh
-  C = K ** 2 / np.cosh(K) ** 2                                   # C/k_B, Schottky
-/tmp/ipykernel_2202/578343941.py:24: RuntimeWarning: overflow encountered in exp
-  chi = np.exp(2 * K) * beta                                     # χ at h = 0
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>✓  1D internal energy → -J as T → 0   [got -1 vs expected -1 (rtol=1e-06, atol=1e-09)]
+✓  1D internal energy → 0 as T → ∞   [got -0.001 vs expected 0 (rtol=1e-06, atol=0.001)]
+✓  Schottky-peak temperature solves K tanh K = 1   [got 0.833557 vs expected 0.8336 (rtol=0.001, atol=1e-09)]
 </pre></div>
 </div>
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>True
@@ -1000,8 +986,8 @@ Yang’s exact value, and on the small <span class="math notranslate nohighlight
 reproduce the exact enumeration, a parameter-free check of the 2D sampler.</p>
 <div class="cell tag_validation tag_remove-input docutils container">
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>✓  2D MC |m| matches the Onsager–Yang exact magnetisation   [got 0.92001 vs expected 0.920816 (rtol=0.04)]
-✓  2D MC ⟨|m|⟩ matches exact 4×4 enumeration   [got 0.722688 vs expected 0.729419 (rtol=0.06)]
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>✓  2D MC |m| matches the Onsager–Yang exact magnetisation   [got 0.92001 vs expected 0.920816 (rtol=0.04, atol=1e-09)]
+✓  2D MC ⟨|m|⟩ matches exact 4×4 enumeration   [got 0.722688 vs expected 0.729419 (rtol=0.06, atol=1e-09)]
 </pre></div>
 </div>
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>True
@@ -1075,7 +1061,7 @@ on Onsager’s exact <span class="math notranslate nohighlight">\(T_c\)</span>, 
 shift <a class="reference internal" href="#equation-eq-fss">Eq. 8</a> and the temperature-grid spacing.</p>
 <div class="cell tag_validation tag_remove-input docutils container">
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>✓  2D specific-heat peak locates Onsager&#39;s exact Tc   [got 2.28571 vs expected 2.26919 (rtol=0.06)]
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>✓  2D specific-heat peak locates Onsager&#39;s exact Tc   [got 2.28571 vs expected 2.26919 (rtol=0.06, atol=1e-09)]
 </pre></div>
 </div>
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>True
@@ -1102,7 +1088,7 @@ intercept (<a class="reference internal" href="#fig-ising-fss"><span class="std 
 <div class="cell tag_solution tag_remove-input docutils container">
 <div class="cell_output docutils container">
 <figure class="align-default" id="fig-ising-fss">
-<img alt="../../_images/a79abd848cc0b22b4c2e9a185278e253282c294b5a03b433e108b07256edb0f2.png" src="../../_images/a79abd848cc0b22b4c2e9a185278e253282c294b5a03b433e108b07256edb0f2.png" />
+<img alt="../../_images/825ba45c15344b0b2dcb3a47ffe5784e649e0f6690bc2c8f93faf9362be4dc2d.png" src="../../_images/825ba45c15344b0b2dcb3a47ffe5784e649e0f6690bc2c8f93faf9362be4dc2d.png" />
 <figcaption>
 <p><span class="caption-number">Fig. 7 </span><span class="caption-text">Finite-size scaling of the 2D Ising specific-heat peak: the peak temperature <span class="math notranslate nohighlight">\(T_{\rm peak}(L)\)</span> for <span class="math notranslate nohighlight">\(L=12,16,24,32\)</span> (amber points) versus <span class="math notranslate nohighlight">\(1/L\)</span>, with the linear fit <span class="math notranslate nohighlight">\(T_{\rm peak}=T_c+A/L\)</span> (Eq. eq-fss) extrapolated to <span class="math notranslate nohighlight">\(1/L\to0\)</span>. The intercept (navy square) recovers Onsager’s exact <span class="math notranslate nohighlight">\(T_c\)</span> (dashed), free of the finite-size shift that displaces any single-lattice estimate.</span><a class="headerlink" href="#fig-ising-fss" title="Link to this image">#</a></p>
 </figcaption>
@@ -1116,7 +1102,7 @@ intercept must land on Onsager’s exact value, the payoff of finite-size scalin
 turning the finite-size shift from a nuisance into a quantitative tool.</p>
 <div class="cell tag_validation tag_remove-input docutils container">
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>✓  finite-size-scaling intercept (L → ∞) recovers Onsager&#39;s exact Tc   [got 2.30027 vs expected 2.26919 (rtol=0.05)]
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>✓  finite-size-scaling intercept (L → ∞) recovers Onsager&#39;s exact Tc   [got 2.30027 vs expected 2.26919 (rtol=0.05, atol=1e-09)]
 </pre></div>
 </div>
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>True
@@ -1337,42 +1323,42 @@ input[type=range].anim-slider {
 </style>
 
 <div class="animation">
-  <img id="_anim_img783e75579be848259ba7a7cae322c285">
+  <img id="_anim_img0240e69e60024fd8a76697ef7bcc21ca">
   <div class="anim-controls">
-    <input id="_anim_slider783e75579be848259ba7a7cae322c285" type="range" class="anim-slider"
+    <input id="_anim_slider0240e69e60024fd8a76697ef7bcc21ca" type="range" class="anim-slider"
            name="points" min="0" max="1" step="1" value="0"
-           oninput="anim783e75579be848259ba7a7cae322c285.set_frame(parseInt(this.value));">
+           oninput="anim0240e69e60024fd8a76697ef7bcc21ca.set_frame(parseInt(this.value));">
     <div class="anim-buttons">
-      <button title="Decrease speed" aria-label="Decrease speed" onclick="anim783e75579be848259ba7a7cae322c285.slower()">
+      <button title="Decrease speed" aria-label="Decrease speed" onclick="anim0240e69e60024fd8a76697ef7bcc21ca.slower()">
           <i class="fa fa-minus"></i></button>
-      <button title="First frame" aria-label="First frame" onclick="anim783e75579be848259ba7a7cae322c285.first_frame()">
+      <button title="First frame" aria-label="First frame" onclick="anim0240e69e60024fd8a76697ef7bcc21ca.first_frame()">
         <i class="fa fa-fast-backward"></i></button>
-      <button title="Previous frame" aria-label="Previous frame" onclick="anim783e75579be848259ba7a7cae322c285.previous_frame()">
+      <button title="Previous frame" aria-label="Previous frame" onclick="anim0240e69e60024fd8a76697ef7bcc21ca.previous_frame()">
           <i class="fa fa-step-backward"></i></button>
-      <button title="Play backwards" aria-label="Play backwards" onclick="anim783e75579be848259ba7a7cae322c285.reverse_animation()">
+      <button title="Play backwards" aria-label="Play backwards" onclick="anim0240e69e60024fd8a76697ef7bcc21ca.reverse_animation()">
           <i class="fa fa-play fa-flip-horizontal"></i></button>
-      <button title="Pause" aria-label="Pause" onclick="anim783e75579be848259ba7a7cae322c285.pause_animation()">
+      <button title="Pause" aria-label="Pause" onclick="anim0240e69e60024fd8a76697ef7bcc21ca.pause_animation()">
           <i class="fa fa-pause"></i></button>
-      <button title="Play" aria-label="Play" onclick="anim783e75579be848259ba7a7cae322c285.play_animation()">
+      <button title="Play" aria-label="Play" onclick="anim0240e69e60024fd8a76697ef7bcc21ca.play_animation()">
           <i class="fa fa-play"></i></button>
-      <button title="Next frame" aria-label="Next frame" onclick="anim783e75579be848259ba7a7cae322c285.next_frame()">
+      <button title="Next frame" aria-label="Next frame" onclick="anim0240e69e60024fd8a76697ef7bcc21ca.next_frame()">
           <i class="fa fa-step-forward"></i></button>
-      <button title="Last frame" aria-label="Last frame" onclick="anim783e75579be848259ba7a7cae322c285.last_frame()">
+      <button title="Last frame" aria-label="Last frame" onclick="anim0240e69e60024fd8a76697ef7bcc21ca.last_frame()">
           <i class="fa fa-fast-forward"></i></button>
-      <button title="Increase speed" aria-label="Increase speed" onclick="anim783e75579be848259ba7a7cae322c285.faster()">
+      <button title="Increase speed" aria-label="Increase speed" onclick="anim0240e69e60024fd8a76697ef7bcc21ca.faster()">
           <i class="fa fa-plus"></i></button>
     </div>
-    <form title="Repetition mode" aria-label="Repetition mode" action="#n" name="_anim_loop_select783e75579be848259ba7a7cae322c285"
+    <form title="Repetition mode" aria-label="Repetition mode" action="#n" name="_anim_loop_select0240e69e60024fd8a76697ef7bcc21ca"
           class="anim-state">
-      <input type="radio" name="state" value="once" id="_anim_radio1_783e75579be848259ba7a7cae322c285"
+      <input type="radio" name="state" value="once" id="_anim_radio1_0240e69e60024fd8a76697ef7bcc21ca"
              >
-      <label for="_anim_radio1_783e75579be848259ba7a7cae322c285">Once</label>
-      <input type="radio" name="state" value="loop" id="_anim_radio2_783e75579be848259ba7a7cae322c285"
+      <label for="_anim_radio1_0240e69e60024fd8a76697ef7bcc21ca">Once</label>
+      <input type="radio" name="state" value="loop" id="_anim_radio2_0240e69e60024fd8a76697ef7bcc21ca"
              checked>
-      <label for="_anim_radio2_783e75579be848259ba7a7cae322c285">Loop</label>
-      <input type="radio" name="state" value="reflect" id="_anim_radio3_783e75579be848259ba7a7cae322c285"
+      <label for="_anim_radio2_0240e69e60024fd8a76697ef7bcc21ca">Loop</label>
+      <input type="radio" name="state" value="reflect" id="_anim_radio3_0240e69e60024fd8a76697ef7bcc21ca"
              >
-      <label for="_anim_radio3_783e75579be848259ba7a7cae322c285">Reflect</label>
+      <label for="_anim_radio3_0240e69e60024fd8a76697ef7bcc21ca">Reflect</label>
     </form>
   </div>
 </div>
@@ -1382,9 +1368,9 @@ input[type=range].anim-slider {
   /* Instantiate the Animation class. */
   /* The IDs given should match those used in the template above. */
   (function() {
-    var img_id = "_anim_img783e75579be848259ba7a7cae322c285";
-    var slider_id = "_anim_slider783e75579be848259ba7a7cae322c285";
-    var loop_select_id = "_anim_loop_select783e75579be848259ba7a7cae322c285";
+    var img_id = "_anim_img0240e69e60024fd8a76697ef7bcc21ca";
+    var slider_id = "_anim_slider0240e69e60024fd8a76697ef7bcc21ca";
+    var loop_select_id = "_anim_loop_select0240e69e60024fd8a76697ef7bcc21ca";
     var frames = new Array(201);
     
   frames[0] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAXoAAAF6CAYAAAAXoJOQAAAAOnRFWHRTb2Z0d2FyZQBNYXRwbG90\
@@ -22571,7 +22557,7 @@ hwAAAABJRU5ErkJggg==\
     /* set a timeout to make sure all the above elements are created before
        the object is initialized. */
     setTimeout(function() {
-        anim783e75579be848259ba7a7cae322c285 = new Animation(frames, img_id, slider_id, 33,
+        anim0240e69e60024fd8a76697ef7bcc21ca = new Animation(frames, img_id, slider_id, 33,
                                  loop_select_id);
     }, 0);
   })()

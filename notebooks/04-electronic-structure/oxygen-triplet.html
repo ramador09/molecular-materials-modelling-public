@@ -593,7 +593,7 @@
               font-family:'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace;font-size:11px;color:#46506b;
               letter-spacing:.04em;">
     <span>Raymond Amador</span>
-    <span>v1.0.0 &nbsp;·&nbsp; 2026-07-20 &nbsp;·&nbsp;
+    <span>v1.0.0 &nbsp;·&nbsp; 2026-07-22 &nbsp;·&nbsp;
           CC&nbsp;BY&nbsp;4.0 (text) / MIT (code)</span>
   </div>
 </div></div></div>
@@ -646,7 +646,7 @@ nuclei, and an out-of-phase <strong>antibonding</strong> combination (starred), 
 energy, with a node between them. For O₂ the valence <span class="math notranslate nohighlight">\(2s\)</span> and <span class="math notranslate nohighlight">\(2p\)</span> orbitals build
 the set</p>
 <div class="math notranslate nohighlight" id="equation-eq-mo-set">
-<span class="eqno">(29)<a class="headerlink" href="#equation-eq-mo-set" title="Link to this equation">#</a></span>\[\sigma_{2s},\ \sigma_{2s}^{*},\ \sigma_{2p},\ \pi_{2p}{=}\pi_{2p},\ \pi_{2p}^{*}{=}\pi_{2p}^{*},\ \sigma_{2p}^{*},\]</div>
+<span class="eqno">(29)<a class="headerlink" href="#equation-eq-mo-set" title="Link to this equation">#</a></span>\[\sigma_{2s},\ \sigma_{2s}^{*},\ \sigma_{2p},\ \pi_{2p}\,(\times 2),\ \pi_{2p}^{*}\,(\times 2),\ \sigma_{2p}^{*},\]</div>
 <p>the two <span class="math notranslate nohighlight">\(\pi_{2p}\)</span> and the two <span class="math notranslate nohighlight">\(\pi_{2p}^{*}\)</span> each a degenerate pair. Oxygen brings
 six valence electrons each, twelve in all, which fill the diagram from the bottom
 and leave the last <strong>two electrons in the degenerate <span class="math notranslate nohighlight">\(\pi^*\)</span> pair</strong>.</p>
@@ -842,12 +842,6 @@ molecule rather than two separate ones.</p>
 a physical density.</p>
 <div class="cell tag_solution tag_remove-input docutils container">
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>findfont: Failed to find font weight 600, now using 700.
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>findfont: Failed to find font weight 600, now using 700.
-</pre></div>
-</div>
 <figure class="align-default" id="fig-o2-density">
 <img alt="../../_images/4526aafd6142cbde2ba6e5d2f7720e6e00b0c5d02167f8df691ae8656a969e0f.png" src="../../_images/4526aafd6142cbde2ba6e5d2f7720e6e00b0c5d02167f8df691ae8656a969e0f.png" />
 <figcaption>
@@ -900,7 +894,7 @@ is conserved.</p>
 density difference must integrate to ≈ 0.</p>
 <div class="cell tag_validation tag_remove-input docutils container">
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>✓  the density difference integrates to zero (electrons conserved)   [got -0.0194206 vs expected 0 (rtol=1e-06)]
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>✓  the density difference integrates to zero (electrons conserved)   [got -0.0194206 vs expected 0 (rtol=1e-06, atol=0.05)]
 </pre></div>
 </div>
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>True
@@ -977,7 +971,7 @@ the atom’s electrons.</p>
 worth of electrons.</p>
 <div class="cell tag_validation tag_remove-input docutils container">
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>✓  O₂ holds twice the electrons of an O atom (integral ratio = 2)   [got 1.99767 vs expected 2 (rtol=0.03)]
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>✓  O₂ holds twice the electrons of an O atom (integral ratio = 2)   [got 1.99767 vs expected 2 (rtol=0.03, atol=1e-09)]
 </pre></div>
 </div>
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>True
@@ -1008,9 +1002,9 @@ spin imbalance, and the paramagnetic moment it implies.</p>
 <div class="cell tag_solution tag_remove-input docutils container">
 <div class="cell_output docutils container">
 <figure class="align-default" id="fig-o2-schema">
-<img alt="../../_images/fa65a82a1aafd3088d04e9687b669b3070ac7314c0dc39936c333f4d8ff09be2.png" src="../../_images/fa65a82a1aafd3088d04e9687b669b3070ac7314c0dc39936c333f4d8ff09be2.png" />
+<img alt="../../_images/e766b60015e7eb1404c7eaae6ef0a9abaabe48624ec9537785b9de3f9c62c232.png" src="../../_images/e766b60015e7eb1404c7eaae6ef0a9abaabe48624ec9537785b9de3f9c62c232.png" />
 <figcaption>
-<p><span class="caption-number">Fig. 37 </span><span class="caption-text">Molecular-orbital schema of O₂ built from the real CP2K eigenvalues (valence levels, in eV; the two core 1s states are omitted): spin-up (α, amber) and spin-down (β, navy) electrons fill the levels. Every level is paired except the two degenerate π* orbitals, which hold one α electron each: the two unpaired electrons that make the ground state a triplet and O₂ paramagnetic.</span><a class="headerlink" href="#fig-o2-schema" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 37 </span><span class="caption-text">Spin-resolved molecular-orbital levels of O₂ from the real CP2K eigenvalues (valence only; the two 1s cores omitted), each level drawn at its own energy: spin-up (α, amber) on the left, spin-down (β, navy) on the right. The α channel fills seven levels — including both π* orbitals — while β fills only five, its π* empty; those two unpaired α electrons in π* are the triplet ground state and the origin of O₂’s paramagnetism. The exchange asymmetry the text describes shows too: the α bonding-π pair sits just below α σ, while β keeps the textbook σ-below-π order.</span><a class="headerlink" href="#fig-o2-schema" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>occupied: 9 α, 7 β  -&gt;  2 unpaired electrons; μ = 2.83 μ_B

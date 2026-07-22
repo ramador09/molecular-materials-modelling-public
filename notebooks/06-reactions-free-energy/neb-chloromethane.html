@@ -578,7 +578,7 @@
               font-family:'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace;font-size:11px;color:#46506b;
               letter-spacing:.04em;">
     <span>Raymond Amador</span>
-    <span>v1.0.0 &nbsp;·&nbsp; 2026-07-20 &nbsp;·&nbsp;
+    <span>v1.0.0 &nbsp;·&nbsp; 2026-07-22 &nbsp;·&nbsp;
           CC&nbsp;BY&nbsp;4.0 (text) / MIT (code)</span>
   </div>
 </div></div></div>
@@ -650,6 +650,9 @@ its midpoint.</p>
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.colors</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">mcolors</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">matplotlib.patches</span><span class="w"> </span><span class="kn">import</span> <span class="n">Circle</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">matplotlib.lines</span><span class="w"> </span><span class="kn">import</span> <span class="n">Line2D</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">ecp</span><span class="w"> </span><span class="kn">import</span> <span class="n">validate</span>
 
@@ -705,35 +708,85 @@ its midpoint.</p>
     <span class="k">return</span> <span class="n">els</span><span class="p">,</span> <span class="n">xyz</span>
 
 
-<span class="k">def</span><span class="w"> </span><span class="nf">draw_molecule</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="n">els</span><span class="p">,</span> <span class="n">xyz</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Draw a molecule as a ball-and-stick figure on a 3-D axis.</span>
+<span class="n">DISPLAY_R</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;H&quot;</span><span class="p">:</span> <span class="mf">0.42</span><span class="p">,</span> <span class="s2">&quot;C&quot;</span><span class="p">:</span> <span class="mf">0.74</span><span class="p">,</span> <span class="s2">&quot;Cl&quot;</span><span class="p">:</span> <span class="mf">1.02</span><span class="p">}</span>  <span class="c1"># drawing radii (Å)</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_lighten</span><span class="p">(</span><span class="n">color</span><span class="p">,</span> <span class="n">f</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Blend an RGB colour a fraction ``f`` of the way toward white.&quot;&quot;&quot;</span>
+    <span class="n">r</span><span class="p">,</span> <span class="n">g</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="n">mcolors</span><span class="o">.</span><span class="n">to_rgb</span><span class="p">(</span><span class="n">color</span><span class="p">)</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">r</span> <span class="o">+</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">r</span><span class="p">)</span> <span class="o">*</span> <span class="n">f</span><span class="p">,</span> <span class="n">g</span> <span class="o">+</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">g</span><span class="p">)</span> <span class="o">*</span> <span class="n">f</span><span class="p">,</span> <span class="n">b</span> <span class="o">+</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">b</span><span class="p">)</span> <span class="o">*</span> <span class="n">f</span><span class="p">)</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">sn2_frame</span><span class="p">(</span><span class="n">els</span><span class="p">,</span> <span class="n">xyz</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Orthonormal viewing frame aligned to the Cl···C···Cl axis.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    ax : mpl_toolkits.mplot3d.axes3d.Axes3D</span>
-<span class="sd">        The 3-D axis to draw on.</span>
 <span class="sd">    els : list of str</span>
 <span class="sd">        Element symbols.</span>
 <span class="sd">    xyz : numpy.ndarray</span>
 <span class="sd">        Coordinates, shape (N, 3), in Å.</span>
-<span class="sd">    title : str, optional</span>
-<span class="sd">        Axis title.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    tuple</span>
+<span class="sd">        ``(C, R)``: the carbon position and a (3, 3) matrix whose rows are the</span>
+<span class="sd">        horizontal (Cl–Cl axis), vertical, and depth directions. Applying the</span>
+<span class="sd">        *same* frame to the reflected product makes the umbrella inversion read</span>
+<span class="sd">        as a left–right flip between the two panels.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">C</span> <span class="o">=</span> <span class="n">xyz</span><span class="p">[</span><span class="n">els</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="s2">&quot;C&quot;</span><span class="p">)]</span>
+    <span class="bp">cls</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">e</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">els</span><span class="p">)</span> <span class="k">if</span> <span class="n">e</span> <span class="o">==</span> <span class="s2">&quot;Cl&quot;</span><span class="p">]</span>
+    <span class="n">u</span> <span class="o">=</span> <span class="n">xyz</span><span class="p">[</span><span class="bp">cls</span><span class="p">[</span><span class="mi">1</span><span class="p">]]</span> <span class="o">-</span> <span class="n">xyz</span><span class="p">[</span><span class="bp">cls</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span>
+    <span class="n">u</span> <span class="o">=</span> <span class="n">u</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">u</span><span class="p">)</span>
+    <span class="n">h0</span> <span class="o">=</span> <span class="n">xyz</span><span class="p">[[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">e</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">els</span><span class="p">)</span> <span class="k">if</span> <span class="n">e</span> <span class="o">==</span> <span class="s2">&quot;H&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">]]</span> <span class="o">-</span> <span class="n">C</span>
+    <span class="n">w</span> <span class="o">=</span> <span class="n">h0</span> <span class="o">-</span> <span class="p">(</span><span class="n">h0</span> <span class="o">@</span> <span class="n">u</span><span class="p">)</span> <span class="o">*</span> <span class="n">u</span>
+    <span class="n">w</span> <span class="o">=</span> <span class="n">w</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">w</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">C</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">([</span><span class="n">u</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">cross</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">w</span><span class="p">)])</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">draw_sn2</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="n">els</span><span class="p">,</span> <span class="n">xyz</span><span class="p">,</span> <span class="n">C</span><span class="p">,</span> <span class="n">R</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Orthographic ball-and-stick view of an Sₙ2 endpoint in a shared frame.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    ax : matplotlib.axes.Axes</span>
+<span class="sd">        Target axes.</span>
+<span class="sd">    els : list of str</span>
+<span class="sd">        Element symbols.</span>
+<span class="sd">    xyz : numpy.ndarray</span>
+<span class="sd">        Coordinates, shape (N, 3), in Å.</span>
+<span class="sd">    C : numpy.ndarray</span>
+<span class="sd">        Carbon position (projection origin).</span>
+<span class="sd">    R : numpy.ndarray</span>
+<span class="sd">        (3, 3) frame from :func:`sn2_frame`.</span>
 
 <span class="sd">    Notes</span>
 <span class="sd">    -----</span>
-<span class="sd">    A bond is drawn between two atoms within a generous multiple of the sum of</span>
-<span class="sd">    their covalent radii, so loosely-placed input geometries still show bonds.</span>
+<span class="sd">    The bonded C–Cl (short) is drawn solid, the attacking/leaving C–Cl (long)</span>
+<span class="sd">    dashed, so the exchange of partners is visible at a glance.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">P</span> <span class="o">=</span> <span class="p">(</span><span class="n">xyz</span> <span class="o">-</span> <span class="n">C</span><span class="p">)</span> <span class="o">@</span> <span class="n">R</span><span class="o">.</span><span class="n">T</span>                                <span class="c1"># [Cl-axis, up, depth]</span>
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">els</span><span class="p">)):</span>
         <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">els</span><span class="p">)):</span>
             <span class="n">d</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">xyz</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">xyz</span><span class="p">[</span><span class="n">j</span><span class="p">])</span>
-            <span class="k">if</span> <span class="n">d</span> <span class="o">&lt;</span> <span class="mf">1.3</span> <span class="o">*</span> <span class="p">(</span><span class="n">RADIUS</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">els</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="mf">0.7</span><span class="p">)</span> <span class="o">+</span> <span class="n">RADIUS</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">els</span><span class="p">[</span><span class="n">j</span><span class="p">],</span> <span class="mf">0.7</span><span class="p">)):</span>
-                <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="o">*</span><span class="nb">zip</span><span class="p">(</span><span class="n">xyz</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">xyz</span><span class="p">[</span><span class="n">j</span><span class="p">]),</span> <span class="n">color</span><span class="o">=</span><span class="n">SOFT</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mf">2.5</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.7</span><span class="p">)</span>
-    <span class="k">for</span> <span class="n">el</span><span class="p">,</span> <span class="n">r</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">els</span><span class="p">,</span> <span class="n">xyz</span><span class="p">):</span>
-        <span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="o">*</span><span class="n">r</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">380</span> <span class="o">*</span> <span class="n">RADIUS</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">el</span><span class="p">,</span> <span class="mf">0.7</span><span class="p">),</span> <span class="n">color</span><span class="o">=</span><span class="n">CPK</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">el</span><span class="p">,</span> <span class="s2">&quot;#888&quot;</span><span class="p">),</span>
-                   <span class="n">edgecolors</span><span class="o">=</span><span class="s2">&quot;white&quot;</span><span class="p">,</span> <span class="n">depthshade</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">xticks</span><span class="o">=</span><span class="p">[],</span> <span class="n">yticks</span><span class="o">=</span><span class="p">[],</span> <span class="n">zticks</span><span class="o">=</span><span class="p">[],</span> <span class="n">title</span><span class="o">=</span><span class="n">title</span><span class="p">)</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">set_box_aspect</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+            <span class="k">if</span> <span class="p">{</span><span class="n">els</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">els</span><span class="p">[</span><span class="n">j</span><span class="p">]}</span> <span class="o">==</span> <span class="p">{</span><span class="s2">&quot;C&quot;</span><span class="p">,</span> <span class="s2">&quot;Cl&quot;</span><span class="p">}:</span>
+                <span class="n">solid</span> <span class="o">=</span> <span class="n">d</span> <span class="o">&lt;</span> <span class="mf">2.0</span>
+                <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="n">P</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">P</span><span class="p">[</span><span class="n">j</span><span class="p">,</span> <span class="mi">0</span><span class="p">]],</span> <span class="p">[</span><span class="n">P</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">P</span><span class="p">[</span><span class="n">j</span><span class="p">,</span> <span class="mi">1</span><span class="p">]],</span> <span class="n">color</span><span class="o">=</span><span class="n">SOFT</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mf">2.2</span><span class="p">,</span>
+                        <span class="n">ls</span><span class="o">=</span><span class="s2">&quot;-&quot;</span> <span class="k">if</span> <span class="n">solid</span> <span class="k">else</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)),</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.85</span> <span class="k">if</span> <span class="n">solid</span> <span class="k">else</span> <span class="mf">0.5</span><span class="p">,</span>
+                        <span class="n">zorder</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="n">d</span> <span class="o">&lt;</span> <span class="mf">1.3</span> <span class="o">*</span> <span class="p">(</span><span class="n">RADIUS</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">els</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="mf">0.7</span><span class="p">)</span> <span class="o">+</span> <span class="n">RADIUS</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">els</span><span class="p">[</span><span class="n">j</span><span class="p">],</span> <span class="mf">0.7</span><span class="p">)):</span>
+                <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="n">P</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">P</span><span class="p">[</span><span class="n">j</span><span class="p">,</span> <span class="mi">0</span><span class="p">]],</span> <span class="p">[</span><span class="n">P</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">P</span><span class="p">[</span><span class="n">j</span><span class="p">,</span> <span class="mi">1</span><span class="p">]],</span> <span class="n">color</span><span class="o">=</span><span class="n">SOFT</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mf">2.2</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">argsort</span><span class="p">(</span><span class="n">P</span><span class="p">[:,</span> <span class="mi">2</span><span class="p">]):</span>
+        <span class="n">c</span><span class="p">,</span> <span class="n">r</span> <span class="o">=</span> <span class="n">CPK</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">els</span><span class="p">[</span><span class="n">k</span><span class="p">],</span> <span class="s2">&quot;#888&quot;</span><span class="p">),</span> <span class="n">DISPLAY_R</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">els</span><span class="p">[</span><span class="n">k</span><span class="p">],</span> <span class="mf">0.5</span><span class="p">)</span>
+        <span class="n">z</span> <span class="o">=</span> <span class="mf">2.0</span> <span class="o">+</span> <span class="n">P</span><span class="p">[</span><span class="n">k</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">add_patch</span><span class="p">(</span><span class="n">Circle</span><span class="p">((</span><span class="n">P</span><span class="p">[</span><span class="n">k</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">P</span><span class="p">[</span><span class="n">k</span><span class="p">,</span> <span class="mi">1</span><span class="p">]),</span> <span class="n">r</span><span class="p">,</span> <span class="n">facecolor</span><span class="o">=</span><span class="n">c</span><span class="p">,</span>
+                            <span class="n">edgecolor</span><span class="o">=</span><span class="s2">&quot;white&quot;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mf">0.6</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="n">z</span><span class="p">))</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">add_patch</span><span class="p">(</span><span class="n">Circle</span><span class="p">((</span><span class="n">P</span><span class="p">[</span><span class="n">k</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="mf">0.3</span> <span class="o">*</span> <span class="n">r</span><span class="p">,</span> <span class="n">P</span><span class="p">[</span><span class="n">k</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="mf">0.3</span> <span class="o">*</span> <span class="n">r</span><span class="p">),</span> <span class="mf">0.34</span> <span class="o">*</span> <span class="n">r</span><span class="p">,</span>
+                            <span class="n">facecolor</span><span class="o">=</span><span class="n">_lighten</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">),</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s2">&quot;none&quot;</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="n">z</span> <span class="o">+</span> <span class="mf">0.01</span><span class="p">))</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_aspect</span><span class="p">(</span><span class="s2">&quot;equal&quot;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">margins</span><span class="p">(</span><span class="mf">0.15</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">([])</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_yticks</span><span class="p">([])</span>
+    <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">ax</span><span class="o">.</span><span class="n">spines</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+        <span class="n">s</span><span class="o">.</span><span class="n">set_visible</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -741,27 +794,24 @@ its midpoint.</p>
 </section>
 <section id="exercise-1-the-reactant-and-product">
 <h2>Exercise 1 — The reactant and product<a class="headerlink" href="#exercise-1-the-reactant-and-product" title="Link to this heading">#</a></h2>
-<p>The two endpoints are the same molecule with its two chlorines interchanged: in the
-reactant the carbon is bonded to one chlorine with the other chloride loosely
-approaching from behind; in the product the bonding has swapped. We render both. The
+<p>The two endpoints are mirror images: the same molecule with its two chlorines
+interchanged. In the reactant the carbon is bonded to one chlorine with the other
+chloride loosely approaching from behind; in the product the bonding has swapped. The
 hallmark of the Sₙ2 mechanism is that the three hydrogens <strong>invert</strong> as the reaction
 passes through a planar <span class="math notranslate nohighlight">\(\mathrm{CH_3}\)</span> transition state, like an umbrella turning
-inside out. These committed endpoints share the same pyramidal <span class="math notranslate nohighlight">\(\mathrm{CH_3}\)</span>, so
-that flip lives in the band between them, not in the two endpoint structures.</p>
+inside out — so the product’s pyramid opens the opposite way from the reactant’s, and
+the product geometry is the reactant reflected through that planar midpoint.</p>
 <p><strong>Part a)</strong> Render the reactant and product. <strong>Part b)</strong> Confirm the C–Cl bonding
 swaps between the two (the chlorine that is bonded becomes the one that leaves).</p>
 <div class="cell tag_solution tag_remove-input docutils container">
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>findfont: Failed to find font weight 600, now using 700.
-</pre></div>
-</div>
 <figure class="align-default" id="fig-sn2-endpoints">
-<img alt="../../_images/692ab42eada91a96e4c736fba759d7aed0aa8be598d2279a847ea7794bbc16b4.png" src="../../_images/692ab42eada91a96e4c736fba759d7aed0aa8be598d2279a847ea7794bbc16b4.png" />
+<img alt="../../_images/0af79dcf11a592017fc5ab63835cd210c4f5f04f199857839a4165226610d8a9.png" src="../../_images/0af79dcf11a592017fc5ab63835cd210c4f5f04f199857839a4165226610d8a9.png" />
 <figcaption>
 <p><span class="caption-number">Fig. 46 </span><span class="caption-text">The committed Sₙ2 endpoints: chloromethane with an attacking chloride (reactant) and the product after exchange (carbon grey, hydrogen white, chlorine green). The reaction swaps which chlorine is bonded to carbon; along the path between them, the three hydrogens invert through a planar transition state.</span><a class="headerlink" href="#fig-sn2-endpoints" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>reactant C–Cl distances: 1.76, 2.26 Å;  product: 1.46, 2.26 Å
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>reactant C–Cl distances: 1.76, 2.26 Å;  product: 1.76, 2.26 Å
 </pre></div>
 </div>
 </div>
@@ -769,10 +819,10 @@ swaps between the two (the chlorine that is bonded becomes the one that leaves).
 <section id="validation-1-a-short-and-a-long-ccl-bond-at-each-end">
 <h3>Validation 1 — a short and a long C–Cl bond at each end<a class="headerlink" href="#validation-1-a-short-and-a-long-ccl-bond-at-each-end" title="Link to this heading">#</a></h3>
 <p>Each endpoint has one bonded chlorine (1.5–1.8 Å) and one departing/attacking chlorine
-much farther away: the asymmetry that the reaction reverses.</p>
+farther out (~2.3 Å): the asymmetry that the reaction reverses.</p>
 <div class="cell tag_validation tag_remove-input docutils container">
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>✓  each endpoint has one bonded and one distant chlorine   [reactant 1.76/2.26 Å, product 1.46/2.26 Å]
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>✓  each endpoint has one bonded and one distant chlorine   [reactant 1.76/2.26 Å, product 1.76/2.26 Å]
 </pre></div>
 </div>
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>True
@@ -793,9 +843,6 @@ its height is the activation energy of the exchange.</p>
 the activation barrier and confirm the path is symmetric.</p>
 <div class="cell tag_solution tag_remove-input docutils container">
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>findfont: Failed to find font weight 600, now using 700.
-</pre></div>
-</div>
 <figure class="align-default" id="fig-sn2-mep">
 <img alt="../../_images/b617914e2888709e9f170b1991d11e5d672484615745d4dd4ffe4deb535e5eb8.png" src="../../_images/b617914e2888709e9f170b1991d11e5d672484615745d4dd4ffe4deb535e5eb8.png" />
 <figcaption>

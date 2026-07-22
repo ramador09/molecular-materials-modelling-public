@@ -577,7 +577,7 @@
               font-family:'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace;font-size:11px;color:#46506b;
               letter-spacing:.04em;">
     <span>Raymond Amador</span>
-    <span>v1.0.0 &nbsp;·&nbsp; 2026-07-20 &nbsp;·&nbsp;
+    <span>v1.0.0 &nbsp;·&nbsp; 2026-07-22 &nbsp;·&nbsp;
           CC&nbsp;BY&nbsp;4.0 (text) / MIT (code)</span>
   </div>
 </div></div></div>
@@ -651,6 +651,7 @@ by summing the deposited hills and flipping the sign,
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.colors</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">mcolors</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">ecp</span><span class="w"> </span><span class="kn">import</span> <span class="n">validate</span>
 
@@ -708,6 +709,8 @@ by summing the deposited hills and flipping the sign,
 </div>
 </div>
 </div>
+<div class="cell tag_remove-input docutils container">
+</div>
 </section>
 <section id="exercise-1-the-system">
 <h2>Exercise 1 — The system<a class="headerlink" href="#exercise-1-the-system" title="Link to this heading">#</a></h2>
@@ -721,14 +724,8 @@ full DFT, fast enough for the long biased trajectory metadynamics needs.</p>
 composition (a carbon sheet plus two HNO₃).</p>
 <div class="cell tag_solution tag_remove-input docutils container">
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>findfont: Failed to find font weight 600, now using 700.
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>findfont: Failed to find font weight 600, now using 700.
-</pre></div>
-</div>
 <figure class="align-default" id="fig-mtd-system">
-<img alt="../../_images/399e90861e60faa7291d742627a0c150d4dd37e88a3ba9162e91ee8642da2fde.png" src="../../_images/399e90861e60faa7291d742627a0c150d4dd37e88a3ba9162e91ee8642da2fde.png" />
+<img alt="../../_images/946361349e6cfb7c80858a37e3a3f5b347033a8edace8bc03e62faef216b5ff6.png" src="../../_images/946361349e6cfb7c80858a37e3a3f5b347033a8edace8bc03e62faef216b5ff6.png" />
 <figcaption>
 <p><span class="caption-number">Fig. 49 </span><span class="caption-text">The committed metadynamics system: a graphene sheet (60 carbon atoms, grey) with two nitric-acid molecules above it (nitrogen blue, oxygen red, hydrogen white). The forces come from density-functional tight binding, cheap enough for the long biased trajectory.</span><a class="headerlink" href="#fig-mtd-system" title="Link to this image">#</a></p>
 </figcaption>
@@ -816,9 +813,10 @@ Confirm its minimum coincides with where the trajectory spent the most time.</p>
 </div>
 <section id="validation-3-the-surface-is-consistent-with-the-trajectory">
 <h3>Validation 3 — the surface is consistent with the trajectory<a class="headerlink" href="#validation-3-the-surface-is-consistent-with-the-trajectory" title="Link to this heading">#</a></h3>
-<p>Metadynamics fills the basins it visits, so the reconstructed free-energy minimum must
-coincide with where the trajectory actually spent its time, a consistency check
-between the <code class="docutils literal notranslate"><span class="pre">HILLS</span></code> reconstruction and the independent <code class="docutils literal notranslate"><span class="pre">COLVAR</span></code> trajectory.</p>
+<p>Metadynamics fills only the basins it visits, so the reconstructed free-energy
+minimum must fall where the trajectory spent its time — a self-consistency check
+that the <code class="docutils literal notranslate"><span class="pre">HILLS</span></code> reconstruction and the <code class="docutils literal notranslate"><span class="pre">COLVAR</span></code> trajectory tell the same story
+(not an independent measurement: the hills are deposited along that trajectory).</p>
 <div class="cell tag_validation tag_remove-input docutils container">
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>✓  the reconstructed FES minimum sits where the trajectory spent the most time   [FES min ↔ most-visited distance = 0.005 (2% of the explored span)]

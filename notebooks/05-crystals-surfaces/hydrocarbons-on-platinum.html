@@ -578,7 +578,7 @@
               font-family:'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace;font-size:11px;color:#46506b;
               letter-spacing:.04em;">
     <span>Raymond Amador</span>
-    <span>v1.0.0 &nbsp;·&nbsp; 2026-07-20 &nbsp;·&nbsp;
+    <span>v1.0.0 &nbsp;·&nbsp; 2026-07-22 &nbsp;·&nbsp;
           CC&nbsp;BY&nbsp;4.0 (text) / MIT (code)</span>
   </div>
 </div></div></div>
@@ -712,6 +712,98 @@ methods.</p>
 </div>
 </div>
 </div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.colors</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">mcolors</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">matplotlib.patches</span><span class="w"> </span><span class="kn">import</span> <span class="n">Circle</span>
+
+<span class="c1"># Ball-and-stick display radii (Å), scaled for legibility rather than physical.</span>
+<span class="n">DISPLAY_R</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;H&quot;</span><span class="p">:</span> <span class="mf">0.44</span><span class="p">,</span> <span class="s2">&quot;C&quot;</span><span class="p">:</span> <span class="mf">0.78</span><span class="p">,</span> <span class="s2">&quot;O&quot;</span><span class="p">:</span> <span class="mf">0.74</span><span class="p">,</span> <span class="s2">&quot;Pt&quot;</span><span class="p">:</span> <span class="mf">1.42</span><span class="p">}</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_blend</span><span class="p">(</span><span class="n">color</span><span class="p">,</span> <span class="n">f</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Blend a colour toward white (f&gt;0) or black (f&lt;0) by fraction |f|.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    color : str</span>
+<span class="sd">        Any Matplotlib colour.</span>
+<span class="sd">    f : float</span>
+<span class="sd">        Fraction in [-1, 1]: positive lightens, negative darkens.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    tuple</span>
+<span class="sd">        An (r, g, b) triple.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">c</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">mcolors</span><span class="o">.</span><span class="n">to_rgb</span><span class="p">(</span><span class="n">color</span><span class="p">))</span>
+    <span class="n">target</span> <span class="o">=</span> <span class="mf">1.0</span> <span class="k">if</span> <span class="n">f</span> <span class="o">&gt;=</span> <span class="mi">0</span> <span class="k">else</span> <span class="mf">0.0</span>
+    <span class="k">return</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">c</span> <span class="o">+</span> <span class="p">(</span><span class="n">target</span> <span class="o">-</span> <span class="n">c</span><span class="p">)</span> <span class="o">*</span> <span class="nb">abs</span><span class="p">(</span><span class="n">f</span><span class="p">))</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">draw_structure</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="n">els</span><span class="p">,</span> <span class="n">xyz</span><span class="p">,</span> <span class="n">view</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Orthographic ball-and-stick render of an atomic structure.</span>
+
+<span class="sd">    Atoms are shaded spheres drawn back-to-front (a painter&#39;s algorithm) with a</span>
+<span class="sd">    depth-faded metal substrate; bonds within the adsorbate (the non-Pt atoms)</span>
+<span class="sd">    are drawn as sticks. This is far clearer than a 3-D scatter, which projects</span>
+<span class="sd">    every atom to a flat disc with unreliable front-to-back occlusion.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    ax : matplotlib.axes.Axes</span>
+<span class="sd">        A 2-D axes; its aspect is set equal so the atoms stay round.</span>
+<span class="sd">    els : list of str</span>
+<span class="sd">        Element symbols, one per atom.</span>
+<span class="sd">    xyz : numpy.ndarray, shape (N, 3)</span>
+<span class="sd">        Cartesian coordinates in Å.</span>
+<span class="sd">    view : {&quot;side&quot;, &quot;top&quot;}</span>
+<span class="sd">        &quot;side&quot; projects onto x-z (line of sight along y); &quot;top&quot; projects onto</span>
+<span class="sd">        x-y (line of sight down z, the surface normal).</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">hor</span><span class="p">,</span> <span class="n">ver</span><span class="p">,</span> <span class="n">dep</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="k">if</span> <span class="n">view</span> <span class="o">==</span> <span class="s2">&quot;side&quot;</span> <span class="k">else</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="n">depth</span> <span class="o">=</span> <span class="n">xyz</span><span class="p">[:,</span> <span class="n">dep</span><span class="p">]</span>
+    <span class="n">lo</span> <span class="o">=</span> <span class="n">depth</span><span class="o">.</span><span class="n">min</span><span class="p">()</span>
+    <span class="n">span</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">depth</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">-</span> <span class="n">lo</span><span class="p">,</span> <span class="mf">1e-6</span><span class="p">)</span>
+    <span class="n">is_mol</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">e</span> <span class="o">!=</span> <span class="s2">&quot;Pt&quot;</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">els</span><span class="p">])</span>
+
+    <span class="n">mol</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">is_mol</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">mol</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">b</span> <span class="ow">in</span> <span class="n">mol</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">b</span> <span class="o">&lt;=</span> <span class="n">a</span> <span class="ow">or</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">xyz</span><span class="p">[</span><span class="n">a</span><span class="p">]</span> <span class="o">-</span> <span class="n">xyz</span><span class="p">[</span><span class="n">b</span><span class="p">])</span> <span class="o">&gt;=</span> <span class="mf">1.7</span><span class="p">:</span>
+                <span class="k">continue</span>  <span class="c1"># C-C ~1.4 Å, C-H ~1.1 Å; longer pairs are not bonded</span>
+            <span class="n">zmid</span> <span class="o">=</span> <span class="p">((</span><span class="n">xyz</span><span class="p">[</span><span class="n">a</span><span class="p">,</span> <span class="n">dep</span><span class="p">]</span> <span class="o">+</span> <span class="n">xyz</span><span class="p">[</span><span class="n">b</span><span class="p">,</span> <span class="n">dep</span><span class="p">])</span> <span class="o">/</span> <span class="mi">2</span> <span class="o">-</span> <span class="n">lo</span><span class="p">)</span> <span class="o">/</span> <span class="n">span</span>
+            <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="n">xyz</span><span class="p">[</span><span class="n">a</span><span class="p">,</span> <span class="n">hor</span><span class="p">],</span> <span class="n">xyz</span><span class="p">[</span><span class="n">b</span><span class="p">,</span> <span class="n">hor</span><span class="p">]],</span> <span class="p">[</span><span class="n">xyz</span><span class="p">[</span><span class="n">a</span><span class="p">,</span> <span class="n">ver</span><span class="p">],</span> <span class="n">xyz</span><span class="p">[</span><span class="n">b</span><span class="p">,</span> <span class="n">ver</span><span class="p">]],</span>
+                    <span class="n">color</span><span class="o">=</span><span class="s2">&quot;#3f3f3f&quot;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mf">2.6</span><span class="p">,</span> <span class="n">solid_capstyle</span><span class="o">=</span><span class="s2">&quot;round&quot;</span><span class="p">,</span>
+                    <span class="n">zorder</span><span class="o">=</span><span class="mi">200</span> <span class="o">+</span> <span class="n">zmid</span> <span class="o">*</span> <span class="mi">50</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">argsort</span><span class="p">(</span><span class="n">depth</span><span class="p">):</span>  <span class="c1"># far first, so near atoms occlude correctly</span>
+        <span class="n">el</span> <span class="o">=</span> <span class="n">els</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+        <span class="n">base</span> <span class="o">=</span> <span class="n">CPK</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">el</span><span class="p">,</span> <span class="s2">&quot;#888888&quot;</span><span class="p">)</span>
+        <span class="n">near</span> <span class="o">=</span> <span class="p">(</span><span class="n">xyz</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">dep</span><span class="p">]</span> <span class="o">-</span> <span class="n">lo</span><span class="p">)</span> <span class="o">/</span> <span class="n">span</span>            <span class="c1"># 0 far, 1 near the viewer</span>
+        <span class="k">if</span> <span class="n">el</span> <span class="o">==</span> <span class="s2">&quot;Pt&quot;</span><span class="p">:</span>
+            <span class="n">base</span> <span class="o">=</span> <span class="n">_blend</span><span class="p">(</span><span class="n">base</span><span class="p">,</span> <span class="mf">0.55</span> <span class="o">*</span> <span class="p">(</span><span class="mf">1.0</span> <span class="o">-</span> <span class="n">near</span><span class="p">))</span>  <span class="c1"># deeper layers recede</span>
+        <span class="n">r</span> <span class="o">=</span> <span class="n">DISPLAY_R</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">el</span><span class="p">,</span> <span class="mf">0.6</span><span class="p">)</span>
+        <span class="n">zo</span> <span class="o">=</span> <span class="p">(</span><span class="mi">250</span> <span class="k">if</span> <span class="n">is_mol</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">else</span> <span class="mi">100</span><span class="p">)</span> <span class="o">+</span> <span class="n">near</span> <span class="o">*</span> <span class="mi">40</span>
+        <span class="n">cx</span><span class="p">,</span> <span class="n">cy</span> <span class="o">=</span> <span class="n">xyz</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">hor</span><span class="p">],</span> <span class="n">xyz</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">ver</span><span class="p">]</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">add_patch</span><span class="p">(</span><span class="n">Circle</span><span class="p">((</span><span class="n">cx</span><span class="p">,</span> <span class="n">cy</span><span class="p">),</span> <span class="n">r</span><span class="p">,</span> <span class="n">facecolor</span><span class="o">=</span><span class="n">base</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s2">&quot;#20242c&quot;</span><span class="p">,</span>
+                            <span class="n">lw</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="n">zo</span><span class="p">))</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">add_patch</span><span class="p">(</span><span class="n">Circle</span><span class="p">((</span><span class="n">cx</span> <span class="o">-</span> <span class="mf">0.32</span> <span class="o">*</span> <span class="n">r</span><span class="p">,</span> <span class="n">cy</span> <span class="o">+</span> <span class="mf">0.32</span> <span class="o">*</span> <span class="n">r</span><span class="p">),</span> <span class="mf">0.40</span> <span class="o">*</span> <span class="n">r</span><span class="p">,</span>  <span class="c1"># highlight</span>
+                            <span class="n">facecolor</span><span class="o">=</span><span class="n">_blend</span><span class="p">(</span><span class="n">base</span><span class="p">,</span> <span class="mf">0.6</span><span class="p">),</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s2">&quot;none&quot;</span><span class="p">,</span>
+                            <span class="n">zorder</span><span class="o">=</span><span class="n">zo</span> <span class="o">+</span> <span class="mf">0.1</span><span class="p">))</span>
+
+    <span class="n">pad</span> <span class="o">=</span> <span class="mf">1.6</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="n">xyz</span><span class="p">[:,</span> <span class="n">hor</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">()</span> <span class="o">-</span> <span class="n">pad</span><span class="p">,</span> <span class="n">xyz</span><span class="p">[:,</span> <span class="n">hor</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">+</span> <span class="n">pad</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="n">xyz</span><span class="p">[:,</span> <span class="n">ver</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">()</span> <span class="o">-</span> <span class="n">pad</span><span class="p">,</span> <span class="n">xyz</span><span class="p">[:,</span> <span class="n">ver</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">+</span> <span class="n">pad</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_aspect</span><span class="p">(</span><span class="s2">&quot;equal&quot;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">([])</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_yticks</span><span class="p">([])</span>
+    <span class="k">for</span> <span class="n">spine</span> <span class="ow">in</span> <span class="n">ax</span><span class="o">.</span><span class="n">spines</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+        <span class="n">spine</span><span class="o">.</span><span class="n">set_visible</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
 </section>
 <section id="exercise-1-the-adsorption-system">
 <h2>Exercise 1 — The adsorption system<a class="headerlink" href="#exercise-1-the-adsorption-system" title="Link to this heading">#</a></h2>
@@ -720,18 +812,17 @@ methods.</p>
 the committed benzene-on-Pt(111) structure, the slab a metallic raft and the flat
 benzene ring lying parallel just above it, the orientation that maximises its
 contact with the metal.</p>
-<p><strong>Part a)</strong> Load and render the Pt slab and benzene-on-Pt structures. <strong>Part b)</strong>
-Confirm the molecule sits in a vacuum gap above the slab (a surface, not a bulk
-calculation).</p>
+<p><strong>Part a)</strong> Render the benzene-on-Pt(111) system in two orthographic views: a
+side view showing the five stacked Pt layers and the vacuum gap, and a top view
+down the surface normal showing the flat benzene ring over the Pt(111) lattice.
+<strong>Part b)</strong> Confirm the molecule sits in a vacuum gap above the slab (a surface,
+not a bulk calculation).</p>
 <div class="cell tag_solution tag_remove-input docutils container">
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>findfont: Failed to find font weight 600, now using 700.
-</pre></div>
-</div>
 <figure class="align-default" id="fig-pt-system">
-<img alt="../../_images/06805141a558d5435ffa7fcbbdfffa9a0aa56059f9ab2fd082e39855fb0b673d.png" src="../../_images/06805141a558d5435ffa7fcbbdfffa9a0aa56059f9ab2fd082e39855fb0b673d.png" />
+<img alt="../../_images/fdc00338b5d66018c5c4f76360e8131ed2ee73a233a2249727e00ba595225ad7.png" src="../../_images/fdc00338b5d66018c5c4f76360e8131ed2ee73a233a2249727e00ba595225ad7.png" />
 <figcaption>
-<p><span class="caption-number">Fig. 40 </span><span class="caption-text">The committed adsorption system: a five-layer Pt(111) slab (silver) with a benzene molecule (carbon grey, hydrogen white) lying flat above the top layer. The molecule binds to the metal, its whole face in contact; the slab is repeated periodically in the plane, with vacuum above and below.</span><a class="headerlink" href="#fig-pt-system" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 40 </span><span class="caption-text">The committed benzene-on-Pt(111) adsorption system, drawn as shaded spheres sorted by depth. Left, a side view: five Pt(111) layers (silver, deeper layers receding) with the benzene molecule (carbon dark, hydrogen light, bonds drawn) lying flat in the vacuum gap about 2 Å above the top layer — a surface calculation, not a bulk one. Right, a top view down the surface normal: the ring lies parallel to the metal, its whole face in contact, centred over the hexagonal Pt lattice whose lower layers show through the threefold hollows.</span><a class="headerlink" href="#fig-pt-system" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>benzene sits 2.25 Å above the top Pt layer (180 Pt + 12 molecule atoms)
@@ -760,11 +851,13 @@ calculation).</p>
 <p>The adsorption energy is the difference of three committed total-energy calculations
 <a class="reference internal" href="#equation-eq-eads">Eq. 33</a>: the bare slab, the isolated molecule, and the combined system. Below
 are the course’s committed totals (Hartree) for benzene on Pt(111). Their difference,
-converted to eV, is the adsorption energy, and for benzene on Pt it should land near
-the experimental value of about <span class="math notranslate nohighlight">\(-1.7\,\)</span>eV: benzene binds strongly, its whole
-<span class="math notranslate nohighlight">\(\pi\)</span>-face in contact with the metal.</p>
-<p><strong>Part a)</strong> Compute <span class="math notranslate nohighlight">\(E_{\rm ads}\)</span> from the three totals. <strong>Part b)</strong> Confirm it
-matches the measured benzene adsorption energy.</p>
+converted to eV, is the adsorption energy, and it lands close to the experimental
+<span class="math notranslate nohighlight">\(-1.7\,\)</span>eV: benzene binds strongly, its whole <span class="math notranslate nohighlight">\(\pi\)</span>-face in contact with the metal.
+Read that agreement with care, though — Exercise 3 recomputes the adsorption energy
+with two different functionals and finds it moving by more than an electron-volt, so
+this close match is one calculation’s result, not a sign that the method is exact.</p>
+<p><strong>Part a)</strong> Compute <span class="math notranslate nohighlight">\(E_{\rm ads}\)</span> from the three totals. <strong>Part b)</strong> Confirm this
+committed calculation lands near the measured benzene adsorption energy.</p>
 <div class="cell tag_solution tag_remove-input docutils container">
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>E_ads(benzene) = (-21748.964 − -38.177 − -21710.724) Ha × 27.21
@@ -779,7 +872,7 @@ matches the measured benzene adsorption energy.</p>
 experimental <span class="math notranslate nohighlight">\(-1.7\,\)</span>eV.</p>
 <div class="cell tag_validation tag_remove-input docutils container">
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>✓  the computed benzene adsorption energy matches experiment   [got -1.70172 vs expected -1.72 (rtol=1e-06)]
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>✓  this committed calculation lands near the measured benzene adsorption energy   [got -1.70172 vs expected -1.72 (rtol=1e-06, atol=0.4)]
 </pre></div>
 </div>
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>True

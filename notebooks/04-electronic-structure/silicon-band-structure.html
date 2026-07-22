@@ -589,7 +589,7 @@
               font-family:'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace;font-size:11px;color:#46506b;
               letter-spacing:.04em;">
     <span>Raymond Amador</span>
-    <span>v1.0.0 &nbsp;·&nbsp; 2026-07-20 &nbsp;·&nbsp;
+    <span>v1.0.0 &nbsp;·&nbsp; 2026-07-22 &nbsp;·&nbsp;
           CC&nbsp;BY&nbsp;4.0 (text) / MIT (code)</span>
   </div>
 </div></div></div>
@@ -767,7 +767,7 @@ of silicon, <span class="math notranslate nohighlight">\(a=5.43\,\)</span>Å, i.
 <div class="cell tag_validation tag_remove-input docutils container">
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>✓  the cell holds two Si atoms (diamond basis)   [nat = 2]
-✓  lattice constant matches silicon (5.43 Å)   [got 5.4306 vs expected 5.43 (rtol=0.02)]
+✓  lattice constant matches silicon (5.43 Å)   [got 5.4306 vs expected 5.43 (rtol=0.02, atol=1e-09)]
 </pre></div>
 </div>
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>True
@@ -815,9 +815,6 @@ those curves <em>is</em> the electronic structure of silicon.</p>
 relative to the VBM, marking L, Γ, X.</p>
 <div class="cell tag_solution tag_remove-input docutils container">
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>findfont: Failed to find font weight 600, now using 700.
-</pre></div>
-</div>
 <figure class="align-default" id="fig-si-bands">
 <img alt="../../_images/bdc9f902809205b54319cabf48abae249fa484fd114207413826da203609b552.png" src="../../_images/bdc9f902809205b54319cabf48abae249fa484fd114207413826da203609b552.png" />
 <figcaption>
@@ -870,7 +867,7 @@ about <span class="math notranslate nohighlight">\(0.6\,\)</span>eV.</p>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>✓  the valence-band maximum is at Γ   [VBM index 45, Γ index 45]
 ✓  the gap is indirect: CBM lies along Γ–X, direct gap at Γ is much larger   [direct@Γ 2.57 eV vs indirect 0.58 eV; CBM at 0.83 of Γ→X]
-✓  the PBE indirect gap is about 0.6 eV   [got 0.583652 vs expected 0.6 (rtol=1e-06)]
+✓  the PBE indirect gap is about 0.6 eV   [got 0.583652 vs expected 0.6 (rtol=1e-06, atol=0.1)]
 </pre></div>
 </div>
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>True
