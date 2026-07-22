@@ -109,7 +109,7 @@ def close(
     ok = bool(np.allclose(got, expected, rtol=rtol, atol=atol))
     g, e = np.asarray(got), np.asarray(expected)
     if g.size == 1 and e.size == 1:
-        detail = f"got {_fmt(g)} vs expected {_fmt(e)} (rtol={rtol:g})"
+        detail = f"got {_fmt(g)} vs expected {_fmt(e)} (rtol={rtol:g}, atol={atol:g})"
     else:
         err = float(np.max(np.abs(g - e)))
         detail = f"max|Δ| = {_fmt(err)} (rtol={rtol:g}, atol={atol:g})"

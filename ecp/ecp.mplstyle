@@ -14,7 +14,7 @@ font.size            : 12
 mathtext.fontset     : cm
 
 axes.titlesize       : 14
-axes.titleweight     : 600
+axes.titleweight     : bold
 axes.titlepad        : 10
 axes.labelsize       : 12
 axes.labelcolor      : 16213e
