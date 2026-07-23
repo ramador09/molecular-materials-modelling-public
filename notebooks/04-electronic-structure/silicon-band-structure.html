@@ -589,7 +589,7 @@
               font-family:'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace;font-size:11px;color:#46506b;
               letter-spacing:.04em;">
     <span>Raymond Amador</span>
-    <span>v1.0.0 &nbsp;·&nbsp; 2026-07-22 &nbsp;·&nbsp;
+    <span>v1.0.0 &nbsp;·&nbsp; 2026-07-23 &nbsp;·&nbsp;
           CC&nbsp;BY&nbsp;4.0 (text) / MIT (code)</span>
   </div>
 </div></div></div>
@@ -676,7 +676,10 @@ good for ground-state energies and structures, but the <strong>Kohn-Sham eigenva
 systematically underestimates the true gap</strong>, often by a factor of two: the
 band-gap problem, a consequence of the missing derivative discontinuity in
 approximate exchange-correlation functionals <span class="bibtex-citation" id="id5">[<a class="reference internal" href="#id31" title="John P. Perdew and Mel Levy. Physical content of the exact kohn-sham orbital energies: band gaps and derivative discontinuities. Physical Review Letters, 51(20):1884–1887, 1983. doi:10.1103/PhysRevLett.51.1884.">PL83</a>]</span>. We will see
-it directly.</p>
+it directly. The companion Elementary Computational Physics course <em>computes</em> this
+failure from the exact conditions themselves — piecewise linearity and the
+derivative discontinuity, measured on an exactly solvable system — in
+<a class="reference external" href="https://ramador.me/elementary-computational-physics-public/notebooks/08-electronic-structure/exact-conditions-band-gap.html">ECP §8.8</a>.</p>
 </section>
 </section>
 <hr class="docutils" />
@@ -928,9 +931,17 @@ method rather than a numerical error.</p>
 <section id="outlook">
 <h2>Outlook<a class="headerlink" href="#outlook" title="Link to this heading">#</a></h2>
 <ul class="simple">
+<li><p><strong>The other half of the handshake.</strong> The companion Elementary Computational
+Physics course builds this same silicon band structure from three empirical
+form factors with every matrix element visible
+(<a class="reference external" href="https://ramador.me/elementary-computational-physics-public/notebooks/08-electronic-structure/epm-band-structures.html">ECP §8.11</a>) — the transparent twin of this
+notebook’s production DFT calculation. The two courses meet, deliberately, at
+the same material.</p></li>
 <li><p><strong>Fixing the gap.</strong> Hybrid functionals (HSE) mix in exact exchange and roughly
 halve the error; the <span class="math notranslate nohighlight">\(GW\)</span> approximation computes the true quasiparticle gap and
-gets silicon within a tenth of an eV. Both cost far more than PBE.</p></li>
+gets silicon within a tenth of an eV
+(<a class="reference external" href="https://ramador.me/elementary-computational-physics-public/notebooks/08-electronic-structure/quasiparticles-gw.html">ECP §8.14</a> builds <span class="math notranslate nohighlight">\(G_0W_0\)</span> from scratch and
+prices its regime of validity). Both cost far more than PBE.</p></li>
 <li><p><strong>The density of states.</strong> Integrate the bands over the whole Brillouin zone (not
 just the path) to get <span class="math notranslate nohighlight">\(g(E)\)</span>, which is what optical and transport measurements
 actually probe.</p></li>
