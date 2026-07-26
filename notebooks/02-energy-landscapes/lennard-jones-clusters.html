@@ -691,7 +691,15 @@ icosahedron makes its bond contributions largely cancel, leaving <span class="ma
 <hr class="docutils" />
 <section id="setup">
 <h2>Setup<a class="headerlink" href="#setup" title="Link to this heading">#</a></h2>
-<div class="cell docutils container">
+<p>The Setup below holds this notebook’s data and instruments — nothing you are asked
+to build. It is collapsed so the building stays yours; expand it whenever you want
+the details.</p>
+<!-- setup-policy: v2 --><div class="cell tag_hide-input docutils container">
+<details class="admonition hide above-input">
+<summary aria-label="Toggle hidden content">
+<p class="collapsed admonition-title">Show code cell source</p>
+<p class="expanded admonition-title">Hide code cell source</p>
+</summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
 
@@ -702,10 +710,19 @@ icosahedron makes its bond contributions largely cancel, leaving <span class="ma
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">ecp</span><span class="w"> </span><span class="kn">import</span> <span class="n">validate</span>
 
+<span class="c1"># data: one seeded generator for reproducibility.</span>
 <span class="n">rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
-<span class="n">RMIN</span> <span class="o">=</span> <span class="mf">2.0</span> <span class="o">**</span> <span class="p">(</span><span class="mf">1.0</span> <span class="o">/</span> <span class="mf">6.0</span><span class="p">)</span>            <span class="c1"># Lennard-Jones minimum separation (reduced units)</span>
-<span class="n">SIGMA_AR</span> <span class="o">=</span> <span class="mf">3.405</span>                     <span class="c1"># argon sigma [Å], from the CP2K deck (Exercise 2)</span>
+
+<span class="c1"># data: the two constants the whole notebook is written in.</span>
+<span class="n">RMIN</span> <span class="o">=</span> <span class="mf">2.0</span> <span class="o">**</span> <span class="p">(</span><span class="mf">1.0</span> <span class="o">/</span> <span class="mf">6.0</span><span class="p">)</span>  <span class="c1"># Lennard-Jones minimum separation (reduced units)</span>
+<span class="n">SIGMA_AR</span> <span class="o">=</span> <span class="mf">3.405</span>  <span class="c1"># argon sigma [Å], from the CP2K deck (Exercise 2)</span>
+
+<span class="c1"># data: series accents.</span>
 <span class="n">INK</span><span class="p">,</span> <span class="n">AMBER</span><span class="p">,</span> <span class="n">SOFT</span> <span class="o">=</span> <span class="s2">&quot;#16213e&quot;</span><span class="p">,</span> <span class="s2">&quot;#c0851a&quot;</span><span class="p">,</span> <span class="s2">&quot;#46506b&quot;</span>
+
+<span class="c1"># instrument: file location and .xyz parsing for the committed CP2K trajectory.</span>
+<span class="c1"># Reading a text format is not the lesson of an energy-landscape notebook; the</span>
+<span class="c1"># potential and its gradient ARE, so those are built in Exercise 1 instead.</span>
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">data_file</span><span class="p">(</span><span class="n">name</span><span class="p">):</span>
@@ -750,68 +767,31 @@ icosahedron makes its bond contributions largely cancel, leaving <span class="ma
     <span class="n">n</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">lines</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">0</span><span class="p">])</span>
     <span class="n">frames</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">lines</span><span class="p">),</span> <span class="n">n</span> <span class="o">+</span> <span class="mi">2</span><span class="p">):</span>
-        <span class="n">block</span> <span class="o">=</span> <span class="n">lines</span><span class="p">[</span><span class="n">s</span> <span class="o">+</span> <span class="mi">2</span><span class="p">:</span><span class="n">s</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">+</span> <span class="n">n</span><span class="p">]</span>
+        <span class="n">block</span> <span class="o">=</span> <span class="n">lines</span><span class="p">[</span><span class="n">s</span> <span class="o">+</span> <span class="mi">2</span> <span class="p">:</span> <span class="n">s</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">+</span> <span class="n">n</span><span class="p">]</span>
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">block</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">:</span>
             <span class="k">break</span>
         <span class="n">P</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="nb">float</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">ln</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">1</span><span class="p">:</span><span class="mi">4</span><span class="p">]]</span> <span class="k">for</span> <span class="n">ln</span> <span class="ow">in</span> <span class="n">block</span><span class="p">])</span>
         <span class="n">frames</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">P</span> <span class="o">-</span> <span class="n">P</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span> <span class="o">/</span> <span class="n">SIGMA_AR</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">frames</span>
 
+
 <span class="c1"># Spherical harmonics: SciPy renamed sph_harm -&gt; sph_harm_y (n, m, theta, phi).</span>
 <span class="c1"># Support both so the notebook runs on older SciPy (Colab/Binder) too.</span>
 <span class="k">try</span><span class="p">:</span>
     <span class="kn">from</span><span class="w"> </span><span class="nn">scipy.special</span><span class="w"> </span><span class="kn">import</span> <span class="n">sph_harm_y</span>
+
     <span class="k">def</span><span class="w"> </span><span class="nf">_Ylm</span><span class="p">(</span><span class="n">l</span><span class="p">,</span> <span class="n">m</span><span class="p">,</span> <span class="n">theta</span><span class="p">,</span> <span class="n">phi</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">sph_harm_y</span><span class="p">(</span><span class="n">l</span><span class="p">,</span> <span class="n">m</span><span class="p">,</span> <span class="n">theta</span><span class="p">,</span> <span class="n">phi</span><span class="p">)</span>
-<span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>                                       <span class="c1"># pragma: no cover</span>
+
+<span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>  <span class="c1"># pragma: no cover</span>
     <span class="kn">from</span><span class="w"> </span><span class="nn">scipy.special</span><span class="w"> </span><span class="kn">import</span> <span class="n">sph_harm</span>
+
     <span class="k">def</span><span class="w"> </span><span class="nf">_Ylm</span><span class="p">(</span><span class="n">l</span><span class="p">,</span> <span class="n">m</span><span class="p">,</span> <span class="n">theta</span><span class="p">,</span> <span class="n">phi</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">sph_harm</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">l</span><span class="p">,</span> <span class="n">phi</span><span class="p">,</span> <span class="n">theta</span><span class="p">)</span>
-
-
-<span class="k">def</span><span class="w"> </span><span class="nf">lj_energy_grad</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Lennard-Jones cluster energy and its gradient (Eq. eq-lj-cluster).</span>
-
-<span class="sd">    Parameters</span>
-<span class="sd">    ----------</span>
-<span class="sd">    x : numpy.ndarray</span>
-<span class="sd">        Atomic coordinates, shape (N, 3) or flat (3N,), in reduced units.</span>
-
-<span class="sd">    Returns</span>
-<span class="sd">    -------</span>
-<span class="sd">    tuple</span>
-<span class="sd">        ``(energy, grad)``: the total energy (float) and the flat gradient</span>
-<span class="sd">        (shape (3N,)), for direct use as an optimizer&#39;s ``jac``.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
-    <span class="n">d</span> <span class="o">=</span> <span class="n">x</span><span class="p">[:,</span> <span class="kc">None</span><span class="p">,</span> <span class="p">:]</span> <span class="o">-</span> <span class="n">x</span><span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="p">:,</span> <span class="p">:]</span>
-    <span class="n">r2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">d</span> <span class="o">*</span> <span class="n">d</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
-    <span class="n">np</span><span class="o">.</span><span class="n">fill_diagonal</span><span class="p">(</span><span class="n">r2</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">inf</span><span class="p">)</span>
-    <span class="n">inv6</span> <span class="o">=</span> <span class="n">r2</span> <span class="o">**</span> <span class="o">-</span><span class="mi">3</span>
-    <span class="n">inv12</span> <span class="o">=</span> <span class="n">inv6</span> <span class="o">*</span> <span class="n">inv6</span>
-    <span class="n">energy</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="mf">4.0</span> <span class="o">*</span> <span class="p">(</span><span class="n">inv12</span> <span class="o">-</span> <span class="n">inv6</span><span class="p">))</span> <span class="o">/</span> <span class="mf">2.0</span>
-    <span class="n">coeff</span> <span class="o">=</span> <span class="mf">4.0</span> <span class="o">*</span> <span class="p">(</span><span class="o">-</span><span class="mf">12.0</span> <span class="o">*</span> <span class="n">inv12</span> <span class="o">+</span> <span class="mf">6.0</span> <span class="o">*</span> <span class="n">inv6</span><span class="p">)</span> <span class="o">/</span> <span class="n">r2</span>
-    <span class="n">grad</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">coeff</span><span class="p">[:,</span> <span class="p">:,</span> <span class="kc">None</span><span class="p">]</span> <span class="o">*</span> <span class="n">d</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">energy</span><span class="p">,</span> <span class="n">grad</span><span class="o">.</span><span class="n">ravel</span><span class="p">()</span>
-
-
-<span class="k">def</span><span class="w"> </span><span class="nf">lj_energy</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Lennard-Jones cluster energy only (first return of ``lj_energy_grad``).</span>
-
-<span class="sd">    Parameters</span>
-<span class="sd">    ----------</span>
-<span class="sd">    x : numpy.ndarray</span>
-<span class="sd">        Atomic coordinates, shape (N, 3) or flat.</span>
-
-<span class="sd">    Returns</span>
-<span class="sd">    -------</span>
-<span class="sd">    float</span>
-<span class="sd">        Total Lennard-Jones energy in units of ε.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">return</span> <span class="n">lj_energy_grad</span><span class="p">(</span><span class="n">x</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
 </pre></div>
 </div>
 </div>
+</details>
 </div>
 </section>
 <section id="exercise-1-the-potential-the-cluster-energy-and-the-forces">
@@ -823,9 +803,23 @@ Differentiating, the force on atom <span class="math notranslate nohighlight">\(
 The smallest clusters give a quick correctness check: three atoms relax to an
 equilateral triangle at <span class="math notranslate nohighlight">\(E=-3\)</span>, four to a regular tetrahedron at <span class="math notranslate nohighlight">\(E=-6\)</span>, every
 bond sitting at the well bottom.</p>
-<p><strong>Part a)</strong> Plot <span class="math notranslate nohighlight">\(V(r)\)</span>, marking the minimum at <span class="math notranslate nohighlight">\(r_{\min}=2^{1/6}\)</span>, <span class="math notranslate nohighlight">\(V=-1\)</span>.
-<strong>Part b)</strong> Confirm the dimer energy and the analytic forces (against finite
-differences), and that L-BFGS recovers the exact 3- and 4-atom minima.</p>
+<p><strong>Part a)</strong> Implement <code class="docutils literal notranslate"><span class="pre">lj_energy_grad(x)</span></code>, returning the cluster energy
+<a class="reference internal" href="#equation-eq-lj-cluster">Eq. 22</a> and its flat gradient from a single call, so an optimizer can
+use it for both <code class="docutils literal notranslate"><span class="pre">fun</span></code> and <code class="docutils literal notranslate"><span class="pre">jac</span></code>. Form every pair displacement at once by
+broadcasting <code class="docutils literal notranslate"><span class="pre">x[:,</span> <span class="pre">None,</span> <span class="pre">:]</span> <span class="pre">-</span> <span class="pre">x[None,</span> <span class="pre">:,</span> <span class="pre">:]</span></code>; put <code class="docutils literal notranslate"><span class="pre">numpy.inf</span></code> on the diagonal of
+the squared distances with <code class="docutils literal notranslate"><span class="pre">numpy.fill_diagonal</span></code>, which is what stops an atom
+interacting with itself and turning the energy into <code class="docutils literal notranslate"><span class="pre">nan</span></code>; and halve the energy
+sum, because the full matrix counts each pair from both ends.
+<strong>Write this one yourself</strong> — the implementation is the lesson.</p>
+<p><strong>Part b)</strong> Wrap it as <code class="docutils literal notranslate"><span class="pre">lj_energy(x)</span></code>, returning the energy alone for callers that
+do not want the gradient.</p>
+<p><strong>Part c)</strong> Plot <span class="math notranslate nohighlight">\(V(r)\)</span> over <span class="math notranslate nohighlight">\(r\in[0.9, 2.6]\)</span>, marking the minimum at
+<span class="math notranslate nohighlight">\(r_{\min}=2^{1/6}\)</span>, <span class="math notranslate nohighlight">\(V=-1\)</span>.</p>
+<p><strong>Part d)</strong> Confirm the dimer energy, check the analytic gradient against central
+finite differences, and verify that L-BFGS recovers the exact three- and four-atom
+minima, <span class="math notranslate nohighlight">\(E=-3\)</span> and <span class="math notranslate nohighlight">\(E=-6\)</span>.</p>
+<div class="cell tag_solution tag_remove-input docutils container">
+</div>
 <div class="cell tag_solution tag_remove-input docutils container">
 <div class="cell_output docutils container">
 <figure class="align-default" id="fig-lj-potential">
@@ -882,8 +876,12 @@ an L-BFGS relaxation of the same potential. We take the course’s
 truncated-<strong>octahedron</strong> seed (38 argon atoms, in Ångström), convert it to reduced
 units by dividing by <span class="math notranslate nohighlight">\(\sigma=3.405\,\)</span>Å, and relax it. It descends into the <strong>fcc</strong>
 funnel and reaches the global minimum.</p>
-<p><strong>Part a)</strong> Relax the octahedral seed. <strong>Part b)</strong> Show the initial and final
-structures, and confirm the energy is the global minimum <span class="math notranslate nohighlight">\(-173.928\,\varepsilon\)</span>.</p>
+<p><strong>Part a)</strong> Relax the octahedral seed with <code class="docutils literal notranslate"><span class="pre">local_minimize</span></code>, which is the run the
+original course performed with CP2K.</p>
+<p><strong>Part b)</strong> Show the initial and final structures side by side, and confirm the
+relaxed energy is the accepted global minimum <span class="math notranslate nohighlight">\(-173.928\,\varepsilon\)</span>. Reaching it
+from this seed is not luck: the octahedral start already sits in the funnel that
+drains to it, which is exactly the point Exercises 4 and 5 complicate.</p>
 <div class="cell tag_solution tag_remove-input docutils container">
 </div>
 <div class="cell tag_solution tag_remove-input docutils container">
@@ -926,8 +924,17 @@ fingerprints the bond-orientational order. Plotted against optimization step, th
 energy plunges, the asphericity stays small throughout (the cluster is compact from
 the outset), and <span class="math notranslate nohighlight">\(Q_6\)</span> climbs to the fcc value <span class="math notranslate nohighlight">\(\approx0.57\)</span> as crystalline order
 sets in.</p>
-<p><strong>Part a)</strong> Implement <code class="docutils literal notranslate"><span class="pre">asphericity(x)</span></code> and a global <code class="docutils literal notranslate"><span class="pre">steinhardt_q6(x)</span></code>.
-<strong>Part b)</strong> Plot energy, asphericity, and <span class="math notranslate nohighlight">\(Q_6\)</span> along the real CP2K trajectory.</p>
+<p><strong>Part a)</strong> Implement <code class="docutils literal notranslate"><span class="pre">asphericity(x)</span></code> from the gyration-tensor eigenvalues
+<a class="reference internal" href="#equation-eq-asphericity">Eq. 23</a>, using <code class="docutils literal notranslate"><span class="pre">numpy.linalg.eigvalsh</span></code> on the <span class="math notranslate nohighlight">\(3\times3\)</span> tensor —
+symmetric by construction, so the symmetric solver is both faster and free of
+spurious imaginary parts.
+<strong>Write this one yourself</strong> — the implementation is the lesson.</p>
+<p><strong>Part b)</strong> Implement a global <code class="docutils literal notranslate"><span class="pre">steinhardt_q6(x)</span></code> from <a class="reference internal" href="#equation-eq-steinhardt">Eq. 24</a>,
+averaging the bond spherical harmonics over every neighbour pair within the
+cutoff before taking the modulus — averaging first is what makes <span class="math notranslate nohighlight">\(Q_6\)</span> a measure
+of <em>collective</em> order rather than a sum of single-bond orientations.</p>
+<p><strong>Part c)</strong> Plot energy, asphericity and <span class="math notranslate nohighlight">\(Q_6\)</span> along the real CP2K trajectory, so
+the three fingerprints can be read against one another as the cluster orders.</p>
 <div class="cell tag_solution tag_remove-input docutils container">
 <div class="cell_output docutils container">
 <figure class="align-default" id="fig-lj-trajectory">
@@ -966,8 +973,12 @@ five-fold symmetry is forbidden in any crystal, and the bond contributions to
 deepest structures of the 38-atom cluster sit in two separate funnels, and a
 downhill optimization is trapped in whichever it starts in. The disconnectivity
 graph, sketched below, is the standard picture of this <span class="bibtex-citation" id="id4">[<a class="reference internal" href="#id20" title="David J. Wales. Energy Landscapes: Applications to Clusters, Biomolecules and Glasses. Cambridge University Press, 2003.">Wal03</a>]</span>.</p>
-<p><strong>Part a)</strong> Relax the icosahedral seed and compare its energy, asphericity, and
-<span class="math notranslate nohighlight">\(Q_6\)</span> to the octahedron. <strong>Part b)</strong> Sketch the two-funnel disconnectivity graph.</p>
+<p><strong>Part a)</strong> Relax the icosahedral seed and compare its energy, asphericity and
+<span class="math notranslate nohighlight">\(Q_6\)</span> with the octahedral minimum of Exercise 2. The two are close in energy and
+far apart in <span class="math notranslate nohighlight">\(Q_6\)</span>, which is the whole reason a single order parameter is not
+enough to tell funnels apart.</p>
+<p><strong>Part b)</strong> Sketch the two-funnel disconnectivity graph, the standard picture of a
+landscape whose global minimum is not the one a quench usually finds.</p>
 <div class="cell tag_solution tag_remove-input docutils container">
 </div>
 <div class="cell tag_solution tag_remove-input docutils container">
@@ -1010,8 +1021,13 @@ cluster, small enough that basin-hopping reliably reaches its global minimum, a
 perfect <strong>icosahedron</strong> at <span class="math notranslate nohighlight">\(E=-44.327\,\varepsilon\)</span>, from a random start. The
 38-atom global minimum is far harder to reach this way, which is exactly what
 motivates the replica-exchange sampling of Lecture 12.</p>
-<p><strong>Part a)</strong> Run basin-hopping on a random 13-atom cluster. <strong>Part b)</strong> Animate the
-icosahedral global minimum and confirm its energy.</p>
+<p><strong>Part a)</strong> Run <code class="docutils literal notranslate"><span class="pre">scipy.optimize.basinhopping</span></code> on a random 13-atom cluster,
+perturbing and re-minimising rather than descending once. A single L-BFGS run from
+a random start lands in whichever basin it happens to begin in; basin-hopping
+accepts or rejects <em>minima</em>, which is what lets it cross barriers a downhill
+method cannot.</p>
+<p><strong>Part b)</strong> Animate the icosahedral global minimum and confirm its energy against
+the accepted LJ13 value.</p>
 <div class="cell tag_solution tag_remove-input docutils container">
 </div>
 <div class="cell tag_solution tag_remove-input docutils container">
@@ -1202,42 +1218,42 @@ input[type=range].anim-slider {
 </style>
 
 <div class="animation">
-  <img id="_anim_img9d41c5b3349544bf910804dadd039b6b">
+  <img id="_anim_imgccd438f904584e30bb8154c3368c575a">
   <div class="anim-controls">
-    <input id="_anim_slider9d41c5b3349544bf910804dadd039b6b" type="range" class="anim-slider"
+    <input id="_anim_sliderccd438f904584e30bb8154c3368c575a" type="range" class="anim-slider"
            name="points" min="0" max="1" step="1" value="0"
-           oninput="anim9d41c5b3349544bf910804dadd039b6b.set_frame(parseInt(this.value));">
+           oninput="animccd438f904584e30bb8154c3368c575a.set_frame(parseInt(this.value));">
     <div class="anim-buttons">
-      <button title="Decrease speed" aria-label="Decrease speed" onclick="anim9d41c5b3349544bf910804dadd039b6b.slower()">
+      <button title="Decrease speed" aria-label="Decrease speed" onclick="animccd438f904584e30bb8154c3368c575a.slower()">
           <i class="fa fa-minus"></i></button>
-      <button title="First frame" aria-label="First frame" onclick="anim9d41c5b3349544bf910804dadd039b6b.first_frame()">
+      <button title="First frame" aria-label="First frame" onclick="animccd438f904584e30bb8154c3368c575a.first_frame()">
         <i class="fa fa-fast-backward"></i></button>
-      <button title="Previous frame" aria-label="Previous frame" onclick="anim9d41c5b3349544bf910804dadd039b6b.previous_frame()">
+      <button title="Previous frame" aria-label="Previous frame" onclick="animccd438f904584e30bb8154c3368c575a.previous_frame()">
           <i class="fa fa-step-backward"></i></button>
-      <button title="Play backwards" aria-label="Play backwards" onclick="anim9d41c5b3349544bf910804dadd039b6b.reverse_animation()">
+      <button title="Play backwards" aria-label="Play backwards" onclick="animccd438f904584e30bb8154c3368c575a.reverse_animation()">
           <i class="fa fa-play fa-flip-horizontal"></i></button>
-      <button title="Pause" aria-label="Pause" onclick="anim9d41c5b3349544bf910804dadd039b6b.pause_animation()">
+      <button title="Pause" aria-label="Pause" onclick="animccd438f904584e30bb8154c3368c575a.pause_animation()">
           <i class="fa fa-pause"></i></button>
-      <button title="Play" aria-label="Play" onclick="anim9d41c5b3349544bf910804dadd039b6b.play_animation()">
+      <button title="Play" aria-label="Play" onclick="animccd438f904584e30bb8154c3368c575a.play_animation()">
           <i class="fa fa-play"></i></button>
-      <button title="Next frame" aria-label="Next frame" onclick="anim9d41c5b3349544bf910804dadd039b6b.next_frame()">
+      <button title="Next frame" aria-label="Next frame" onclick="animccd438f904584e30bb8154c3368c575a.next_frame()">
           <i class="fa fa-step-forward"></i></button>
-      <button title="Last frame" aria-label="Last frame" onclick="anim9d41c5b3349544bf910804dadd039b6b.last_frame()">
+      <button title="Last frame" aria-label="Last frame" onclick="animccd438f904584e30bb8154c3368c575a.last_frame()">
           <i class="fa fa-fast-forward"></i></button>
-      <button title="Increase speed" aria-label="Increase speed" onclick="anim9d41c5b3349544bf910804dadd039b6b.faster()">
+      <button title="Increase speed" aria-label="Increase speed" onclick="animccd438f904584e30bb8154c3368c575a.faster()">
           <i class="fa fa-plus"></i></button>
     </div>
-    <form title="Repetition mode" aria-label="Repetition mode" action="#n" name="_anim_loop_select9d41c5b3349544bf910804dadd039b6b"
+    <form title="Repetition mode" aria-label="Repetition mode" action="#n" name="_anim_loop_selectccd438f904584e30bb8154c3368c575a"
           class="anim-state">
-      <input type="radio" name="state" value="once" id="_anim_radio1_9d41c5b3349544bf910804dadd039b6b"
+      <input type="radio" name="state" value="once" id="_anim_radio1_ccd438f904584e30bb8154c3368c575a"
              >
-      <label for="_anim_radio1_9d41c5b3349544bf910804dadd039b6b">Once</label>
-      <input type="radio" name="state" value="loop" id="_anim_radio2_9d41c5b3349544bf910804dadd039b6b"
+      <label for="_anim_radio1_ccd438f904584e30bb8154c3368c575a">Once</label>
+      <input type="radio" name="state" value="loop" id="_anim_radio2_ccd438f904584e30bb8154c3368c575a"
              checked>
-      <label for="_anim_radio2_9d41c5b3349544bf910804dadd039b6b">Loop</label>
-      <input type="radio" name="state" value="reflect" id="_anim_radio3_9d41c5b3349544bf910804dadd039b6b"
+      <label for="_anim_radio2_ccd438f904584e30bb8154c3368c575a">Loop</label>
+      <input type="radio" name="state" value="reflect" id="_anim_radio3_ccd438f904584e30bb8154c3368c575a"
              >
-      <label for="_anim_radio3_9d41c5b3349544bf910804dadd039b6b">Reflect</label>
+      <label for="_anim_radio3_ccd438f904584e30bb8154c3368c575a">Reflect</label>
     </form>
   </div>
 </div>
@@ -1247,9 +1263,9 @@ input[type=range].anim-slider {
   /* Instantiate the Animation class. */
   /* The IDs given should match those used in the template above. */
   (function() {
-    var img_id = "_anim_img9d41c5b3349544bf910804dadd039b6b";
-    var slider_id = "_anim_slider9d41c5b3349544bf910804dadd039b6b";
-    var loop_select_id = "_anim_loop_select9d41c5b3349544bf910804dadd039b6b";
+    var img_id = "_anim_imgccd438f904584e30bb8154c3368c575a";
+    var slider_id = "_anim_sliderccd438f904584e30bb8154c3368c575a";
+    var loop_select_id = "_anim_loop_selectccd438f904584e30bb8154c3368c575a";
     var frames = new Array(120);
     
   frames[0] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAYwAAAGMCAYAAADJOZVKAAAAOnRFWHRTb2Z0d2FyZQBNYXRwbG90\
@@ -69090,7 +69106,7 @@ CgUGIYQQUSgwCCGEiEKBQQghRJT/H7nnTqDNMN+2AAAAAElFTkSuQmCC\
     /* set a timeout to make sure all the above elements are created before
        the object is initialized. */
     setTimeout(function() {
-        anim9d41c5b3349544bf910804dadd039b6b = new Animation(frames, img_id, slider_id, 33,
+        animccd438f904584e30bb8154c3368c575a = new Animation(frames, img_id, slider_id, 33,
                                  loop_select_id);
     }, 0);
   })()
