@@ -687,7 +687,15 @@ simulates diffusion-limited growth, catalysis, and dewetting.</p>
 <hr class="docutils" />
 <section id="setup">
 <h2>Setup<a class="headerlink" href="#setup" title="Link to this heading">#</a></h2>
-<div class="cell docutils container">
+<p>The Setup below holds this notebook’s data and instruments — nothing you are asked
+to build. It is collapsed so the building stays yours; expand it whenever you want
+the details.</p>
+<!-- setup-policy: v2 --><div class="cell tag_hide-input docutils container">
+<details class="admonition hide above-input">
+<summary aria-label="Toggle hidden content">
+<p class="collapsed admonition-title">Show code cell source</p>
+<p class="expanded admonition-title">Hide code cell source</p>
+</summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">itertools</span>
 
@@ -698,8 +706,15 @@ simulates diffusion-limited growth, catalysis, and dewetting.</p>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">ecp</span><span class="w"> </span><span class="kn">import</span> <span class="n">validate</span>
 
-<span class="n">rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>            <span class="c1"># one seeded generator for reproducibility</span>
+<span class="c1"># data: one seeded generator for reproducibility.</span>
+<span class="n">rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="c1"># data: series accents.</span>
 <span class="n">INK</span><span class="p">,</span> <span class="n">AMBER</span><span class="p">,</span> <span class="n">SOFT</span> <span class="o">=</span> <span class="s2">&quot;#16213e&quot;</span><span class="p">,</span> <span class="s2">&quot;#c0851a&quot;</span><span class="p">,</span> <span class="s2">&quot;#46506b&quot;</span>
+
+<span class="c1"># instrument: the lattice geometry below (neighbour lists, bond lists, drawing</span>
+<span class="c1"># coordinates) is bookkeeping, not the lesson — the physics lives in what is put ON</span>
+<span class="c1"># the lattice, not in enumerating its sites.</span>
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">honeycomb_neighbors</span><span class="p">(</span><span class="n">L</span><span class="p">):</span>
@@ -757,7 +772,11 @@ simulates diffusion-limited growth, catalysis, and dewetting.</p>
 <span class="sd">    tuple of numpy.ndarray</span>
 <span class="sd">        The (x, y) coordinate arrays, each of length 2*L*L.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">a1</span><span class="p">,</span> <span class="n">a2</span><span class="p">,</span> <span class="n">basis</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">1.5</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span><span class="p">]),</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">1.5</span><span class="p">,</span> <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span><span class="p">]),</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">])</span>
+    <span class="n">a1</span><span class="p">,</span> <span class="n">a2</span><span class="p">,</span> <span class="n">basis</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">1.5</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span><span class="p">]),</span>
+        <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">1.5</span><span class="p">,</span> <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span><span class="p">]),</span>
+        <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">]),</span>
+    <span class="p">)</span>
     <span class="n">px</span><span class="p">,</span> <span class="n">py</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">L</span> <span class="o">*</span> <span class="n">L</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">L</span> <span class="o">*</span> <span class="n">L</span><span class="p">)</span>
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">L</span><span class="p">):</span>
         <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">L</span><span class="p">):</span>
@@ -816,6 +835,7 @@ simulates diffusion-limited growth, catalysis, and dewetting.</p>
 </pre></div>
 </div>
 </div>
+</details>
 </div>
 </section>
 <section id="exercise-1-the-honeycomb-lattice-and-the-adsorbate-model">
@@ -825,10 +845,16 @@ of occupied nearest-neighbour pairs and, through <a class="reference internal" h
 The schematic shows the geometry (two interleaved sublattices, each site bonded
 to three neighbours) with one molecule and the three neighbours whose occupancy
 sets its contribution to the energy.</p>
-<p><strong>Part a)</strong> Implement the lattice (done in Setup) and confirm every site has
-exactly three neighbours. <strong>Part b)</strong> Check the energy bookkeeping: an isolated
-molecule contributes no pairs, an adjacent pair contributes exactly one (energy
-<span class="math notranslate nohighlight">\(d_e\)</span>).</p>
+<p><strong>Part a)</strong> Confirm the lattice is what it claims to be: every one of the
+<span class="math notranslate nohighlight">\(2L^2\)</span> sites has exactly three neighbours, the neighbour relation is symmetric
+(if <span class="math notranslate nohighlight">\(i\)</span> lists <span class="math notranslate nohighlight">\(j\)</span> then <span class="math notranslate nohighlight">\(j\)</span> lists <span class="math notranslate nohighlight">\(i\)</span>), and the lattice is bipartite, with the A
+sublattice coupling only to B. Use <code class="docutils literal notranslate"><span class="pre">collections.Counter</span></code> over the neighbour lists
+rather than a spot check — a lattice builder that is wrong at the periodic seam
+is right almost everywhere.</p>
+<p><strong>Part b)</strong> Check the energy bookkeeping of <a class="reference internal" href="#equation-eq-lg-energy">Eq. 14</a>: an isolated
+molecule contributes no pairs, and one adjacent pair contributes exactly one bond
+of energy <span class="math notranslate nohighlight">\(d_e\)</span>. Getting this wrong by a factor of two is the single most common
+lattice-model error, because each bond is reachable from both of its ends.</p>
 <div class="cell tag_solution tag_remove-input docutils container">
 <div class="cell_output docutils container">
 <figure class="align-default" id="fig-honeycomb-lattice">
@@ -865,8 +891,17 @@ lattice small enough to solve <em>exactly</em>: for <span class="math notranslat
 molecules there are only <span class="math notranslate nohighlight">\(\binom{8}{3}=56\)</span> configurations, so the Boltzmann
 average <span class="math notranslate nohighlight">\(\langle E\rangle\)</span> can be summed directly. A correct sampler must
 reproduce it.</p>
-<p><strong>Part a)</strong> Implement <code class="docutils literal notranslate"><span class="pre">metropolis_sweep</span></code>. <strong>Part b)</strong> Run it on the <span class="math notranslate nohighlight">\(L=2\)</span>
-lattice and compare <span class="math notranslate nohighlight">\(\langle E\rangle\)</span> to the exact enumeration.</p>
+<p><strong>Part a)</strong> Implement <code class="docutils literal notranslate"><span class="pre">metropolis_sweep(occ,</span> <span class="pre">occupied,</span> <span class="pre">nbr,</span> <span class="pre">de,</span> <span class="pre">beta,</span> <span class="pre">n_moves)</span></code>,
+proposing <code class="docutils literal notranslate"><span class="pre">n_moves</span></code> single-molecule hops to a random empty site and accepting each
+with probability <span class="math notranslate nohighlight">\(\min(1, e^{-\beta\Delta E})\)</span>. Compute <span class="math notranslate nohighlight">\(\Delta E\)</span> from the change
+in pair count <em>local to the move</em> — the moved molecule’s old and new neighbours —
+never by re-evaluating the whole lattice, which would turn an <span class="math notranslate nohighlight">\(O(z)\)</span> update into
+an <span class="math notranslate nohighlight">\(O(N)\)</span> one.
+<strong>Write this one yourself</strong> — the implementation is the lesson.</p>
+<p><strong>Part b)</strong> Run it on the <span class="math notranslate nohighlight">\(L=2\)</span> lattice and compare <span class="math notranslate nohighlight">\(\langle E\rangle\)</span> with the
+exact enumeration over all <span class="math notranslate nohighlight">\(\binom{8}{N}\)</span> configurations. At this size the exact
+answer is available, which is the only reason the sampler can be <em>proved</em> right
+rather than merely made plausible.</p>
 <div class="cell tag_solution tag_remove-input docutils container">
 </div>
 <div class="cell tag_solution tag_remove-input docutils container">
@@ -898,8 +933,13 @@ giving</p>
 <span class="eqno">(19)<a class="headerlink" href="#equation-eq-ideal-pairs" title="Link to this equation">#</a></span>\[\langle N_{\rm pairs}\rangle_{0} = N_{\rm bonds}\,\frac{N(N-1)}{M(M-1)} .\]</div>
 <p>This non-interacting baseline <span class="math notranslate nohighlight">\(\langle N_{\rm pairs}\rangle_0\)</span> is exactly the
 reference we need for the binding-energy estimate in the next exercise.</p>
-<p><strong>Part a)</strong> Run the sampler at <span class="math notranslate nohighlight">\(d_e=0\)</span>. <strong>Part b)</strong> Compare the measured pair
-count to <a class="reference internal" href="#equation-eq-ideal-pairs">Eq. 19</a>.</p>
+<p><strong>Part a)</strong> Run the sampler at <span class="math notranslate nohighlight">\(d_e = 0\)</span>, where the molecules are
+non-interacting and every arrangement of <span class="math notranslate nohighlight">\(N\)</span> molecules on <span class="math notranslate nohighlight">\(2L^2\)</span> sites is equally
+likely.</p>
+<p><strong>Part b)</strong> Compare the measured mean pair count with the combinatorial
+prediction <a class="reference internal" href="#equation-eq-ideal-pairs">Eq. 19</a>. This is a check on the <em>sampler</em>, not on the
+physics: at <span class="math notranslate nohighlight">\(d_e = 0\)</span> the answer is pure counting, so any disagreement indicts the
+Metropolis implementation rather than the model.</p>
 <div class="cell tag_solution tag_remove-input docutils container">
 </div>
 <section id="validation-3-the-ideal-gas-combinatorics">
@@ -936,8 +976,12 @@ recovers <span class="math notranslate nohighlight">\(d_e\)</span>. It is only a
 correlations), so we expect the right sign and order of magnitude, not three
 digits. The animation shows molecules diffusing and aggregating as the sampler
 equilibrates.</p>
-<p><strong>Part a)</strong> Scan <span class="math notranslate nohighlight">\(d_e\)</span> and show the pair count rising. <strong>Part b)</strong> Form the
-estimate <a class="reference internal" href="#equation-eq-dimer-estimate">Eq. 20</a> and compare to the input.</p>
+<p><strong>Part a)</strong> Scan the binding energy <span class="math notranslate nohighlight">\(d_e\)</span> and show the mean pair count rising as
+the interaction is turned on — clustering, measured rather than asserted.</p>
+<p><strong>Part b)</strong> Invert the measurement: form the dimer estimate
+<a class="reference internal" href="#equation-eq-dimer-estimate">Eq. 20</a> from the observed pair counts and compare it with the
+<span class="math notranslate nohighlight">\(d_e\)</span> that was fed in. A round trip through the model that returns its own input
+is a far stronger statement than a monotonic trend.</p>
 <div class="cell tag_solution tag_remove-input docutils container">
 <div class="cell_output docutils container">
 <figure class="align-default" id="fig-lattice-gas-clustering">
@@ -1157,42 +1201,42 @@ input[type=range].anim-slider {
 </style>
 
 <div class="animation">
-  <img id="_anim_img1b38b293bbf84cdfbd3574d6f93966a2">
+  <img id="_anim_img1c8332e25d3144a7b75a21f57fb83165">
   <div class="anim-controls">
-    <input id="_anim_slider1b38b293bbf84cdfbd3574d6f93966a2" type="range" class="anim-slider"
+    <input id="_anim_slider1c8332e25d3144a7b75a21f57fb83165" type="range" class="anim-slider"
            name="points" min="0" max="1" step="1" value="0"
-           oninput="anim1b38b293bbf84cdfbd3574d6f93966a2.set_frame(parseInt(this.value));">
+           oninput="anim1c8332e25d3144a7b75a21f57fb83165.set_frame(parseInt(this.value));">
     <div class="anim-buttons">
-      <button title="Decrease speed" aria-label="Decrease speed" onclick="anim1b38b293bbf84cdfbd3574d6f93966a2.slower()">
+      <button title="Decrease speed" aria-label="Decrease speed" onclick="anim1c8332e25d3144a7b75a21f57fb83165.slower()">
           <i class="fa fa-minus"></i></button>
-      <button title="First frame" aria-label="First frame" onclick="anim1b38b293bbf84cdfbd3574d6f93966a2.first_frame()">
+      <button title="First frame" aria-label="First frame" onclick="anim1c8332e25d3144a7b75a21f57fb83165.first_frame()">
         <i class="fa fa-fast-backward"></i></button>
-      <button title="Previous frame" aria-label="Previous frame" onclick="anim1b38b293bbf84cdfbd3574d6f93966a2.previous_frame()">
+      <button title="Previous frame" aria-label="Previous frame" onclick="anim1c8332e25d3144a7b75a21f57fb83165.previous_frame()">
           <i class="fa fa-step-backward"></i></button>
-      <button title="Play backwards" aria-label="Play backwards" onclick="anim1b38b293bbf84cdfbd3574d6f93966a2.reverse_animation()">
+      <button title="Play backwards" aria-label="Play backwards" onclick="anim1c8332e25d3144a7b75a21f57fb83165.reverse_animation()">
           <i class="fa fa-play fa-flip-horizontal"></i></button>
-      <button title="Pause" aria-label="Pause" onclick="anim1b38b293bbf84cdfbd3574d6f93966a2.pause_animation()">
+      <button title="Pause" aria-label="Pause" onclick="anim1c8332e25d3144a7b75a21f57fb83165.pause_animation()">
           <i class="fa fa-pause"></i></button>
-      <button title="Play" aria-label="Play" onclick="anim1b38b293bbf84cdfbd3574d6f93966a2.play_animation()">
+      <button title="Play" aria-label="Play" onclick="anim1c8332e25d3144a7b75a21f57fb83165.play_animation()">
           <i class="fa fa-play"></i></button>
-      <button title="Next frame" aria-label="Next frame" onclick="anim1b38b293bbf84cdfbd3574d6f93966a2.next_frame()">
+      <button title="Next frame" aria-label="Next frame" onclick="anim1c8332e25d3144a7b75a21f57fb83165.next_frame()">
           <i class="fa fa-step-forward"></i></button>
-      <button title="Last frame" aria-label="Last frame" onclick="anim1b38b293bbf84cdfbd3574d6f93966a2.last_frame()">
+      <button title="Last frame" aria-label="Last frame" onclick="anim1c8332e25d3144a7b75a21f57fb83165.last_frame()">
           <i class="fa fa-fast-forward"></i></button>
-      <button title="Increase speed" aria-label="Increase speed" onclick="anim1b38b293bbf84cdfbd3574d6f93966a2.faster()">
+      <button title="Increase speed" aria-label="Increase speed" onclick="anim1c8332e25d3144a7b75a21f57fb83165.faster()">
           <i class="fa fa-plus"></i></button>
     </div>
-    <form title="Repetition mode" aria-label="Repetition mode" action="#n" name="_anim_loop_select1b38b293bbf84cdfbd3574d6f93966a2"
+    <form title="Repetition mode" aria-label="Repetition mode" action="#n" name="_anim_loop_select1c8332e25d3144a7b75a21f57fb83165"
           class="anim-state">
-      <input type="radio" name="state" value="once" id="_anim_radio1_1b38b293bbf84cdfbd3574d6f93966a2"
+      <input type="radio" name="state" value="once" id="_anim_radio1_1c8332e25d3144a7b75a21f57fb83165"
              >
-      <label for="_anim_radio1_1b38b293bbf84cdfbd3574d6f93966a2">Once</label>
-      <input type="radio" name="state" value="loop" id="_anim_radio2_1b38b293bbf84cdfbd3574d6f93966a2"
+      <label for="_anim_radio1_1c8332e25d3144a7b75a21f57fb83165">Once</label>
+      <input type="radio" name="state" value="loop" id="_anim_radio2_1c8332e25d3144a7b75a21f57fb83165"
              checked>
-      <label for="_anim_radio2_1b38b293bbf84cdfbd3574d6f93966a2">Loop</label>
-      <input type="radio" name="state" value="reflect" id="_anim_radio3_1b38b293bbf84cdfbd3574d6f93966a2"
+      <label for="_anim_radio2_1c8332e25d3144a7b75a21f57fb83165">Loop</label>
+      <input type="radio" name="state" value="reflect" id="_anim_radio3_1c8332e25d3144a7b75a21f57fb83165"
              >
-      <label for="_anim_radio3_1b38b293bbf84cdfbd3574d6f93966a2">Reflect</label>
+      <label for="_anim_radio3_1c8332e25d3144a7b75a21f57fb83165">Reflect</label>
     </form>
   </div>
 </div>
@@ -1202,9 +1246,9 @@ input[type=range].anim-slider {
   /* Instantiate the Animation class. */
   /* The IDs given should match those used in the template above. */
   (function() {
-    var img_id = "_anim_img1b38b293bbf84cdfbd3574d6f93966a2";
-    var slider_id = "_anim_slider1b38b293bbf84cdfbd3574d6f93966a2";
-    var loop_select_id = "_anim_loop_select1b38b293bbf84cdfbd3574d6f93966a2";
+    var img_id = "_anim_img1c8332e25d3144a7b75a21f57fb83165";
+    var slider_id = "_anim_slider1c8332e25d3144a7b75a21f57fb83165";
+    var loop_select_id = "_anim_loop_select1c8332e25d3144a7b75a21f57fb83165";
     var frames = new Array(161);
     
   frames[0] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZwAAAGMCAYAAADulxSiAAAAOnRFWHRTb2Z0d2FyZQBNYXRwbG90\
@@ -78967,7 +79011,7 @@ YII=\
     /* set a timeout to make sure all the above elements are created before
        the object is initialized. */
     setTimeout(function() {
-        anim1b38b293bbf84cdfbd3574d6f93966a2 = new Animation(frames, img_id, slider_id, 33,
+        anim1c8332e25d3144a7b75a21f57fb83165 = new Animation(frames, img_id, slider_id, 33,
                                  loop_select_id);
     }, 0);
   })()
@@ -78990,9 +79034,16 @@ both directly. Given a catalogue of events with rates <span class="math notransl
 so <span class="math notranslate nohighlight">\(\langle\Delta t\rangle=1/R\)</span> and, for an exponential law, the standard
 deviation equals the mean; (ii) the executed event is chosen with probability
 <strong>proportional to its rate</strong>, <span class="math notranslate nohighlight">\(r_k/R\)</span>.</p>
-<p><strong>Part a)</strong> Draw many waiting times for a fixed <span class="math notranslate nohighlight">\(R\)</span> and check the mean and
-spread. <strong>Part b)</strong> Select many events from a fixed catalogue and check the
-frequencies track the rates.</p>
+<p><strong>Part a)</strong> Draw many waiting times for a fixed total rate <span class="math notranslate nohighlight">\(R\)</span> using
+<a class="reference internal" href="#equation-eq-kmc-time">Eq. 18</a>, and check both the mean and the spread against the exponential
+distribution: <span class="math notranslate nohighlight">\(\langle\Delta t\rangle = 1/R\)</span> and <span class="math notranslate nohighlight">\(\sigma_{\Delta t} = 1/R\)</span> too.
+The standard deviation equalling the mean is the signature of a Poisson process,
+and checking only the mean would miss a wrong distribution with the right average.
+<strong>Write this one yourself</strong> — the implementation is the lesson.</p>
+<p><strong>Part b)</strong> Select many events from a fixed rate catalogue and confirm the
+selection frequencies track the rates in proportion. Together the two parts are
+the algorithm’s whole correctness claim: <em>when</em> the next event happens, and
+<em>which</em> one it is.</p>
 <div class="cell tag_solution tag_remove-input docutils container">
 <div class="cell_output docutils container">
 <figure class="align-default" id="fig-kmc-statistics">
@@ -79030,9 +79081,17 @@ or, if it touches another molecule, <strong>bind</strong> irreversibly at rate
 <a class="reference internal" href="#equation-eq-kmc-time">Eq. 18</a> after every event. From a well-mixed start the molecules
 diffuse, meet, and freeze into growing clusters: diffusion-limited aggregation,
 played out in real time.</p>
-<p><strong>Part a)</strong> Implement one KMC step and run it, recording snapshots. <strong>Part b)</strong>
-Confirm that aggregation has occurred: the mean cluster size must rise well
-above the random-start baseline.</p>
+<p><strong>Part a)</strong> Implement <code class="docutils literal notranslate"><span class="pre">kmc_step(occ,</span> <span class="pre">nbr,</span> <span class="pre">r_d,</span> <span class="pre">r_b)</span></code>: build the rate catalogue
+for the current configuration, draw the waiting time from <a class="reference internal" href="#equation-eq-kmc-time">Eq. 18</a>,
+select an event with the residence-time rule of Exercise 5, and execute it.
+Every step advances physical time by a <em>different</em> amount — that is the whole
+difference between kinetic Monte Carlo and the Metropolis sweeps of Exercise 2,
+whose steps carry no time at all.
+<strong>Write this one yourself</strong> — the implementation is the lesson.</p>
+<p><strong>Part b)</strong> Run it from a random start, recording snapshots, and confirm that
+aggregation has occurred: the mean cluster size must rise well above the
+random-start baseline. Compare against that baseline rather than against zero,
+since a random configuration already contains adjacent pairs by chance.</p>
 <div class="cell tag_solution tag_remove-input docutils container">
 </div>
 <div class="cell tag_solution tag_remove-input docutils container">
@@ -79223,42 +79282,42 @@ input[type=range].anim-slider {
 </style>
 
 <div class="animation">
-  <img id="_anim_img1961a6360e3d4ef69a332f920db8583a">
+  <img id="_anim_img881c9209837b44a59d927ceae24ec893">
   <div class="anim-controls">
-    <input id="_anim_slider1961a6360e3d4ef69a332f920db8583a" type="range" class="anim-slider"
+    <input id="_anim_slider881c9209837b44a59d927ceae24ec893" type="range" class="anim-slider"
            name="points" min="0" max="1" step="1" value="0"
-           oninput="anim1961a6360e3d4ef69a332f920db8583a.set_frame(parseInt(this.value));">
+           oninput="anim881c9209837b44a59d927ceae24ec893.set_frame(parseInt(this.value));">
     <div class="anim-buttons">
-      <button title="Decrease speed" aria-label="Decrease speed" onclick="anim1961a6360e3d4ef69a332f920db8583a.slower()">
+      <button title="Decrease speed" aria-label="Decrease speed" onclick="anim881c9209837b44a59d927ceae24ec893.slower()">
           <i class="fa fa-minus"></i></button>
-      <button title="First frame" aria-label="First frame" onclick="anim1961a6360e3d4ef69a332f920db8583a.first_frame()">
+      <button title="First frame" aria-label="First frame" onclick="anim881c9209837b44a59d927ceae24ec893.first_frame()">
         <i class="fa fa-fast-backward"></i></button>
-      <button title="Previous frame" aria-label="Previous frame" onclick="anim1961a6360e3d4ef69a332f920db8583a.previous_frame()">
+      <button title="Previous frame" aria-label="Previous frame" onclick="anim881c9209837b44a59d927ceae24ec893.previous_frame()">
           <i class="fa fa-step-backward"></i></button>
-      <button title="Play backwards" aria-label="Play backwards" onclick="anim1961a6360e3d4ef69a332f920db8583a.reverse_animation()">
+      <button title="Play backwards" aria-label="Play backwards" onclick="anim881c9209837b44a59d927ceae24ec893.reverse_animation()">
           <i class="fa fa-play fa-flip-horizontal"></i></button>
-      <button title="Pause" aria-label="Pause" onclick="anim1961a6360e3d4ef69a332f920db8583a.pause_animation()">
+      <button title="Pause" aria-label="Pause" onclick="anim881c9209837b44a59d927ceae24ec893.pause_animation()">
           <i class="fa fa-pause"></i></button>
-      <button title="Play" aria-label="Play" onclick="anim1961a6360e3d4ef69a332f920db8583a.play_animation()">
+      <button title="Play" aria-label="Play" onclick="anim881c9209837b44a59d927ceae24ec893.play_animation()">
           <i class="fa fa-play"></i></button>
-      <button title="Next frame" aria-label="Next frame" onclick="anim1961a6360e3d4ef69a332f920db8583a.next_frame()">
+      <button title="Next frame" aria-label="Next frame" onclick="anim881c9209837b44a59d927ceae24ec893.next_frame()">
           <i class="fa fa-step-forward"></i></button>
-      <button title="Last frame" aria-label="Last frame" onclick="anim1961a6360e3d4ef69a332f920db8583a.last_frame()">
+      <button title="Last frame" aria-label="Last frame" onclick="anim881c9209837b44a59d927ceae24ec893.last_frame()">
           <i class="fa fa-fast-forward"></i></button>
-      <button title="Increase speed" aria-label="Increase speed" onclick="anim1961a6360e3d4ef69a332f920db8583a.faster()">
+      <button title="Increase speed" aria-label="Increase speed" onclick="anim881c9209837b44a59d927ceae24ec893.faster()">
           <i class="fa fa-plus"></i></button>
     </div>
-    <form title="Repetition mode" aria-label="Repetition mode" action="#n" name="_anim_loop_select1961a6360e3d4ef69a332f920db8583a"
+    <form title="Repetition mode" aria-label="Repetition mode" action="#n" name="_anim_loop_select881c9209837b44a59d927ceae24ec893"
           class="anim-state">
-      <input type="radio" name="state" value="once" id="_anim_radio1_1961a6360e3d4ef69a332f920db8583a"
+      <input type="radio" name="state" value="once" id="_anim_radio1_881c9209837b44a59d927ceae24ec893"
              >
-      <label for="_anim_radio1_1961a6360e3d4ef69a332f920db8583a">Once</label>
-      <input type="radio" name="state" value="loop" id="_anim_radio2_1961a6360e3d4ef69a332f920db8583a"
+      <label for="_anim_radio1_881c9209837b44a59d927ceae24ec893">Once</label>
+      <input type="radio" name="state" value="loop" id="_anim_radio2_881c9209837b44a59d927ceae24ec893"
              checked>
-      <label for="_anim_radio2_1961a6360e3d4ef69a332f920db8583a">Loop</label>
-      <input type="radio" name="state" value="reflect" id="_anim_radio3_1961a6360e3d4ef69a332f920db8583a"
+      <label for="_anim_radio2_881c9209837b44a59d927ceae24ec893">Loop</label>
+      <input type="radio" name="state" value="reflect" id="_anim_radio3_881c9209837b44a59d927ceae24ec893"
              >
-      <label for="_anim_radio3_1961a6360e3d4ef69a332f920db8583a">Reflect</label>
+      <label for="_anim_radio3_881c9209837b44a59d927ceae24ec893">Reflect</label>
     </form>
   </div>
 </div>
@@ -79268,9 +79327,9 @@ input[type=range].anim-slider {
   /* Instantiate the Animation class. */
   /* The IDs given should match those used in the template above. */
   (function() {
-    var img_id = "_anim_img1961a6360e3d4ef69a332f920db8583a";
-    var slider_id = "_anim_slider1961a6360e3d4ef69a332f920db8583a";
-    var loop_select_id = "_anim_loop_select1961a6360e3d4ef69a332f920db8583a";
+    var img_id = "_anim_img881c9209837b44a59d927ceae24ec893";
+    var slider_id = "_anim_slider881c9209837b44a59d927ceae24ec893";
+    var loop_select_id = "_anim_loop_select881c9209837b44a59d927ceae24ec893";
     var frames = new Array(11);
     
   frames[0] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAbAAAAGcCAYAAAC4IPVnAAAAOnRFWHRTb2Z0d2FyZQBNYXRwbG90\
@@ -81949,7 +82008,7 @@ AICV/h9+Hpg2D2LScAAAAABJRU5ErkJggg==\
     /* set a timeout to make sure all the above elements are created before
        the object is initialized. */
     setTimeout(function() {
-        anim1961a6360e3d4ef69a332f920db8583a = new Animation(frames, img_id, slider_id, 33,
+        anim881c9209837b44a59d927ceae24ec893 = new Animation(frames, img_id, slider_id, 33,
                                  loop_select_id);
     }, 0);
   })()
