@@ -634,7 +634,7 @@ coordinates.</p>
 <p>Every <span class="math notranslate nohighlight">\(\tau\)</span> steps a Gaussian of height <span class="math notranslate nohighlight">\(W\)</span> and width <span class="math notranslate nohighlight">\(\sigma\)</span> is added to the bias at
 the current CV value <span class="math notranslate nohighlight">\(\mathbf s_t\)</span>:</p>
 <div class="math notranslate nohighlight" id="equation-eq-metad">
-<span class="eqno">(37)<a class="headerlink" href="#equation-eq-metad" title="Link to this equation">#</a></span>\[V(\mathbf s, t) = \sum_{t' \le t} W \exp\!\left(-\sum_i \frac{(s_i - s_i(t'))^2}{2\sigma_i^2}\right).\]</div>
+<span class="eqno">(40)<a class="headerlink" href="#equation-eq-metad" title="Link to this equation">#</a></span>\[V(\mathbf s, t) = \sum_{t' \le t} W \exp\!\left(-\sum_i \frac{(s_i - s_i(t'))^2}{2\sigma_i^2}\right).\]</div>
 <p>The bias accumulates in the basins the system visits, raising their floor until the
 system spills into the next basin. In the long-time limit the bias becomes the inverse
 of the underlying free energy, so the <strong>free-energy surface</strong> is reconstructed
@@ -727,7 +727,7 @@ composition (a carbon sheet plus two HNO₃).</p>
 <figure class="align-default" id="fig-mtd-system">
 <img alt="../../_images/946361349e6cfb7c80858a37e3a3f5b347033a8edace8bc03e62faef216b5ff6.png" src="../../_images/946361349e6cfb7c80858a37e3a3f5b347033a8edace8bc03e62faef216b5ff6.png" />
 <figcaption>
-<p><span class="caption-number">Fig. 49 </span><span class="caption-text">The committed metadynamics system: a graphene sheet (60 carbon atoms, grey) with two nitric-acid molecules above it (nitrogen blue, oxygen red, hydrogen white). The forces come from density-functional tight binding, cheap enough for the long biased trajectory.</span><a class="headerlink" href="#fig-mtd-system" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 51 </span><span class="caption-text">The committed metadynamics system: a graphene sheet (60 carbon atoms, grey) with two nitric-acid molecules above it (nitrogen blue, oxygen red, hydrogen white). The forces come from density-functional tight binding, cheap enough for the long biased trajectory.</span><a class="headerlink" href="#fig-mtd-system" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>composition: 60×C, 2×H, 2×N, 6×O
@@ -764,7 +764,7 @@ bias has driven each CV over a finite range.</p>
 <figure class="align-default" id="fig-mtd-cvs">
 <img alt="../../_images/a45fcfb5c16cb56f160f70351f949edfb2be0ecccf02d2a6cde17b0e542a1f99.png" src="../../_images/a45fcfb5c16cb56f160f70351f949edfb2be0ecccf02d2a6cde17b0e542a1f99.png" />
 <figcaption>
-<p><span class="caption-number">Fig. 50 </span><span class="caption-text">The three collective variables (coordination numbers) along the metadynamics trajectory, from the committed COLVAR log. Driven by the accumulating bias, each variable explores a range of values rather than settling, the signature of metadynamics pushing the system through configuration space.</span><a class="headerlink" href="#fig-mtd-cvs" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 52 </span><span class="caption-text">The three collective variables (coordination numbers) along the metadynamics trajectory, from the committed COLVAR log. Driven by the accumulating bias, each variable explores a range of values rather than settling, the signature of metadynamics pushing the system through configuration space.</span><a class="headerlink" href="#fig-mtd-cvs" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>CV explored ranges: {&#39;C–O coordination&#39;: np.float64(0.234), &#39;N–O coordination&#39;: np.float64(0.165), &#39;H–C coordination&#39;: np.float64(0.171)}
@@ -792,7 +792,7 @@ range over the run, not sit at a single value.</p>
 <h2>Exercise 3 — Reconstructing the free-energy surface<a class="headerlink" href="#exercise-3-reconstructing-the-free-energy-surface" title="Link to this heading">#</a></h2>
 <p>The <code class="docutils literal notranslate"><span class="pre">HILLS</span></code> log lists every deposited Gaussian: its centre in CV space, its widths,
 and its height. Summing them and flipping the sign reconstructs the free-energy surface
-<a class="reference internal" href="#equation-eq-metad">Eq. 37</a> (Assignment 4). We project onto two of the variables, the C–O and H–C
+<a class="reference internal" href="#equation-eq-metad">Eq. 40</a> (Assignment 4). We project onto two of the variables, the C–O and H–C
 coordinations that describe the acid approaching and bonding to the sheet, and contour
 the result. The minimum marks the most-visited configuration; because this is a short
 run the surface maps the explored basin rather than a fully converged barrier.</p>
@@ -803,7 +803,7 @@ Confirm its minimum coincides with where the trajectory spent the most time.</p>
 <figure class="align-default" id="fig-mtd-fes">
 <img alt="../../_images/9877ea9b4c6d3b7a716a9d189fcc04bb8ec88618c976fd596a6df368093edc53.png" src="../../_images/9877ea9b4c6d3b7a716a9d189fcc04bb8ec88618c976fd596a6df368093edc53.png" />
 <figcaption>
-<p><span class="caption-number">Fig. 51 </span><span class="caption-text">Free-energy surface of the nitric-acid/graphene system, reconstructed by summing the metadynamics hills over the C–O and H–C coordination numbers (kcal/mol, relative to the minimum). The basin (dark) is the configuration the short run explored; the trajectory’s most-visited point (amber marker) sits in it, confirming the reconstruction. A longer run would extend the surface to neighbouring basins and the barriers between them.</span><a class="headerlink" href="#fig-mtd-fes" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 53 </span><span class="caption-text">Free-energy surface of the nitric-acid/graphene system, reconstructed by summing the metadynamics hills over the C–O and H–C coordination numbers (kcal/mol, relative to the minimum). The basin (dark) is the configuration the short run explored; the trajectory’s most-visited point (amber marker) sits in it, confirming the reconstruction. A longer run would extend the surface to neighbouring basins and the barriers between them.</span><a class="headerlink" href="#fig-mtd-fes" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>FES minimum at (0.19, 0.10); most-visited at (0.19, 0.10)

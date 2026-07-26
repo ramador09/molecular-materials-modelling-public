@@ -647,7 +647,7 @@ Database <span class="bibtex-citation" id="id2">[<a class="reference internal" h
 <p>Two noble-gas atoms a distance <span class="math notranslate nohighlight">\(r\)</span> apart interact through the <strong>Lennard-Jones</strong>
 pair potential</p>
 <div class="math notranslate nohighlight" id="equation-eq-lj">
-<span class="eqno">(18)<a class="headerlink" href="#equation-eq-lj" title="Link to this equation">#</a></span>\[V(r) = 4\varepsilon\!\left[\left(\frac{\sigma}{r}\right)^{12} - \left(\frac{\sigma}{r}\right)^{6}\right].\]</div>
+<span class="eqno">(21)<a class="headerlink" href="#equation-eq-lj" title="Link to this equation">#</a></span>\[V(r) = 4\varepsilon\!\left[\left(\frac{\sigma}{r}\right)^{12} - \left(\frac{\sigma}{r}\right)^{6}\right].\]</div>
 <p>The attractive <span class="math notranslate nohighlight">\(-(\sigma/r)^6\)</span> is the dispersion (induced-dipole) interaction
 that draws neutral atoms together; the repulsive <span class="math notranslate nohighlight">\(+(\sigma/r)^{12}\)</span> models the
 steep cost of overlapping closed electron shells, its exponent chosen as twice
@@ -659,7 +659,7 @@ the minimum sits at <span class="math notranslate nohighlight">\(r_{\min}=2^{1/6
 <h3>Clusters and their energy landscape<a class="headerlink" href="#clusters-and-their-energy-landscape" title="Link to this heading">#</a></h3>
 <p>The energy of a cluster of <span class="math notranslate nohighlight">\(N\)</span> atoms is the sum over all pairs,</p>
 <div class="math notranslate nohighlight" id="equation-eq-lj-cluster">
-<span class="eqno">(19)<a class="headerlink" href="#equation-eq-lj-cluster" title="Link to this equation">#</a></span>\[E(\mathbf r_1,\dots,\mathbf r_N) = \sum_{i&lt;j} V(r_{ij}), \qquad r_{ij}=|\mathbf r_i-\mathbf r_j|.\]</div>
+<span class="eqno">(22)<a class="headerlink" href="#equation-eq-lj-cluster" title="Link to this equation">#</a></span>\[E(\mathbf r_1,\dots,\mathbf r_N) = \sum_{i&lt;j} V(r_{ij}), \qquad r_{ij}=|\mathbf r_i-\mathbf r_j|.\]</div>
 <p>As a function of the <span class="math notranslate nohighlight">\(3N\)</span> coordinates this is a rugged surface with a vast number
 of <strong>local minima</strong>, each a mechanically stable shape, separated by barriers.
 Exactly one is the <strong>global minimum</strong>. A <strong>geometry optimization</strong> slides downhill
@@ -677,12 +677,12 @@ graph makes the picture concrete).</p>
 numbers help. The <strong>asphericity</strong>, built from the principal moments of inertia
 <span class="math notranslate nohighlight">\(I_1,I_2,I_3\)</span>,</p>
 <div class="math notranslate nohighlight" id="equation-eq-asphericity">
-<span class="eqno">(20)<a class="headerlink" href="#equation-eq-asphericity" title="Link to this equation">#</a></span>\[A = \frac{(I_1-I_2)^2+(I_1-I_3)^2+(I_2-I_3)^2}{I_1^2+I_2^2+I_3^2},\]</div>
+<span class="eqno">(23)<a class="headerlink" href="#equation-eq-asphericity" title="Link to this equation">#</a></span>\[A = \frac{(I_1-I_2)^2+(I_1-I_3)^2+(I_2-I_3)^2}{I_1^2+I_2^2+I_3^2},\]</div>
 <p>is zero for a perfect sphere and grows as a cluster elongates. The <strong>Steinhardt
 order parameter</strong> <span class="bibtex-citation" id="id3">[<a class="reference internal" href="#id22" title="Paul J. Steinhardt, David R. Nelson, and Marco Ronchetti. Bond-orientational order in liquids and glasses. Physical Review B, 28(2):784–805, 1983. doi:10.1103/PhysRevB.28.784.">SNR83</a>]</span> averages spherical harmonics over the
 bonds and contracts over <span class="math notranslate nohighlight">\(m\)</span>,</p>
 <div class="math notranslate nohighlight" id="equation-eq-steinhardt">
-<span class="eqno">(21)<a class="headerlink" href="#equation-eq-steinhardt" title="Link to this equation">#</a></span>\[Q_l = \sqrt{\frac{4\pi}{2l+1}\sum_{m=-l}^{l}\Big|\tfrac{1}{N_b}\textstyle\sum_{\rm bonds} Y_{lm}(\hat{\mathbf r}_{ij})\Big|^2}.\]</div>
+<span class="eqno">(24)<a class="headerlink" href="#equation-eq-steinhardt" title="Link to this equation">#</a></span>\[Q_l = \sqrt{\frac{4\pi}{2l+1}\sum_{m=-l}^{l}\Big|\tfrac{1}{N_b}\textstyle\sum_{\rm bonds} Y_{lm}(\hat{\mathbf r}_{ij})\Big|^2}.\]</div>
 <p>The <span class="math notranslate nohighlight">\(l=6\)</span> value cleanly separates structural families: a truncated-octahedron
 (fcc) cluster gives <span class="math notranslate nohighlight">\(Q_6\approx0.57\)</span>, while the five-fold symmetry of an
 icosahedron makes its bond contributions largely cancel, leaving <span class="math notranslate nohighlight">\(Q_6\approx0.13\)</span>.</p>
@@ -816,7 +816,7 @@ icosahedron makes its bond contributions largely cancel, leaving <span class="ma
 </section>
 <section id="exercise-1-the-potential-the-cluster-energy-and-the-forces">
 <h2>Exercise 1 — The potential, the cluster energy, and the forces<a class="headerlink" href="#exercise-1-the-potential-the-cluster-energy-and-the-forces" title="Link to this heading">#</a></h2>
-<p>Everything rests on the energy <a class="reference internal" href="#equation-eq-lj-cluster">Eq. 19</a> and its gradient; an optimizer
+<p>Everything rests on the energy <a class="reference internal" href="#equation-eq-lj-cluster">Eq. 22</a> and its gradient; an optimizer
 converges far faster with exact forces than with finite differences.
 Differentiating, the force on atom <span class="math notranslate nohighlight">\(i\)</span> is
 <span class="math notranslate nohighlight">\(-\nabla_i E=\sum_{j\neq i} 4\big(12\,r_{ij}^{-14}-6\,r_{ij}^{-8}\big)(\mathbf r_i-\mathbf r_j)\)</span>.
@@ -831,7 +831,7 @@ differences), and that L-BFGS recovers the exact 3- and 4-atom minima.</p>
 <figure class="align-default" id="fig-lj-potential">
 <img alt="../../_images/3820f2a017dfb4741d204d50e8885cf9e268a09e604871c38e5c8990bdf5465d.png" src="../../_images/3820f2a017dfb4741d204d50e8885cf9e268a09e604871c38e5c8990bdf5465d.png" />
 <figcaption>
-<p><span class="caption-number">Fig. 15 </span><span class="caption-text">The Lennard-Jones pair potential in reduced units (<span class="math notranslate nohighlight">\(\varepsilon=\sigma=1\)</span>): a steep short-range repulsion and a long-range <span class="math notranslate nohighlight">\(-r^{-6}\)</span> attraction give a well of depth <span class="math notranslate nohighlight">\(\varepsilon\)</span> at <span class="math notranslate nohighlight">\(r=2^{1/6}\sigma\)</span> (amber point), with <span class="math notranslate nohighlight">\(V=0\)</span> at <span class="math notranslate nohighlight">\(r=\sigma\)</span>.</span><a class="headerlink" href="#fig-lj-potential" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 17 </span><span class="caption-text">The Lennard-Jones pair potential in reduced units (<span class="math notranslate nohighlight">\(\varepsilon=\sigma=1\)</span>): a steep short-range repulsion and a long-range <span class="math notranslate nohighlight">\(-r^{-6}\)</span> attraction give a well of depth <span class="math notranslate nohighlight">\(\varepsilon\)</span> at <span class="math notranslate nohighlight">\(r=2^{1/6}\sigma\)</span> (amber point), with <span class="math notranslate nohighlight">\(V=0\)</span> at <span class="math notranslate nohighlight">\(r=\sigma\)</span>.</span><a class="headerlink" href="#fig-lj-potential" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 </div>
@@ -877,7 +877,7 @@ single Lennard-Jones term for argon:</p>
 </pre></div>
 </div>
 <p>The full deck ships with this notebook: <a class="reference download internal" download="" href="../../_downloads/f7f9f06dc502054dbbf578623c52f6b5/geo-opt.inp"><code class="xref download docutils literal notranslate"><span class="pre">geo-opt.inp</span></code></a>.
-So CP2K here computes exactly <a class="reference internal" href="#equation-eq-lj-cluster">Eq. 19</a>, and a faithful reproduction is
+So CP2K here computes exactly <a class="reference internal" href="#equation-eq-lj-cluster">Eq. 22</a>, and a faithful reproduction is
 an L-BFGS relaxation of the same potential. We take the course’s
 truncated-<strong>octahedron</strong> seed (38 argon atoms, in Ångström), convert it to reduced
 units by dividing by <span class="math notranslate nohighlight">\(\sigma=3.405\,\)</span>Å, and relax it. It descends into the <strong>fcc</strong>
@@ -891,7 +891,7 @@ structures, and confirm the energy is the global minimum <span class="math notra
 <figure class="align-default" id="fig-lj-octa">
 <img alt="../../_images/5085b29fb7abe5a4c7a8bac99c529993ddbf68076cf992974f7f073b558a6033.png" src="../../_images/5085b29fb7abe5a4c7a8bac99c529993ddbf68076cf992974f7f073b558a6033.png" />
 <figcaption>
-<p><span class="caption-number">Fig. 16 </span><span class="caption-text">The 38-atom octahedral seed before (left) and after (right) the Lennard-Jones geometry optimization. The crude initial guess relaxes into the compact, highly symmetric face-centred-cubic truncated octahedron, the global minimum at <span class="math notranslate nohighlight">\(E=-173.928\,\varepsilon\)</span>.</span><a class="headerlink" href="#fig-lj-octa" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 18 </span><span class="caption-text">The 38-atom octahedral seed before (left) and after (right) the Lennard-Jones geometry optimization. The crude initial guess relaxes into the compact, highly symmetric face-centred-cubic truncated octahedron, the global minimum at <span class="math notranslate nohighlight">\(E=-173.928\,\varepsilon\)</span>.</span><a class="headerlink" href="#fig-lj-octa" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 </div>
@@ -920,8 +920,8 @@ trajectory. We do the same, on the course’s <strong>own committed optimization
 trajectory</strong> (<code class="docutils literal notranslate"><span class="pre">optimization-pos-1.xyz</span></code>, 186 frames from a disordered seed to the
 global minimum), shipped here downsampled as
 <a class="reference download internal" download="" href="../../_downloads/c608309afda93466f8a51003043893b1/lj38-optimization.xyz"><code class="xref download docutils literal notranslate"><span class="pre">lj38-optimization.xyz</span></code></a>. The
-<strong>asphericity</strong> <a class="reference internal" href="#equation-eq-asphericity">Eq. 20</a> measures how
-far from spherical the cluster is, and the <strong>Steinhardt</strong> <span class="math notranslate nohighlight">\(Q_6\)</span> <a class="reference internal" href="#equation-eq-steinhardt">Eq. 21</a>
+<strong>asphericity</strong> <a class="reference internal" href="#equation-eq-asphericity">Eq. 23</a> measures how
+far from spherical the cluster is, and the <strong>Steinhardt</strong> <span class="math notranslate nohighlight">\(Q_6\)</span> <a class="reference internal" href="#equation-eq-steinhardt">Eq. 24</a>
 fingerprints the bond-orientational order. Plotted against optimization step, the
 energy plunges, the asphericity stays small throughout (the cluster is compact from
 the outset), and <span class="math notranslate nohighlight">\(Q_6\)</span> climbs to the fcc value <span class="math notranslate nohighlight">\(\approx0.57\)</span> as crystalline order
@@ -933,7 +933,7 @@ sets in.</p>
 <figure class="align-default" id="fig-lj-trajectory">
 <img alt="../../_images/997eec049c7f9c3d8f4aa335d56403bdc66ec81511bd349165310a7b1f1e9087.png" src="../../_images/997eec049c7f9c3d8f4aa335d56403bdc66ec81511bd349165310a7b1f1e9087.png" />
 <figcaption>
-<p><span class="caption-number">Fig. 17 </span><span class="caption-text">Observables along the committed CP2K optimization from a disordered seed, versus step: the energy plunges to the global minimum, the asphericity stays small throughout (the cluster is compact from the outset), and the Steinhardt <span class="math notranslate nohighlight">\(Q_6\)</span> climbs to the fcc value 0.575 (dotted) as crystalline order sets in. This is the optimization watched from the inside.</span><a class="headerlink" href="#fig-lj-trajectory" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 19 </span><span class="caption-text">Observables along the committed CP2K optimization from a disordered seed, versus step: the energy plunges to the global minimum, the asphericity stays small throughout (the cluster is compact from the outset), and the Steinhardt <span class="math notranslate nohighlight">\(Q_6\)</span> climbs to the fcc value 0.575 (dotted) as crystalline order sets in. This is the optimization watched from the inside.</span><a class="headerlink" href="#fig-lj-trajectory" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 </div>
@@ -975,7 +975,7 @@ graph, sketched below, is the standard picture of this <span class="bibtex-citat
 <figure class="align-default" id="fig-lj-funnels">
 <img alt="../../_images/cdaee856e13632576aaed6056dc0571bdc12d83a620bed720c5bd8af88b4f89e.png" src="../../_images/cdaee856e13632576aaed6056dc0571bdc12d83a620bed720c5bd8af88b4f89e.png" />
 <figcaption>
-<p><span class="caption-number">Fig. 18 </span><span class="caption-text">Schematic disconnectivity graph of the 38-atom Lennard-Jones landscape: branches are local minima, drawn at their energies and joined at the energy of the lowest barrier between them. Two deep funnels dominate, the fcc truncated octahedron (global, amber, <span class="math notranslate nohighlight">\(Q_6\approx0.57\)</span>) and the Mackay icosahedron (navy, <span class="math notranslate nohighlight">\(Q_6\approx0.13\)</span>); a downhill optimization is trapped in whichever funnel its starting structure occupies.</span><a class="headerlink" href="#fig-lj-funnels" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 20 </span><span class="caption-text">Schematic disconnectivity graph of the 38-atom Lennard-Jones landscape: branches are local minima, drawn at their energies and joined at the energy of the lowest barrier between them. Two deep funnels dominate, the fcc truncated octahedron (global, amber, <span class="math notranslate nohighlight">\(Q_6\approx0.57\)</span>) and the Mackay icosahedron (navy, <span class="math notranslate nohighlight">\(Q_6\approx0.13\)</span>); a downhill optimization is trapped in whichever funnel its starting structure occupies.</span><a class="headerlink" href="#fig-lj-funnels" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 </div>
@@ -1202,42 +1202,42 @@ input[type=range].anim-slider {
 </style>
 
 <div class="animation">
-  <img id="_anim_img7672c118d65045f599d70c4dcefecc7b">
+  <img id="_anim_img140f3527e9ac4e0fa04266d94fd06fe5">
   <div class="anim-controls">
-    <input id="_anim_slider7672c118d65045f599d70c4dcefecc7b" type="range" class="anim-slider"
+    <input id="_anim_slider140f3527e9ac4e0fa04266d94fd06fe5" type="range" class="anim-slider"
            name="points" min="0" max="1" step="1" value="0"
-           oninput="anim7672c118d65045f599d70c4dcefecc7b.set_frame(parseInt(this.value));">
+           oninput="anim140f3527e9ac4e0fa04266d94fd06fe5.set_frame(parseInt(this.value));">
     <div class="anim-buttons">
-      <button title="Decrease speed" aria-label="Decrease speed" onclick="anim7672c118d65045f599d70c4dcefecc7b.slower()">
+      <button title="Decrease speed" aria-label="Decrease speed" onclick="anim140f3527e9ac4e0fa04266d94fd06fe5.slower()">
           <i class="fa fa-minus"></i></button>
-      <button title="First frame" aria-label="First frame" onclick="anim7672c118d65045f599d70c4dcefecc7b.first_frame()">
+      <button title="First frame" aria-label="First frame" onclick="anim140f3527e9ac4e0fa04266d94fd06fe5.first_frame()">
         <i class="fa fa-fast-backward"></i></button>
-      <button title="Previous frame" aria-label="Previous frame" onclick="anim7672c118d65045f599d70c4dcefecc7b.previous_frame()">
+      <button title="Previous frame" aria-label="Previous frame" onclick="anim140f3527e9ac4e0fa04266d94fd06fe5.previous_frame()">
           <i class="fa fa-step-backward"></i></button>
-      <button title="Play backwards" aria-label="Play backwards" onclick="anim7672c118d65045f599d70c4dcefecc7b.reverse_animation()">
+      <button title="Play backwards" aria-label="Play backwards" onclick="anim140f3527e9ac4e0fa04266d94fd06fe5.reverse_animation()">
           <i class="fa fa-play fa-flip-horizontal"></i></button>
-      <button title="Pause" aria-label="Pause" onclick="anim7672c118d65045f599d70c4dcefecc7b.pause_animation()">
+      <button title="Pause" aria-label="Pause" onclick="anim140f3527e9ac4e0fa04266d94fd06fe5.pause_animation()">
           <i class="fa fa-pause"></i></button>
-      <button title="Play" aria-label="Play" onclick="anim7672c118d65045f599d70c4dcefecc7b.play_animation()">
+      <button title="Play" aria-label="Play" onclick="anim140f3527e9ac4e0fa04266d94fd06fe5.play_animation()">
           <i class="fa fa-play"></i></button>
-      <button title="Next frame" aria-label="Next frame" onclick="anim7672c118d65045f599d70c4dcefecc7b.next_frame()">
+      <button title="Next frame" aria-label="Next frame" onclick="anim140f3527e9ac4e0fa04266d94fd06fe5.next_frame()">
           <i class="fa fa-step-forward"></i></button>
-      <button title="Last frame" aria-label="Last frame" onclick="anim7672c118d65045f599d70c4dcefecc7b.last_frame()">
+      <button title="Last frame" aria-label="Last frame" onclick="anim140f3527e9ac4e0fa04266d94fd06fe5.last_frame()">
           <i class="fa fa-fast-forward"></i></button>
-      <button title="Increase speed" aria-label="Increase speed" onclick="anim7672c118d65045f599d70c4dcefecc7b.faster()">
+      <button title="Increase speed" aria-label="Increase speed" onclick="anim140f3527e9ac4e0fa04266d94fd06fe5.faster()">
           <i class="fa fa-plus"></i></button>
     </div>
-    <form title="Repetition mode" aria-label="Repetition mode" action="#n" name="_anim_loop_select7672c118d65045f599d70c4dcefecc7b"
+    <form title="Repetition mode" aria-label="Repetition mode" action="#n" name="_anim_loop_select140f3527e9ac4e0fa04266d94fd06fe5"
           class="anim-state">
-      <input type="radio" name="state" value="once" id="_anim_radio1_7672c118d65045f599d70c4dcefecc7b"
+      <input type="radio" name="state" value="once" id="_anim_radio1_140f3527e9ac4e0fa04266d94fd06fe5"
              >
-      <label for="_anim_radio1_7672c118d65045f599d70c4dcefecc7b">Once</label>
-      <input type="radio" name="state" value="loop" id="_anim_radio2_7672c118d65045f599d70c4dcefecc7b"
+      <label for="_anim_radio1_140f3527e9ac4e0fa04266d94fd06fe5">Once</label>
+      <input type="radio" name="state" value="loop" id="_anim_radio2_140f3527e9ac4e0fa04266d94fd06fe5"
              checked>
-      <label for="_anim_radio2_7672c118d65045f599d70c4dcefecc7b">Loop</label>
-      <input type="radio" name="state" value="reflect" id="_anim_radio3_7672c118d65045f599d70c4dcefecc7b"
+      <label for="_anim_radio2_140f3527e9ac4e0fa04266d94fd06fe5">Loop</label>
+      <input type="radio" name="state" value="reflect" id="_anim_radio3_140f3527e9ac4e0fa04266d94fd06fe5"
              >
-      <label for="_anim_radio3_7672c118d65045f599d70c4dcefecc7b">Reflect</label>
+      <label for="_anim_radio3_140f3527e9ac4e0fa04266d94fd06fe5">Reflect</label>
     </form>
   </div>
 </div>
@@ -1247,9 +1247,9 @@ input[type=range].anim-slider {
   /* Instantiate the Animation class. */
   /* The IDs given should match those used in the template above. */
   (function() {
-    var img_id = "_anim_img7672c118d65045f599d70c4dcefecc7b";
-    var slider_id = "_anim_slider7672c118d65045f599d70c4dcefecc7b";
-    var loop_select_id = "_anim_loop_select7672c118d65045f599d70c4dcefecc7b";
+    var img_id = "_anim_img140f3527e9ac4e0fa04266d94fd06fe5";
+    var slider_id = "_anim_slider140f3527e9ac4e0fa04266d94fd06fe5";
+    var loop_select_id = "_anim_loop_select140f3527e9ac4e0fa04266d94fd06fe5";
     var frames = new Array(120);
     
   frames[0] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAYwAAAGMCAYAAADJOZVKAAAAOnRFWHRTb2Z0d2FyZQBNYXRwbG90\
@@ -69090,13 +69090,13 @@ CgUGIYQQUSgwCCGEiEKBQQghRJT/H7nnTqDNMN+2AAAAAElFTkSuQmCC\
     /* set a timeout to make sure all the above elements are created before
        the object is initialized. */
     setTimeout(function() {
-        anim7672c118d65045f599d70c4dcefecc7b = new Animation(frames, img_id, slider_id, 33,
+        anim140f3527e9ac4e0fa04266d94fd06fe5 = new Animation(frames, img_id, slider_id, 33,
                                  loop_select_id);
     }, 0);
   })()
 </script>
 </div><figcaption>
-<p><span class="caption-number">Fig. 19 </span><span class="caption-text">Animation of the 13-atom Lennard-Jones global minimum (<span class="math notranslate nohighlight">\(E=-44.327\,\varepsilon\)</span>), found by basin-hopping from a random start and rotated about the vertical: a central atom (amber) capped by twelve outer atoms forming a regular icosahedron, whose five-fold symmetry no crystal allows.</span><a class="headerlink" href="#fig-lj13-anim" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 21 </span><span class="caption-text">Animation of the 13-atom Lennard-Jones global minimum (<span class="math notranslate nohighlight">\(E=-44.327\,\varepsilon\)</span>), found by basin-hopping from a random start and rotated about the vertical: a central atom (amber) capped by twelve outer atoms forming a regular icosahedron, whose five-fold symmetry no crystal allows.</span><a class="headerlink" href="#fig-lj13-anim" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 </div>

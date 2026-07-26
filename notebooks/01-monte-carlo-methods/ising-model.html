@@ -539,6 +539,14 @@
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#validation-8-the-quench-orders-the-lattice-energetically">Validation 8 — the quench orders the lattice (energetically)</a></li>
 </ul>
 </li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-9-how-long-is-a-monte-carlo-measurement-worth-autocorrelation">Exercise 9 — How long is a Monte Carlo measurement worth? Autocorrelation</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#validation-9-the-correlation-time-is-real-and-it-grows">Validation 9 — the correlation time is real, and it grows</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-10-beating-the-slowdown-the-wolff-cluster-algorithm">Exercise 10 — Beating the slowdown: the Wolff cluster algorithm</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#validation-10-same-distribution-different-dynamics">Validation 10 — same distribution, different dynamics</a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#notebook-summary">Notebook summary</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#outlook">Outlook</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#references">References</a></li>
@@ -646,10 +654,10 @@ a proof.</p>
 <div><p><strong>Units and scope.</strong> We work in natural units <span class="math notranslate nohighlight">\(J=1\)</span>, <span class="math notranslate nohighlight">\(k_B=1\)</span>, so temperature
 is measured in units of <span class="math notranslate nohighlight">\(J/k_B\)</span>. This is a working review, not a textbook
 chapter: for the statistical mechanics see Pathria &amp; Beale
-<span class="bibtex-citation" id="id1">[<a class="reference internal" href="#id15" title="R. K. Pathria and Paul D. Beale. Statistical Mechanics. Elsevier, 3 edition, 2011.">PB11</a>]</span>, Goldenfeld <span class="bibtex-citation" id="id2">[<a class="reference internal" href="#id16" title="Nigel Goldenfeld. Lectures on Phase Transitions and the Renormalization Group. Addison-Wesley, 1992.">Gol92</a>]</span>, and Newman &amp; Barkema
-<span class="bibtex-citation" id="id3">[<a class="reference internal" href="#id9" title="M. E. J. Newman and G. T. Barkema. Monte Carlo Methods in Statistical Physics. Oxford University Press, Oxford, 1999.">NB99</a>]</span>; for the exact results, Onsager <span class="bibtex-citation" id="id4">[<a class="reference internal" href="#id11" title="Lars Onsager. Crystal statistics. i. a two-dimensional model with an order-disorder transition. Physical Review, 65(3–4):117–149, 1944. doi:10.1103/PhysRev.65.117.">Ons44</a>]</span>
-and Yang <span class="bibtex-citation" id="id5">[<a class="reference internal" href="#id12" title="C. N. Yang. The spontaneous magnetization of a two-dimensional ising model. Physical Review, 85(5):808–816, 1952. doi:10.1103/PhysRev.85.808.">Yan52</a>]</span>; for the algorithm, Metropolis <em>et al.</em>
-<span class="bibtex-citation" id="id6">[<a class="reference internal" href="#id13" title="Nicholas Metropolis, Arianna W. Rosenbluth, Marshall N. Rosenbluth, Augusta H. Teller, and Edward Teller. Equation of state calculations by fast computing machines. The Journal of Chemical Physics, 21(6):1087–1092, 1953. doi:10.1063/1.1699114.">MRR+53</a>]</span>.</p>
+<span class="bibtex-citation" id="id1">[<a class="reference internal" href="#id17" title="R. K. Pathria and Paul D. Beale. Statistical Mechanics. Elsevier, 3 edition, 2011.">PB11</a>]</span>, Goldenfeld <span class="bibtex-citation" id="id2">[<a class="reference internal" href="#id18" title="Nigel Goldenfeld. Lectures on Phase Transitions and the Renormalization Group. Addison-Wesley, 1992.">Gol92</a>]</span>, and Newman &amp; Barkema
+<span class="bibtex-citation" id="id3">[<a class="reference internal" href="#id11" title="M. E. J. Newman and G. T. Barkema. Monte Carlo Methods in Statistical Physics. Oxford University Press, Oxford, 1999.">NB99a</a>]</span>; for the exact results, Onsager <span class="bibtex-citation" id="id4">[<a class="reference internal" href="#id13" title="Lars Onsager. Crystal statistics. i. a two-dimensional model with an order-disorder transition. Physical Review, 65(3–4):117–149, 1944. doi:10.1103/PhysRev.65.117.">Ons44</a>]</span>
+and Yang <span class="bibtex-citation" id="id5">[<a class="reference internal" href="#id14" title="C. N. Yang. The spontaneous magnetization of a two-dimensional ising model. Physical Review, 85(5):808–816, 1952. doi:10.1103/PhysRev.85.808.">Yan52</a>]</span>; for the algorithm, Metropolis <em>et al.</em>
+<span class="bibtex-citation" id="id6">[<a class="reference internal" href="#id15" title="Nicholas Metropolis, Arianna W. Rosenbluth, Marshall N. Rosenbluth, Augusta H. Teller, and Edward Teller. Equation of state calculations by fast computing machines. The Journal of Chemical Physics, 21(6):1087–1092, 1953. doi:10.1063/1.1699114.">MRR+53</a>]</span>.</p>
 </div></blockquote>
 </section>
 <section id="theory-in-brief">
@@ -763,7 +771,15 @@ is itself the standard route to the exact <span class="math notranslate nohighli
 <hr class="docutils" />
 <section id="setup">
 <h2>Setup<a class="headerlink" href="#setup" title="Link to this heading">#</a></h2>
-<div class="cell docutils container">
+<p>The Setup below holds this notebook’s data and instruments — nothing you are asked
+to build. It is collapsed so the building stays yours; expand it whenever you want
+the details.</p>
+<!-- setup-policy: v2 --><div class="cell tag_hide-input docutils container">
+<details class="admonition hide above-input">
+<summary aria-label="Toggle hidden content">
+<p class="collapsed admonition-title">Show code cell source</p>
+<p class="expanded admonition-title">Hide code cell source</p>
+</summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
@@ -771,17 +787,23 @@ is itself the standard route to the exact <span class="math notranslate nohighli
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">ecp</span><span class="w"> </span><span class="kn">import</span> <span class="n">validate</span>
 
-<span class="c1"># Reproducibility is mandatory: one seeded generator drives every random draw.</span>
+<span class="c1"># data: reproducibility is mandatory, so one seeded generator drives every draw.</span>
 <span class="n">rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
 
-<span class="c1"># Natural units throughout: J = 1, k_B = 1, temperature in units of J/k_B.</span>
+<span class="c1"># data: natural units throughout — J = 1, k_B = 1, temperature in units of J/k_B.</span>
 <span class="n">J</span> <span class="o">=</span> <span class="mf">1.0</span>
-<span class="n">Tc_onsager</span> <span class="o">=</span> <span class="mf">2.0</span> <span class="o">*</span> <span class="n">J</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mf">1.0</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mf">2.0</span><span class="p">))</span>   <span class="c1"># Onsager&#39;s exact 2D Tc, Eq. (eq-onsager-tc)</span>
 
-<span class="n">INK</span><span class="p">,</span> <span class="n">AMBER</span> <span class="o">=</span> <span class="s2">&quot;#16213e&quot;</span><span class="p">,</span> <span class="s2">&quot;#c0851a&quot;</span>  <span class="c1"># series accents for emphasised curves</span>
+<span class="c1"># data: Onsager&#39;s exact 2D critical temperature, Eq. (eq-onsager-tc). A closed-form</span>
+<span class="c1"># constant of the model, not something this notebook derives — it is the yardstick</span>
+<span class="c1"># every T_c estimate below is measured against.</span>
+<span class="n">Tc_onsager</span> <span class="o">=</span> <span class="mf">2.0</span> <span class="o">*</span> <span class="n">J</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mf">1.0</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mf">2.0</span><span class="p">))</span>
+
+<span class="c1"># data: series accents for emphasised curves.</span>
+<span class="n">INK</span><span class="p">,</span> <span class="n">AMBER</span> <span class="o">=</span> <span class="s2">&quot;#16213e&quot;</span><span class="p">,</span> <span class="s2">&quot;#c0851a&quot;</span>
 </pre></div>
 </div>
 </div>
+</details>
 </div>
 </section>
 <section id="exercise-1-the-hamiltonian-and-the-energy-of-a-configuration">
@@ -793,9 +815,16 @@ nearest-neighbour bonds (periodic boundaries, so site <span class="math notransl
 the picture: the ringed spin couples only to its two neighbours, and those are
 exactly the bonds whose energy changes when it flips, the locality we exploit
 in the Metropolis step (Exercise 3).</p>
-<p><strong>Part a)</strong> Implement <code class="docutils literal notranslate"><span class="pre">energy_1d(s)</span></code> and <code class="docutils literal notranslate"><span class="pre">magnetization(s)</span></code>. <strong>Part b)</strong> Confirm
-the fully aligned chain sits at the ground-state energy <span class="math notranslate nohighlight">\(E_0=-NJ\)</span> (all <span class="math notranslate nohighlight">\(N\)</span> bonds
-satisfied).</p>
+<p><strong>Part a)</strong> Implement <code class="docutils literal notranslate"><span class="pre">energy_1d(s)</span></code> for a 1-D array of <span class="math notranslate nohighlight">\(\pm1\)</span>, evaluating
+<a class="reference internal" href="#equation-eq-ising-hamiltonian">Eq. 1</a> as <code class="docutils literal notranslate"><span class="pre">-J</span> <span class="pre">*</span> <span class="pre">np.sum(s</span> <span class="pre">*</span> <span class="pre">np.roll(s,</span> <span class="pre">-1))</span></code>: rolling by one
+site pairs every spin with its right neighbour and wraps site <span class="math notranslate nohighlight">\(N-1\)</span> back onto site
+<span class="math notranslate nohighlight">\(0\)</span>, so each bond enters exactly once. Pairing with <em>both</em> neighbours instead is
+the classic factor-of-two error, and Part c) is what catches it.
+<strong>Write this one yourself</strong> — the implementation is the lesson.</p>
+<p><strong>Part b)</strong> Implement <code class="docutils literal notranslate"><span class="pre">magnetization(s)</span></code> as the mean spin, <code class="docutils literal notranslate"><span class="pre">s.mean()</span></code>. Leave it
+shape-agnostic: the 2-D lattice of Exercise 5 reuses it unchanged.</p>
+<p><strong>Part c)</strong> Confirm that the fully aligned chain of <span class="math notranslate nohighlight">\(N=64\)</span> spins sits at the
+ground-state energy <span class="math notranslate nohighlight">\(E_0 = -NJ\)</span>, with all <span class="math notranslate nohighlight">\(N\)</span> bonds satisfied.</p>
 <div class="cell tag_solution tag_remove-input docutils container">
 <div class="cell_output docutils container">
 <figure class="align-default" id="fig-ising-chain">
@@ -1323,42 +1352,42 @@ input[type=range].anim-slider {
 </style>
 
 <div class="animation">
-  <img id="_anim_imgd38856640b2f4eb3857d41da4d84fa88">
+  <img id="_anim_img390bece890174ef18621baf643cac2e6">
   <div class="anim-controls">
-    <input id="_anim_sliderd38856640b2f4eb3857d41da4d84fa88" type="range" class="anim-slider"
+    <input id="_anim_slider390bece890174ef18621baf643cac2e6" type="range" class="anim-slider"
            name="points" min="0" max="1" step="1" value="0"
-           oninput="animd38856640b2f4eb3857d41da4d84fa88.set_frame(parseInt(this.value));">
+           oninput="anim390bece890174ef18621baf643cac2e6.set_frame(parseInt(this.value));">
     <div class="anim-buttons">
-      <button title="Decrease speed" aria-label="Decrease speed" onclick="animd38856640b2f4eb3857d41da4d84fa88.slower()">
+      <button title="Decrease speed" aria-label="Decrease speed" onclick="anim390bece890174ef18621baf643cac2e6.slower()">
           <i class="fa fa-minus"></i></button>
-      <button title="First frame" aria-label="First frame" onclick="animd38856640b2f4eb3857d41da4d84fa88.first_frame()">
+      <button title="First frame" aria-label="First frame" onclick="anim390bece890174ef18621baf643cac2e6.first_frame()">
         <i class="fa fa-fast-backward"></i></button>
-      <button title="Previous frame" aria-label="Previous frame" onclick="animd38856640b2f4eb3857d41da4d84fa88.previous_frame()">
+      <button title="Previous frame" aria-label="Previous frame" onclick="anim390bece890174ef18621baf643cac2e6.previous_frame()">
           <i class="fa fa-step-backward"></i></button>
-      <button title="Play backwards" aria-label="Play backwards" onclick="animd38856640b2f4eb3857d41da4d84fa88.reverse_animation()">
+      <button title="Play backwards" aria-label="Play backwards" onclick="anim390bece890174ef18621baf643cac2e6.reverse_animation()">
           <i class="fa fa-play fa-flip-horizontal"></i></button>
-      <button title="Pause" aria-label="Pause" onclick="animd38856640b2f4eb3857d41da4d84fa88.pause_animation()">
+      <button title="Pause" aria-label="Pause" onclick="anim390bece890174ef18621baf643cac2e6.pause_animation()">
           <i class="fa fa-pause"></i></button>
-      <button title="Play" aria-label="Play" onclick="animd38856640b2f4eb3857d41da4d84fa88.play_animation()">
+      <button title="Play" aria-label="Play" onclick="anim390bece890174ef18621baf643cac2e6.play_animation()">
           <i class="fa fa-play"></i></button>
-      <button title="Next frame" aria-label="Next frame" onclick="animd38856640b2f4eb3857d41da4d84fa88.next_frame()">
+      <button title="Next frame" aria-label="Next frame" onclick="anim390bece890174ef18621baf643cac2e6.next_frame()">
           <i class="fa fa-step-forward"></i></button>
-      <button title="Last frame" aria-label="Last frame" onclick="animd38856640b2f4eb3857d41da4d84fa88.last_frame()">
+      <button title="Last frame" aria-label="Last frame" onclick="anim390bece890174ef18621baf643cac2e6.last_frame()">
           <i class="fa fa-fast-forward"></i></button>
-      <button title="Increase speed" aria-label="Increase speed" onclick="animd38856640b2f4eb3857d41da4d84fa88.faster()">
+      <button title="Increase speed" aria-label="Increase speed" onclick="anim390bece890174ef18621baf643cac2e6.faster()">
           <i class="fa fa-plus"></i></button>
     </div>
-    <form title="Repetition mode" aria-label="Repetition mode" action="#n" name="_anim_loop_selectd38856640b2f4eb3857d41da4d84fa88"
+    <form title="Repetition mode" aria-label="Repetition mode" action="#n" name="_anim_loop_select390bece890174ef18621baf643cac2e6"
           class="anim-state">
-      <input type="radio" name="state" value="once" id="_anim_radio1_d38856640b2f4eb3857d41da4d84fa88"
+      <input type="radio" name="state" value="once" id="_anim_radio1_390bece890174ef18621baf643cac2e6"
              >
-      <label for="_anim_radio1_d38856640b2f4eb3857d41da4d84fa88">Once</label>
-      <input type="radio" name="state" value="loop" id="_anim_radio2_d38856640b2f4eb3857d41da4d84fa88"
+      <label for="_anim_radio1_390bece890174ef18621baf643cac2e6">Once</label>
+      <input type="radio" name="state" value="loop" id="_anim_radio2_390bece890174ef18621baf643cac2e6"
              checked>
-      <label for="_anim_radio2_d38856640b2f4eb3857d41da4d84fa88">Loop</label>
-      <input type="radio" name="state" value="reflect" id="_anim_radio3_d38856640b2f4eb3857d41da4d84fa88"
+      <label for="_anim_radio2_390bece890174ef18621baf643cac2e6">Loop</label>
+      <input type="radio" name="state" value="reflect" id="_anim_radio3_390bece890174ef18621baf643cac2e6"
              >
-      <label for="_anim_radio3_d38856640b2f4eb3857d41da4d84fa88">Reflect</label>
+      <label for="_anim_radio3_390bece890174ef18621baf643cac2e6">Reflect</label>
     </form>
   </div>
 </div>
@@ -1368,9 +1397,9 @@ input[type=range].anim-slider {
   /* Instantiate the Animation class. */
   /* The IDs given should match those used in the template above. */
   (function() {
-    var img_id = "_anim_imgd38856640b2f4eb3857d41da4d84fa88";
-    var slider_id = "_anim_sliderd38856640b2f4eb3857d41da4d84fa88";
-    var loop_select_id = "_anim_loop_selectd38856640b2f4eb3857d41da4d84fa88";
+    var img_id = "_anim_img390bece890174ef18621baf643cac2e6";
+    var slider_id = "_anim_slider390bece890174ef18621baf643cac2e6";
+    var loop_select_id = "_anim_loop_select390bece890174ef18621baf643cac2e6";
     var frames = new Array(201);
     
   frames[0] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAXoAAAF6CAYAAAAXoJOQAAAAOnRFWHRTb2Z0d2FyZQBNYXRwbG90\
@@ -22557,7 +22586,7 @@ hwAAAABJRU5ErkJggg==\
     /* set a timeout to make sure all the above elements are created before
        the object is initialized. */
     setTimeout(function() {
-        animd38856640b2f4eb3857d41da4d84fa88 = new Animation(frames, img_id, slider_id, 33,
+        anim390bece890174ef18621baf643cac2e6 = new Animation(frames, img_id, slider_id, 33,
                                  loop_select_id);
     }, 0);
   })()
@@ -22577,6 +22606,168 @@ stripe, independent of the final magnetisation.</p>
 <div class="cell tag_validation tag_remove-input docutils container">
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>✓  low-temperature quench drives the energy toward the ground state   [final E/N = -1.95 J  (ground state -2J),  |m| = 0.99]
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>True
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="exercise-9-how-long-is-a-monte-carlo-measurement-worth-autocorrelation">
+<h2>Exercise 9 — How long is a Monte Carlo measurement worth? Autocorrelation<a class="headerlink" href="#exercise-9-how-long-is-a-monte-carlo-measurement-worth-autocorrelation" title="Link to this heading">#</a></h2>
+<p>Every average so far has been quoted as if the <span class="math notranslate nohighlight">\(n\)</span> measured sweeps were <span class="math notranslate nohighlight">\(n\)</span>
+independent samples. They are not. A Metropolis sweep changes one spin at a time,
+so consecutive configurations look alike, and the number of <em>statistically
+independent</em> configurations is smaller — sometimes far smaller — than the number
+of sweeps. The quantity that measures this is the normalised autocorrelation
+function of an observable <span class="math notranslate nohighlight">\(A\)</span> at lag <span class="math notranslate nohighlight">\(t\)</span>,</p>
+<div class="math notranslate nohighlight" id="equation-eq-acf">
+<span class="eqno">(11)<a class="headerlink" href="#equation-eq-acf" title="Link to this equation">#</a></span>\[\rho_A(t) = \frac{\langle A_k A_{k+t}\rangle - \langle A\rangle^2}
+                 {\langle A^2\rangle - \langle A\rangle^2},\]</div>
+<p>and its sum, the <strong>integrated autocorrelation time</strong></p>
+<div class="math notranslate nohighlight" id="equation-eq-tau-int">
+<span class="eqno">(12)<a class="headerlink" href="#equation-eq-tau-int" title="Link to this equation">#</a></span>\[\tau_{\rm int} = \tfrac12 + \sum_{t=1}^{\infty}\rho_A(t).\]</div>
+<p>Its meaning is entirely practical: a run of <span class="math notranslate nohighlight">\(n\)</span> sweeps carries about
+<span class="math notranslate nohighlight">\(n_{\rm eff} = n/2\tau_{\rm int}\)</span> independent samples, so the error bar on
+<span class="math notranslate nohighlight">\(\langle A\rangle\)</span> is <span class="math notranslate nohighlight">\(\sqrt{2\tau_{\rm int}}\)</span> times larger than the naive
+<span class="math notranslate nohighlight">\(\sigma/\sqrt{n}\)</span> would suggest. Ignoring <span class="math notranslate nohighlight">\(\tau_{\rm int}\)</span> does not bias an
+average, but it makes the quoted uncertainty a fiction. The sum in
+<a class="reference internal" href="#equation-eq-tau-int">Eq. 12</a> must be truncated in practice, because at large <span class="math notranslate nohighlight">\(t\)</span> the estimate
+of <span class="math notranslate nohighlight">\(\rho_A\)</span> is pure noise; the standard cure is Sokal’s self-consistent window,
+summing up to the first <span class="math notranslate nohighlight">\(t\)</span> with <span class="math notranslate nohighlight">\(t \ge 6\tau_{\rm int}\)</span>
+<span class="bibtex-citation" id="id7">[<a class="reference internal" href="#id44" title="M. E. J. Newman and G. T. Barkema. Monte Carlo Methods in Statistical Physics. Oxford University Press, Oxford, 1999.">NB99b</a>, <a class="reference internal" href="#id46" title="Alan D. Sokal. Monte Carlo methods in statistical mechanics: foundations and new algorithms. In Cécile DeWitt-Morette, Pierre Cartier, and Antoine Folacci, editors, Functional Integration: Basics and Applications, volume 361 of NATO ASI Series B, pages 131–192. Springer, Boston, MA, 1997. doi:10.1007/978-1-4899-0319-8_6.">Sok97</a>]</span>.</p>
+<p>The reason this matters <em>here</em> is that <span class="math notranslate nohighlight">\(\tau_{\rm int}\)</span> is not a constant. As
+<span class="math notranslate nohighlight">\(T\to T_c\)</span> the correlation length diverges, and with it the time the algorithm
+needs to rearrange a correlated region: <span class="math notranslate nohighlight">\(\tau_{\rm int}\sim L^{z}\)</span> at <span class="math notranslate nohighlight">\(T_c\)</span>, with
+a dynamic exponent <span class="math notranslate nohighlight">\(z\approx 2.17\)</span> for Metropolis in 2D. This is <strong>critical
+slowing down</strong>, and it is a property of the <em>algorithm</em>, not of the model —
+which is exactly what Exercise 10 exploits.</p>
+<p><strong>Part a)</strong> Implement <code class="docutils literal notranslate"><span class="pre">integrated_tau(x)</span></code> for a 1-D series: subtract the mean,
+form the autocorrelation with <code class="docutils literal notranslate"><span class="pre">numpy.fft.rfft</span></code> / <code class="docutils literal notranslate"><span class="pre">numpy.fft.irfft</span></code> on a
+zero-padded length <span class="math notranslate nohighlight">\(2n\)</span> (the padding is what makes the circular FFT correlation
+equal the linear one), normalise by lag-0 so <span class="math notranslate nohighlight">\(\rho(0)=1\)</span>, then accumulate
+<a class="reference internal" href="#equation-eq-tau-int">Eq. 12</a> and stop at the first <span class="math notranslate nohighlight">\(t \ge 6\tau\)</span>.
+<strong>Write this one yourself</strong> — the implementation is the lesson.</p>
+<p><strong>Part b)</strong> Implement <code class="docutils literal notranslate"><span class="pre">metropolis_series(L,</span> <span class="pre">T,</span> <span class="pre">n_eq,</span> <span class="pre">n_meas,</span> <span class="pre">seed)</span></code>, which
+equilibrates a random <span class="math notranslate nohighlight">\(L\times L\)</span> lattice for <code class="docutils literal notranslate"><span class="pre">n_eq</span></code> sweeps with the <code class="docutils literal notranslate"><span class="pre">sweep_2d</span></code>
+you built in Exercise 5 and then records <span class="math notranslate nohighlight">\(|m|\)</span> for <code class="docutils literal notranslate"><span class="pre">n_meas</span></code> further sweeps,
+driven by its own <code class="docutils literal notranslate"><span class="pre">numpy.random.default_rng(seed)</span></code>.</p>
+<p><strong>Part c)</strong> Measure <span class="math notranslate nohighlight">\(\tau_{\rm int}\)</span> at <span class="math notranslate nohighlight">\(T=T_c\)</span> for <span class="math notranslate nohighlight">\(L = 8, 12, 16, 24\)</span> (300
+equilibration and 3000 measurement sweeps each) and plot it against <span class="math notranslate nohighlight">\(L\)</span> on log
+axes. Confirm that <span class="math notranslate nohighlight">\(\tau_{\rm int}\)</span> grows with <span class="math notranslate nohighlight">\(L\)</span> — the growth is the slowing
+down. Read the effective exponent from a <code class="docutils literal notranslate"><span class="pre">numpy.polyfit</span></code> of <span class="math notranslate nohighlight">\(\ln\tau\)</span> against
+<span class="math notranslate nohighlight">\(\ln L\)</span>, and treat it as indicative only: these runs are far too short, and the
+lattices far too small, to measure <span class="math notranslate nohighlight">\(z\)</span> properly.</p>
+<div class="cell tag_solution tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>tau_int at Tc: L=8: 2.6, L=12: 7.5, L=16: 17.0, L=24: 29.1
+effective dynamic exponent z_eff = 2.24  (literature z ≈ 2.17)
+</pre></div>
+</div>
+<figure class="align-default" id="fig-ising-tau">
+<img alt="../../_images/4ca3f02df67fe37aa136cf8a060ebc2c37f3391bd032efa08447da355fd72ef5.png" src="../../_images/4ca3f02df67fe37aa136cf8a060ebc2c37f3391bd032efa08447da355fd72ef5.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 10 </span><span class="caption-text">Integrated autocorrelation time <span class="math notranslate nohighlight">\(\tau_{\rm int}\)</span> of <span class="math notranslate nohighlight">\(|m|\)</span> under Metropolis dynamics at <span class="math notranslate nohighlight">\(T=T_c\)</span>, against linear lattice size <span class="math notranslate nohighlight">\(L\)</span> on logarithmic axes, from 3000 measurement sweeps per point. The dashed line is a power-law fit <span class="math notranslate nohighlight">\(\tau_{\rm int}\propto L^{z_{\rm eff}}\)</span>; the growth is critical slowing down, and the fitted exponent is indicative only at these sizes and run lengths.</span><a class="headerlink" href="#fig-ising-tau" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</div>
+</div>
+<section id="validation-9-the-correlation-time-is-real-and-it-grows">
+<h3>Validation 9 — the correlation time is real, and it grows<a class="headerlink" href="#validation-9-the-correlation-time-is-real-and-it-grows" title="Link to this heading">#</a></h3>
+<p>Two independent facts. An uncorrelated series has <span class="math notranslate nohighlight">\(\tau_{\rm int}=1/2\)</span> exactly, so
+feeding <code class="docutils literal notranslate"><span class="pre">integrated_tau</span></code> white noise must return that — this pins the
+normalisation and catches a factor-of-two error in <a class="reference internal" href="#equation-eq-tau-int">Eq. 12</a>. And the
+Metropolis correlation time must <em>grow</em> with <span class="math notranslate nohighlight">\(L\)</span> at <span class="math notranslate nohighlight">\(T_c\)</span>: that growth is the
+slowing down, and it is checked as an ordering, not as a value, because <span class="math notranslate nohighlight">\(z\)</span> is
+not measurable at these sizes.</p>
+<div class="cell tag_validation tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>✓  an uncorrelated series has tau_int = 1/2, pinning the normalisation of eq-tau-int   [got 0.519772 vs expected 0.5 (rtol=0.25, atol=1e-09)]
+✓  the Metropolis correlation time grows with L at Tc: critical slowing down   [tau_int = [2.6, 7.5, 17.0, 29.1] for L = [8, 12, 16, 24]]
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>True
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="exercise-10-beating-the-slowdown-the-wolff-cluster-algorithm">
+<h2>Exercise 10 — Beating the slowdown: the Wolff cluster algorithm<a class="headerlink" href="#exercise-10-beating-the-slowdown-the-wolff-cluster-algorithm" title="Link to this heading">#</a></h2>
+<p>Critical slowing down is the algorithm’s fault, so a different algorithm can
+escape it. The insight, due to Swendsen and Wang and sharpened to a single
+cluster by Wolff, is to stop flipping spins one at a time and instead flip a
+whole correlated region at once <span class="bibtex-citation" id="id8">[<a class="reference internal" href="#id44" title="M. E. J. Newman and G. T. Barkema. Monte Carlo Methods in Statistical Physics. Oxford University Press, Oxford, 1999.">NB99b</a>, <a class="reference internal" href="#id45" title="Ulli Wolff. Collective Monte Carlo updating for spin systems. Physical Review Letters, 62(4):361–364, 1989. doi:10.1103/PhysRevLett.62.361.">Wol89</a>]</span>. Pick a site at
+random; then grow a cluster outward, adding each <em>aligned</em> neighbour with
+probability</p>
+<div class="math notranslate nohighlight" id="equation-eq-wolff-padd">
+<span class="eqno">(13)<a class="headerlink" href="#equation-eq-wolff-padd" title="Link to this equation">#</a></span>\[p_{\rm add} = 1 - e^{-2\beta J},\]</div>
+<p>and finally flip every spin in the cluster together. The move looks violent, yet
+it is accepted unconditionally: <a class="reference internal" href="#equation-eq-wolff-padd">Eq. 13</a> is chosen so that the bias in
+<em>building</em> the cluster exactly cancels the Boltzmann cost of <em>flipping</em> it, which
+is what leaves the equilibrium distribution untouched. That cancellation is the
+whole design, and it is why <span class="math notranslate nohighlight">\(p_{\rm add}\)</span> cannot be any other function of
+<span class="math notranslate nohighlight">\(\beta\)</span>.</p>
+<p>Near <span class="math notranslate nohighlight">\(T_c\)</span> the clusters this recipe grows are themselves of order the correlation
+length, so one update rearranges a correlated region in a single step and the
+correlation time barely grows with <span class="math notranslate nohighlight">\(L\)</span> at all (<span class="math notranslate nohighlight">\(z\approx 0.25\)</span>). Far below <span class="math notranslate nohighlight">\(T_c\)</span>
+the same property becomes a liability: the cluster is essentially the whole
+lattice and every update merely flips the entire system, which is why cluster
+algorithms are a critical-region tool rather than a universal replacement.</p>
+<p><strong>Part a)</strong> Implement <code class="docutils literal notranslate"><span class="pre">wolff_update(s,</span> <span class="pre">beta,</span> <span class="pre">r)</span></code>: choose a random site with
+<code class="docutils literal notranslate"><span class="pre">r.integers(L)</span></code>, record its sign, then grow the cluster with an explicit stack
+(a Python list used with <code class="docutils literal notranslate"><span class="pre">.pop()</span></code>), adding a neighbour when it still carries the
+original sign and <code class="docutils literal notranslate"><span class="pre">r.random()</span> <span class="pre">&lt;</span> <span class="pre">p_add</span></code> with <span class="math notranslate nohighlight">\(p_{\rm add}\)</span> from
+<a class="reference internal" href="#equation-eq-wolff-padd">Eq. 13</a>. Flip each spin as it joins — that is what prevents a site
+being added twice and removes any need for a separate visited-set. Wrap
+neighbour indices with <code class="docutils literal notranslate"><span class="pre">%</span> <span class="pre">L</span></code> for periodicity, and return the cluster size.
+<strong>Write this one yourself</strong> — the implementation is the lesson.</p>
+<p><strong>Part b)</strong> Implement <code class="docutils literal notranslate"><span class="pre">wolff_series(L,</span> <span class="pre">T,</span> <span class="pre">n_eq,</span> <span class="pre">n_meas,</span> <span class="pre">seed)</span></code>, the cluster
+counterpart of <code class="docutils literal notranslate"><span class="pre">metropolis_series</span></code> from Exercise 9, returning both the <span class="math notranslate nohighlight">\(|m|\)</span>
+series and the mean cluster size.</p>
+<p><strong>Part c)</strong> At <span class="math notranslate nohighlight">\(T=T_c\)</span> on a <span class="math notranslate nohighlight">\(32\times32\)</span> lattice, measure <span class="math notranslate nohighlight">\(\tau_{\rm int}\)</span> for
+both algorithms (Metropolis: 400 equilibration and 4000 measurement sweeps;
+Wolff: 200 and 2000 cluster updates) and report the ratio. Plot the two <span class="math notranslate nohighlight">\(|m|\)</span>
+series over their first 400 steps so the difference is visible rather than
+merely tabulated.</p>
+<p><strong>Part d)</strong> On a <span class="math notranslate nohighlight">\(16\times16\)</span> lattice at <span class="math notranslate nohighlight">\(T_c\)</span>, compare <span class="math notranslate nohighlight">\(\langle|m|\rangle\)</span> from
+the two algorithms. They sample the <em>same</em> distribution by different means, so
+agreement here is a genuine cross-method check of both implementations at once —
+a disagreement would indict <code class="docutils literal notranslate"><span class="pre">sweep_2d</span></code>, <code class="docutils literal notranslate"><span class="pre">wolff_update</span></code>, or both.</p>
+<div class="cell tag_solution tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>L=32: tau_metro = 33.9 sweeps, tau_wolff = 2.7 updates
+        speed-up factor = 12.3
+        mean cluster = 484 of 1024 spins
+L=16:   &lt;|m|&gt; Metropolis 0.7155 vs Wolff 0.7090
+</pre></div>
+</div>
+<figure class="align-default" id="fig-ising-wolff">
+<img alt="../../_images/a1eace9c39751a4f16e023bd16f014249c09d324a4d2ee0222228f0134a4083a.png" src="../../_images/a1eace9c39751a4f16e023bd16f014249c09d324a4d2ee0222228f0134a4083a.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 11 </span><span class="caption-text">Monte Carlo histories of <span class="math notranslate nohighlight">\(|m|\)</span> on a <span class="math notranslate nohighlight">\(32\times32\)</span> lattice at <span class="math notranslate nohighlight">\(T=T_c\)</span> under Metropolis sweeps (navy) and Wolff single-cluster updates (amber), over the first 400 steps of each. The Metropolis trace wanders slowly and stays near its previous value for many sweeps; the Wolff trace decorrelates within a few updates, because one cluster move rearranges a whole correlated region.</span><a class="headerlink" href="#fig-ising-wolff" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</div>
+</div>
+<section id="validation-10-same-distribution-different-dynamics">
+<h3>Validation 10 — same distribution, different dynamics<a class="headerlink" href="#validation-10-same-distribution-different-dynamics" title="Link to this heading">#</a></h3>
+<p>Three checks. The cluster the recipe grows at <span class="math notranslate nohighlight">\(T_c\)</span> must be a substantial
+fraction of the lattice, since that is the mechanism: flipping a correlated
+region in one move. The Wolff correlation time must be far below the Metropolis
+one at <span class="math notranslate nohighlight">\(L=32\)</span>, which is the payoff. And the two algorithms must agree on
+<span class="math notranslate nohighlight">\(\langle|m|\rangle\)</span> at <span class="math notranslate nohighlight">\(L=16\)</span>, where both are well converged — this is the check
+that matters most, because it is the only one that would fail if either update
+sampled the wrong distribution. All three are ratios or orderings rather than
+values, because <span class="math notranslate nohighlight">\(\tau_{\rm int}\)</span> from a finite chain is a noisy estimate.</p>
+<div class="cell tag_validation tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>✓  at Tc the Wolff cluster spans a sizeable fraction of the lattice, which is the mechanism that defeats critical slowing down   [mean cluster 484 of 1024 spins]
+✓  and the cluster algorithm decorrelates far faster than Metropolis at Tc   [tau_metro/tau_wolff = 12.3]
+✓  yet both algorithms sample the same equilibrium distribution: &lt;|m|&gt; agrees at L=16, a cross-method check of sweep_2d and wolff_update at once   [got 0.715451 vs expected 0.708986 (rtol=0.05, atol=1e-09)]
 </pre></div>
 </div>
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>True
@@ -22650,37 +22841,50 @@ the correlation-length exponent. The peak <em>height</em> of <span class="math n
 slowing down</em>; the Wolff algorithm flips correlated domains at once and
 decorrelates far faster.</p></li>
 <li><p><strong>The Binder cumulant</strong> <span class="math notranslate nohighlight">\(U_4=1-\langle m^4\rangle/3\langle m^2\rangle^2\)</span> crosses
-at <span class="math notranslate nohighlight">\(T_c\)</span> for all sizes, a sharper locator than the <span class="math notranslate nohighlight">\(C_v\)</span> peak <span class="bibtex-citation" id="id7">[<a class="reference internal" href="#id14" title="Kurt Binder. Finite size scaling analysis of ising model block distribution functions. Zeitschrift für Physik B, 43(2):119–140, 1981. doi:10.1007/BF01293604.">Bin81</a>]</span>.</p></li>
+at <span class="math notranslate nohighlight">\(T_c\)</span> for all sizes, a sharper locator than the <span class="math notranslate nohighlight">\(C_v\)</span> peak <span class="bibtex-citation" id="id9">[<a class="reference internal" href="#id16" title="Kurt Binder. Finite size scaling analysis of ising model block distribution functions. Zeitschrift für Physik B, 43(2):119–140, 1981. doi:10.1007/BF01293604.">Bin81</a>]</span>.</p></li>
 </ul>
 <section id="references">
 <h3>References<a class="headerlink" href="#references" title="Link to this heading">#</a></h3>
-<div class="docutils container" id="id8">
+<div class="docutils container" id="id10">
 <div role="list" class="citation-list">
-<div class="citation" id="id14" role="doc-biblioentry">
-<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id7">Bin81</a><span class="fn-bracket">]</span></span>
+<div class="citation" id="id16" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id9">Bin81</a><span class="fn-bracket">]</span></span>
 <p>Kurt Binder. Finite size scaling analysis of ising model block distribution functions. <em>Zeitschrift für Physik B</em>, 43(2):119–140, 1981. <a class="reference external" href="https://doi.org/10.1007/BF01293604">doi:10.1007/BF01293604</a>.</p>
 </div>
-<div class="citation" id="id16" role="doc-biblioentry">
+<div class="citation" id="id18" role="doc-biblioentry">
 <span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id2">Gol92</a><span class="fn-bracket">]</span></span>
 <p>Nigel Goldenfeld. <em>Lectures on Phase Transitions and the Renormalization Group</em>. Addison-Wesley, 1992.</p>
 </div>
-<div class="citation" id="id13" role="doc-biblioentry">
+<div class="citation" id="id15" role="doc-biblioentry">
 <span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id6">MRR+53</a><span class="fn-bracket">]</span></span>
 <p>Nicholas Metropolis, Arianna W. Rosenbluth, Marshall N. Rosenbluth, Augusta H. Teller, and Edward Teller. Equation of state calculations by fast computing machines. <em>The Journal of Chemical Physics</em>, 21(6):1087–1092, 1953. <a class="reference external" href="https://doi.org/10.1063/1.1699114">doi:10.1063/1.1699114</a>.</p>
 </div>
-<div class="citation" id="id9" role="doc-biblioentry">
-<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id3">NB99</a><span class="fn-bracket">]</span></span>
+<div class="citation" id="id11" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id3">NB99a</a><span class="fn-bracket">]</span></span>
 <p>M. E. J. Newman and G. T. Barkema. <em>Monte Carlo Methods in Statistical Physics</em>. Oxford University Press, Oxford, 1999.</p>
 </div>
-<div class="citation" id="id11" role="doc-biblioentry">
+<div class="citation" id="id44" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span>NB99b<span class="fn-bracket">]</span></span>
+<span class="backrefs">(<a role="doc-backlink" href="#id7">1</a>,<a role="doc-backlink" href="#id8">2</a>)</span>
+<p>M. E. J. Newman and G. T. Barkema. <em>Monte Carlo Methods in Statistical Physics</em>. Oxford University Press, Oxford, 1999.</p>
+</div>
+<div class="citation" id="id13" role="doc-biblioentry">
 <span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id4">Ons44</a><span class="fn-bracket">]</span></span>
 <p>Lars Onsager. Crystal statistics. i. a two-dimensional model with an order-disorder transition. <em>Physical Review</em>, 65(3–4):117–149, 1944. <a class="reference external" href="https://doi.org/10.1103/PhysRev.65.117">doi:10.1103/PhysRev.65.117</a>.</p>
 </div>
-<div class="citation" id="id15" role="doc-biblioentry">
+<div class="citation" id="id17" role="doc-biblioentry">
 <span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id1">PB11</a><span class="fn-bracket">]</span></span>
 <p>R. K. Pathria and Paul D. Beale. <em>Statistical Mechanics</em>. Elsevier, 3 edition, 2011.</p>
 </div>
-<div class="citation" id="id12" role="doc-biblioentry">
+<div class="citation" id="id46" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id7">Sok97</a><span class="fn-bracket">]</span></span>
+<p>Alan D. Sokal. Monte Carlo methods in statistical mechanics: foundations and new algorithms. In Cécile DeWitt-Morette, Pierre Cartier, and Antoine Folacci, editors, <em>Functional Integration: Basics and Applications</em>, volume 361 of NATO ASI Series B, pages 131–192. Springer, Boston, MA, 1997. <a class="reference external" href="https://doi.org/10.1007/978-1-4899-0319-8_6">doi:10.1007/978-1-4899-0319-8_6</a>.</p>
+</div>
+<div class="citation" id="id45" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id8">Wol89</a><span class="fn-bracket">]</span></span>
+<p>Ulli Wolff. Collective Monte Carlo updating for spin systems. <em>Physical Review Letters</em>, 62(4):361–364, 1989. <a class="reference external" href="https://doi.org/10.1103/PhysRevLett.62.361">doi:10.1103/PhysRevLett.62.361</a>.</p>
+</div>
+<div class="citation" id="id14" role="doc-biblioentry">
 <span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id5">Yan52</a><span class="fn-bracket">]</span></span>
 <p>C. N. Yang. The spontaneous magnetization of a two-dimensional ising model. <em>Physical Review</em>, 85(5):808–816, 1952. <a class="reference external" href="https://doi.org/10.1103/PhysRev.85.808">doi:10.1103/PhysRev.85.808</a>.</p>
 </div>
@@ -22817,6 +23021,14 @@ at <span class="math notranslate nohighlight">\(T_c\)</span> for all sizes, a sh
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-8-equilibrium-configurations-and-a-low-temperature-quench">Exercise 8 — Equilibrium configurations and a low-temperature quench</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#validation-8-the-quench-orders-the-lattice-energetically">Validation 8 — the quench orders the lattice (energetically)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-9-how-long-is-a-monte-carlo-measurement-worth-autocorrelation">Exercise 9 — How long is a Monte Carlo measurement worth? Autocorrelation</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#validation-9-the-correlation-time-is-real-and-it-grows">Validation 9 — the correlation time is real, and it grows</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-10-beating-the-slowdown-the-wolff-cluster-algorithm">Exercise 10 — Beating the slowdown: the Wolff cluster algorithm</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#validation-10-same-distribution-different-dynamics">Validation 10 — same distribution, different dynamics</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#notebook-summary">Notebook summary</a></li>

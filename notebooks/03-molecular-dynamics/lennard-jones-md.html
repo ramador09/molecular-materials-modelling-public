@@ -644,10 +644,10 @@ study is Verlet <span class="bibtex-citation" id="id3">[<a class="reference inte
 <h3>Equations of motion<a class="headerlink" href="#equations-of-motion" title="Link to this heading">#</a></h3>
 <p>Each atom obeys Newton’s second law with the Lennard-Jones force,</p>
 <div class="math notranslate nohighlight" id="equation-eq-eom">
-<span class="eqno">(22)<a class="headerlink" href="#equation-eq-eom" title="Link to this equation">#</a></span>\[m\,\ddot{\mathbf r}_i = \mathbf F_i = -\nabla_i E, \qquad
+<span class="eqno">(25)<a class="headerlink" href="#equation-eq-eom" title="Link to this equation">#</a></span>\[m\,\ddot{\mathbf r}_i = \mathbf F_i = -\nabla_i E, \qquad
 E = \sum_{i&lt;j} 4\varepsilon\!\left[\left(\tfrac{\sigma}{r_{ij}}\right)^{12}-\left(\tfrac{\sigma}{r_{ij}}\right)^{6}\right].\]</div>
 <p>In reduced units <span class="math notranslate nohighlight">\(m=1\)</span>, so the acceleration <em>is</em> the force. Integrated forward in
-time from initial positions and velocities, <a class="reference internal" href="#equation-eq-eom">Eq. 22</a> is a deterministic
+time from initial positions and velocities, <a class="reference internal" href="#equation-eq-eom">Eq. 25</a> is a deterministic
 trajectory, and the energy <span class="math notranslate nohighlight">\(E+\tfrac12\sum_i m\dot{\mathbf r}_i^2\)</span> is conserved.</p>
 </section>
 <section id="time-integration-velocity-verlet">
@@ -655,7 +655,7 @@ trajectory, and the energy <span class="math notranslate nohighlight">\(E+\tfrac
 <p>We advance the trajectory with the <strong>velocity-Verlet</strong> algorithm, the workhorse of
 molecular dynamics:</p>
 <div class="math notranslate nohighlight" id="equation-eq-verlet">
-<span class="eqno">(23)<a class="headerlink" href="#equation-eq-verlet" title="Link to this equation">#</a></span>\[\mathbf r(t+\Delta t) = \mathbf r(t) + \mathbf v(t)\,\Delta t + \tfrac12\mathbf a(t)\,\Delta t^2,
+<span class="eqno">(26)<a class="headerlink" href="#equation-eq-verlet" title="Link to this equation">#</a></span>\[\mathbf r(t+\Delta t) = \mathbf r(t) + \mathbf v(t)\,\Delta t + \tfrac12\mathbf a(t)\,\Delta t^2,
 \qquad
 \mathbf v(t+\Delta t) = \mathbf v(t) + \tfrac12\big[\mathbf a(t)+\mathbf a(t+\Delta t)\big]\Delta t.\]</div>
 <p>It is <em>symplectic</em> and time-reversible, which is why it conserves energy over long
@@ -673,7 +673,7 @@ particle number, volume, and energy. To fix <em>temperature</em> instead, the
 equipartition, with <span class="math notranslate nohighlight">\(3N-3\)</span> degrees of freedom after removing the centre-of-mass
 motion,</p>
 <div class="math notranslate nohighlight" id="equation-eq-temperature">
-<span class="eqno">(24)<a class="headerlink" href="#equation-eq-temperature" title="Link to this equation">#</a></span>\[\tfrac12\textstyle\sum_i m\,\mathbf v_i^2 = \tfrac{1}{2}(3N-3)\,k_B T
+<span class="eqno">(27)<a class="headerlink" href="#equation-eq-temperature" title="Link to this equation">#</a></span>\[\tfrac12\textstyle\sum_i m\,\mathbf v_i^2 = \tfrac{1}{2}(3N-3)\,k_B T
 \;\;\Longrightarrow\;\;
 T = \frac{\sum_i m\,\mathbf v_i^2}{(3N-3)\,k_B}.\]</div>
 <p>The simplest thermostat rescales every velocity by <span class="math notranslate nohighlight">\(\sqrt{T_{\rm target}/T}\)</span>; the
@@ -685,7 +685,7 @@ which adds the right fluctuations, but the rescaling idea is the same.</p>
 <p>The <strong>radial distribution function</strong> <span class="math notranslate nohighlight">\(g(r)\)</span> is the probability of finding a pair of
 atoms a distance <span class="math notranslate nohighlight">\(r\)</span> apart, relative to an ideal gas of the same density:</p>
 <div class="math notranslate nohighlight" id="equation-eq-gr">
-<span class="eqno">(25)<a class="headerlink" href="#equation-eq-gr" title="Link to this equation">#</a></span>\[g(r) = \frac{1}{\rho\,N}\Big\langle \sum_{i\neq j}\delta(r-r_{ij})\Big\rangle \Big/ 4\pi r^2 .\]</div>
+<span class="eqno">(28)<a class="headerlink" href="#equation-eq-gr" title="Link to this equation">#</a></span>\[g(r) = \frac{1}{\rho\,N}\Big\langle \sum_{i\neq j}\delta(r-r_{ij})\Big\rangle \Big/ 4\pi r^2 .\]</div>
 <p>Its peaks sit at the neighbour-shell distances, so a sharp first peak at the
 nearest-neighbour spacing <span class="math notranslate nohighlight">\(r_{\min}=2^{1/6}\sigma\)</span> signals a solid, and the smooth
 decay of a liquid signals lost long-range order. It is the simulation’s direct
@@ -866,7 +866,7 @@ with CP2K, whose <code class="docutils literal notranslate"><span class="pre">th
 <p>The decks ship with this notebook: <a class="reference download internal" download="" href="../../_downloads/6b40bdd88f7b461e64e8879dde8ea93c/thermalization_38.inp"><code class="xref download docutils literal notranslate"><span class="pre">thermalization_38.inp</span></code></a>
 (canonical, with thermostat) and <a class="reference download internal" download="" href="../../_downloads/1388571be07c5c5993a342fa2801b5d1/production_38.inp"><code class="xref download docutils literal notranslate"><span class="pre">production_38.inp</span></code></a>
 (microcanonical, <code class="docutils literal notranslate"><span class="pre">ENSEMBLE</span> <span class="pre">NVE</span></code>, no thermostat). We reproduce them by integrating
-<a class="reference internal" href="#equation-eq-eom">Eq. 22</a> with velocity Verlet <a class="reference internal" href="#equation-eq-verlet">Eq. 23</a>. With no thermostat the run is
+<a class="reference internal" href="#equation-eq-eom">Eq. 25</a> with velocity Verlet <a class="reference internal" href="#equation-eq-verlet">Eq. 26</a>. With no thermostat the run is
 microcanonical, so the conserved quantity to watch is the <em>total</em> energy.</p>
 <p><strong>Part a)</strong> Implement <code class="docutils literal notranslate"><span class="pre">run_md</span></code> (velocity Verlet, optional velocity-rescaling
 thermostat). <strong>Part b)</strong> Run the cluster in <span class="math notranslate nohighlight">\(NVE\)</span> from velocities drawn at
@@ -876,7 +876,7 @@ thermostat). <strong>Part b)</strong> Run the cluster in <span class="math notra
 <figure class="align-default" id="fig-md-nve">
 <img alt="../../_images/4641a00676e3bd599d12a1251338fdc849db7a28e03e1966d7eafc8d88fc9130.png" src="../../_images/4641a00676e3bd599d12a1251338fdc849db7a28e03e1966d7eafc8d88fc9130.png" />
 <figcaption>
-<p><span class="caption-number">Fig. 20 </span><span class="caption-text">A microcanonical (NVE) velocity-Verlet trajectory of the 38-atom argon cluster from velocities at <span class="math notranslate nohighlight">\(T^\ast=0.1\)</span>: (a) the total energy stays flat (relative drift <span class="math notranslate nohighlight">\(\sim10^{-5}\)</span>), the hallmark of a correct symplectic integrator; (b) the temperature fluctuates freely, since at fixed energy only the sum of kinetic and potential energy is conserved.</span><a class="headerlink" href="#fig-md-nve" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 22 </span><span class="caption-text">A microcanonical (NVE) velocity-Verlet trajectory of the 38-atom argon cluster from velocities at <span class="math notranslate nohighlight">\(T^\ast=0.1\)</span>: (a) the total energy stays flat (relative drift <span class="math notranslate nohighlight">\(\sim10^{-5}\)</span>), the hallmark of a correct symplectic integrator; (b) the temperature fluctuates freely, since at fixed energy only the sum of kinetic and potential energy is conserved.</span><a class="headerlink" href="#fig-md-nve" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 </div>
@@ -914,7 +914,7 @@ spent an assignment “converging the time steps”.</p>
 <figure class="align-default" id="fig-md-euler">
 <img alt="../../_images/5f2a79c372192af6d7348632ac7c6d462bda999e2ed845156640948753654b1b.png" src="../../_images/5f2a79c372192af6d7348632ac7c6d462bda999e2ed845156640948753654b1b.png" />
 <figcaption>
-<p><span class="caption-number">Fig. 21 </span><span class="caption-text">Total energy along the same Lennard-Jones cluster trajectory, integrated with forward Euler (amber) and velocity Verlet (navy) at identical timestep <span class="math notranslate nohighlight">\(\Delta t=0.004\)</span>. The symplectic Verlet scheme conserves energy; Euler pumps it in without bound, making the trajectory unphysical within a few thousand steps.</span><a class="headerlink" href="#fig-md-euler" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 23 </span><span class="caption-text">Total energy along the same Lennard-Jones cluster trajectory, integrated with forward Euler (amber) and velocity Verlet (navy) at identical timestep <span class="math notranslate nohighlight">\(\Delta t=0.004\)</span>. The symplectic Verlet scheme conserves energy; Euler pumps it in without bound, making the trajectory unphysical within a few thousand steps.</span><a class="headerlink" href="#fig-md-euler" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 </div>
@@ -942,7 +942,7 @@ integrators.</p>
 prepare the cluster at a <em>chosen</em> temperature, as the course did before measuring
 anything, we couple it to a thermostat. The simplest version rescales every
 velocity by <span class="math notranslate nohighlight">\(\sqrt{T_{\rm target}/T}\)</span> at intervals, nudging the kinetic energy
-toward equipartition <a class="reference internal" href="#equation-eq-temperature">Eq. 24</a>. Starting the cluster cold and
+toward equipartition <a class="reference internal" href="#equation-eq-temperature">Eq. 27</a>. Starting the cluster cold and
 thermostatting to the deck’s target <span class="math notranslate nohighlight">\(T^\ast=20/119.8\approx0.167\)</span>, the temperature
 climbs and then settles, fluctuating about the target.</p>
 <p><strong>Part a)</strong> Thermalize the cluster to <span class="math notranslate nohighlight">\(T^\ast=0.167\)</span> with the velocity-rescaling
@@ -952,7 +952,7 @@ thermostat. <strong>Part b)</strong> Confirm the time-averaged temperature equal
 <figure class="align-default" id="fig-md-thermostat">
 <img alt="../../_images/c1221f767bbf14f7cf9caa1f2dece4de0ca4b4266d459ac5e513919ec4e8f9ad.png" src="../../_images/c1221f767bbf14f7cf9caa1f2dece4de0ca4b4266d459ac5e513919ec4e8f9ad.png" />
 <figcaption>
-<p><span class="caption-number">Fig. 22 </span><span class="caption-text">Thermalization of the 38-atom argon cluster to the deck’s target <span class="math notranslate nohighlight">\(T^\ast=20\,\mathrm{K}/119.8\,\mathrm{K}\approx0.167\)</span> (amber line) with a velocity-rescaling thermostat. From a cold start the instantaneous temperature rises and settles, fluctuating about the target as the canonical ensemble requires; the running average (navy) converges to it.</span><a class="headerlink" href="#fig-md-thermostat" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 24 </span><span class="caption-text">Thermalization of the 38-atom argon cluster to the deck’s target <span class="math notranslate nohighlight">\(T^\ast=20\,\mathrm{K}/119.8\,\mathrm{K}\approx0.167\)</span> (amber line) with a velocity-rescaling thermostat. From a cold start the instantaneous temperature rises and settles, fluctuating about the target as the canonical ensemble requires; the running average (navy) converges to it.</span><a class="headerlink" href="#fig-md-thermostat" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 </div>
@@ -976,7 +976,7 @@ target <span class="math notranslate nohighlight">\(T^\ast=0.167\)</span>, the d
 <section id="exercise-4-the-radial-distribution-function">
 <h2>Exercise 4 — The radial distribution function<a class="headerlink" href="#exercise-4-the-radial-distribution-function" title="Link to this heading">#</a></h2>
 <p>With the cluster thermalized we measure its structure. The radial distribution
-function <span class="math notranslate nohighlight">\(g(r)\)</span> <a class="reference internal" href="#equation-eq-gr">Eq. 25</a> is a histogram of pairwise distances, normalised by the
+function <span class="math notranslate nohighlight">\(g(r)\)</span> <a class="reference internal" href="#equation-eq-gr">Eq. 28</a> is a histogram of pairwise distances, normalised by the
 <span class="math notranslate nohighlight">\(4\pi r^2\)</span> shell volume, accumulated over a microcanonical production trajectory
 (thermalize first, then run <span class="math notranslate nohighlight">\(NVE\)</span> and sample, exactly the canonical-then-
 microcanonical workflow of the two decks). For the cold solid cluster <span class="math notranslate nohighlight">\(g(r)\)</span> shows
@@ -993,7 +993,7 @@ run an <span class="math notranslate nohighlight">\(NVE\)</span> production traj
 <figure class="align-default" id="fig-md-gr">
 <img alt="../../_images/74c47866848c5d8abd77b3a965883625be64398f4cf8738672ff6f1044c47681.png" src="../../_images/74c47866848c5d8abd77b3a965883625be64398f4cf8738672ff6f1044c47681.png" />
 <figcaption>
-<p><span class="caption-number">Fig. 23 </span><span class="caption-text">Radial distribution function <span class="math notranslate nohighlight">\(g(r)\)</span> of the cold (solid) 38-atom Lennard-Jones cluster, from a microcanonical production trajectory at <span class="math notranslate nohighlight">\(T^\ast\approx0.08\)</span>. The sharp first peak sits at the nearest-neighbour distance <span class="math notranslate nohighlight">\(r_{\min}=2^{1/6}\sigma\)</span> (amber line); the further peaks mark successive coordination shells, the structural signature of an ordered solid.</span><a class="headerlink" href="#fig-md-gr" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 25 </span><span class="caption-text">Radial distribution function <span class="math notranslate nohighlight">\(g(r)\)</span> of the cold (solid) 38-atom Lennard-Jones cluster, from a microcanonical production trajectory at <span class="math notranslate nohighlight">\(T^\ast\approx0.08\)</span>. The sharp first peak sits at the nearest-neighbour distance <span class="math notranslate nohighlight">\(r_{\min}=2^{1/6}\sigma\)</span> (amber line); the further peaks mark successive coordination shells, the structural signature of an ordered solid.</span><a class="headerlink" href="#fig-md-gr" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>average coordination number = 7.6  (bulk fcc = 12; lower here, surface atoms)
@@ -1033,7 +1033,7 @@ that motion, that its <span class="math notranslate nohighlight">\(g(r)\)</span>
 <figure class="align-default" id="fig-md-melting">
 <img alt="../../_images/ac04c2581e1d3130c8545f80181bd46f4485ad9e3f09977364a4b3a043365275.png" src="../../_images/ac04c2581e1d3130c8545f80181bd46f4485ad9e3f09977364a4b3a043365275.png" />
 <figcaption>
-<p><span class="caption-number">Fig. 24 </span><span class="caption-text">Radial distribution functions of the 38-atom cluster, cold solid (<span class="math notranslate nohighlight">\(T^\ast=0.08\)</span>, navy) versus hot liquid (<span class="math notranslate nohighlight">\(T^\ast=0.5\)</span>, amber). Melting broadens the first (nearest-neighbour) peak and washes out the further coordination shells, leaving the smooth single-peak <span class="math notranslate nohighlight">\(g(r)\)</span> of a disordered liquid: the loss of long-range order made quantitative.</span><a class="headerlink" href="#fig-md-melting" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 26 </span><span class="caption-text">Radial distribution functions of the 38-atom cluster, cold solid (<span class="math notranslate nohighlight">\(T^\ast=0.08\)</span>, navy) versus hot liquid (<span class="math notranslate nohighlight">\(T^\ast=0.5\)</span>, amber). Melting broadens the first (nearest-neighbour) peak and washes out the further coordination shells, leaving the smooth single-peak <span class="math notranslate nohighlight">\(g(r)\)</span> of a disordered liquid: the loss of long-range order made quantitative.</span><a class="headerlink" href="#fig-md-melting" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 </div>
@@ -1226,42 +1226,42 @@ input[type=range].anim-slider {
 </style>
 
 <div class="animation">
-  <img id="_anim_imgb3d2aea0a4c64603b9b2fa2189fd7172">
+  <img id="_anim_img451029d1c7244168bb74b02fbc36873b">
   <div class="anim-controls">
-    <input id="_anim_sliderb3d2aea0a4c64603b9b2fa2189fd7172" type="range" class="anim-slider"
+    <input id="_anim_slider451029d1c7244168bb74b02fbc36873b" type="range" class="anim-slider"
            name="points" min="0" max="1" step="1" value="0"
-           oninput="animb3d2aea0a4c64603b9b2fa2189fd7172.set_frame(parseInt(this.value));">
+           oninput="anim451029d1c7244168bb74b02fbc36873b.set_frame(parseInt(this.value));">
     <div class="anim-buttons">
-      <button title="Decrease speed" aria-label="Decrease speed" onclick="animb3d2aea0a4c64603b9b2fa2189fd7172.slower()">
+      <button title="Decrease speed" aria-label="Decrease speed" onclick="anim451029d1c7244168bb74b02fbc36873b.slower()">
           <i class="fa fa-minus"></i></button>
-      <button title="First frame" aria-label="First frame" onclick="animb3d2aea0a4c64603b9b2fa2189fd7172.first_frame()">
+      <button title="First frame" aria-label="First frame" onclick="anim451029d1c7244168bb74b02fbc36873b.first_frame()">
         <i class="fa fa-fast-backward"></i></button>
-      <button title="Previous frame" aria-label="Previous frame" onclick="animb3d2aea0a4c64603b9b2fa2189fd7172.previous_frame()">
+      <button title="Previous frame" aria-label="Previous frame" onclick="anim451029d1c7244168bb74b02fbc36873b.previous_frame()">
           <i class="fa fa-step-backward"></i></button>
-      <button title="Play backwards" aria-label="Play backwards" onclick="animb3d2aea0a4c64603b9b2fa2189fd7172.reverse_animation()">
+      <button title="Play backwards" aria-label="Play backwards" onclick="anim451029d1c7244168bb74b02fbc36873b.reverse_animation()">
           <i class="fa fa-play fa-flip-horizontal"></i></button>
-      <button title="Pause" aria-label="Pause" onclick="animb3d2aea0a4c64603b9b2fa2189fd7172.pause_animation()">
+      <button title="Pause" aria-label="Pause" onclick="anim451029d1c7244168bb74b02fbc36873b.pause_animation()">
           <i class="fa fa-pause"></i></button>
-      <button title="Play" aria-label="Play" onclick="animb3d2aea0a4c64603b9b2fa2189fd7172.play_animation()">
+      <button title="Play" aria-label="Play" onclick="anim451029d1c7244168bb74b02fbc36873b.play_animation()">
           <i class="fa fa-play"></i></button>
-      <button title="Next frame" aria-label="Next frame" onclick="animb3d2aea0a4c64603b9b2fa2189fd7172.next_frame()">
+      <button title="Next frame" aria-label="Next frame" onclick="anim451029d1c7244168bb74b02fbc36873b.next_frame()">
           <i class="fa fa-step-forward"></i></button>
-      <button title="Last frame" aria-label="Last frame" onclick="animb3d2aea0a4c64603b9b2fa2189fd7172.last_frame()">
+      <button title="Last frame" aria-label="Last frame" onclick="anim451029d1c7244168bb74b02fbc36873b.last_frame()">
           <i class="fa fa-fast-forward"></i></button>
-      <button title="Increase speed" aria-label="Increase speed" onclick="animb3d2aea0a4c64603b9b2fa2189fd7172.faster()">
+      <button title="Increase speed" aria-label="Increase speed" onclick="anim451029d1c7244168bb74b02fbc36873b.faster()">
           <i class="fa fa-plus"></i></button>
     </div>
-    <form title="Repetition mode" aria-label="Repetition mode" action="#n" name="_anim_loop_selectb3d2aea0a4c64603b9b2fa2189fd7172"
+    <form title="Repetition mode" aria-label="Repetition mode" action="#n" name="_anim_loop_select451029d1c7244168bb74b02fbc36873b"
           class="anim-state">
-      <input type="radio" name="state" value="once" id="_anim_radio1_b3d2aea0a4c64603b9b2fa2189fd7172"
+      <input type="radio" name="state" value="once" id="_anim_radio1_451029d1c7244168bb74b02fbc36873b"
              >
-      <label for="_anim_radio1_b3d2aea0a4c64603b9b2fa2189fd7172">Once</label>
-      <input type="radio" name="state" value="loop" id="_anim_radio2_b3d2aea0a4c64603b9b2fa2189fd7172"
+      <label for="_anim_radio1_451029d1c7244168bb74b02fbc36873b">Once</label>
+      <input type="radio" name="state" value="loop" id="_anim_radio2_451029d1c7244168bb74b02fbc36873b"
              checked>
-      <label for="_anim_radio2_b3d2aea0a4c64603b9b2fa2189fd7172">Loop</label>
-      <input type="radio" name="state" value="reflect" id="_anim_radio3_b3d2aea0a4c64603b9b2fa2189fd7172"
+      <label for="_anim_radio2_451029d1c7244168bb74b02fbc36873b">Loop</label>
+      <input type="radio" name="state" value="reflect" id="_anim_radio3_451029d1c7244168bb74b02fbc36873b"
              >
-      <label for="_anim_radio3_b3d2aea0a4c64603b9b2fa2189fd7172">Reflect</label>
+      <label for="_anim_radio3_451029d1c7244168bb74b02fbc36873b">Reflect</label>
     </form>
   </div>
 </div>
@@ -1271,9 +1271,9 @@ input[type=range].anim-slider {
   /* Instantiate the Animation class. */
   /* The IDs given should match those used in the template above. */
   (function() {
-    var img_id = "_anim_imgb3d2aea0a4c64603b9b2fa2189fd7172";
-    var slider_id = "_anim_sliderb3d2aea0a4c64603b9b2fa2189fd7172";
-    var loop_select_id = "_anim_loop_selectb3d2aea0a4c64603b9b2fa2189fd7172";
+    var img_id = "_anim_img451029d1c7244168bb74b02fbc36873b";
+    var slider_id = "_anim_slider451029d1c7244168bb74b02fbc36873b";
+    var loop_select_id = "_anim_loop_select451029d1c7244168bb74b02fbc36873b";
     var frames = new Array(120);
     
   frames[0] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAYwAAAGMCAYAAADJOZVKAAAAOnRFWHRTb2Z0d2FyZQBNYXRwbG90\
@@ -23090,13 +23090,13 @@ ABwhGAAARwgGAMARggEAcIRgAAAcIRgAAEcIBgDAkf8HSyr3izsg0mUAAAAASUVORK5CYII=\
     /* set a timeout to make sure all the above elements are created before
        the object is initialized. */
     setTimeout(function() {
-        animb3d2aea0a4c64603b9b2fa2189fd7172 = new Animation(frames, img_id, slider_id, 33,
+        anim451029d1c7244168bb74b02fbc36873b = new Animation(frames, img_id, slider_id, 33,
                                  loop_select_id);
     }, 0);
   })()
 </script>
 </div><figcaption>
-<p><span class="caption-number">Fig. 25 </span><span class="caption-text">Animation of the 38-atom argon cluster at <span class="math notranslate nohighlight">\(T^\ast=0.5\)</span>, well above its melting point: atoms break from their lattice sites and diffuse over the surface and through the interior, the disordered motion whose time average gives the washed-out hot <span class="math notranslate nohighlight">\(g(r)\)</span>. The amber atom is tracked to make the diffusion visible.</span><a class="headerlink" href="#fig-md-melt" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 27 </span><span class="caption-text">Animation of the 38-atom argon cluster at <span class="math notranslate nohighlight">\(T^\ast=0.5\)</span>, well above its melting point: atoms break from their lattice sites and diffuse over the surface and through the interior, the disordered motion whose time average gives the washed-out hot <span class="math notranslate nohighlight">\(g(r)\)</span>. The amber atom is tracked to make the diffusion visible.</span><a class="headerlink" href="#fig-md-melt" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 </div>

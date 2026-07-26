@@ -658,7 +658,7 @@ periodically two replicas at adjacent temperatures attempt to <strong>swap</stro
 configurations. The swap is accepted with a Metropolis criterion that preserves
 detailed balance for the joint ensemble:</p>
 <div class="math notranslate nohighlight" id="equation-eq-swap">
-<span class="eqno">(26)<a class="headerlink" href="#equation-eq-swap" title="Link to this equation">#</a></span>\[p_{\rm acc} = \min\!\Big(1,\; e^{(\beta_i-\beta_j)(E_i-E_j)}\Big),
+<span class="eqno">(29)<a class="headerlink" href="#equation-eq-swap" title="Link to this equation">#</a></span>\[p_{\rm acc} = \min\!\Big(1,\; e^{(\beta_i-\beta_j)(E_i-E_j)}\Big),
 \qquad \beta = \frac{1}{k_BT}.\]</div>
 <p>A configuration that wandered over a barrier at high temperature can then descend,
 swap by swap, to low temperature, so each replica samples its Boltzmann
@@ -672,7 +672,7 @@ distributions overlap and swaps are accepted often enough.</p>
 average energy as a function of temperature is the <strong>caloric curve</strong> <span class="math notranslate nohighlight">\(\langle
 E\rangle(T)\)</span>, and its slope is the <strong>heat capacity</strong></p>
 <div class="math notranslate nohighlight" id="equation-eq-cv">
-<span class="eqno">(27)<a class="headerlink" href="#equation-eq-cv" title="Link to this equation">#</a></span>\[C_v = \frac{d\langle E\rangle}{dT}.\]</div>
+<span class="eqno">(30)<a class="headerlink" href="#equation-eq-cv" title="Link to this equation">#</a></span>\[C_v = \frac{d\langle E\rangle}{dT}.\]</div>
 <p>A finite cluster melts over a narrow temperature range where the energy rises
 steeply, so <span class="math notranslate nohighlight">\(C_v\)</span> shows a peak there: the cluster’s melting temperature, read
 straight off the curve.</p>
@@ -784,7 +784,7 @@ the right basin and confirm it is trapped.</p>
 <figure class="align-default" id="fig-pt-trapped">
 <img alt="../../_images/3e514b991856c993cbb5899406074f91aef454f9906f60500210a2658b7f7db5.png" src="../../_images/3e514b991856c993cbb5899406074f91aef454f9906f60500210a2658b7f7db5.png" />
 <figcaption>
-<p><span class="caption-number">Fig. 26 </span><span class="caption-text">The double well <span class="math notranslate nohighlight">\(U(x)=5(x^2-1)^2\)</span> (navy) and the distribution sampled by a single Metropolis chain at <span class="math notranslate nohighlight">\(T=0.25\)</span> started in the right basin (amber histogram). The chain never crosses the barrier of height 5, so it samples only the right well: a non-ergodic, and wrong, result, since the symmetric potential should populate both wells equally.</span><a class="headerlink" href="#fig-pt-trapped" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 28 </span><span class="caption-text">The double well <span class="math notranslate nohighlight">\(U(x)=5(x^2-1)^2\)</span> (navy) and the distribution sampled by a single Metropolis chain at <span class="math notranslate nohighlight">\(T=0.25\)</span> started in the right basin (amber histogram). The chain never crosses the barrier of height 5, so it samples only the right well: a non-ergodic, and wrong, result, since the symmetric potential should populate both wells equally.</span><a class="headerlink" href="#fig-pt-trapped" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 </div>
@@ -809,7 +809,7 @@ time there: a fraction near one, not the correct one-half.</p>
 <h2>Exercise 2 — Parallel tempering escapes the barrier<a class="headerlink" href="#exercise-2-parallel-tempering-escapes-the-barrier" title="Link to this heading">#</a></h2>
 <p>Now run several replicas at once, from a cold <span class="math notranslate nohighlight">\(T_1=0.25\)</span> up to a hot <span class="math notranslate nohighlight">\(T_M=4\)</span> where
 the barrier is easily crossed, and attempt swaps between adjacent temperatures with
-the criterion <a class="reference internal" href="#equation-eq-swap">Eq. 26</a>. A configuration that crosses the barrier in a hot
+the criterion <a class="reference internal" href="#equation-eq-swap">Eq. 29</a>. A configuration that crosses the barrier in a hot
 replica can be swapped down to the cold one, so the cold replica, the one we care
 about, finally samples <em>both</em> wells. Because the potential is symmetric, the exact
 Boltzmann answer is one-half in each, and parallel tempering recovers it.</p>
@@ -820,7 +820,7 @@ Boltzmann answer is one-half in each, and parallel tempering recovers it.</p>
 <figure class="align-default" id="fig-pt-mixed">
 <img alt="../../_images/3b3d9225e8d03a1207258e4962e4d0207d6562551299002d393695f8183df640.png" src="../../_images/3b3d9225e8d03a1207258e4962e4d0207d6562551299002d393695f8183df640.png" />
 <figcaption>
-<p><span class="caption-number">Fig. 27 </span><span class="caption-text">Distribution of the cold (<span class="math notranslate nohighlight">\(T=0.25\)</span>) replica under parallel tempering across eight temperatures from 0.25 to 4 (amber), against the exact Boltzmann distribution <span class="math notranslate nohighlight">\(P(x)\propto e^{-U(x)/T}\)</span> (navy). The swaps carry barrier crossings down from the hot replicas, so the cold replica now samples both wells with the correct equal weight: the non-ergodicity of Exercise 1 is cured.</span><a class="headerlink" href="#fig-pt-mixed" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 29 </span><span class="caption-text">Distribution of the cold (<span class="math notranslate nohighlight">\(T=0.25\)</span>) replica under parallel tempering across eight temperatures from 0.25 to 4 (amber), against the exact Boltzmann distribution <span class="math notranslate nohighlight">\(P(x)\propto e^{-U(x)/T}\)</span> (navy). The swaps carry barrier crossings down from the hot replicas, so the cold replica now samples both wells with the correct equal weight: the non-ergodicity of Exercise 1 is cured.</span><a class="headerlink" href="#fig-pt-mixed" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 </div>
@@ -873,7 +873,7 @@ whole temperature ladder, the condition for parallel tempering to help.</p>
 <figure class="align-default" id="fig-pt-walk">
 <img alt="../../_images/c84996e3768473d0d5caf635e8a9047242518b93db10c790b8963724043cc28a.png" src="../../_images/c84996e3768473d0d5caf635e8a9047242518b93db10c790b8963724043cc28a.png" />
 <figcaption>
-<p><span class="caption-number">Fig. 28 </span><span class="caption-text">Temperature random-walk from the real LAMMPS run: the temperature index occupied by three of the twelve replicas over the five-million-step simulation. Accepted swaps carry each replica up and down a broad span of the ladder (one reaches the cold 2 K end, another the hot 40 K end), so configurations mix across temperatures instead of staying pinned to one. This wandering, not a fixed temperature per replica, is what makes the method work.</span><a class="headerlink" href="#fig-pt-walk" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 30 </span><span class="caption-text">Temperature random-walk from the real LAMMPS run: the temperature index occupied by three of the twelve replicas over the five-million-step simulation. Accepted swaps carry each replica up and down a broad span of the ladder (one reaches the cold 2 K end, another the hot 40 K end), so configurations mix across temperatures instead of staying pinned to one. This wandering, not a fixed temperature per replica, is what makes the method work.</span><a class="headerlink" href="#fig-pt-walk" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>swap activity: 32.3% of steps change a replica&#39;s temperature; a tracked replica visits 5–10 of the 12 temperatures
@@ -914,7 +914,7 @@ Lennard-Jones cluster, <span class="math notranslate nohighlight">\(T^\ast\sim0.
 <figure class="align-default" id="fig-pt-caloric">
 <img alt="../../_images/0f660e0d7a42538018a715b4a915042add3b85b96aded50e7d28acc8b9f9a59b.png" src="../../_images/0f660e0d7a42538018a715b4a915042add3b85b96aded50e7d28acc8b9f9a59b.png" />
 <figcaption>
-<p><span class="caption-number">Fig. 29 </span><span class="caption-text">Caloric curve of the 38-atom argon cluster from the real LAMMPS parallel-tempering run: average potential energy (eV) versus reduced temperature <span class="math notranslate nohighlight">\(T^\ast=T/120.9\)</span>. The energy rises gently while the cluster is solid, then steeply through the melting range near <span class="math notranslate nohighlight">\(T^\ast\approx0.16\)</span> (amber band) as latent heat disorders the structure, then continues to climb in the liquid.</span><a class="headerlink" href="#fig-pt-caloric" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 31 </span><span class="caption-text">Caloric curve of the 38-atom argon cluster from the real LAMMPS parallel-tempering run: average potential energy (eV) versus reduced temperature <span class="math notranslate nohighlight">\(T^\ast=T/120.9\)</span>. The energy rises gently while the cluster is solid, then steeply through the melting range near <span class="math notranslate nohighlight">\(T^\ast\approx0.16\)</span> (amber band) as latent heat disorders the structure, then continues to climb in the liquid.</span><a class="headerlink" href="#fig-pt-caloric" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 </div>
@@ -937,7 +937,7 @@ known melting range of a 38-atom Lennard-Jones cluster, <span class="math notran
 </section>
 <section id="exercise-5-the-heat-capacity-peak">
 <h2>Exercise 5 — The heat-capacity peak<a class="headerlink" href="#exercise-5-the-heat-capacity-peak" title="Link to this heading">#</a></h2>
-<p>The heat capacity <span class="math notranslate nohighlight">\(C_v=d\langle E\rangle/dT\)</span> <a class="reference internal" href="#equation-eq-cv">Eq. 27</a> turns the melting step into
+<p>The heat capacity <span class="math notranslate nohighlight">\(C_v=d\langle E\rangle/dT\)</span> <a class="reference internal" href="#equation-eq-cv">Eq. 30</a> turns the melting step into
 a peak. For a macroscopic system the peak would be a sharp divergence at a
 first-order transition; for a 38-atom cluster it is a finite, rounded bump, but it
 still marks the melting temperature unambiguously. This is the result the course
@@ -949,7 +949,7 @@ coincides with the melting transition of Exercise 4.</p>
 <figure class="align-default" id="fig-pt-cv">
 <img alt="../../_images/eb13f2719e1485a1f37f63d02b39368b6a230897084ae9219271d6f423affe7f.png" src="../../_images/eb13f2719e1485a1f37f63d02b39368b6a230897084ae9219271d6f423affe7f.png" />
 <figcaption>
-<p><span class="caption-number">Fig. 30 </span><span class="caption-text">Heat capacity <span class="math notranslate nohighlight">\(C_v=d\langle E\rangle/dT\)</span> of the 38-atom argon cluster (in units of <span class="math notranslate nohighlight">\(k_B\)</span>), from the caloric curve of the real parallel-tempering run. The peak at <span class="math notranslate nohighlight">\(T^\ast\approx0.16\)</span> (<span class="math notranslate nohighlight">\(T\approx19\,\)</span>K, amber line) is the rounded, finite-size remnant of the melting transition: the cluster’s melting point, read from its heat capacity.</span><a class="headerlink" href="#fig-pt-cv" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 32 </span><span class="caption-text">Heat capacity <span class="math notranslate nohighlight">\(C_v=d\langle E\rangle/dT\)</span> of the 38-atom argon cluster (in units of <span class="math notranslate nohighlight">\(k_B\)</span>), from the caloric curve of the real parallel-tempering run. The peak at <span class="math notranslate nohighlight">\(T^\ast\approx0.16\)</span> (<span class="math notranslate nohighlight">\(T\approx19\,\)</span>K, amber line) is the rounded, finite-size remnant of the melting transition: the cluster’s melting point, read from its heat capacity.</span><a class="headerlink" href="#fig-pt-cv" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 </div>
