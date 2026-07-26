@@ -863,8 +863,14 @@ internal energy rises smoothly from <span class="math notranslate nohighlight">\
 the specific heat shows a <strong>broad Schottky peak with no singularity</strong>: the
 hallmark of <em>no</em> phase transition; and the susceptibility diverges only as
 <span class="math notranslate nohighlight">\(T\to0\)</span>, the signature that order forms only at exactly zero temperature.</p>
-<p><strong>Part a)</strong> Implement <code class="docutils literal notranslate"><span class="pre">exact_1d</span></code>. <strong>Part b)</strong> Plot <span class="math notranslate nohighlight">\(m\)</span>, <span class="math notranslate nohighlight">\(u\)</span>, <span class="math notranslate nohighlight">\(C\)</span>, <span class="math notranslate nohighlight">\(\chi\)</span> versus
-temperature (<a class="reference internal" href="#fig-ising-exact1d"><span class="std std-numref">Fig. 2</span></a>).</p>
+<p><strong>Part a)</strong> Implement <code class="docutils literal notranslate"><span class="pre">exact_1d(T,</span> <span class="pre">J,</span> <span class="pre">h)</span></code>, returning the exact per-spin
+magnetisation, internal energy, specific heat and susceptibility of the 1-D chain
+from the transfer-matrix free energy <a class="reference internal" href="#equation-eq-free-energy">Eq. 4</a>, using the closed-form
+larger eigenvalue <a class="reference internal" href="#equation-eq-eigenvalues">Eq. 3</a> rather than a numerical <code class="docutils literal notranslate"><span class="pre">eigh</span></code> — the closed
+form is exact and carries no eigenvector sign ambiguity.
+<strong>Write this one yourself</strong> — the implementation is the lesson.</p>
+<p><strong>Part b)</strong> Plot <span class="math notranslate nohighlight">\(m\)</span>, <span class="math notranslate nohighlight">\(u\)</span>, <span class="math notranslate nohighlight">\(C\)</span> and <span class="math notranslate nohighlight">\(\chi\)</span> against temperature on a shared figure
+(<a class="reference internal" href="#fig-ising-exact1d"><span class="std std-numref">Fig. 2</span></a>).</p>
 <div class="cell tag_solution tag_remove-input docutils container">
 </div>
 <div class="cell tag_solution tag_remove-input docutils container">
@@ -913,8 +919,15 @@ sites, then odd): in 1D the even and odd sites are mutually non-adjacent, so all
 spins of one colour can be proposed at once, a vectorised Metropolis update
 that still respects detailed balance. The decisive test is that the sampled
 internal energy reproduces the <strong>exact</strong> transfer-matrix curve <span class="math notranslate nohighlight">\(u(T)\)</span>.</p>
-<p><strong>Part a)</strong> Implement <code class="docutils literal notranslate"><span class="pre">sweep_1d</span></code>. <strong>Part b)</strong> Scan temperature and overlay the
-Monte Carlo energy on the exact <span class="math notranslate nohighlight">\(u(T)\)</span> (<a class="reference internal" href="#fig-ising-mc1d"><span class="std std-numref">Fig. 3</span></a>).</p>
+<p><strong>Part a)</strong> Implement <code class="docutils literal notranslate"><span class="pre">sweep_1d(s,</span> <span class="pre">beta,</span> <span class="pre">masks)</span></code>, one checkerboard Metropolis
+sweep of the chain in place: compute every local energy change at once with
+<a class="reference internal" href="#equation-eq-ising-hamiltonian">Eq. 1</a>, accept with probability <span class="math notranslate nohighlight">\(\min(1, e^{-\beta\Delta E})\)</span>
+by comparing <code class="docutils literal notranslate"><span class="pre">rng.random(s.shape)</span></code> against <code class="docutils literal notranslate"><span class="pre">np.exp(-beta</span> <span class="pre">*</span> <span class="pre">dE)</span></code>, and apply the
+even and odd sublattices in turn so that no two flipped spins are neighbours
+within one update.
+<strong>Write this one yourself</strong> — the implementation is the lesson.</p>
+<p><strong>Part b)</strong> Scan temperature and overlay the Monte Carlo internal energy on the
+exact <span class="math notranslate nohighlight">\(u(T)\)</span> of Exercise 2 (<a class="reference internal" href="#fig-ising-mc1d"><span class="std std-numref">Fig. 3</span></a>).</p>
 <div class="cell tag_solution tag_remove-input docutils container">
 </div>
 <div class="cell tag_solution tag_remove-input docutils container">
@@ -991,9 +1004,17 @@ differs, now with four neighbours. Scan temperature across Onsager’s
 curve <a class="reference internal" href="#equation-eq-yang">Eq. 7</a>. As a second, parameter-free check we enumerate <em>all</em>
 <span class="math notranslate nohighlight">\(2^{16}\)</span> states of a <span class="math notranslate nohighlight">\(4\times4\)</span> lattice and confirm the sampler reproduces the
 exact Boltzmann <span class="math notranslate nohighlight">\(\langle|m|\rangle\)</span>.</p>
-<p><strong>Part a)</strong> Implement the 2D sweep. <strong>Part b)</strong> Plot MC <span class="math notranslate nohighlight">\(\langle|m|\rangle\)</span> with
-the Yang curve (<a class="reference internal" href="#fig-ising-m2d"><span class="std std-numref">Fig. 5</span></a>). <strong>Part c)</strong> Cross-check against the
-exact <span class="math notranslate nohighlight">\(4\times4\)</span> enumeration.</p>
+<p><strong>Part a)</strong> Implement <code class="docutils literal notranslate"><span class="pre">nn_sum_2d</span></code>, <code class="docutils literal notranslate"><span class="pre">energy_2d</span></code> and <code class="docutils literal notranslate"><span class="pre">sweep_2d</span></code>, the
+two-dimensional counterparts of Exercise 3. Build the neighbour sum by rolling
+the lattice along both axes with <code class="docutils literal notranslate"><span class="pre">numpy.roll</span></code>, and keep the checkerboard
+structure: on a square lattice the even and odd sublattices are exactly the two
+colours for which no site touches another of its own colour.
+<strong>Write this one yourself</strong> — the implementation is the lesson.</p>
+<p><strong>Part b)</strong> Plot the Monte Carlo <span class="math notranslate nohighlight">\(\langle|m|\rangle\)</span> against temperature together
+with the Onsager–Yang curve <a class="reference internal" href="#equation-eq-yang">Eq. 7</a> (<a class="reference internal" href="#fig-ising-m2d"><span class="std std-numref">Fig. 5</span></a>).</p>
+<p><strong>Part c)</strong> Cross-check the same quantity against the exact <span class="math notranslate nohighlight">\(4\times4\)</span>
+enumeration, which sums all <span class="math notranslate nohighlight">\(2^{16}\)</span> configurations directly and so owes nothing
+to the sampler.</p>
 <div class="cell tag_solution tag_remove-input docutils container">
 </div>
 <div class="cell tag_solution tag_remove-input docutils container">
@@ -1044,9 +1065,14 @@ from the slowly-decorrelating magnetisation, is noisier than <span class="math n
 single-run peak less reliable. We therefore quote the <strong>specific-heat</strong> peak as
 our estimate of <span class="math notranslate nohighlight">\(T_c\)</span> and compare it with Onsager’s exact value
 <a class="reference internal" href="#equation-eq-onsager-tc">Eq. 6</a>; the result is <a class="reference internal" href="#fig-ising-response"><span class="std std-numref">Fig. 6</span></a>.</p>
-<p><strong>Part a)</strong> Accumulate <span class="math notranslate nohighlight">\(\chi\)</span> and <span class="math notranslate nohighlight">\(C_v\)</span> over the scan. <strong>Part b)</strong> Read <span class="math notranslate nohighlight">\(T_c\)</span> off
-the <span class="math notranslate nohighlight">\(C_v\)</span> peak and compare to Onsager; mark the <span class="math notranslate nohighlight">\(\chi\)</span> peak too, and see how far
-it overshoots.</p>
+<p><strong>Part a)</strong> Accumulate the susceptibility <span class="math notranslate nohighlight">\(\chi\)</span> and the specific heat <span class="math notranslate nohighlight">\(C_v\)</span> over
+a temperature scan, both from the fluctuation formulas <a class="reference internal" href="#equation-eq-fluctuation">Eq. 10</a> —
+variances of <span class="math notranslate nohighlight">\(m\)</span> and of <span class="math notranslate nohighlight">\(E\)</span> over the measured sweeps, not numerical derivatives of
+the mean, which would amplify the sampling noise.</p>
+<p><strong>Part b)</strong> Read <span class="math notranslate nohighlight">\(T_c\)</span> off the <span class="math notranslate nohighlight">\(C_v\)</span> peak with <code class="docutils literal notranslate"><span class="pre">numpy.argmax</span></code> and compare it to
+Onsager’s exact value. Mark the <span class="math notranslate nohighlight">\(\chi\)</span> peak as well, and note how much further it
+overshoots — the two estimators do not have to agree at finite <span class="math notranslate nohighlight">\(L\)</span>, and the reason
+they do not is the subject of the next exercise.</p>
 <div class="cell tag_solution tag_remove-input docutils container">
 <div class="cell_output docutils container">
 <figure class="align-default" id="fig-ising-response">
@@ -1111,13 +1137,16 @@ finite-size shift extrapolated away. We use the steadier specific-heat peak and
 read each one off its temperature scan with a parabolic fit to the three points
 around the maximum (a sub-grid estimate, since the true peak rarely lands exactly
 on a grid node).</p>
-<p><strong>Part a)</strong> For <span class="math notranslate nohighlight">\(L=12,16,24,32\)</span>, scan a window around <span class="math notranslate nohighlight">\(T_c\)</span> and locate the <span class="math notranslate nohighlight">\(C_v\)</span>
-peak. <strong>Part b)</strong> Fit <span class="math notranslate nohighlight">\(T_{\rm peak}\)</span> versus <span class="math notranslate nohighlight">\(1/L\)</span> and read <span class="math notranslate nohighlight">\(T_c\)</span> off the
-intercept (<a class="reference internal" href="#fig-ising-fss"><span class="std std-numref">Fig. 7</span></a>); compare to Onsager.</p>
+<p><strong>Part a)</strong> For <span class="math notranslate nohighlight">\(L = 12, 16, 24, 32\)</span>, scan a temperature window around <span class="math notranslate nohighlight">\(T_c\)</span> and
+locate the <span class="math notranslate nohighlight">\(C_v\)</span> peak of each with <code class="docutils literal notranslate"><span class="pre">cv_peak_temperature</span></code>.</p>
+<p><strong>Part b)</strong> Fit <span class="math notranslate nohighlight">\(T_{\rm peak}\)</span> against <span class="math notranslate nohighlight">\(1/L\)</span> with <code class="docutils literal notranslate"><span class="pre">numpy.polyfit</span></code> of degree 1, as
+<a class="reference internal" href="#equation-eq-fss">Eq. 8</a> prescribes, and read <span class="math notranslate nohighlight">\(T_c\)</span> off the intercept
+(<a class="reference internal" href="#fig-ising-fss"><span class="std std-numref">Fig. 7</span></a>). The intercept is the <span class="math notranslate nohighlight">\(L\to\infty\)</span> limit, so it is the
+extrapolation — not any single lattice — that is compared with Onsager.</p>
 <div class="cell tag_solution tag_remove-input docutils container">
 <div class="cell_output docutils container">
 <figure class="align-default" id="fig-ising-fss">
-<img alt="../../_images/a79abd848cc0b22b4c2e9a185278e253282c294b5a03b433e108b07256edb0f2.png" src="../../_images/a79abd848cc0b22b4c2e9a185278e253282c294b5a03b433e108b07256edb0f2.png" />
+<img alt="../../_images/825ba45c15344b0b2dcb3a47ffe5784e649e0f6690bc2c8f93faf9362be4dc2d.png" src="../../_images/825ba45c15344b0b2dcb3a47ffe5784e649e0f6690bc2c8f93faf9362be4dc2d.png" />
 <figcaption>
 <p><span class="caption-number">Fig. 7 </span><span class="caption-text">Finite-size scaling of the 2D Ising specific-heat peak: the peak temperature <span class="math notranslate nohighlight">\(T_{\rm peak}(L)\)</span> for <span class="math notranslate nohighlight">\(L=12,16,24,32\)</span> (amber points) versus <span class="math notranslate nohighlight">\(1/L\)</span>, with the linear fit <span class="math notranslate nohighlight">\(T_{\rm peak}=T_c+A/L\)</span> (Eq. eq-fss) extrapolated to <span class="math notranslate nohighlight">\(1/L\to0\)</span>. The intercept (navy square) recovers Onsager’s exact <span class="math notranslate nohighlight">\(T_c\)</span> (dashed), free of the finite-size shift that displaces any single-lattice estimate.</span><a class="headerlink" href="#fig-ising-fss" title="Link to this image">#</a></p>
 </figcaption>
@@ -1152,8 +1181,14 @@ cannot. The quench can lock into a long-lived <strong>striped</strong> state (tw
 wrapping the periodic lattice) whose magnetisation is small but whose energy is
 already deep, so we validate the robust quantity: the energy must fall far toward
 the ground state.</p>
-<p><strong>Part a)</strong> Show equilibrium configurations at three temperatures. <strong>Part b)</strong>
-Animate a low-<span class="math notranslate nohighlight">\(T\)</span> quench and validate its energy.</p>
+<p><strong>Part a)</strong> Show equilibrium configurations at three temperatures spanning the
+transition — well below, near, and well above <span class="math notranslate nohighlight">\(T_c\)</span> — as an <code class="docutils literal notranslate"><span class="pre">imshow</span></code> triptych
+(<a class="reference internal" href="#fig-ising-snapshots"><span class="std std-numref">Fig. 8</span></a>).</p>
+<p><strong>Part b)</strong> Animate a quench to <span class="math notranslate nohighlight">\(T = 1.5 \ll T_c\)</span> from a random start, and
+validate it on the energy of the final configuration rather than on the
+magnetisation: a lattice that orders into two stripe domains is genuinely
+low-energy while having <span class="math notranslate nohighlight">\(m \approx 0\)</span>, so energy is the honest measure of
+ordering here and magnetisation is not.</p>
 <div class="cell tag_solution tag_remove-input docutils container">
 <div class="cell_output docutils container">
 <figure class="align-default" id="fig-ising-snapshots">
@@ -1352,42 +1387,42 @@ input[type=range].anim-slider {
 </style>
 
 <div class="animation">
-  <img id="_anim_img390bece890174ef18621baf643cac2e6">
+  <img id="_anim_imgc81f122261bc419f86e27b332f77534c">
   <div class="anim-controls">
-    <input id="_anim_slider390bece890174ef18621baf643cac2e6" type="range" class="anim-slider"
+    <input id="_anim_sliderc81f122261bc419f86e27b332f77534c" type="range" class="anim-slider"
            name="points" min="0" max="1" step="1" value="0"
-           oninput="anim390bece890174ef18621baf643cac2e6.set_frame(parseInt(this.value));">
+           oninput="animc81f122261bc419f86e27b332f77534c.set_frame(parseInt(this.value));">
     <div class="anim-buttons">
-      <button title="Decrease speed" aria-label="Decrease speed" onclick="anim390bece890174ef18621baf643cac2e6.slower()">
+      <button title="Decrease speed" aria-label="Decrease speed" onclick="animc81f122261bc419f86e27b332f77534c.slower()">
           <i class="fa fa-minus"></i></button>
-      <button title="First frame" aria-label="First frame" onclick="anim390bece890174ef18621baf643cac2e6.first_frame()">
+      <button title="First frame" aria-label="First frame" onclick="animc81f122261bc419f86e27b332f77534c.first_frame()">
         <i class="fa fa-fast-backward"></i></button>
-      <button title="Previous frame" aria-label="Previous frame" onclick="anim390bece890174ef18621baf643cac2e6.previous_frame()">
+      <button title="Previous frame" aria-label="Previous frame" onclick="animc81f122261bc419f86e27b332f77534c.previous_frame()">
           <i class="fa fa-step-backward"></i></button>
-      <button title="Play backwards" aria-label="Play backwards" onclick="anim390bece890174ef18621baf643cac2e6.reverse_animation()">
+      <button title="Play backwards" aria-label="Play backwards" onclick="animc81f122261bc419f86e27b332f77534c.reverse_animation()">
           <i class="fa fa-play fa-flip-horizontal"></i></button>
-      <button title="Pause" aria-label="Pause" onclick="anim390bece890174ef18621baf643cac2e6.pause_animation()">
+      <button title="Pause" aria-label="Pause" onclick="animc81f122261bc419f86e27b332f77534c.pause_animation()">
           <i class="fa fa-pause"></i></button>
-      <button title="Play" aria-label="Play" onclick="anim390bece890174ef18621baf643cac2e6.play_animation()">
+      <button title="Play" aria-label="Play" onclick="animc81f122261bc419f86e27b332f77534c.play_animation()">
           <i class="fa fa-play"></i></button>
-      <button title="Next frame" aria-label="Next frame" onclick="anim390bece890174ef18621baf643cac2e6.next_frame()">
+      <button title="Next frame" aria-label="Next frame" onclick="animc81f122261bc419f86e27b332f77534c.next_frame()">
           <i class="fa fa-step-forward"></i></button>
-      <button title="Last frame" aria-label="Last frame" onclick="anim390bece890174ef18621baf643cac2e6.last_frame()">
+      <button title="Last frame" aria-label="Last frame" onclick="animc81f122261bc419f86e27b332f77534c.last_frame()">
           <i class="fa fa-fast-forward"></i></button>
-      <button title="Increase speed" aria-label="Increase speed" onclick="anim390bece890174ef18621baf643cac2e6.faster()">
+      <button title="Increase speed" aria-label="Increase speed" onclick="animc81f122261bc419f86e27b332f77534c.faster()">
           <i class="fa fa-plus"></i></button>
     </div>
-    <form title="Repetition mode" aria-label="Repetition mode" action="#n" name="_anim_loop_select390bece890174ef18621baf643cac2e6"
+    <form title="Repetition mode" aria-label="Repetition mode" action="#n" name="_anim_loop_selectc81f122261bc419f86e27b332f77534c"
           class="anim-state">
-      <input type="radio" name="state" value="once" id="_anim_radio1_390bece890174ef18621baf643cac2e6"
+      <input type="radio" name="state" value="once" id="_anim_radio1_c81f122261bc419f86e27b332f77534c"
              >
-      <label for="_anim_radio1_390bece890174ef18621baf643cac2e6">Once</label>
-      <input type="radio" name="state" value="loop" id="_anim_radio2_390bece890174ef18621baf643cac2e6"
+      <label for="_anim_radio1_c81f122261bc419f86e27b332f77534c">Once</label>
+      <input type="radio" name="state" value="loop" id="_anim_radio2_c81f122261bc419f86e27b332f77534c"
              checked>
-      <label for="_anim_radio2_390bece890174ef18621baf643cac2e6">Loop</label>
-      <input type="radio" name="state" value="reflect" id="_anim_radio3_390bece890174ef18621baf643cac2e6"
+      <label for="_anim_radio2_c81f122261bc419f86e27b332f77534c">Loop</label>
+      <input type="radio" name="state" value="reflect" id="_anim_radio3_c81f122261bc419f86e27b332f77534c"
              >
-      <label for="_anim_radio3_390bece890174ef18621baf643cac2e6">Reflect</label>
+      <label for="_anim_radio3_c81f122261bc419f86e27b332f77534c">Reflect</label>
     </form>
   </div>
 </div>
@@ -1397,9 +1432,9 @@ input[type=range].anim-slider {
   /* Instantiate the Animation class. */
   /* The IDs given should match those used in the template above. */
   (function() {
-    var img_id = "_anim_img390bece890174ef18621baf643cac2e6";
-    var slider_id = "_anim_slider390bece890174ef18621baf643cac2e6";
-    var loop_select_id = "_anim_loop_select390bece890174ef18621baf643cac2e6";
+    var img_id = "_anim_imgc81f122261bc419f86e27b332f77534c";
+    var slider_id = "_anim_sliderc81f122261bc419f86e27b332f77534c";
+    var loop_select_id = "_anim_loop_selectc81f122261bc419f86e27b332f77534c";
     var frames = new Array(201);
     
   frames[0] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAXoAAAF6CAYAAAAXoJOQAAAAOnRFWHRTb2Z0d2FyZQBNYXRwbG90\
@@ -22586,7 +22621,7 @@ hwAAAABJRU5ErkJggg==\
     /* set a timeout to make sure all the above elements are created before
        the object is initialized. */
     setTimeout(function() {
-        anim390bece890174ef18621baf643cac2e6 = new Animation(frames, img_id, slider_id, 33,
+        animc81f122261bc419f86e27b332f77534c = new Animation(frames, img_id, slider_id, 33,
                                  loop_select_id);
     }, 0);
   })()
