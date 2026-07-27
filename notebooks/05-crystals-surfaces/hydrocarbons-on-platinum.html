@@ -587,7 +587,7 @@
               font-family:'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace;font-size:11px;color:#46506b;
               letter-spacing:.04em;">
     <span>Raymond Amador</span>
-    <span>v1.0.0 &nbsp;·&nbsp; 2026-07-27 &nbsp;·&nbsp;
+    <span>v1.1.0 &nbsp;·&nbsp; 2026-07-27 &nbsp;·&nbsp;
           CC&nbsp;BY&nbsp;4.0 (text) / MIT (code)</span>
   </div>
 </div></div></div>
@@ -1017,13 +1017,13 @@ described. Scan both. Watch <em>which</em> additions help: the diagnosis is in t
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>E(A, own basis)          = -1.38011138
 E(A, dimer basis, ghost) = -1.38127085
 BSSE                     = 1.159e-03  (positive: spurious stabilisation)
-BSSE vs separation: [ 1.70e-03  1.16e-03  1.85e-06  7.33e-13 -8.88e-16  0.00e+00]
+BSSE vs separation: [1.70e-03 1.16e-03 1.85e-06 7.33e-13 4.44e-16 0.00e+00]
 BSSE vs basis size ([3, 6, 9, 12]): [1.16e-03 1.23e-05 1.17e-05 3.50e-08]
 fragment energy falls monotonically with basis size: [-1.380111 -1.387219 -1.387222 -1.387247]
 </pre></div>
 </div>
 <figure class="align-default" id="fig-pt-bsse">
-<img alt="../../_images/f2312adc6fb2cde26970c4013730964400010692a951ad5c3aee395812a75c10.png" src="../../_images/f2312adc6fb2cde26970c4013730964400010692a951ad5c3aee395812a75c10.png" />
+<img alt="../../_images/7216ec2d9adac3a40596f17867d9c6694e8fc6064c43aef9e6a11080d0893334.png" src="../../_images/7216ec2d9adac3a40596f17867d9c6694e8fc6064c43aef9e6a11080d0893334.png" />
 <figcaption>
 <p><span class="caption-number">Fig. 48 </span><span class="caption-text">Basis-set superposition error in a one-dimensional two-fragment model, computed exactly. Left: BSSE against fragment half-separation on a logarithmic axis; it falls by orders of magnitude once the fragments stop overlapping, because functions too far away cannot be borrowed. Right: BSSE against the number of basis functions per fragment; it collapses as the fragment’s own basis improves, and the collapse comes from adding a DIFFUSE exponent rather than a tight one, since it is the loosely bound tail a fragment borrows from its neighbour. Both behaviours identify BSSE as an artefact of an incomplete basis, not a property of the system.</span><a class="headerlink" href="#fig-pt-bsse" title="Link to this image">#</a></p>
 </figcaption>
