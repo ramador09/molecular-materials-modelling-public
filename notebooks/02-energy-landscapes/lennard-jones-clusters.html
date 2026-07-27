@@ -530,6 +530,14 @@
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#validation-5-basin-hopping-finds-the-lj13-global-minimum">Validation 5 — basin-hopping finds the LJ13 global minimum</a></li>
 </ul>
 </li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-6-finding-a-saddle-by-walking-uphill-along-the-softest-mode">Exercise 6 — Finding a saddle by walking uphill along the softest mode</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#validation-6-a-certified-transition-state">Validation 6 — a certified transition state</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-7-the-double-funnel-weighed-and-where-its-entropy-actually-lives">Exercise 7 — The double funnel weighed, and where its entropy actually lives</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#validation-7-soft-symmetric-and-nearly-enough">Validation 7 — soft, symmetric, and nearly enough</a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#notebook-summary">Notebook summary</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#outlook">Outlook</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#references">References</a></li>
@@ -641,8 +649,8 @@ strong evidence, not proof.</p>
 deck uses argon’s real values <span class="math notranslate nohighlight">\(\varepsilon=119.8\,k_B\,\)</span>K and <span class="math notranslate nohighlight">\(\sigma=3.405\,\)</span>Å,
 which is how the 38-atom coordinates (in Ångström) convert to reduced units
 below. For the landscapes picture see Wales, <em>Energy Landscapes</em>
-<span class="bibtex-citation" id="id1">[<a class="reference internal" href="#id20" title="David J. Wales. Energy Landscapes: Applications to Clusters, Biomolecules and Glasses. Cambridge University Press, 2003.">Wal03</a>]</span>; for tabulated global minima, the Cambridge Cluster
-Database <span class="bibtex-citation" id="id2">[<a class="reference internal" href="#id23" title="David J. Wales, Jonathan P. K. Doye, A. Dullweber, and others. The Cambridge Cluster Database. https://www-wales.ch.cam.ac.uk/CCD.html. Tabulated global minima of Lennard-Jones and other clusters.">WDD+</a>]</span>.</p>
+<span class="bibtex-citation" id="id1">[<a class="reference internal" href="#id22" title="David J. Wales. Energy Landscapes: Applications to Clusters, Biomolecules and Glasses. Cambridge University Press, 2003.">Wal03</a>]</span>; for tabulated global minima, the Cambridge Cluster
+Database <span class="bibtex-citation" id="id2">[<a class="reference internal" href="#id25" title="David J. Wales, Jonathan P. K. Doye, A. Dullweber, and others. The Cambridge Cluster Database. https://www-wales.ch.cam.ac.uk/CCD.html. Tabulated global minima of Lennard-Jones and other clusters.">WDD+</a>]</span>.</p>
 </div></blockquote>
 </section>
 <section id="theory-in-brief">
@@ -652,7 +660,7 @@ Database <span class="bibtex-citation" id="id2">[<a class="reference internal" h
 <p>Two noble-gas atoms a distance <span class="math notranslate nohighlight">\(r\)</span> apart interact through the <strong>Lennard-Jones</strong>
 pair potential</p>
 <div class="math notranslate nohighlight" id="equation-eq-lj">
-<span class="eqno">(21)<a class="headerlink" href="#equation-eq-lj" title="Link to this equation">#</a></span>\[V(r) = 4\varepsilon\!\left[\left(\frac{\sigma}{r}\right)^{12} - \left(\frac{\sigma}{r}\right)^{6}\right].\]</div>
+<span class="eqno">(23)<a class="headerlink" href="#equation-eq-lj" title="Link to this equation">#</a></span>\[V(r) = 4\varepsilon\!\left[\left(\frac{\sigma}{r}\right)^{12} - \left(\frac{\sigma}{r}\right)^{6}\right].\]</div>
 <p>The attractive <span class="math notranslate nohighlight">\(-(\sigma/r)^6\)</span> is the dispersion (induced-dipole) interaction
 that draws neutral atoms together; the repulsive <span class="math notranslate nohighlight">\(+(\sigma/r)^{12}\)</span> models the
 steep cost of overlapping closed electron shells, its exponent chosen as twice
@@ -664,7 +672,7 @@ the minimum sits at <span class="math notranslate nohighlight">\(r_{\min}=2^{1/6
 <h3>Clusters and their energy landscape<a class="headerlink" href="#clusters-and-their-energy-landscape" title="Link to this heading">#</a></h3>
 <p>The energy of a cluster of <span class="math notranslate nohighlight">\(N\)</span> atoms is the sum over all pairs,</p>
 <div class="math notranslate nohighlight" id="equation-eq-lj-cluster">
-<span class="eqno">(22)<a class="headerlink" href="#equation-eq-lj-cluster" title="Link to this equation">#</a></span>\[E(\mathbf r_1,\dots,\mathbf r_N) = \sum_{i&lt;j} V(r_{ij}), \qquad r_{ij}=|\mathbf r_i-\mathbf r_j|.\]</div>
+<span class="eqno">(24)<a class="headerlink" href="#equation-eq-lj-cluster" title="Link to this equation">#</a></span>\[E(\mathbf r_1,\dots,\mathbf r_N) = \sum_{i&lt;j} V(r_{ij}), \qquad r_{ij}=|\mathbf r_i-\mathbf r_j|.\]</div>
 <p>As a function of the <span class="math notranslate nohighlight">\(3N\)</span> coordinates this is a rugged surface with a vast number
 of <strong>local minima</strong>, each a mechanically stable shape, separated by barriers.
 Exactly one is the <strong>global minimum</strong>. A <strong>geometry optimization</strong> slides downhill
@@ -682,12 +690,12 @@ graph makes the picture concrete).</p>
 numbers help. The <strong>asphericity</strong>, built from the principal moments of inertia
 <span class="math notranslate nohighlight">\(I_1,I_2,I_3\)</span>,</p>
 <div class="math notranslate nohighlight" id="equation-eq-asphericity">
-<span class="eqno">(23)<a class="headerlink" href="#equation-eq-asphericity" title="Link to this equation">#</a></span>\[A = \frac{(I_1-I_2)^2+(I_1-I_3)^2+(I_2-I_3)^2}{I_1^2+I_2^2+I_3^2},\]</div>
+<span class="eqno">(25)<a class="headerlink" href="#equation-eq-asphericity" title="Link to this equation">#</a></span>\[A = \frac{(I_1-I_2)^2+(I_1-I_3)^2+(I_2-I_3)^2}{I_1^2+I_2^2+I_3^2},\]</div>
 <p>is zero for a perfect sphere and grows as a cluster elongates. The <strong>Steinhardt
-order parameter</strong> <span class="bibtex-citation" id="id3">[<a class="reference internal" href="#id22" title="Paul J. Steinhardt, David R. Nelson, and Marco Ronchetti. Bond-orientational order in liquids and glasses. Physical Review B, 28(2):784–805, 1983. doi:10.1103/PhysRevB.28.784.">SNR83</a>]</span> averages spherical harmonics over the
+order parameter</strong> <span class="bibtex-citation" id="id3">[<a class="reference internal" href="#id24" title="Paul J. Steinhardt, David R. Nelson, and Marco Ronchetti. Bond-orientational order in liquids and glasses. Physical Review B, 28(2):784–805, 1983. doi:10.1103/PhysRevB.28.784.">SNR83</a>]</span> averages spherical harmonics over the
 bonds and contracts over <span class="math notranslate nohighlight">\(m\)</span>,</p>
 <div class="math notranslate nohighlight" id="equation-eq-steinhardt">
-<span class="eqno">(24)<a class="headerlink" href="#equation-eq-steinhardt" title="Link to this equation">#</a></span>\[Q_l = \sqrt{\frac{4\pi}{2l+1}\sum_{m=-l}^{l}\Big|\tfrac{1}{N_b}\textstyle\sum_{\rm bonds} Y_{lm}(\hat{\mathbf r}_{ij})\Big|^2}.\]</div>
+<span class="eqno">(26)<a class="headerlink" href="#equation-eq-steinhardt" title="Link to this equation">#</a></span>\[Q_l = \sqrt{\frac{4\pi}{2l+1}\sum_{m=-l}^{l}\Big|\tfrac{1}{N_b}\textstyle\sum_{\rm bonds} Y_{lm}(\hat{\mathbf r}_{ij})\Big|^2}.\]</div>
 <p>The <span class="math notranslate nohighlight">\(l=6\)</span> value cleanly separates structural families: a truncated-octahedron
 (fcc) cluster gives <span class="math notranslate nohighlight">\(Q_6\approx0.57\)</span>, while the five-fold symmetry of an
 icosahedron makes its bond contributions largely cancel, leaving <span class="math notranslate nohighlight">\(Q_6\approx0.13\)</span>.</p>
@@ -801,7 +809,7 @@ the details.</p>
 </section>
 <section id="exercise-1-the-potential-the-cluster-energy-and-the-forces">
 <h2>Exercise 1 — The potential, the cluster energy, and the forces<a class="headerlink" href="#exercise-1-the-potential-the-cluster-energy-and-the-forces" title="Link to this heading">#</a></h2>
-<p>Everything rests on the energy <a class="reference internal" href="#equation-eq-lj-cluster">Eq. 22</a> and its gradient; an optimizer
+<p>Everything rests on the energy <a class="reference internal" href="#equation-eq-lj-cluster">Eq. 24</a> and its gradient; an optimizer
 converges far faster with exact forces than with finite differences.
 Differentiating, the force on atom <span class="math notranslate nohighlight">\(i\)</span> is
 <span class="math notranslate nohighlight">\(-\nabla_i E=\sum_{j\neq i} 4\big(12\,r_{ij}^{-14}-6\,r_{ij}^{-8}\big)(\mathbf r_i-\mathbf r_j)\)</span>.
@@ -809,7 +817,7 @@ The smallest clusters give a quick correctness check: three atoms relax to an
 equilateral triangle at <span class="math notranslate nohighlight">\(E=-3\)</span>, four to a regular tetrahedron at <span class="math notranslate nohighlight">\(E=-6\)</span>, every
 bond sitting at the well bottom.</p>
 <p><strong>Part a)</strong> Implement <code class="docutils literal notranslate"><span class="pre">lj_energy_grad(x)</span></code>, returning the cluster energy
-<a class="reference internal" href="#equation-eq-lj-cluster">Eq. 22</a> and its flat gradient from a single call, so an optimizer can
+<a class="reference internal" href="#equation-eq-lj-cluster">Eq. 24</a> and its flat gradient from a single call, so an optimizer can
 use it for both <code class="docutils literal notranslate"><span class="pre">fun</span></code> and <code class="docutils literal notranslate"><span class="pre">jac</span></code>. Form every pair displacement at once by
 broadcasting <code class="docutils literal notranslate"><span class="pre">x[:,</span> <span class="pre">None,</span> <span class="pre">:]</span> <span class="pre">-</span> <span class="pre">x[None,</span> <span class="pre">:,</span> <span class="pre">:]</span></code>; put <code class="docutils literal notranslate"><span class="pre">numpy.inf</span></code> on the diagonal of
 the squared distances with <code class="docutils literal notranslate"><span class="pre">numpy.fill_diagonal</span></code>, which is what stops an atom
@@ -830,7 +838,7 @@ minima, <span class="math notranslate nohighlight">\(E=-3\)</span> and <span cla
 <figure class="align-default" id="fig-lj-potential">
 <img alt="../../_images/3820f2a017dfb4741d204d50e8885cf9e268a09e604871c38e5c8990bdf5465d.png" src="../../_images/3820f2a017dfb4741d204d50e8885cf9e268a09e604871c38e5c8990bdf5465d.png" />
 <figcaption>
-<p><span class="caption-number">Fig. 17 </span><span class="caption-text">The Lennard-Jones pair potential in reduced units (<span class="math notranslate nohighlight">\(\varepsilon=\sigma=1\)</span>): a steep short-range repulsion and a long-range <span class="math notranslate nohighlight">\(-r^{-6}\)</span> attraction give a well of depth <span class="math notranslate nohighlight">\(\varepsilon\)</span> at <span class="math notranslate nohighlight">\(r=2^{1/6}\sigma\)</span> (amber point), with <span class="math notranslate nohighlight">\(V=0\)</span> at <span class="math notranslate nohighlight">\(r=\sigma\)</span>.</span><a class="headerlink" href="#fig-lj-potential" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 19 </span><span class="caption-text">The Lennard-Jones pair potential in reduced units (<span class="math notranslate nohighlight">\(\varepsilon=\sigma=1\)</span>): a steep short-range repulsion and a long-range <span class="math notranslate nohighlight">\(-r^{-6}\)</span> attraction give a well of depth <span class="math notranslate nohighlight">\(\varepsilon\)</span> at <span class="math notranslate nohighlight">\(r=2^{1/6}\sigma\)</span> (amber point), with <span class="math notranslate nohighlight">\(V=0\)</span> at <span class="math notranslate nohighlight">\(r=\sigma\)</span>.</span><a class="headerlink" href="#fig-lj-potential" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 </div>
@@ -876,7 +884,7 @@ single Lennard-Jones term for argon:</p>
 </pre></div>
 </div>
 <p>The full deck ships with this notebook: <a class="reference download internal" download="" href="../../_downloads/f7f9f06dc502054dbbf578623c52f6b5/geo-opt.inp"><code class="xref download docutils literal notranslate"><span class="pre">geo-opt.inp</span></code></a>.
-So CP2K here computes exactly <a class="reference internal" href="#equation-eq-lj-cluster">Eq. 22</a>, and a faithful reproduction is
+So CP2K here computes exactly <a class="reference internal" href="#equation-eq-lj-cluster">Eq. 24</a>, and a faithful reproduction is
 an L-BFGS relaxation of the same potential. We take the course’s
 truncated-<strong>octahedron</strong> seed (38 argon atoms, in Ångström), convert it to reduced
 units by dividing by <span class="math notranslate nohighlight">\(\sigma=3.405\,\)</span>Å, and relax it. It descends into the <strong>fcc</strong>
@@ -894,7 +902,7 @@ drains to it, which is exactly the point Exercises 4 and 5 complicate.</p>
 <figure class="align-default" id="fig-lj-octa">
 <img alt="../../_images/5085b29fb7abe5a4c7a8bac99c529993ddbf68076cf992974f7f073b558a6033.png" src="../../_images/5085b29fb7abe5a4c7a8bac99c529993ddbf68076cf992974f7f073b558a6033.png" />
 <figcaption>
-<p><span class="caption-number">Fig. 18 </span><span class="caption-text">The 38-atom octahedral seed before (left) and after (right) the Lennard-Jones geometry optimization. The crude initial guess relaxes into the compact, highly symmetric face-centred-cubic truncated octahedron, the global minimum at <span class="math notranslate nohighlight">\(E=-173.928\,\varepsilon\)</span>.</span><a class="headerlink" href="#fig-lj-octa" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 20 </span><span class="caption-text">The 38-atom octahedral seed before (left) and after (right) the Lennard-Jones geometry optimization. The crude initial guess relaxes into the compact, highly symmetric face-centred-cubic truncated octahedron, the global minimum at <span class="math notranslate nohighlight">\(E=-173.928\,\varepsilon\)</span>.</span><a class="headerlink" href="#fig-lj-octa" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 </div>
@@ -923,18 +931,18 @@ trajectory. We do the same, on the course’s <strong>own committed optimization
 trajectory</strong> (<code class="docutils literal notranslate"><span class="pre">optimization-pos-1.xyz</span></code>, 186 frames from a disordered seed to the
 global minimum), shipped here downsampled as
 <a class="reference download internal" download="" href="../../_downloads/c608309afda93466f8a51003043893b1/lj38-optimization.xyz"><code class="xref download docutils literal notranslate"><span class="pre">lj38-optimization.xyz</span></code></a>. The
-<strong>asphericity</strong> <a class="reference internal" href="#equation-eq-asphericity">Eq. 23</a> measures how
-far from spherical the cluster is, and the <strong>Steinhardt</strong> <span class="math notranslate nohighlight">\(Q_6\)</span> <a class="reference internal" href="#equation-eq-steinhardt">Eq. 24</a>
+<strong>asphericity</strong> <a class="reference internal" href="#equation-eq-asphericity">Eq. 25</a> measures how
+far from spherical the cluster is, and the <strong>Steinhardt</strong> <span class="math notranslate nohighlight">\(Q_6\)</span> <a class="reference internal" href="#equation-eq-steinhardt">Eq. 26</a>
 fingerprints the bond-orientational order. Plotted against optimization step, the
 energy plunges, the asphericity stays small throughout (the cluster is compact from
 the outset), and <span class="math notranslate nohighlight">\(Q_6\)</span> climbs to the fcc value <span class="math notranslate nohighlight">\(\approx0.57\)</span> as crystalline order
 sets in.</p>
 <p><strong>Part a)</strong> Implement <code class="docutils literal notranslate"><span class="pre">asphericity(x)</span></code> from the gyration-tensor eigenvalues
-<a class="reference internal" href="#equation-eq-asphericity">Eq. 23</a>, using <code class="docutils literal notranslate"><span class="pre">numpy.linalg.eigvalsh</span></code> on the <span class="math notranslate nohighlight">\(3\times3\)</span> tensor —
+<a class="reference internal" href="#equation-eq-asphericity">Eq. 25</a>, using <code class="docutils literal notranslate"><span class="pre">numpy.linalg.eigvalsh</span></code> on the <span class="math notranslate nohighlight">\(3\times3\)</span> tensor —
 symmetric by construction, so the symmetric solver is both faster and free of
 spurious imaginary parts.
 <strong>Write this one yourself</strong> — the implementation is the lesson.</p>
-<p><strong>Part b)</strong> Implement a global <code class="docutils literal notranslate"><span class="pre">steinhardt_q6(x)</span></code> from <a class="reference internal" href="#equation-eq-steinhardt">Eq. 24</a>,
+<p><strong>Part b)</strong> Implement a global <code class="docutils literal notranslate"><span class="pre">steinhardt_q6(x)</span></code> from <a class="reference internal" href="#equation-eq-steinhardt">Eq. 26</a>,
 averaging the bond spherical harmonics over every neighbour pair within the
 cutoff before taking the modulus — averaging first is what makes <span class="math notranslate nohighlight">\(Q_6\)</span> a measure
 of <em>collective</em> order rather than a sum of single-bond orientations.</p>
@@ -945,7 +953,7 @@ the three fingerprints can be read against one another as the cluster orders.</p
 <figure class="align-default" id="fig-lj-trajectory">
 <img alt="../../_images/997eec049c7f9c3d8f4aa335d56403bdc66ec81511bd349165310a7b1f1e9087.png" src="../../_images/997eec049c7f9c3d8f4aa335d56403bdc66ec81511bd349165310a7b1f1e9087.png" />
 <figcaption>
-<p><span class="caption-number">Fig. 19 </span><span class="caption-text">Observables along the committed CP2K optimization from a disordered seed, versus step: the energy plunges to the global minimum, the asphericity stays small throughout (the cluster is compact from the outset), and the Steinhardt <span class="math notranslate nohighlight">\(Q_6\)</span> climbs to the fcc value 0.575 (dotted) as crystalline order sets in. This is the optimization watched from the inside.</span><a class="headerlink" href="#fig-lj-trajectory" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 21 </span><span class="caption-text">Observables along the committed CP2K optimization from a disordered seed, versus step: the energy plunges to the global minimum, the asphericity stays small throughout (the cluster is compact from the outset), and the Steinhardt <span class="math notranslate nohighlight">\(Q_6\)</span> climbs to the fcc value 0.575 (dotted) as crystalline order sets in. This is the optimization watched from the inside.</span><a class="headerlink" href="#fig-lj-trajectory" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 </div>
@@ -977,7 +985,7 @@ five-fold symmetry is forbidden in any crystal, and the bond contributions to
 <span class="math notranslate nohighlight">\(Q_6\)</span> largely cancel, leaving <span class="math notranslate nohighlight">\(Q_6\approx0.13\)</span>, far below the fcc value. So the two
 deepest structures of the 38-atom cluster sit in two separate funnels, and a
 downhill optimization is trapped in whichever it starts in. The disconnectivity
-graph, sketched below, is the standard picture of this <span class="bibtex-citation" id="id4">[<a class="reference internal" href="#id20" title="David J. Wales. Energy Landscapes: Applications to Clusters, Biomolecules and Glasses. Cambridge University Press, 2003.">Wal03</a>]</span>.</p>
+graph, sketched below, is the standard picture of this <span class="bibtex-citation" id="id4">[<a class="reference internal" href="#id22" title="David J. Wales. Energy Landscapes: Applications to Clusters, Biomolecules and Glasses. Cambridge University Press, 2003.">Wal03</a>]</span>.</p>
 <p><strong>Part a)</strong> Relax the icosahedral seed and compare its energy, asphericity and
 <span class="math notranslate nohighlight">\(Q_6\)</span> with the octahedral minimum of Exercise 2. The two are close in energy and
 far apart in <span class="math notranslate nohighlight">\(Q_6\)</span>, which is the whole reason a single order parameter is not
@@ -991,7 +999,7 @@ landscape whose global minimum is not the one a quench usually finds.</p>
 <figure class="align-default" id="fig-lj-funnels">
 <img alt="../../_images/cdaee856e13632576aaed6056dc0571bdc12d83a620bed720c5bd8af88b4f89e.png" src="../../_images/cdaee856e13632576aaed6056dc0571bdc12d83a620bed720c5bd8af88b4f89e.png" />
 <figcaption>
-<p><span class="caption-number">Fig. 20 </span><span class="caption-text">Schematic disconnectivity graph of the 38-atom Lennard-Jones landscape: branches are local minima, drawn at their energies and joined at the energy of the lowest barrier between them. Two deep funnels dominate, the fcc truncated octahedron (global, amber, <span class="math notranslate nohighlight">\(Q_6\approx0.57\)</span>) and the Mackay icosahedron (navy, <span class="math notranslate nohighlight">\(Q_6\approx0.13\)</span>); a downhill optimization is trapped in whichever funnel its starting structure occupies.</span><a class="headerlink" href="#fig-lj-funnels" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 22 </span><span class="caption-text">Schematic disconnectivity graph of the 38-atom Lennard-Jones landscape: branches are local minima, drawn at their energies and joined at the energy of the lowest barrier between them. Two deep funnels dominate, the fcc truncated octahedron (global, amber, <span class="math notranslate nohighlight">\(Q_6\approx0.57\)</span>) and the Mackay icosahedron (navy, <span class="math notranslate nohighlight">\(Q_6\approx0.13\)</span>); a downhill optimization is trapped in whichever funnel its starting structure occupies.</span><a class="headerlink" href="#fig-lj-funnels" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 </div>
@@ -1019,7 +1027,7 @@ parameters must separate the two: the fcc truncated octahedron has the high
 <h2>Exercise 5 — When there is no good seed: global optimization<a class="headerlink" href="#exercise-5-when-there-is-no-good-seed-global-optimization" title="Link to this heading">#</a></h2>
 <p>The two seeds above were educated guesses, each already close to a funnel bottom.
 Without such a guess, finding the global minimum means <em>searching</em> the landscape,
-and the standard tool is <strong>basin-hopping</strong> <span class="bibtex-citation" id="id5">[<a class="reference internal" href="#id21" title="David J. Wales and Jonathan P. K. Doye. Global optimization by basin-hopping and the lowest energy structures of lennard-jones clusters containing up to 110 atoms. The Journal of Physical Chemistry A, 101(28):5111–5116, 1997. doi:10.1021/jp970984n.">WD97</a>]</span>: perturb the
+and the standard tool is <strong>basin-hopping</strong> <span class="bibtex-citation" id="id5">[<a class="reference internal" href="#id23" title="David J. Wales and Jonathan P. K. Doye. Global optimization by basin-hopping and the lowest energy structures of lennard-jones clusters containing up to 110 atoms. The Journal of Physical Chemistry A, 101(28):5111–5116, 1997. doi:10.1021/jp970984n.">WD97</a>]</span>: perturb the
 current minimum, re-minimize, and accept the new minimum with a Metropolis
 criterion, walking the staircase of basins. We demonstrate it on the 13-atom
 cluster, small enough that basin-hopping reliably reaches its global minimum, a
@@ -1223,42 +1231,42 @@ input[type=range].anim-slider {
 </style>
 
 <div class="animation">
-  <img id="_anim_imgdd9981c0281f445392328421be87c07d">
+  <img id="_anim_img6ca779a6a75642bba28896b4a49c3285">
   <div class="anim-controls">
-    <input id="_anim_sliderdd9981c0281f445392328421be87c07d" type="range" class="anim-slider"
+    <input id="_anim_slider6ca779a6a75642bba28896b4a49c3285" type="range" class="anim-slider"
            name="points" min="0" max="1" step="1" value="0"
-           oninput="animdd9981c0281f445392328421be87c07d.set_frame(parseInt(this.value));">
+           oninput="anim6ca779a6a75642bba28896b4a49c3285.set_frame(parseInt(this.value));">
     <div class="anim-buttons">
-      <button title="Decrease speed" aria-label="Decrease speed" onclick="animdd9981c0281f445392328421be87c07d.slower()">
+      <button title="Decrease speed" aria-label="Decrease speed" onclick="anim6ca779a6a75642bba28896b4a49c3285.slower()">
           <i class="fa fa-minus"></i></button>
-      <button title="First frame" aria-label="First frame" onclick="animdd9981c0281f445392328421be87c07d.first_frame()">
+      <button title="First frame" aria-label="First frame" onclick="anim6ca779a6a75642bba28896b4a49c3285.first_frame()">
         <i class="fa fa-fast-backward"></i></button>
-      <button title="Previous frame" aria-label="Previous frame" onclick="animdd9981c0281f445392328421be87c07d.previous_frame()">
+      <button title="Previous frame" aria-label="Previous frame" onclick="anim6ca779a6a75642bba28896b4a49c3285.previous_frame()">
           <i class="fa fa-step-backward"></i></button>
-      <button title="Play backwards" aria-label="Play backwards" onclick="animdd9981c0281f445392328421be87c07d.reverse_animation()">
+      <button title="Play backwards" aria-label="Play backwards" onclick="anim6ca779a6a75642bba28896b4a49c3285.reverse_animation()">
           <i class="fa fa-play fa-flip-horizontal"></i></button>
-      <button title="Pause" aria-label="Pause" onclick="animdd9981c0281f445392328421be87c07d.pause_animation()">
+      <button title="Pause" aria-label="Pause" onclick="anim6ca779a6a75642bba28896b4a49c3285.pause_animation()">
           <i class="fa fa-pause"></i></button>
-      <button title="Play" aria-label="Play" onclick="animdd9981c0281f445392328421be87c07d.play_animation()">
+      <button title="Play" aria-label="Play" onclick="anim6ca779a6a75642bba28896b4a49c3285.play_animation()">
           <i class="fa fa-play"></i></button>
-      <button title="Next frame" aria-label="Next frame" onclick="animdd9981c0281f445392328421be87c07d.next_frame()">
+      <button title="Next frame" aria-label="Next frame" onclick="anim6ca779a6a75642bba28896b4a49c3285.next_frame()">
           <i class="fa fa-step-forward"></i></button>
-      <button title="Last frame" aria-label="Last frame" onclick="animdd9981c0281f445392328421be87c07d.last_frame()">
+      <button title="Last frame" aria-label="Last frame" onclick="anim6ca779a6a75642bba28896b4a49c3285.last_frame()">
           <i class="fa fa-fast-forward"></i></button>
-      <button title="Increase speed" aria-label="Increase speed" onclick="animdd9981c0281f445392328421be87c07d.faster()">
+      <button title="Increase speed" aria-label="Increase speed" onclick="anim6ca779a6a75642bba28896b4a49c3285.faster()">
           <i class="fa fa-plus"></i></button>
     </div>
-    <form title="Repetition mode" aria-label="Repetition mode" action="#n" name="_anim_loop_selectdd9981c0281f445392328421be87c07d"
+    <form title="Repetition mode" aria-label="Repetition mode" action="#n" name="_anim_loop_select6ca779a6a75642bba28896b4a49c3285"
           class="anim-state">
-      <input type="radio" name="state" value="once" id="_anim_radio1_dd9981c0281f445392328421be87c07d"
+      <input type="radio" name="state" value="once" id="_anim_radio1_6ca779a6a75642bba28896b4a49c3285"
              >
-      <label for="_anim_radio1_dd9981c0281f445392328421be87c07d">Once</label>
-      <input type="radio" name="state" value="loop" id="_anim_radio2_dd9981c0281f445392328421be87c07d"
+      <label for="_anim_radio1_6ca779a6a75642bba28896b4a49c3285">Once</label>
+      <input type="radio" name="state" value="loop" id="_anim_radio2_6ca779a6a75642bba28896b4a49c3285"
              checked>
-      <label for="_anim_radio2_dd9981c0281f445392328421be87c07d">Loop</label>
-      <input type="radio" name="state" value="reflect" id="_anim_radio3_dd9981c0281f445392328421be87c07d"
+      <label for="_anim_radio2_6ca779a6a75642bba28896b4a49c3285">Loop</label>
+      <input type="radio" name="state" value="reflect" id="_anim_radio3_6ca779a6a75642bba28896b4a49c3285"
              >
-      <label for="_anim_radio3_dd9981c0281f445392328421be87c07d">Reflect</label>
+      <label for="_anim_radio3_6ca779a6a75642bba28896b4a49c3285">Reflect</label>
     </form>
   </div>
 </div>
@@ -1268,9 +1276,9 @@ input[type=range].anim-slider {
   /* Instantiate the Animation class. */
   /* The IDs given should match those used in the template above. */
   (function() {
-    var img_id = "_anim_imgdd9981c0281f445392328421be87c07d";
-    var slider_id = "_anim_sliderdd9981c0281f445392328421be87c07d";
-    var loop_select_id = "_anim_loop_selectdd9981c0281f445392328421be87c07d";
+    var img_id = "_anim_img6ca779a6a75642bba28896b4a49c3285";
+    var slider_id = "_anim_slider6ca779a6a75642bba28896b4a49c3285";
+    var loop_select_id = "_anim_loop_select6ca779a6a75642bba28896b4a49c3285";
     var frames = new Array(120);
     
   frames[0] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAYwAAAGMCAYAAADJOZVKAAAAOnRFWHRTb2Z0d2FyZQBNYXRwbG90\
@@ -69111,13 +69119,13 @@ CgUGIYQQUSgwCCGEiEKBQQghRJT/H7nnTqDNMN+2AAAAAElFTkSuQmCC\
     /* set a timeout to make sure all the above elements are created before
        the object is initialized. */
     setTimeout(function() {
-        animdd9981c0281f445392328421be87c07d = new Animation(frames, img_id, slider_id, 33,
+        anim6ca779a6a75642bba28896b4a49c3285 = new Animation(frames, img_id, slider_id, 33,
                                  loop_select_id);
     }, 0);
   })()
 </script>
 </div><figcaption>
-<p><span class="caption-number">Fig. 21 </span><span class="caption-text">Animation of the 13-atom Lennard-Jones global minimum (<span class="math notranslate nohighlight">\(E=-44.327\,\varepsilon\)</span>), found by basin-hopping from a random start and rotated about the vertical: a central atom (amber) capped by twelve outer atoms forming a regular icosahedron, whose five-fold symmetry no crystal allows.</span><a class="headerlink" href="#fig-lj13-anim" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 23 </span><span class="caption-text">Animation of the 13-atom Lennard-Jones global minimum (<span class="math notranslate nohighlight">\(E=-44.327\,\varepsilon\)</span>), found by basin-hopping from a random start and rotated about the vertical: a central atom (amber) capped by twelve outer atoms forming a regular icosahedron, whose five-fold symmetry no crystal allows.</span><a class="headerlink" href="#fig-lj13-anim" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 </div>
@@ -69138,6 +69146,156 @@ minimum, <span class="math notranslate nohighlight">\(E=-44.327\,\varepsilon\)</
 </div>
 </section>
 </section>
+<section id="exercise-6-finding-a-saddle-by-walking-uphill-along-the-softest-mode">
+<h2>Exercise 6 — Finding a saddle by walking uphill along the softest mode<a class="headerlink" href="#exercise-6-finding-a-saddle-by-walking-uphill-along-the-softest-mode" title="Link to this heading">#</a></h2>
+<p>Everything so far has gone downhill. But the objects that control <em>kinetics</em> —
+the transition states of <a class="reference internal" href="../06-reactions-free-energy/neb-chloromethane.html"><span class="std std-doc">§6.2</span></a> —
+are <strong>first-order saddle points</strong>: stationary points whose Hessian has exactly one
+negative eigenvalue. A saddle cannot be found by minimisation, and the standard
+single-ended answer is <strong>eigenvector-following</strong>: walk <em>uphill</em> along the softest
+Hessian eigenvector while relaxing in every direction perpendicular to it. The
+softest mode is the direction in which the basin’s restoring force gives way
+first; followed far enough, its curvature passes through zero and turns negative,
+and the walk converges onto the saddle at the top of the lowest escape path.</p>
+<p>Two technical points carry the implementation. A free cluster has six zero
+Hessian modes (three translations, three rotations) that mean nothing and must be
+projected out before “softest” is well defined. And the Newton-like step
+<span class="math notranslate nohighlight">\(s_i = -g_i/\lambda_i\)</span> per eigenmode minimises along modes with
+<span class="math notranslate nohighlight">\(\lambda_i &gt; 0\)</span> but <em>maximises</em> along the followed mode once its sign is
+handled — one algorithm, both behaviours, with a trust radius keeping every step
+honest where the quadratic model is not.</p>
+<p><strong>Part a)</strong> Catalogue the minima of LJ<span class="math notranslate nohighlight">\(_7\)</span> by local minimisation from random
+starts. Seven atoms have exactly four locally stable structures; their energies
+are known to the literature, and the lowest — the pentagonal bipyramid at
+<span class="math notranslate nohighlight">\(-16.5054\,\epsilon\)</span> — is the reference the saddle must sit above.</p>
+<p><strong>Part b)</strong> Implement the finite-difference Hessian, the zero-mode projector, and
+the eigenvector-following walk, and release it from the <em>second</em>-lowest minimum.
+<strong>Write this one yourself</strong> — the implementation is the lesson. Track the energy
+and the followed mode’s curvature along the walk: the curvature crossing zero is
+the moment the search leaves basin territory.</p>
+<p><strong>Part c)</strong> Certify the result the way Murrell–Laidler logic demands: the
+converged point must have exactly one negative internal Hessian eigenvalue, and
+steepest descent released along <span class="math notranslate nohighlight">\(\pm\)</span> that eigenvector must land in two
+<em>different</em> minima of the Part a catalogue — the two basins this saddle actually
+connects — with the saddle above both.</p>
+<div class="cell tag_solution tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>LJ7 minima found: [&#39;-16.5054&#39;, &#39;-15.9350&#39;, &#39;-15.5932&#39;, &#39;-15.5331&#39;, &#39;-7.3196&#39;]
+</pre></div>
+</div>
+<figure class="align-default" id="fig-lj-saddle">
+<img alt="../../_images/5596beaab2821d616b9e48ffb062b63fe6279ed53b6dde89e4908f9eaa55a048.png" src="../../_images/5596beaab2821d616b9e48ffb062b63fe6279ed53b6dde89e4908f9eaa55a048.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 24 </span><span class="caption-text">Eigenvector-following on the LJ7 landscape, released from the second-lowest minimum. Left: the energy climbs monotonically out of the basin and flattens as the walk converges onto a stationary point. Right: the curvature of the followed mode — the softest internal Hessian eigenvalue — starts positive inside the basin, crosses zero where the walk leaves quadratic basin territory, and converges to a negative value: the signature of a first-order saddle. Steepest descent along the two directions of that negative mode lands in the global minimum and the starting minimum respectively, certifying which two basins the saddle connects.</span><a class="headerlink" href="#fig-lj-saddle" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>saddle: E = -15.4447, |g| = 4.2e-14, negative internal modes = 1
+descent along -/+ the negative mode lands at [-16.5054, -15.935] (barriers 0.4903 and 1.0607)
+</pre></div>
+</div>
+</div>
+</div>
+<section id="validation-6-a-certified-transition-state">
+<h3>Validation 6 — a certified transition state<a class="headerlink" href="#validation-6-a-certified-transition-state" title="Link to this heading">#</a></h3>
+<p>Four checks. The minima catalogue must contain the literature global minimum of
+LJ<span class="math notranslate nohighlight">\(_7\)</span>, since everything is referenced to it. The walk must converge to a
+stationary point with <em>exactly one</em> negative internal eigenvalue — index one is
+the definition being verified, not a hope. The two descent paths must land in
+two distinct catalogued minima, which certifies the saddle’s connectivity, and
+the saddle must sit above both, as any saddle between them must.</p>
+<div class="cell tag_validation tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>✓  the catalogue contains the pentagonal-bipyramid global minimum of LJ7 at its literature energy   [got -16.5054 vs expected -16.5054 (rtol=1e-06, atol=0.001)]
+✓  the eigenvector-following walk converged to a stationary point of Hessian index exactly one -- the definition of a transition state, checked rather than assumed   [|g| = 4.2e-14, negative internal modes = 1]
+✓  steepest descent along the two directions of the negative mode lands in two DIFFERENT catalogued minima: the saddle&#39;s connectivity is certified, not presumed   [descends to [-16.5054, -15.935]]
+✓  and the saddle lies above both minima it connects, with the two barrier heights read directly off the energy differences   [E_saddle = -15.4447 vs minima [-16.5054, -15.935]]
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>True
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="exercise-7-the-double-funnel-weighed-and-where-its-entropy-actually-lives">
+<h2>Exercise 7 — The double funnel weighed, and where its entropy actually lives<a class="headerlink" href="#exercise-7-the-double-funnel-weighed-and-where-its-entropy-actually-lives" title="Link to this heading">#</a></h2>
+<p>Exercise 4 kept finding icosahedral structures instead of the fcc global
+minimum, and Exercise 5’s basin-hopping needed luck to cross between funnels.
+The thermodynamic question underneath: at temperature <span class="math notranslate nohighlight">\(T\)</span>, which funnel <em>should</em>
+the cluster occupy? The <strong>harmonic superposition approximation</strong>
+<span class="bibtex-citation" id="id6">[<a class="reference internal" href="#id22" title="David J. Wales. Energy Landscapes: Applications to Clusters, Biomolecules and Glasses. Cambridge University Press, 2003.">Wal03</a>]</span> answers it from quantities this notebook can compute
+exactly. Each minimum <span class="math notranslate nohighlight">\(a\)</span> contributes a classical partition function</p>
+<div class="math notranslate nohighlight" id="equation-eq-hsa">
+<span class="eqno">(27)<a class="headerlink" href="#equation-eq-hsa" title="Link to this equation">#</a></span>\[Z_a(T) \;=\; n_a\, e^{-E_a/k_BT} \prod_{i=1}^{3N-6} \frac{k_BT}{\hbar\,\omega_{a,i}},\]</div>
+<p>with <span class="math notranslate nohighlight">\(\omega_{a,i}\)</span> its internal normal-mode frequencies and <span class="math notranslate nohighlight">\(n_a\)</span> its
+permutation–inversion degeneracy, <span class="math notranslate nohighlight">\(n_a \propto 1/o_a\)</span> for point-group order
+<span class="math notranslate nohighlight">\(o_a\)</span> — the truncated octahedron’s <span class="math notranslate nohighlight">\(O_h\)</span> has <span class="math notranslate nohighlight">\(o = 48\)</span>, the icosahedral funnel
+bottom’s <span class="math notranslate nohighlight">\(C_{5v}\)</span> has <span class="math notranslate nohighlight">\(o = 10\)</span>, so symmetry taxes the fcc structure by a factor
+<span class="math notranslate nohighlight">\(48/10\)</span> before any vibration is counted. Softer modes mean larger vibrational
+entropy; if the icosahedral minimum is soft enough, it wins above a crossover
+<span class="math notranslate nohighlight">\(T^\ast\)</span> despite its energy penalty.</p>
+<p><strong>Part a)</strong> Compute both minima’s internal frequency spectra from the projected
+finite-difference Hessians of Exercise 6, and establish which structure is
+vibrationally softer.</p>
+<p><strong>Part b)</strong> Assemble the two-state crossover temperature from <a class="reference internal" href="#equation-eq-hsa">Eq. 27</a> and
+confront it with two reference points: the cluster’s own melting temperature,
+<span class="math notranslate nohighlight">\(T^\ast_{\rm melt} \approx 0.17\)</span> from the replica-exchange data of
+<a class="reference internal" href="../03-molecular-dynamics/replica-exchange.html"><span class="std std-doc">§3.2</span></a>, and the documented
+many-minima solid–solid crossover <span class="math notranslate nohighlight">\(T^\ast_h \approx 0.12\)</span> <span class="bibtex-citation" id="id7">[<a class="reference internal" href="#id57" title="Jonathan P. K. Doye, Mark A. Miller, and David J. Wales. The double-funnel energy landscape of the 38-atom lennard-jones cluster. The Journal of Chemical Physics, 110(14):6896–6906, 1999. doi:10.1063/1.478595.">DMW99</a>]</span>.
+The two-state answer is the finding: symmetry and softness together carry it to
+the right <em>scale</em> — but strand it just above melting, where a solid–solid
+transition cannot be observed. Quantify what closes the gap: the number of
+effective icosahedral minima needed to pull the crossover down to
+<span class="math notranslate nohighlight">\(T^\ast_h\)</span> turns out to be a mere handful.</p>
+<p><strong>Part c)</strong> Measure whether the landscape supplies that handful. Harvest the
+minima that local minimisation finds from random starts, classify each funnel
+membership by the global <span class="math notranslate nohighlight">\(Q_6\)</span> of Exercise 3, and count. The census delivers
+the missing minima many times over — and explains, in passing, why every
+downhill search of Exercise 4 kept landing icosahedral.</p>
+<div class="cell tag_solution tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>internal modes: 108 each; sum ln(omega_fcc/omega_ico) = 2.1385 (ico is softer)
+two-state crossover T* = 0.182: the right scale, but above melting (0.17) and above the documented many-minima value (0.12)
+closing the gap to T*_h = 0.12 takes ~7 effective low-lying icosahedral minima -- Part c asks whether the funnel has them
+</pre></div>
+</div>
+<figure class="align-default" id="fig-lj-funnel">
+<img alt="../../_images/0a551dc21edb89ff5246cc16de0fd38c558179f09f977906791203c5bf99bddd.png" src="../../_images/0a551dc21edb89ff5246cc16de0fd38c558179f09f977906791203c5bf99bddd.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 25 </span><span class="caption-text">Left: the two-state harmonic-superposition balance between the icosahedral and fcc funnel-bottom minima of LJ38, from Eq. eq-hsa with both 108-mode frequency spectra computed exactly. Symmetry (a 48/10 degeneracy penalty on the high-symmetry fcc structure) and vibrational softness together carry the crossing to the right scale — but strand it just above the melting band, where no solid–solid transition can be seen, and above the documented many-minima value near 0.12 (dotted). Closing that gap needs only a handful of additional low-lying icosahedral minima. Right: the census that supplies them many times over — minima harvested from eighty random starts, classified by the global Q6; nearly every basin found is icosahedral-like, the direct measurement of the configurational entropy the two-state model leaves out.</span><a class="headerlink" href="#fig-lj-funnel" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>census: 74 distinct minima from 80 starts; 72 icosahedral-like vs 2 fcc-like
+</pre></div>
+</div>
+</div>
+</div>
+<section id="validation-7-soft-symmetric-and-nearly-enough">
+<h3>Validation 7 — soft, symmetric, and nearly enough<a class="headerlink" href="#validation-7-soft-symmetric-and-nearly-enough" title="Link to this heading">#</a></h3>
+<p>Four checks. Both spectra must be entirely positive (they are minima, and a
+negative mode would indict the relaxations, not the thermodynamics). The
+icosahedral minimum must be vibrationally softer — that is the entropic
+mechanism, and its sign is not negotiable. The two-state crossover must land
+at the right scale yet above both melting and the documented many-minima
+value, with the gap closed by a handful of effective extra minima — exactly
+computed, and honestly short. And the census must show the icosahedral funnel
+supplying that handful many times over.</p>
+<div class="cell tag_validation tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>✓  both funnel bottoms are true minima: all 108 internal modes positive in each spectrum, so the superposition inputs are sound   [min omega: fcc 3.163, ico 4.144]
+✓  the icosahedral minimum is vibrationally softer than the fcc global -- the sign of the entropic mechanism that must eventually favour it   [sum ln(omega_fcc/omega_ico) = 2.139]
+✓  the two-state crossover lands at the right scale yet above both melting and the documented many-minima value, and the factor that closes the gap is a handful of effective icosahedral minima -- configurational entropy finishing what symmetry and softness started   [T*_two-state = 0.182 (melting 0.17, documented 0.12); n_eff ~ 7]
+✓  and the census finds exactly that: random starts land in icosahedral-like basins overwhelmingly, the direct measurement of where the landscape&#39;s entropy lives -- and of why Exercise 4 kept finding the wrong funnel   [74 minima: 72 ico-like vs 2 fcc-like]
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>True
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
 <section id="notebook-summary">
 <h2>Notebook summary<a class="headerlink" href="#notebook-summary" title="Link to this heading">#</a></h2>
 <p>We built the Lennard-Jones cluster energy from its pair potential and analytic
@@ -69149,6 +69307,14 @@ climbing to the fcc value <span class="math notranslate nohighlight">\(0.575\)</
 with <span class="math notranslate nohighlight">\(Q_6\approx0.13\)</span>, and basin-hopping found the LJ13 global minimum unaided.
 These are three faces of one rugged landscape: local relaxation, structural
 fingerprinting, and global search.</p>
+<p>The deepening then went where downhill methods cannot: eigenvector-following,
+built from a projected finite-difference Hessian, walked uphill out of the
+second LJ<span class="math notranslate nohighlight">\(_7\)</span> minimum and converged a certified index-one saddle — its two
+descent paths landing in exactly the two basins it connects. And the harmonic
+superposition weighed the LJ<span class="math notranslate nohighlight">\(_{38}\)</span> double funnel: symmetry and softness carry
+the icosahedral side to a crossover at the right scale but stranded just above
+melting, the missing factor being a handful of extra funnel minima that a
+census of eighty random relaxations supplies many times over.</p>
 </section>
 <section id="outlook">
 <h2>Outlook<a class="headerlink" href="#outlook" title="Link to this heading">#</a></h2>
@@ -69161,29 +69327,33 @@ readily than basin-hopping and recovers the truncated octahedron from scratch.</
 <li><p><strong>The full disconnectivity graph.</strong> Enumerate minima and the transition states
 joining them to build the real graph rather than the schematic here; the 38-atom
 graph’s two branches are a landmark in the energy-landscapes literature
-<span class="bibtex-citation" id="id6">[<a class="reference internal" href="#id20" title="David J. Wales. Energy Landscapes: Applications to Clusters, Biomolecules and Glasses. Cambridge University Press, 2003.">Wal03</a>]</span>.</p></li>
+<span class="bibtex-citation" id="id8">[<a class="reference internal" href="#id22" title="David J. Wales. Energy Landscapes: Applications to Clusters, Biomolecules and Glasses. Cambridge University Press, 2003.">Wal03</a>]</span>.</p></li>
 <li><p><strong>Real units.</strong> Argon’s <span class="math notranslate nohighlight">\(\varepsilon=119.8\,k_B\,\)</span>K and <span class="math notranslate nohighlight">\(\sigma=3.405\,\)</span>Å from
 the deck turn these reduced energies into physical binding energies and the
 structures into real noble-gas nanoclusters.</p></li>
 </ul>
 <section id="references">
 <h3>References<a class="headerlink" href="#references" title="Link to this heading">#</a></h3>
-<div class="docutils container" id="id7">
+<div class="docutils container" id="id9">
 <div role="list" class="citation-list">
-<div class="citation" id="id22" role="doc-biblioentry">
+<div class="citation" id="id57" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id7">DMW99</a><span class="fn-bracket">]</span></span>
+<p>Jonathan P. K. Doye, Mark A. Miller, and David J. Wales. The double-funnel energy landscape of the 38-atom lennard-jones cluster. <em>The Journal of Chemical Physics</em>, 110(14):6896–6906, 1999. <a class="reference external" href="https://doi.org/10.1063/1.478595">doi:10.1063/1.478595</a>.</p>
+</div>
+<div class="citation" id="id24" role="doc-biblioentry">
 <span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id3">SNR83</a><span class="fn-bracket">]</span></span>
 <p>Paul J. Steinhardt, David R. Nelson, and Marco Ronchetti. Bond-orientational order in liquids and glasses. <em>Physical Review B</em>, 28(2):784–805, 1983. <a class="reference external" href="https://doi.org/10.1103/PhysRevB.28.784">doi:10.1103/PhysRevB.28.784</a>.</p>
 </div>
-<div class="citation" id="id20" role="doc-biblioentry">
+<div class="citation" id="id22" role="doc-biblioentry">
 <span class="label"><span class="fn-bracket">[</span>Wal03<span class="fn-bracket">]</span></span>
-<span class="backrefs">(<a role="doc-backlink" href="#id1">1</a>,<a role="doc-backlink" href="#id4">2</a>,<a role="doc-backlink" href="#id6">3</a>)</span>
+<span class="backrefs">(<a role="doc-backlink" href="#id1">1</a>,<a role="doc-backlink" href="#id4">2</a>,<a role="doc-backlink" href="#id6">3</a>,<a role="doc-backlink" href="#id8">4</a>)</span>
 <p>David J. Wales. <em>Energy Landscapes: Applications to Clusters, Biomolecules and Glasses</em>. Cambridge University Press, 2003.</p>
 </div>
-<div class="citation" id="id21" role="doc-biblioentry">
+<div class="citation" id="id23" role="doc-biblioentry">
 <span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id5">WD97</a><span class="fn-bracket">]</span></span>
 <p>David J. Wales and Jonathan P. K. Doye. Global optimization by basin-hopping and the lowest energy structures of lennard-jones clusters containing up to 110 atoms. <em>The Journal of Physical Chemistry A</em>, 101(28):5111–5116, 1997. <a class="reference external" href="https://doi.org/10.1021/jp970984n">doi:10.1021/jp970984n</a>.</p>
 </div>
-<div class="citation" id="id23" role="doc-biblioentry">
+<div class="citation" id="id25" role="doc-biblioentry">
 <span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id2">WDD+</a><span class="fn-bracket">]</span></span>
 <p>David J. Wales, Jonathan P. K. Doye, A. Dullweber, and others. The Cambridge Cluster Database. <a class="reference external" href="https://www-wales.ch.cam.ac.uk/CCD.html">https://www-wales.ch.cam.ac.uk/CCD.html</a>. Tabulated global minima of Lennard-Jones and other clusters.</p>
 </div>
@@ -69306,6 +69476,14 @@ structures into real noble-gas nanoclusters.</p></li>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-5-when-there-is-no-good-seed-global-optimization">Exercise 5 — When there is no good seed: global optimization</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#validation-5-basin-hopping-finds-the-lj13-global-minimum">Validation 5 — basin-hopping finds the LJ13 global minimum</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-6-finding-a-saddle-by-walking-uphill-along-the-softest-mode">Exercise 6 — Finding a saddle by walking uphill along the softest mode</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#validation-6-a-certified-transition-state">Validation 6 — a certified transition state</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-7-the-double-funnel-weighed-and-where-its-entropy-actually-lives">Exercise 7 — The double funnel weighed, and where its entropy actually lives</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#validation-7-soft-symmetric-and-nearly-enough">Validation 7 — soft, symmetric, and nearly enough</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#notebook-summary">Notebook summary</a></li>

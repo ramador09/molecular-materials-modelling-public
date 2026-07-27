@@ -552,6 +552,10 @@
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#validation-10-same-distribution-different-dynamics">Validation 10 — same distribution, different dynamics</a></li>
 </ul>
 </li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-11-the-binder-cumulant-a-dimensionless-number-that-knows-t-c">Exercise 11 — The Binder cumulant: a dimensionless number that knows <span class="math notranslate nohighlight">\(T_c\)</span></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#validation-11-exact-limits-one-crossing-each-and-onsager">Validation 11 — exact limits, one crossing each, and Onsager</a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#notebook-summary">Notebook summary</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#outlook">Outlook</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#references">References</a></li>
@@ -659,10 +663,10 @@ a proof.</p>
 <div><p><strong>Units and scope.</strong> We work in natural units <span class="math notranslate nohighlight">\(J=1\)</span>, <span class="math notranslate nohighlight">\(k_B=1\)</span>, so temperature
 is measured in units of <span class="math notranslate nohighlight">\(J/k_B\)</span>. This is a working review, not a textbook
 chapter: for the statistical mechanics see Pathria &amp; Beale
-<span class="bibtex-citation" id="id1">[<a class="reference internal" href="#id17" title="R. K. Pathria and Paul D. Beale. Statistical Mechanics. Elsevier, 3 edition, 2011.">PB11</a>]</span>, Goldenfeld <span class="bibtex-citation" id="id2">[<a class="reference internal" href="#id18" title="Nigel Goldenfeld. Lectures on Phase Transitions and the Renormalization Group. Addison-Wesley, 1992.">Gol92</a>]</span>, and Newman &amp; Barkema
-<span class="bibtex-citation" id="id3">[<a class="reference internal" href="#id11" title="M. E. J. Newman and G. T. Barkema. Monte Carlo Methods in Statistical Physics. Oxford University Press, Oxford, 1999.">NB99a</a>]</span>; for the exact results, Onsager <span class="bibtex-citation" id="id4">[<a class="reference internal" href="#id13" title="Lars Onsager. Crystal statistics. i. a two-dimensional model with an order-disorder transition. Physical Review, 65(3–4):117–149, 1944. doi:10.1103/PhysRev.65.117.">Ons44</a>]</span>
-and Yang <span class="bibtex-citation" id="id5">[<a class="reference internal" href="#id14" title="C. N. Yang. The spontaneous magnetization of a two-dimensional ising model. Physical Review, 85(5):808–816, 1952. doi:10.1103/PhysRev.85.808.">Yan52</a>]</span>; for the algorithm, Metropolis <em>et al.</em>
-<span class="bibtex-citation" id="id6">[<a class="reference internal" href="#id15" title="Nicholas Metropolis, Arianna W. Rosenbluth, Marshall N. Rosenbluth, Augusta H. Teller, and Edward Teller. Equation of state calculations by fast computing machines. The Journal of Chemical Physics, 21(6):1087–1092, 1953. doi:10.1063/1.1699114.">MRR+53</a>]</span>.</p>
+<span class="bibtex-citation" id="id1">[<a class="reference internal" href="#id18" title="R. K. Pathria and Paul D. Beale. Statistical Mechanics. Elsevier, 3 edition, 2011.">PB11</a>]</span>, Goldenfeld <span class="bibtex-citation" id="id2">[<a class="reference internal" href="#id19" title="Nigel Goldenfeld. Lectures on Phase Transitions and the Renormalization Group. Addison-Wesley, 1992.">Gol92</a>]</span>, and Newman &amp; Barkema
+<span class="bibtex-citation" id="id3">[<a class="reference internal" href="#id12" title="M. E. J. Newman and G. T. Barkema. Monte Carlo Methods in Statistical Physics. Oxford University Press, Oxford, 1999.">NB99a</a>]</span>; for the exact results, Onsager <span class="bibtex-citation" id="id4">[<a class="reference internal" href="#id14" title="Lars Onsager. Crystal statistics. i. a two-dimensional model with an order-disorder transition. Physical Review, 65(3–4):117–149, 1944. doi:10.1103/PhysRev.65.117.">Ons44</a>]</span>
+and Yang <span class="bibtex-citation" id="id5">[<a class="reference internal" href="#id15" title="C. N. Yang. The spontaneous magnetization of a two-dimensional ising model. Physical Review, 85(5):808–816, 1952. doi:10.1103/PhysRev.85.808.">Yan52</a>]</span>; for the algorithm, Metropolis <em>et al.</em>
+<span class="bibtex-citation" id="id6">[<a class="reference internal" href="#id16" title="Nicholas Metropolis, Arianna W. Rosenbluth, Marshall N. Rosenbluth, Augusta H. Teller, and Edward Teller. Equation of state calculations by fast computing machines. The Journal of Chemical Physics, 21(6):1087–1092, 1953. doi:10.1063/1.1699114.">MRR+53</a>]</span>.</p>
 </div></blockquote>
 </section>
 <section id="theory-in-brief">
@@ -1397,42 +1401,42 @@ input[type=range].anim-slider {
 </style>
 
 <div class="animation">
-  <img id="_anim_img33f86ab6e8e945609e430b76f8ab49ff">
+  <img id="_anim_img9f3b5ef997234599b3d722ed69acce6c">
   <div class="anim-controls">
-    <input id="_anim_slider33f86ab6e8e945609e430b76f8ab49ff" type="range" class="anim-slider"
+    <input id="_anim_slider9f3b5ef997234599b3d722ed69acce6c" type="range" class="anim-slider"
            name="points" min="0" max="1" step="1" value="0"
-           oninput="anim33f86ab6e8e945609e430b76f8ab49ff.set_frame(parseInt(this.value));">
+           oninput="anim9f3b5ef997234599b3d722ed69acce6c.set_frame(parseInt(this.value));">
     <div class="anim-buttons">
-      <button title="Decrease speed" aria-label="Decrease speed" onclick="anim33f86ab6e8e945609e430b76f8ab49ff.slower()">
+      <button title="Decrease speed" aria-label="Decrease speed" onclick="anim9f3b5ef997234599b3d722ed69acce6c.slower()">
           <i class="fa fa-minus"></i></button>
-      <button title="First frame" aria-label="First frame" onclick="anim33f86ab6e8e945609e430b76f8ab49ff.first_frame()">
+      <button title="First frame" aria-label="First frame" onclick="anim9f3b5ef997234599b3d722ed69acce6c.first_frame()">
         <i class="fa fa-fast-backward"></i></button>
-      <button title="Previous frame" aria-label="Previous frame" onclick="anim33f86ab6e8e945609e430b76f8ab49ff.previous_frame()">
+      <button title="Previous frame" aria-label="Previous frame" onclick="anim9f3b5ef997234599b3d722ed69acce6c.previous_frame()">
           <i class="fa fa-step-backward"></i></button>
-      <button title="Play backwards" aria-label="Play backwards" onclick="anim33f86ab6e8e945609e430b76f8ab49ff.reverse_animation()">
+      <button title="Play backwards" aria-label="Play backwards" onclick="anim9f3b5ef997234599b3d722ed69acce6c.reverse_animation()">
           <i class="fa fa-play fa-flip-horizontal"></i></button>
-      <button title="Pause" aria-label="Pause" onclick="anim33f86ab6e8e945609e430b76f8ab49ff.pause_animation()">
+      <button title="Pause" aria-label="Pause" onclick="anim9f3b5ef997234599b3d722ed69acce6c.pause_animation()">
           <i class="fa fa-pause"></i></button>
-      <button title="Play" aria-label="Play" onclick="anim33f86ab6e8e945609e430b76f8ab49ff.play_animation()">
+      <button title="Play" aria-label="Play" onclick="anim9f3b5ef997234599b3d722ed69acce6c.play_animation()">
           <i class="fa fa-play"></i></button>
-      <button title="Next frame" aria-label="Next frame" onclick="anim33f86ab6e8e945609e430b76f8ab49ff.next_frame()">
+      <button title="Next frame" aria-label="Next frame" onclick="anim9f3b5ef997234599b3d722ed69acce6c.next_frame()">
           <i class="fa fa-step-forward"></i></button>
-      <button title="Last frame" aria-label="Last frame" onclick="anim33f86ab6e8e945609e430b76f8ab49ff.last_frame()">
+      <button title="Last frame" aria-label="Last frame" onclick="anim9f3b5ef997234599b3d722ed69acce6c.last_frame()">
           <i class="fa fa-fast-forward"></i></button>
-      <button title="Increase speed" aria-label="Increase speed" onclick="anim33f86ab6e8e945609e430b76f8ab49ff.faster()">
+      <button title="Increase speed" aria-label="Increase speed" onclick="anim9f3b5ef997234599b3d722ed69acce6c.faster()">
           <i class="fa fa-plus"></i></button>
     </div>
-    <form title="Repetition mode" aria-label="Repetition mode" action="#n" name="_anim_loop_select33f86ab6e8e945609e430b76f8ab49ff"
+    <form title="Repetition mode" aria-label="Repetition mode" action="#n" name="_anim_loop_select9f3b5ef997234599b3d722ed69acce6c"
           class="anim-state">
-      <input type="radio" name="state" value="once" id="_anim_radio1_33f86ab6e8e945609e430b76f8ab49ff"
+      <input type="radio" name="state" value="once" id="_anim_radio1_9f3b5ef997234599b3d722ed69acce6c"
              >
-      <label for="_anim_radio1_33f86ab6e8e945609e430b76f8ab49ff">Once</label>
-      <input type="radio" name="state" value="loop" id="_anim_radio2_33f86ab6e8e945609e430b76f8ab49ff"
+      <label for="_anim_radio1_9f3b5ef997234599b3d722ed69acce6c">Once</label>
+      <input type="radio" name="state" value="loop" id="_anim_radio2_9f3b5ef997234599b3d722ed69acce6c"
              checked>
-      <label for="_anim_radio2_33f86ab6e8e945609e430b76f8ab49ff">Loop</label>
-      <input type="radio" name="state" value="reflect" id="_anim_radio3_33f86ab6e8e945609e430b76f8ab49ff"
+      <label for="_anim_radio2_9f3b5ef997234599b3d722ed69acce6c">Loop</label>
+      <input type="radio" name="state" value="reflect" id="_anim_radio3_9f3b5ef997234599b3d722ed69acce6c"
              >
-      <label for="_anim_radio3_33f86ab6e8e945609e430b76f8ab49ff">Reflect</label>
+      <label for="_anim_radio3_9f3b5ef997234599b3d722ed69acce6c">Reflect</label>
     </form>
   </div>
 </div>
@@ -1442,9 +1446,9 @@ input[type=range].anim-slider {
   /* Instantiate the Animation class. */
   /* The IDs given should match those used in the template above. */
   (function() {
-    var img_id = "_anim_img33f86ab6e8e945609e430b76f8ab49ff";
-    var slider_id = "_anim_slider33f86ab6e8e945609e430b76f8ab49ff";
-    var loop_select_id = "_anim_loop_select33f86ab6e8e945609e430b76f8ab49ff";
+    var img_id = "_anim_img9f3b5ef997234599b3d722ed69acce6c";
+    var slider_id = "_anim_slider9f3b5ef997234599b3d722ed69acce6c";
+    var loop_select_id = "_anim_loop_select9f3b5ef997234599b3d722ed69acce6c";
     var frames = new Array(201);
     
   frames[0] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAXoAAAF6CAYAAAAXoJOQAAAAOnRFWHRTb2Z0d2FyZQBNYXRwbG90\
@@ -22631,7 +22635,7 @@ hwAAAABJRU5ErkJggg==\
     /* set a timeout to make sure all the above elements are created before
        the object is initialized. */
     setTimeout(function() {
-        anim33f86ab6e8e945609e430b76f8ab49ff = new Animation(frames, img_id, slider_id, 33,
+        anim9f3b5ef997234599b3d722ed69acce6c = new Animation(frames, img_id, slider_id, 33,
                                  loop_select_id);
     }, 0);
   })()
@@ -22682,7 +22686,7 @@ average, but it makes the quoted uncertainty a fiction. The sum in
 <a class="reference internal" href="#equation-eq-tau-int">Eq. 12</a> must be truncated in practice, because at large <span class="math notranslate nohighlight">\(t\)</span> the estimate
 of <span class="math notranslate nohighlight">\(\rho_A\)</span> is pure noise; the standard cure is Sokal’s self-consistent window,
 summing up to the first <span class="math notranslate nohighlight">\(t\)</span> with <span class="math notranslate nohighlight">\(t \ge 6\tau_{\rm int}\)</span>
-<span class="bibtex-citation" id="id7">[<a class="reference internal" href="#id44" title="M. E. J. Newman and G. T. Barkema. Monte Carlo Methods in Statistical Physics. Oxford University Press, Oxford, 1999.">NB99b</a>, <a class="reference internal" href="#id46" title="Alan D. Sokal. Monte Carlo methods in statistical mechanics: foundations and new algorithms. In Cécile DeWitt-Morette, Pierre Cartier, and Antoine Folacci, editors, Functional Integration: Basics and Applications, volume 361 of NATO ASI Series B, pages 131–192. Springer, Boston, MA, 1997. doi:10.1007/978-1-4899-0319-8_6.">Sok97</a>]</span>.</p>
+<span class="bibtex-citation" id="id7">[<a class="reference internal" href="#id45" title="M. E. J. Newman and G. T. Barkema. Monte Carlo Methods in Statistical Physics. Oxford University Press, Oxford, 1999.">NB99b</a>, <a class="reference internal" href="#id47" title="Alan D. Sokal. Monte Carlo methods in statistical mechanics: foundations and new algorithms. In Cécile DeWitt-Morette, Pierre Cartier, and Antoine Folacci, editors, Functional Integration: Basics and Applications, volume 361 of NATO ASI Series B, pages 131–192. Springer, Boston, MA, 1997. doi:10.1007/978-1-4899-0319-8_6.">Sok97</a>]</span>.</p>
 <p>The reason this matters <em>here</em> is that <span class="math notranslate nohighlight">\(\tau_{\rm int}\)</span> is not a constant. As
 <span class="math notranslate nohighlight">\(T\to T_c\)</span> the correlation length diverges, and with it the time the algorithm
 needs to rearrange a correlated region: <span class="math notranslate nohighlight">\(\tau_{\rm int}\sim L^{z}\)</span> at <span class="math notranslate nohighlight">\(T_c\)</span>, with
@@ -22745,7 +22749,7 @@ not measurable at these sizes.</p>
 <p>Critical slowing down is the algorithm’s fault, so a different algorithm can
 escape it. The insight, due to Swendsen and Wang and sharpened to a single
 cluster by Wolff, is to stop flipping spins one at a time and instead flip a
-whole correlated region at once <span class="bibtex-citation" id="id8">[<a class="reference internal" href="#id44" title="M. E. J. Newman and G. T. Barkema. Monte Carlo Methods in Statistical Physics. Oxford University Press, Oxford, 1999.">NB99b</a>, <a class="reference internal" href="#id45" title="Ulli Wolff. Collective Monte Carlo updating for spin systems. Physical Review Letters, 62(4):361–364, 1989. doi:10.1103/PhysRevLett.62.361.">Wol89</a>]</span>. Pick a site at
+whole correlated region at once <span class="bibtex-citation" id="id8">[<a class="reference internal" href="#id45" title="M. E. J. Newman and G. T. Barkema. Monte Carlo Methods in Statistical Physics. Oxford University Press, Oxford, 1999.">NB99b</a>, <a class="reference internal" href="#id46" title="Ulli Wolff. Collective Monte Carlo updating for spin systems. Physical Review Letters, 62(4):361–364, 1989. doi:10.1103/PhysRevLett.62.361.">Wol89</a>]</span>. Pick a site at
 random; then grow a cluster outward, adding each <em>aligned</em> neighbour with
 probability</p>
 <div class="math notranslate nohighlight" id="equation-eq-wolff-padd">
@@ -22822,6 +22826,78 @@ values, because <span class="math notranslate nohighlight">\(\tau_{\rm int}\)</s
 </div>
 </section>
 </section>
+<section id="exercise-11-the-binder-cumulant-a-dimensionless-number-that-knows-t-c">
+<h2>Exercise 11 — The Binder cumulant: a dimensionless number that knows <span class="math notranslate nohighlight">\(T_c\)</span><a class="headerlink" href="#exercise-11-the-binder-cumulant-a-dimensionless-number-that-knows-t-c" title="Link to this heading">#</a></h2>
+<p>Exercise 7 located the transition by extrapolating the drifting <span class="math notranslate nohighlight">\(C_v\)</span> peak, and
+needed a fit against <span class="math notranslate nohighlight">\(1/L\)</span> to do it. There is a sharper instrument. The <strong>Binder
+cumulant</strong> <span class="bibtex-citation" id="id9">[<a class="reference internal" href="#id17" title="Kurt Binder. Finite size scaling analysis of ising model block distribution functions. Zeitschrift für Physik B, 43(2):119–140, 1981. doi:10.1007/BF01293604.">Bin81</a>]</span> is a ratio of magnetisation moments,</p>
+<div class="math notranslate nohighlight" id="equation-eq-binder">
+<span class="eqno">(14)<a class="headerlink" href="#equation-eq-binder" title="Link to this equation">#</a></span>\[U_4(L, T) \;=\; 1 - \frac{\langle m^4\rangle}{3\,\langle m^2\rangle^2},\]</div>
+<p>built so that the leading size dependences of numerator and denominator cancel.
+Its two off-critical limits are exact and worth deriving before running anything.
+Deep in the ordered phase <span class="math notranslate nohighlight">\(P(m)\)</span> is two sharp peaks at <span class="math notranslate nohighlight">\(\pm m_0\)</span>, so
+<span class="math notranslate nohighlight">\(\langle m^4\rangle = m_0^4 = \langle m^2\rangle^2\)</span> and <span class="math notranslate nohighlight">\(U_4 \to 2/3\)</span>. Deep in
+the disordered phase <span class="math notranslate nohighlight">\(P(m)\)</span> is a Gaussian of zero mean, for which Wick’s theorem
+gives <span class="math notranslate nohighlight">\(\langle m^4\rangle = 3\langle m^2\rangle^2\)</span> and <span class="math notranslate nohighlight">\(U_4 \to 0\)</span>. Between the
+two, renormalisation-group scaling says <span class="math notranslate nohighlight">\(U_4\)</span> depends on <span class="math notranslate nohighlight">\(L\)</span> and <span class="math notranslate nohighlight">\(T\)</span> only through
+<span class="math notranslate nohighlight">\(L^{1/\nu}(T - T_c)\)</span> — so at <span class="math notranslate nohighlight">\(T_c\)</span> itself the <span class="math notranslate nohighlight">\(L\)</span>-dependence drops out entirely,
+and curves for different sizes <strong>cross</strong> there. No extrapolation, no fit: the
+crossing of two measured curves is the estimate. This is the standard production
+method for locating critical points, and Exercise 10’s cluster algorithm is what
+makes it affordable — every point below sits in the critical region, exactly
+where Metropolis is at its slowest.</p>
+<p><strong>Part a)</strong> Implement <code class="docutils literal notranslate"><span class="pre">binder_u4(L,</span> <span class="pre">T_k,</span> <span class="pre">n_meas,</span> <span class="pre">seed)</span></code>: thermalise with Wolff
+updates, then accumulate <span class="math notranslate nohighlight">\(\langle m^2\rangle\)</span> and <span class="math notranslate nohighlight">\(\langle m^4\rangle\)</span> over
+<code class="docutils literal notranslate"><span class="pre">n_meas</span></code> further updates and return <a class="reference internal" href="#equation-eq-binder">Eq. 14</a>. Even powers only — under
+cluster updates <span class="math notranslate nohighlight">\(m\)</span> changes sign wholesale, so odd moments carry no information.</p>
+<p><strong>Part b)</strong> Sweep three lattice sizes across a temperature window bracketing
+<span class="math notranslate nohighlight">\(T_c\)</span> and plot the three curves with Onsager’s temperature marked. Check the two
+exact limits at the window’s ends.</p>
+<p><strong>Part c)</strong> Locate the pairwise crossings by interpolation, and compare the
+estimate against Exercise 7’s extrapolated <span class="math notranslate nohighlight">\(C_v\)</span> route: both should land near
+Onsager, but note what the cumulant did <em>not</em> need — a functional form for the
+finite-size drift.</p>
+<div class="cell tag_solution tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<figure class="align-default" id="fig-ising-binder">
+<img alt="../../_images/96f7a12ed74e8eb14dfd588f63ef108625de5e5f42660675db6eda9b704c006a.png" src="../../_images/96f7a12ed74e8eb14dfd588f63ef108625de5e5f42660675db6eda9b704c006a.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 12 </span><span class="caption-text">The Binder cumulant of Eq. eq-binder for three lattice sizes across the critical region, computed entirely with Wolff cluster updates. Every curve starts at the exact two-peak limit 2/3 in the ordered phase and falls toward the exact Gaussian limit 0 in the disordered phase, but they do so in size-dependent fashion everywhere except at the critical point, where scaling makes the cumulant size-independent: the three curves cross within a percent of Onsager’s temperature (dashed). The crossing needs no extrapolation, which is its advantage over the drifting heat-capacity peak of Exercise 7.</span><a class="headerlink" href="#fig-ising-binder" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>U4(L=12) x U4(L=18): crossing at T = 2.2575 (Onsager 2.2692, off by 0.0116)
+U4(L=18) x U4(L=28): crossing at T = 2.2564 (Onsager 2.2692, off by 0.0128)
+U4(L=12) x U4(L=28): crossing at T = 2.2568 (Onsager 2.2692, off by 0.0123)
+Exercise 7&#39;s extrapolated Cv route gave its estimate with a fitted 1/L form; the largest-pair crossing above needed no model at all.
+</pre></div>
+</div>
+</div>
+</div>
+<section id="validation-11-exact-limits-one-crossing-each-and-onsager">
+<h3>Validation 11 — exact limits, one crossing each, and Onsager<a class="headerlink" href="#validation-11-exact-limits-one-crossing-each-and-onsager" title="Link to this heading">#</a></h3>
+<p>Four checks. The largest lattice must sit at the exact two-delta limit <span class="math notranslate nohighlight">\(2/3\)</span> at
+the cold end of the window and fall well below it at the hot end, heading for
+the exact Gaussian limit — the two closed-form anchors of <a class="reference internal" href="#equation-eq-binder">Eq. 14</a>. Each
+pair of curves must cross exactly once in the window, which is the structural
+statement that the cumulant is size-independent at a single temperature. The
+ordering of the three curves must reverse across that temperature. And the
+largest pair’s crossing must land within three percent of Onsager’s exact
+<span class="math notranslate nohighlight">\(T_c\)</span> — with no extrapolation performed, which is the point of the exercise.</p>
+<div class="cell tag_validation tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>✓  at the cold end of the window the largest lattice sits at the exact ordered-phase limit 2/3, where P(m) is two sharp peaks   [got 0.662588 vs expected 0.666667 (rtol=1e-06, atol=0.03)]
+✓  and at the hot end it has fallen far below 2/3, on its way to the exact Gaussian limit 0 of the disordered phase   [U4(L=28, T=2.45) = 0.287]
+✓  each pair of curves crosses exactly once, and the size-ordering of the cumulants reverses across the crossing: size-independence happens at one temperature only, which is what makes U4 a locator of Tc   [sign changes [1, 1, 1]; ordering reverses between T=2.1 and T=2.45]
+✓  and the largest-pair crossing lands within three percent of Onsager&#39;s exact critical temperature, with no extrapolation and no fitted functional form   [got 2.25638 vs expected 2.26919 (rtol=1e-06, atol=0.03)]
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>True
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
 <section id="notebook-summary">
 <h2>Notebook summary<a class="headerlink" href="#notebook-summary" title="Link to this heading">#</a></h2>
 <p>We built the Ising model from its Hamiltonian and solved it two ways. In one
@@ -22833,7 +22909,10 @@ peaks located the transition; extrapolating the steadier specific-heat peak to
 infinite size (finite-size scaling) recovered the exact critical temperature
 <span class="math notranslate nohighlight">\(T_c = 2/\ln(1+\sqrt2) \approx 2.269\,J/k_B\)</span>. Along the way we met the
 concrete machinery of Monte Carlo: importance sampling, equilibration, fluctuation
-estimators, and the critical slowing-down that makes <span class="math notranslate nohighlight">\(T_c\)</span> hard to pin down.</p>
+estimators, and the critical slowing-down that makes <span class="math notranslate nohighlight">\(T_c\)</span> hard to pin down —
+then beat it twice over: the Wolff cluster algorithm removed the slowdown, and
+the Binder cumulant it powers located <span class="math notranslate nohighlight">\(T_c\)</span> to a percent from the crossing of
+dimensionless curves, with no extrapolation and no fitted functional form.</p>
 </section>
 <section id="outlook">
 <h2>Outlook<a class="headerlink" href="#outlook" title="Link to this heading">#</a></h2>
@@ -22886,50 +22965,51 @@ the correlation-length exponent. The peak <em>height</em> of <span class="math n
 slowing down</em>; the Wolff algorithm flips correlated domains at once and
 decorrelates far faster.</p></li>
 <li><p><strong>The Binder cumulant</strong> <span class="math notranslate nohighlight">\(U_4=1-\langle m^4\rangle/3\langle m^2\rangle^2\)</span> crosses
-at <span class="math notranslate nohighlight">\(T_c\)</span> for all sizes, a sharper locator than the <span class="math notranslate nohighlight">\(C_v\)</span> peak <span class="bibtex-citation" id="id9">[<a class="reference internal" href="#id16" title="Kurt Binder. Finite size scaling analysis of ising model block distribution functions. Zeitschrift für Physik B, 43(2):119–140, 1981. doi:10.1007/BF01293604.">Bin81</a>]</span>.</p></li>
+at <span class="math notranslate nohighlight">\(T_c\)</span> for all sizes, a sharper locator than the <span class="math notranslate nohighlight">\(C_v\)</span> peak <span class="bibtex-citation" id="id10">[<a class="reference internal" href="#id17" title="Kurt Binder. Finite size scaling analysis of ising model block distribution functions. Zeitschrift für Physik B, 43(2):119–140, 1981. doi:10.1007/BF01293604.">Bin81</a>]</span>.</p></li>
 </ul>
 <section id="references">
 <h3>References<a class="headerlink" href="#references" title="Link to this heading">#</a></h3>
-<div class="docutils container" id="id10">
+<div class="docutils container" id="id11">
 <div role="list" class="citation-list">
-<div class="citation" id="id16" role="doc-biblioentry">
-<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id9">Bin81</a><span class="fn-bracket">]</span></span>
+<div class="citation" id="id17" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span>Bin81<span class="fn-bracket">]</span></span>
+<span class="backrefs">(<a role="doc-backlink" href="#id9">1</a>,<a role="doc-backlink" href="#id10">2</a>)</span>
 <p>Kurt Binder. Finite size scaling analysis of ising model block distribution functions. <em>Zeitschrift für Physik B</em>, 43(2):119–140, 1981. <a class="reference external" href="https://doi.org/10.1007/BF01293604">doi:10.1007/BF01293604</a>.</p>
 </div>
-<div class="citation" id="id18" role="doc-biblioentry">
+<div class="citation" id="id19" role="doc-biblioentry">
 <span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id2">Gol92</a><span class="fn-bracket">]</span></span>
 <p>Nigel Goldenfeld. <em>Lectures on Phase Transitions and the Renormalization Group</em>. Addison-Wesley, 1992.</p>
 </div>
-<div class="citation" id="id15" role="doc-biblioentry">
+<div class="citation" id="id16" role="doc-biblioentry">
 <span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id6">MRR+53</a><span class="fn-bracket">]</span></span>
 <p>Nicholas Metropolis, Arianna W. Rosenbluth, Marshall N. Rosenbluth, Augusta H. Teller, and Edward Teller. Equation of state calculations by fast computing machines. <em>The Journal of Chemical Physics</em>, 21(6):1087–1092, 1953. <a class="reference external" href="https://doi.org/10.1063/1.1699114">doi:10.1063/1.1699114</a>.</p>
 </div>
-<div class="citation" id="id11" role="doc-biblioentry">
+<div class="citation" id="id12" role="doc-biblioentry">
 <span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id3">NB99a</a><span class="fn-bracket">]</span></span>
 <p>M. E. J. Newman and G. T. Barkema. <em>Monte Carlo Methods in Statistical Physics</em>. Oxford University Press, Oxford, 1999.</p>
 </div>
-<div class="citation" id="id44" role="doc-biblioentry">
+<div class="citation" id="id45" role="doc-biblioentry">
 <span class="label"><span class="fn-bracket">[</span>NB99b<span class="fn-bracket">]</span></span>
 <span class="backrefs">(<a role="doc-backlink" href="#id7">1</a>,<a role="doc-backlink" href="#id8">2</a>)</span>
 <p>M. E. J. Newman and G. T. Barkema. <em>Monte Carlo Methods in Statistical Physics</em>. Oxford University Press, Oxford, 1999.</p>
 </div>
-<div class="citation" id="id13" role="doc-biblioentry">
+<div class="citation" id="id14" role="doc-biblioentry">
 <span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id4">Ons44</a><span class="fn-bracket">]</span></span>
 <p>Lars Onsager. Crystal statistics. i. a two-dimensional model with an order-disorder transition. <em>Physical Review</em>, 65(3–4):117–149, 1944. <a class="reference external" href="https://doi.org/10.1103/PhysRev.65.117">doi:10.1103/PhysRev.65.117</a>.</p>
 </div>
-<div class="citation" id="id17" role="doc-biblioentry">
+<div class="citation" id="id18" role="doc-biblioentry">
 <span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id1">PB11</a><span class="fn-bracket">]</span></span>
 <p>R. K. Pathria and Paul D. Beale. <em>Statistical Mechanics</em>. Elsevier, 3 edition, 2011.</p>
 </div>
-<div class="citation" id="id46" role="doc-biblioentry">
+<div class="citation" id="id47" role="doc-biblioentry">
 <span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id7">Sok97</a><span class="fn-bracket">]</span></span>
 <p>Alan D. Sokal. Monte Carlo methods in statistical mechanics: foundations and new algorithms. In Cécile DeWitt-Morette, Pierre Cartier, and Antoine Folacci, editors, <em>Functional Integration: Basics and Applications</em>, volume 361 of NATO ASI Series B, pages 131–192. Springer, Boston, MA, 1997. <a class="reference external" href="https://doi.org/10.1007/978-1-4899-0319-8_6">doi:10.1007/978-1-4899-0319-8_6</a>.</p>
 </div>
-<div class="citation" id="id45" role="doc-biblioentry">
+<div class="citation" id="id46" role="doc-biblioentry">
 <span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id8">Wol89</a><span class="fn-bracket">]</span></span>
 <p>Ulli Wolff. Collective Monte Carlo updating for spin systems. <em>Physical Review Letters</em>, 62(4):361–364, 1989. <a class="reference external" href="https://doi.org/10.1103/PhysRevLett.62.361">doi:10.1103/PhysRevLett.62.361</a>.</p>
 </div>
-<div class="citation" id="id14" role="doc-biblioentry">
+<div class="citation" id="id15" role="doc-biblioentry">
 <span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id5">Yan52</a><span class="fn-bracket">]</span></span>
 <p>C. N. Yang. The spontaneous magnetization of a two-dimensional ising model. <em>Physical Review</em>, 85(5):808–816, 1952. <a class="reference external" href="https://doi.org/10.1103/PhysRev.85.808">doi:10.1103/PhysRev.85.808</a>.</p>
 </div>
@@ -23074,6 +23154,10 @@ at <span class="math notranslate nohighlight">\(T_c\)</span> for all sizes, a sh
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-10-beating-the-slowdown-the-wolff-cluster-algorithm">Exercise 10 — Beating the slowdown: the Wolff cluster algorithm</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#validation-10-same-distribution-different-dynamics">Validation 10 — same distribution, different dynamics</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-11-the-binder-cumulant-a-dimensionless-number-that-knows-t-c">Exercise 11 — The Binder cumulant: a dimensionless number that knows <span class="math notranslate nohighlight">\(T_c\)</span></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#validation-11-exact-limits-one-crossing-each-and-onsager">Validation 11 — exact limits, one crossing each, and Onsager</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#notebook-summary">Notebook summary</a></li>

@@ -535,6 +535,10 @@
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#validation-6-aggregation-has-occurred">Validation 6 — aggregation has occurred</a></li>
 </ul>
 </li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-7-rejection-free-bookkeeping-and-the-clock-made-physical">Exercise 7 — Rejection-free bookkeeping, and the clock made physical</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#validation-7-exact-bookkeeping-measured-savings-the-barrier-returned">Validation 7 — exact bookkeeping, measured savings, the barrier returned</a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#notebook-summary">Notebook summary</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#outlook">Outlook</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#references">References</a></li>
@@ -636,10 +640,10 @@ not an automatic verdict; a ✓ is strong evidence, not proof.</p>
 <blockquote>
 <div><p><strong>Units and scope.</strong> Energies (binding energy, barriers) and temperature are
 in the same arbitrary unit, so <span class="math notranslate nohighlight">\(k_B=1\)</span> and <span class="math notranslate nohighlight">\(\beta=1/T\)</span>. This is a working
-review; for the methods see Newman &amp; Barkema <span class="bibtex-citation" id="id1">[<a class="reference internal" href="#id8" title="M. E. J. Newman and G. T. Barkema. Monte Carlo Methods in Statistical Physics. Oxford University Press, Oxford, 1999.">NB99</a>]</span>, Frenkel &amp;
-Smit <span class="bibtex-citation" id="id2">[<a class="reference internal" href="#id16" title="Daan Frenkel and Berend Smit. Understanding Molecular Simulation: From Algorithms to Applications. Academic Press, 2 edition, 2002.">FS02</a>]</span>, and, for kinetic Monte Carlo, Voter’s primer
-<span class="bibtex-citation" id="id3">[<a class="reference internal" href="#id19" title="Arthur F. Voter. Introduction to the kinetic monte carlo method. Radiation Effects in Solids (NATO Science Series), 235:1–23, 2007. doi:10.1007/978-1-4020-5295-8_1.">Vot07</a>]</span> and the original Bortz–Kalos–Lebowitz <span class="bibtex-citation" id="id4">[<a class="reference internal" href="#id17" title="A. B. Bortz, M. H. Kalos, and J. L. Lebowitz. A new algorithm for monte carlo simulation of ising spin systems. Journal of Computational Physics, 17(1):10–18, 1975. doi:10.1016/0021-9991(75)90060-1.">BKL75</a>]</span> and
-Gillespie <span class="bibtex-citation" id="id5">[<a class="reference internal" href="#id18" title="Daniel T. Gillespie. Exact stochastic simulation of coupled chemical reactions. The Journal of Physical Chemistry, 81(25):2340–2361, 1977. doi:10.1021/j100540a008.">Gil77</a>]</span> algorithms.</p>
+review; for the methods see Newman &amp; Barkema <span class="bibtex-citation" id="id1">[<a class="reference internal" href="#id9" title="M. E. J. Newman and G. T. Barkema. Monte Carlo Methods in Statistical Physics. Oxford University Press, Oxford, 1999.">NB99</a>]</span>, Frenkel &amp;
+Smit <span class="bibtex-citation" id="id2">[<a class="reference internal" href="#id17" title="Daan Frenkel and Berend Smit. Understanding Molecular Simulation: From Algorithms to Applications. Academic Press, 2 edition, 2002.">FS02</a>]</span>, and, for kinetic Monte Carlo, Voter’s primer
+<span class="bibtex-citation" id="id3">[<a class="reference internal" href="#id20" title="Arthur F. Voter. Introduction to the kinetic monte carlo method. Radiation Effects in Solids (NATO Science Series), 235:1–23, 2007. doi:10.1007/978-1-4020-5295-8_1.">Vot07</a>]</span> and the original Bortz–Kalos–Lebowitz <span class="bibtex-citation" id="id4">[<a class="reference internal" href="#id18" title="A. B. Bortz, M. H. Kalos, and J. L. Lebowitz. A new algorithm for monte carlo simulation of ising spin systems. Journal of Computational Physics, 17(1):10–18, 1975. doi:10.1016/0021-9991(75)90060-1.">BKL75</a>]</span> and
+Gillespie <span class="bibtex-citation" id="id5">[<a class="reference internal" href="#id19" title="Daniel T. Gillespie. Exact stochastic simulation of coupled chemical reactions. The Journal of Physical Chemistry, 81(25):2340–2361, 1977. doi:10.1021/j100540a008.">Gil77</a>]</span> algorithms.</p>
 </div></blockquote>
 </section>
 <section id="theory-in-brief">
@@ -650,11 +654,11 @@ Gillespie <span class="bibtex-citation" id="id5">[<a class="reference internal" 
 lattice (<span class="math notranslate nohighlight">\(M=2L^2\)</span> sites, coordination number <span class="math notranslate nohighlight">\(z=3\)</span>). Occupied nearest
 neighbours lower the energy by the <strong>binding energy</strong> <span class="math notranslate nohighlight">\(\,d_e&lt;0\)</span>:</p>
 <div class="math notranslate nohighlight" id="equation-eq-lg-energy">
-<span class="eqno">(14)<a class="headerlink" href="#equation-eq-lg-energy" title="Link to this equation">#</a></span>\[E = d_e\!\sum_{\langle i,j\rangle} n_i\,n_j ,\]</div>
+<span class="eqno">(15)<a class="headerlink" href="#equation-eq-lg-energy" title="Link to this equation">#</a></span>\[E = d_e\!\sum_{\langle i,j\rangle} n_i\,n_j ,\]</div>
 <p>the sum running over nearest-neighbour bonds. The control parameters are the
 binding energy <span class="math notranslate nohighlight">\(d_e\)</span>, the temperature <span class="math notranslate nohighlight">\(T\)</span>, and the <strong>coverage</strong></p>
 <div class="math notranslate nohighlight" id="equation-eq-lg-coverage">
-<span class="eqno">(15)<a class="headerlink" href="#equation-eq-lg-coverage" title="Link to this equation">#</a></span>\[\theta = \frac{N}{M}, \qquad N=\sum_i n_i .\]</div>
+<span class="eqno">(16)<a class="headerlink" href="#equation-eq-lg-coverage" title="Link to this equation">#</a></span>\[\theta = \frac{N}{M}, \qquad N=\sum_i n_i .\]</div>
 <p>(The lattice gas is exactly equivalent to the Ising model of 1.1 under
 <span class="math notranslate nohighlight">\(n_i=(\sigma_i+1)/2\)</span>; we keep the occupation language because it matches the
 physics of adsorption.)</p>
@@ -674,17 +678,17 @@ is local. Metropolis samples <em>equilibrium</em>: it has no notion of time.</p>
 <p>Real surface processes happen at <em>rates</em>. An activated event <span class="math notranslate nohighlight">\(k\)</span> (a hop, a bond
 formation) over a barrier <span class="math notranslate nohighlight">\(E_k\)</span> occurs with an Arrhenius rate</p>
 <div class="math notranslate nohighlight" id="equation-eq-arrhenius">
-<span class="eqno">(16)<a class="headerlink" href="#equation-eq-arrhenius" title="Link to this equation">#</a></span>\[r_k = \nu\,e^{-\beta E_k},\]</div>
+<span class="eqno">(17)<a class="headerlink" href="#equation-eq-arrhenius" title="Link to this equation">#</a></span>\[r_k = \nu\,e^{-\beta E_k},\]</div>
 <p><span class="math notranslate nohighlight">\(\nu\)</span> an attempt frequency. The <strong>kinetic Monte Carlo</strong> (residence-time, or
 Bortz–Kalos–Lebowitz) algorithm samples the <em>master equation</em> exactly: at each
 step it lists every possible event with its rate, forms the total rate</p>
 <div class="math notranslate nohighlight" id="equation-eq-kmc-total">
-<span class="eqno">(17)<a class="headerlink" href="#equation-eq-kmc-total" title="Link to this equation">#</a></span>\[R = \sum_k r_k ,\]</div>
+<span class="eqno">(18)<a class="headerlink" href="#equation-eq-kmc-total" title="Link to this equation">#</a></span>\[R = \sum_k r_k ,\]</div>
 <p>picks one event with probability <span class="math notranslate nohighlight">\(r_k/R\)</span>, executes it, and advances the clock by
 a waiting time drawn from the exponential (Poisson) distribution with mean
 <span class="math notranslate nohighlight">\(1/R\)</span>,</p>
 <div class="math notranslate nohighlight" id="equation-eq-kmc-time">
-<span class="eqno">(18)<a class="headerlink" href="#equation-eq-kmc-time" title="Link to this equation">#</a></span>\[\Delta t = -\frac{\ln\rho}{R}, \qquad \rho\sim\mathcal{U}(0,1].\]</div>
+<span class="eqno">(19)<a class="headerlink" href="#equation-eq-kmc-time" title="Link to this equation">#</a></span>\[\Delta t = -\frac{\ln\rho}{R}, \qquad \rho\sim\mathcal{U}(0,1].\]</div>
 <p>Unlike Metropolis, KMC produces a <em>trajectory in real time</em>: it is how one
 simulates diffusion-limited growth, catalysis, and dewetting.</p>
 </section>
@@ -846,7 +850,7 @@ the details.</p>
 <section id="exercise-1-the-honeycomb-lattice-and-the-adsorbate-model">
 <h2>Exercise 1 — The honeycomb lattice and the adsorbate model<a class="headerlink" href="#exercise-1-the-honeycomb-lattice-and-the-adsorbate-model" title="Link to this heading">#</a></h2>
 <p>Build the lattice and the two quantities every later exercise needs: the number
-of occupied nearest-neighbour pairs and, through <a class="reference internal" href="#equation-eq-lg-energy">Eq. 14</a>, the energy.
+of occupied nearest-neighbour pairs and, through <a class="reference internal" href="#equation-eq-lg-energy">Eq. 15</a>, the energy.
 The schematic shows the geometry (two interleaved sublattices, each site bonded
 to three neighbours) with one molecule and the three neighbours whose occupancy
 sets its contribution to the energy.</p>
@@ -856,7 +860,7 @@ sets its contribution to the energy.</p>
 sublattice coupling only to B. Use <code class="docutils literal notranslate"><span class="pre">collections.Counter</span></code> over the neighbour lists
 rather than a spot check — a lattice builder that is wrong at the periodic seam
 is right almost everywhere.</p>
-<p><strong>Part b)</strong> Check the energy bookkeeping of <a class="reference internal" href="#equation-eq-lg-energy">Eq. 14</a>: an isolated
+<p><strong>Part b)</strong> Check the energy bookkeeping of <a class="reference internal" href="#equation-eq-lg-energy">Eq. 15</a>: an isolated
 molecule contributes no pairs, and one adjacent pair contributes exactly one bond
 of energy <span class="math notranslate nohighlight">\(d_e\)</span>. Getting this wrong by a factor of two is the single most common
 lattice-model error, because each bond is reachable from both of its ends.</p>
@@ -865,7 +869,7 @@ lattice-model error, because each bond is reachable from both of its ends.</p>
 <figure class="align-default" id="fig-honeycomb-lattice">
 <img alt="../../_images/2abfd3f0ffbf31ba524427a1803aaade6b7c7ea2e0502bf4a390b92bf8a018b0.png" src="../../_images/2abfd3f0ffbf31ba524427a1803aaade6b7c7ea2e0502bf4a390b92bf8a018b0.png" />
 <figcaption>
-<p><span class="caption-number">Fig. 12 </span><span class="caption-text">A patch of the honeycomb adsorption lattice: open circles are empty sites of the two sublattices, joined by nearest-neighbour bonds (grey). The amber molecule occupies one site; the three navy molecules are its nearest neighbours, the only sites whose occupancy enters its bond energy <span class="math notranslate nohighlight">\(d_e\sum_{\langle ij\rangle} n_i n_j\)</span> (Eq. eq-lg-energy).</span><a class="headerlink" href="#fig-honeycomb-lattice" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 13 </span><span class="caption-text">A patch of the honeycomb adsorption lattice: open circles are empty sites of the two sublattices, joined by nearest-neighbour bonds (grey). The amber molecule occupies one site; the three navy molecules are its nearest neighbours, the only sites whose occupancy enters its bond energy <span class="math notranslate nohighlight">\(d_e\sum_{\langle ij\rangle} n_i n_j\)</span> (Eq. eq-lg-energy).</span><a class="headerlink" href="#fig-honeycomb-lattice" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>coordination numbers: {3: 18}  (every site must have 3)
@@ -879,7 +883,7 @@ isolated molecule: 0 pairs; adjacent pair: 1 pair -&gt; energy d_e, not 2 d_e
 <h3>Validation 1 — the energy bookkeeping<a class="headerlink" href="#validation-1-the-energy-bookkeeping" title="Link to this heading">#</a></h3>
 <p>Two molecules placed on adjacent sites must register exactly one occupied pair
 (energy <span class="math notranslate nohighlight">\(d_e\)</span>); two molecules far apart must register none. This pins down
-<code class="docutils literal notranslate"><span class="pre">n_pairs</span></code> and the meaning of <a class="reference internal" href="#equation-eq-lg-energy">Eq. 14</a>.</p>
+<code class="docutils literal notranslate"><span class="pre">n_pairs</span></code> and the meaning of <a class="reference internal" href="#equation-eq-lg-energy">Eq. 15</a>.</p>
 <div class="cell tag_validation tag_remove-input docutils container">
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>✓  honeycomb has z=3 with a symmetric, bipartite neighbour relation, and the pair count books one bond per adjacent pair   [adjacent→1 pair, isolated→0 pairs]
@@ -940,14 +944,14 @@ nearest-neighbour pairs is a pure combinatorial fact: each of the <span class="m
 bonds is occupied at both ends with probability <span class="math notranslate nohighlight">\(\binom{M-2}{N-2}/\binom{M}{N}\)</span>,
 giving</p>
 <div class="math notranslate nohighlight" id="equation-eq-ideal-pairs">
-<span class="eqno">(19)<a class="headerlink" href="#equation-eq-ideal-pairs" title="Link to this equation">#</a></span>\[\langle N_{\rm pairs}\rangle_{0} = N_{\rm bonds}\,\frac{N(N-1)}{M(M-1)} .\]</div>
+<span class="eqno">(20)<a class="headerlink" href="#equation-eq-ideal-pairs" title="Link to this equation">#</a></span>\[\langle N_{\rm pairs}\rangle_{0} = N_{\rm bonds}\,\frac{N(N-1)}{M(M-1)} .\]</div>
 <p>This non-interacting baseline <span class="math notranslate nohighlight">\(\langle N_{\rm pairs}\rangle_0\)</span> is exactly the
 reference we need for the binding-energy estimate in the next exercise.</p>
 <p><strong>Part a)</strong> Run the sampler at <span class="math notranslate nohighlight">\(d_e = 0\)</span>, where the molecules are
 non-interacting and every arrangement of <span class="math notranslate nohighlight">\(N\)</span> molecules on <span class="math notranslate nohighlight">\(2L^2\)</span> sites is equally
 likely.</p>
 <p><strong>Part b)</strong> Compare the measured mean pair count with the combinatorial
-prediction <a class="reference internal" href="#equation-eq-ideal-pairs">Eq. 19</a>. This is a check on the <em>sampler</em>, not on the
+prediction <a class="reference internal" href="#equation-eq-ideal-pairs">Eq. 20</a>. This is a check on the <em>sampler</em>, not on the
 physics: at <span class="math notranslate nohighlight">\(d_e = 0\)</span> the answer is pure counting, so any disagreement indicts the
 Metropolis implementation rather than the model.</p>
 <div class="cell tag_solution tag_remove-input docutils container">
@@ -955,7 +959,7 @@ Metropolis implementation rather than the model.</p>
 <section id="validation-3-the-ideal-gas-combinatorics">
 <h3>Validation 3 — the ideal-gas combinatorics<a class="headerlink" href="#validation-3-the-ideal-gas-combinatorics" title="Link to this heading">#</a></h3>
 <p>With no interaction the measured pair count must equal the random-placement
-prediction <a class="reference internal" href="#equation-eq-ideal-pairs">Eq. 19</a>, the sampler reproducing the analytic
+prediction <a class="reference internal" href="#equation-eq-ideal-pairs">Eq. 20</a>, the sampler reproducing the analytic
 ideal-gas limit.</p>
 <div class="cell tag_validation tag_remove-input docutils container">
 <div class="cell_output docutils container">
@@ -975,13 +979,13 @@ ideal-gas limit.</p>
 molecules together and the number of occupied pairs grows, the lattice gas
 <em>clusters</em>. This is the basis of a classic experimental trick: measure the
 dimer concentration <span class="math notranslate nohighlight">\(n\)</span> in the interacting system and the non-interacting
-baseline <span class="math notranslate nohighlight">\(n_0\)</span> (<a class="reference internal" href="#equation-eq-ideal-pairs">Eq. 19</a>), and invert the dilute-limit
+baseline <span class="math notranslate nohighlight">\(n_0\)</span> (<a class="reference internal" href="#equation-eq-ideal-pairs">Eq. 20</a>), and invert the dilute-limit
 law-of-mass-action relation <span class="math notranslate nohighlight">\(n/n_0\sim e^{-\beta d_e}\)</span> to read off the binding
 energy,</p>
 <div class="math notranslate nohighlight" id="equation-eq-dimer-estimate">
-<span class="eqno">(20)<a class="headerlink" href="#equation-eq-dimer-estimate" title="Link to this equation">#</a></span>\[d_e \approx k_B T\,\ln\!\frac{n_0}{n} .\]</div>
+<span class="eqno">(21)<a class="headerlink" href="#equation-eq-dimer-estimate" title="Link to this equation">#</a></span>\[d_e \approx k_B T\,\ln\!\frac{n_0}{n} .\]</div>
 <p>We test the whole chain by a <strong>round trip</strong>: choose a true <span class="math notranslate nohighlight">\(d_e\)</span>, simulate to
-get <span class="math notranslate nohighlight">\(n\)</span>, take <span class="math notranslate nohighlight">\(n_0\)</span> from <span class="math notranslate nohighlight">\(d_e=0\)</span>, and check that <a class="reference internal" href="#equation-eq-dimer-estimate">Eq. 20</a>
+get <span class="math notranslate nohighlight">\(n\)</span>, take <span class="math notranslate nohighlight">\(n_0\)</span> from <span class="math notranslate nohighlight">\(d_e=0\)</span>, and check that <a class="reference internal" href="#equation-eq-dimer-estimate">Eq. 21</a>
 recovers <span class="math notranslate nohighlight">\(d_e\)</span>. It is only a <em>rough</em> estimate (the dilute-limit derivation drops
 correlations), so we expect the right sign and order of magnitude, not three
 digits. The animation shows molecules diffusing and aggregating as the sampler
@@ -989,7 +993,7 @@ equilibrates.</p>
 <p><strong>Part a)</strong> Scan the binding energy <span class="math notranslate nohighlight">\(d_e\)</span> and show the mean pair count rising as
 the interaction is turned on — clustering, measured rather than asserted.</p>
 <p><strong>Part b)</strong> Invert the measurement: form the dimer estimate
-<a class="reference internal" href="#equation-eq-dimer-estimate">Eq. 20</a> from the observed pair counts and compare it with the
+<a class="reference internal" href="#equation-eq-dimer-estimate">Eq. 21</a> from the observed pair counts and compare it with the
 <span class="math notranslate nohighlight">\(d_e\)</span> that was fed in. A round trip through the model that returns its own input
 is a far stronger statement than a monotonic trend.</p>
 <div class="cell tag_solution tag_remove-input docutils container">
@@ -997,7 +1001,7 @@ is a far stronger statement than a monotonic trend.</p>
 <figure class="align-default" id="fig-lattice-gas-clustering">
 <img alt="../../_images/2efa9c61e770ddf9c4cf478f85f2458b652e65342cef9c5b8ca943518437f099.png" src="../../_images/2efa9c61e770ddf9c4cf478f85f2458b652e65342cef9c5b8ca943518437f099.png" />
 <figcaption>
-<p><span class="caption-number">Fig. 13 </span><span class="caption-text">Clustering of the honeycomb lattice gas: the mean number of occupied nearest-neighbour pairs <span class="math notranslate nohighlight">\(\langle N_{\rm pairs}\rangle\)</span> (coverage <span class="math notranslate nohighlight">\(\theta=0.15\)</span>, <span class="math notranslate nohighlight">\(T=0.06\)</span>) rises monotonically with the binding strength <span class="math notranslate nohighlight">\(-d_e\)</span>, as attraction draws the adsorbates together.</span><a class="headerlink" href="#fig-lattice-gas-clustering" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 14 </span><span class="caption-text">Clustering of the honeycomb lattice gas: the mean number of occupied nearest-neighbour pairs <span class="math notranslate nohighlight">\(\langle N_{\rm pairs}\rangle\)</span> (coverage <span class="math notranslate nohighlight">\(\theta=0.15\)</span>, <span class="math notranslate nohighlight">\(T=0.06\)</span>) rises monotonically with the binding strength <span class="math notranslate nohighlight">\(-d_e\)</span>, as attraction draws the adsorbates together.</span><a class="headerlink" href="#fig-lattice-gas-clustering" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 </div>
@@ -1005,7 +1009,7 @@ is a far stronger statement than a monotonic trend.</p>
 <section id="validation-4-clustering-trend-and-the-binding-energy-round-trip">
 <h3>Validation 4 — clustering trend and the binding-energy round trip<a class="headerlink" href="#validation-4-clustering-trend-and-the-binding-energy-round-trip" title="Link to this heading">#</a></h3>
 <p>Two checks: the pair count must increase monotonically as the attraction
-strengthens, and the rough estimate <a class="reference internal" href="#equation-eq-dimer-estimate">Eq. 20</a> must recover the
+strengthens, and the rough estimate <a class="reference internal" href="#equation-eq-dimer-estimate">Eq. 21</a> must recover the
 input <span class="math notranslate nohighlight">\(d_e\)</span> to within a factor of two (right sign and order of magnitude).</p>
 <div class="cell tag_validation tag_remove-input docutils container">
 <div class="cell_output docutils container">
@@ -1211,42 +1215,42 @@ input[type=range].anim-slider {
 </style>
 
 <div class="animation">
-  <img id="_anim_img059b58c7d5a644f0b59b708740f4d7b9">
+  <img id="_anim_img608647fa5da94745800b69f19055141d">
   <div class="anim-controls">
-    <input id="_anim_slider059b58c7d5a644f0b59b708740f4d7b9" type="range" class="anim-slider"
+    <input id="_anim_slider608647fa5da94745800b69f19055141d" type="range" class="anim-slider"
            name="points" min="0" max="1" step="1" value="0"
-           oninput="anim059b58c7d5a644f0b59b708740f4d7b9.set_frame(parseInt(this.value));">
+           oninput="anim608647fa5da94745800b69f19055141d.set_frame(parseInt(this.value));">
     <div class="anim-buttons">
-      <button title="Decrease speed" aria-label="Decrease speed" onclick="anim059b58c7d5a644f0b59b708740f4d7b9.slower()">
+      <button title="Decrease speed" aria-label="Decrease speed" onclick="anim608647fa5da94745800b69f19055141d.slower()">
           <i class="fa fa-minus"></i></button>
-      <button title="First frame" aria-label="First frame" onclick="anim059b58c7d5a644f0b59b708740f4d7b9.first_frame()">
+      <button title="First frame" aria-label="First frame" onclick="anim608647fa5da94745800b69f19055141d.first_frame()">
         <i class="fa fa-fast-backward"></i></button>
-      <button title="Previous frame" aria-label="Previous frame" onclick="anim059b58c7d5a644f0b59b708740f4d7b9.previous_frame()">
+      <button title="Previous frame" aria-label="Previous frame" onclick="anim608647fa5da94745800b69f19055141d.previous_frame()">
           <i class="fa fa-step-backward"></i></button>
-      <button title="Play backwards" aria-label="Play backwards" onclick="anim059b58c7d5a644f0b59b708740f4d7b9.reverse_animation()">
+      <button title="Play backwards" aria-label="Play backwards" onclick="anim608647fa5da94745800b69f19055141d.reverse_animation()">
           <i class="fa fa-play fa-flip-horizontal"></i></button>
-      <button title="Pause" aria-label="Pause" onclick="anim059b58c7d5a644f0b59b708740f4d7b9.pause_animation()">
+      <button title="Pause" aria-label="Pause" onclick="anim608647fa5da94745800b69f19055141d.pause_animation()">
           <i class="fa fa-pause"></i></button>
-      <button title="Play" aria-label="Play" onclick="anim059b58c7d5a644f0b59b708740f4d7b9.play_animation()">
+      <button title="Play" aria-label="Play" onclick="anim608647fa5da94745800b69f19055141d.play_animation()">
           <i class="fa fa-play"></i></button>
-      <button title="Next frame" aria-label="Next frame" onclick="anim059b58c7d5a644f0b59b708740f4d7b9.next_frame()">
+      <button title="Next frame" aria-label="Next frame" onclick="anim608647fa5da94745800b69f19055141d.next_frame()">
           <i class="fa fa-step-forward"></i></button>
-      <button title="Last frame" aria-label="Last frame" onclick="anim059b58c7d5a644f0b59b708740f4d7b9.last_frame()">
+      <button title="Last frame" aria-label="Last frame" onclick="anim608647fa5da94745800b69f19055141d.last_frame()">
           <i class="fa fa-fast-forward"></i></button>
-      <button title="Increase speed" aria-label="Increase speed" onclick="anim059b58c7d5a644f0b59b708740f4d7b9.faster()">
+      <button title="Increase speed" aria-label="Increase speed" onclick="anim608647fa5da94745800b69f19055141d.faster()">
           <i class="fa fa-plus"></i></button>
     </div>
-    <form title="Repetition mode" aria-label="Repetition mode" action="#n" name="_anim_loop_select059b58c7d5a644f0b59b708740f4d7b9"
+    <form title="Repetition mode" aria-label="Repetition mode" action="#n" name="_anim_loop_select608647fa5da94745800b69f19055141d"
           class="anim-state">
-      <input type="radio" name="state" value="once" id="_anim_radio1_059b58c7d5a644f0b59b708740f4d7b9"
+      <input type="radio" name="state" value="once" id="_anim_radio1_608647fa5da94745800b69f19055141d"
              >
-      <label for="_anim_radio1_059b58c7d5a644f0b59b708740f4d7b9">Once</label>
-      <input type="radio" name="state" value="loop" id="_anim_radio2_059b58c7d5a644f0b59b708740f4d7b9"
+      <label for="_anim_radio1_608647fa5da94745800b69f19055141d">Once</label>
+      <input type="radio" name="state" value="loop" id="_anim_radio2_608647fa5da94745800b69f19055141d"
              checked>
-      <label for="_anim_radio2_059b58c7d5a644f0b59b708740f4d7b9">Loop</label>
-      <input type="radio" name="state" value="reflect" id="_anim_radio3_059b58c7d5a644f0b59b708740f4d7b9"
+      <label for="_anim_radio2_608647fa5da94745800b69f19055141d">Loop</label>
+      <input type="radio" name="state" value="reflect" id="_anim_radio3_608647fa5da94745800b69f19055141d"
              >
-      <label for="_anim_radio3_059b58c7d5a644f0b59b708740f4d7b9">Reflect</label>
+      <label for="_anim_radio3_608647fa5da94745800b69f19055141d">Reflect</label>
     </form>
   </div>
 </div>
@@ -1256,9 +1260,9 @@ input[type=range].anim-slider {
   /* Instantiate the Animation class. */
   /* The IDs given should match those used in the template above. */
   (function() {
-    var img_id = "_anim_img059b58c7d5a644f0b59b708740f4d7b9";
-    var slider_id = "_anim_slider059b58c7d5a644f0b59b708740f4d7b9";
-    var loop_select_id = "_anim_loop_select059b58c7d5a644f0b59b708740f4d7b9";
+    var img_id = "_anim_img608647fa5da94745800b69f19055141d";
+    var slider_id = "_anim_slider608647fa5da94745800b69f19055141d";
+    var loop_select_id = "_anim_loop_select608647fa5da94745800b69f19055141d";
     var frames = new Array(161);
     
   frames[0] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZwAAAGMCAYAAADulxSiAAAAOnRFWHRTb2Z0d2FyZQBNYXRwbG90\
@@ -79021,13 +79025,13 @@ YII=\
     /* set a timeout to make sure all the above elements are created before
        the object is initialized. */
     setTimeout(function() {
-        anim059b58c7d5a644f0b59b708740f4d7b9 = new Animation(frames, img_id, slider_id, 33,
+        anim608647fa5da94745800b69f19055141d = new Animation(frames, img_id, slider_id, 33,
                                  loop_select_id);
     }, 0);
   })()
 </script>
 </div><figcaption>
-<p><span class="caption-number">Fig. 14 </span><span class="caption-text">Animation of equilibrium Metropolis Monte Carlo for the honeycomb lattice gas at coverage <span class="math notranslate nohighlight">\(\theta=0.15\)</span>, <span class="math notranslate nohighlight">\(d_e=-0.15\)</span>, <span class="math notranslate nohighlight">\(T=0.06\)</span>: from a random initial placement the molecules (amber) diffuse and aggregate into compact islands as the sampler approaches the Boltzmann distribution.</span><a class="headerlink" href="#fig-lattice-gas-anim" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 15 </span><span class="caption-text">Animation of equilibrium Metropolis Monte Carlo for the honeycomb lattice gas at coverage <span class="math notranslate nohighlight">\(\theta=0.15\)</span>, <span class="math notranslate nohighlight">\(d_e=-0.15\)</span>, <span class="math notranslate nohighlight">\(T=0.06\)</span>: from a random initial placement the molecules (amber) diffuse and aggregate into compact islands as the sampler approaches the Boltzmann distribution.</span><a class="headerlink" href="#fig-lattice-gas-anim" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 </div>
@@ -79039,13 +79043,13 @@ YII=\
 <p>Metropolis told us <em>where</em> equilibrium sits; KMC tells us <em>how fast</em> the system
 gets there. The algorithm rests on two statistical guarantees, and we verify
 both directly. Given a catalogue of events with rates <span class="math notranslate nohighlight">\(r_k\)</span> and total rate <span class="math notranslate nohighlight">\(R\)</span>
-(<a class="reference internal" href="#equation-eq-kmc-total">Eq. 17</a>): (i) each step advances physical time by an
-<strong>exponentially distributed</strong> waiting time of mean <span class="math notranslate nohighlight">\(1/R\)</span> (<a class="reference internal" href="#equation-eq-kmc-time">Eq. 18</a>),
+(<a class="reference internal" href="#equation-eq-kmc-total">Eq. 18</a>): (i) each step advances physical time by an
+<strong>exponentially distributed</strong> waiting time of mean <span class="math notranslate nohighlight">\(1/R\)</span> (<a class="reference internal" href="#equation-eq-kmc-time">Eq. 19</a>),
 so <span class="math notranslate nohighlight">\(\langle\Delta t\rangle=1/R\)</span> and, for an exponential law, the standard
 deviation equals the mean; (ii) the executed event is chosen with probability
 <strong>proportional to its rate</strong>, <span class="math notranslate nohighlight">\(r_k/R\)</span>.</p>
 <p><strong>Part a)</strong> Draw many waiting times for a fixed total rate <span class="math notranslate nohighlight">\(R\)</span> using
-<a class="reference internal" href="#equation-eq-kmc-time">Eq. 18</a>, and check both the mean and the spread against the exponential
+<a class="reference internal" href="#equation-eq-kmc-time">Eq. 19</a>, and check both the mean and the spread against the exponential
 distribution: <span class="math notranslate nohighlight">\(\langle\Delta t\rangle = 1/R\)</span> and <span class="math notranslate nohighlight">\(\sigma_{\Delta t} = 1/R\)</span> too.
 The standard deviation equalling the mean is the signature of a Poisson process,
 and checking only the mean would miss a wrong distribution with the right average.
@@ -79059,7 +79063,7 @@ the algorithm’s whole correctness claim: <em>when</em> the next event happens,
 <figure class="align-default" id="fig-kmc-statistics">
 <img alt="../../_images/d4074d12c0881421cc46d99a9834e0856d7b4aebc9f730dd5ce88c8f7cc2c97b.png" src="../../_images/d4074d12c0881421cc46d99a9834e0856d7b4aebc9f730dd5ce88c8f7cc2c97b.png" />
 <figcaption>
-<p><span class="caption-number">Fig. 15 </span><span class="caption-text">The two statistical guarantees of the residence-time KMC algorithm: (a) the waiting times <span class="math notranslate nohighlight">\(\Delta t=-\ln\rho/R\)</span> for fixed total rate <span class="math notranslate nohighlight">\(R=7.3\)</span> follow the exponential law <span class="math notranslate nohighlight">\(R\,e^{-R\Delta t}\)</span> (mean and standard deviation both <span class="math notranslate nohighlight">\(1/R\)</span>); (b) over many steps each event <span class="math notranslate nohighlight">\(k\)</span> is executed with frequency equal to <span class="math notranslate nohighlight">\(r_k/R\)</span>.</span><a class="headerlink" href="#fig-kmc-statistics" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 16 </span><span class="caption-text">The two statistical guarantees of the residence-time KMC algorithm: (a) the waiting times <span class="math notranslate nohighlight">\(\Delta t=-\ln\rho/R\)</span> for fixed total rate <span class="math notranslate nohighlight">\(R=7.3\)</span> follow the exponential law <span class="math notranslate nohighlight">\(R\,e^{-R\Delta t}\)</span> (mean and standard deviation both <span class="math notranslate nohighlight">\(1/R\)</span>); (b) over many steps each event <span class="math notranslate nohighlight">\(k\)</span> is executed with frequency equal to <span class="math notranslate nohighlight">\(r_k/R\)</span>.</span><a class="headerlink" href="#fig-kmc-statistics" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 </div>
@@ -79087,12 +79091,12 @@ exponential signature), and the event frequencies must match <span class="math n
 <p>Now run the algorithm. Molecules start mobile and randomly placed; each mobile
 molecule can <strong>diffuse</strong> to an empty neighbour at rate <span class="math notranslate nohighlight">\(r_d=\nu e^{-\beta E_d}\)</span>
 or, if it touches another molecule, <strong>bind</strong> irreversibly at rate
-<span class="math notranslate nohighlight">\(r_b=\nu e^{-\beta E_b}\)</span> (<a class="reference internal" href="#equation-eq-arrhenius">Eq. 16</a>). The clock advances by
-<a class="reference internal" href="#equation-eq-kmc-time">Eq. 18</a> after every event. From a well-mixed start the molecules
+<span class="math notranslate nohighlight">\(r_b=\nu e^{-\beta E_b}\)</span> (<a class="reference internal" href="#equation-eq-arrhenius">Eq. 17</a>). The clock advances by
+<a class="reference internal" href="#equation-eq-kmc-time">Eq. 19</a> after every event. From a well-mixed start the molecules
 diffuse, meet, and freeze into growing clusters: diffusion-limited aggregation,
 played out in real time.</p>
 <p><strong>Part a)</strong> Implement <code class="docutils literal notranslate"><span class="pre">kmc_step(occ,</span> <span class="pre">nbr,</span> <span class="pre">r_d,</span> <span class="pre">r_b)</span></code>: build the rate catalogue
-for the current configuration, draw the waiting time from <a class="reference internal" href="#equation-eq-kmc-time">Eq. 18</a>,
+for the current configuration, draw the waiting time from <a class="reference internal" href="#equation-eq-kmc-time">Eq. 19</a>,
 select an event with the residence-time rule of Exercise 5, and execute it.
 Every step advances physical time by a <em>different</em> amount — that is the whole
 difference between kinetic Monte Carlo and the Metropolis sweeps of Exercise 2,
@@ -79292,42 +79296,42 @@ input[type=range].anim-slider {
 </style>
 
 <div class="animation">
-  <img id="_anim_img3de01d11b53c423eba425a79ffa78a08">
+  <img id="_anim_img52585a30dfde4c539104f11c214443a9">
   <div class="anim-controls">
-    <input id="_anim_slider3de01d11b53c423eba425a79ffa78a08" type="range" class="anim-slider"
+    <input id="_anim_slider52585a30dfde4c539104f11c214443a9" type="range" class="anim-slider"
            name="points" min="0" max="1" step="1" value="0"
-           oninput="anim3de01d11b53c423eba425a79ffa78a08.set_frame(parseInt(this.value));">
+           oninput="anim52585a30dfde4c539104f11c214443a9.set_frame(parseInt(this.value));">
     <div class="anim-buttons">
-      <button title="Decrease speed" aria-label="Decrease speed" onclick="anim3de01d11b53c423eba425a79ffa78a08.slower()">
+      <button title="Decrease speed" aria-label="Decrease speed" onclick="anim52585a30dfde4c539104f11c214443a9.slower()">
           <i class="fa fa-minus"></i></button>
-      <button title="First frame" aria-label="First frame" onclick="anim3de01d11b53c423eba425a79ffa78a08.first_frame()">
+      <button title="First frame" aria-label="First frame" onclick="anim52585a30dfde4c539104f11c214443a9.first_frame()">
         <i class="fa fa-fast-backward"></i></button>
-      <button title="Previous frame" aria-label="Previous frame" onclick="anim3de01d11b53c423eba425a79ffa78a08.previous_frame()">
+      <button title="Previous frame" aria-label="Previous frame" onclick="anim52585a30dfde4c539104f11c214443a9.previous_frame()">
           <i class="fa fa-step-backward"></i></button>
-      <button title="Play backwards" aria-label="Play backwards" onclick="anim3de01d11b53c423eba425a79ffa78a08.reverse_animation()">
+      <button title="Play backwards" aria-label="Play backwards" onclick="anim52585a30dfde4c539104f11c214443a9.reverse_animation()">
           <i class="fa fa-play fa-flip-horizontal"></i></button>
-      <button title="Pause" aria-label="Pause" onclick="anim3de01d11b53c423eba425a79ffa78a08.pause_animation()">
+      <button title="Pause" aria-label="Pause" onclick="anim52585a30dfde4c539104f11c214443a9.pause_animation()">
           <i class="fa fa-pause"></i></button>
-      <button title="Play" aria-label="Play" onclick="anim3de01d11b53c423eba425a79ffa78a08.play_animation()">
+      <button title="Play" aria-label="Play" onclick="anim52585a30dfde4c539104f11c214443a9.play_animation()">
           <i class="fa fa-play"></i></button>
-      <button title="Next frame" aria-label="Next frame" onclick="anim3de01d11b53c423eba425a79ffa78a08.next_frame()">
+      <button title="Next frame" aria-label="Next frame" onclick="anim52585a30dfde4c539104f11c214443a9.next_frame()">
           <i class="fa fa-step-forward"></i></button>
-      <button title="Last frame" aria-label="Last frame" onclick="anim3de01d11b53c423eba425a79ffa78a08.last_frame()">
+      <button title="Last frame" aria-label="Last frame" onclick="anim52585a30dfde4c539104f11c214443a9.last_frame()">
           <i class="fa fa-fast-forward"></i></button>
-      <button title="Increase speed" aria-label="Increase speed" onclick="anim3de01d11b53c423eba425a79ffa78a08.faster()">
+      <button title="Increase speed" aria-label="Increase speed" onclick="anim52585a30dfde4c539104f11c214443a9.faster()">
           <i class="fa fa-plus"></i></button>
     </div>
-    <form title="Repetition mode" aria-label="Repetition mode" action="#n" name="_anim_loop_select3de01d11b53c423eba425a79ffa78a08"
+    <form title="Repetition mode" aria-label="Repetition mode" action="#n" name="_anim_loop_select52585a30dfde4c539104f11c214443a9"
           class="anim-state">
-      <input type="radio" name="state" value="once" id="_anim_radio1_3de01d11b53c423eba425a79ffa78a08"
+      <input type="radio" name="state" value="once" id="_anim_radio1_52585a30dfde4c539104f11c214443a9"
              >
-      <label for="_anim_radio1_3de01d11b53c423eba425a79ffa78a08">Once</label>
-      <input type="radio" name="state" value="loop" id="_anim_radio2_3de01d11b53c423eba425a79ffa78a08"
+      <label for="_anim_radio1_52585a30dfde4c539104f11c214443a9">Once</label>
+      <input type="radio" name="state" value="loop" id="_anim_radio2_52585a30dfde4c539104f11c214443a9"
              checked>
-      <label for="_anim_radio2_3de01d11b53c423eba425a79ffa78a08">Loop</label>
-      <input type="radio" name="state" value="reflect" id="_anim_radio3_3de01d11b53c423eba425a79ffa78a08"
+      <label for="_anim_radio2_52585a30dfde4c539104f11c214443a9">Loop</label>
+      <input type="radio" name="state" value="reflect" id="_anim_radio3_52585a30dfde4c539104f11c214443a9"
              >
-      <label for="_anim_radio3_3de01d11b53c423eba425a79ffa78a08">Reflect</label>
+      <label for="_anim_radio3_52585a30dfde4c539104f11c214443a9">Reflect</label>
     </form>
   </div>
 </div>
@@ -79337,9 +79341,9 @@ input[type=range].anim-slider {
   /* Instantiate the Animation class. */
   /* The IDs given should match those used in the template above. */
   (function() {
-    var img_id = "_anim_img3de01d11b53c423eba425a79ffa78a08";
-    var slider_id = "_anim_slider3de01d11b53c423eba425a79ffa78a08";
-    var loop_select_id = "_anim_loop_select3de01d11b53c423eba425a79ffa78a08";
+    var img_id = "_anim_img52585a30dfde4c539104f11c214443a9";
+    var slider_id = "_anim_slider52585a30dfde4c539104f11c214443a9";
+    var loop_select_id = "_anim_loop_select52585a30dfde4c539104f11c214443a9";
     var frames = new Array(11);
     
   frames[0] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAbAAAAGcCAYAAAC4IPVnAAAAOnRFWHRTb2Z0d2FyZQBNYXRwbG90\
@@ -82018,13 +82022,13 @@ AICV/h9+Hpg2D2LScAAAAABJRU5ErkJggg==\
     /* set a timeout to make sure all the above elements are created before
        the object is initialized. */
     setTimeout(function() {
-        anim3de01d11b53c423eba425a79ffa78a08 = new Animation(frames, img_id, slider_id, 33,
+        anim52585a30dfde4c539104f11c214443a9 = new Animation(frames, img_id, slider_id, 33,
                                  loop_select_id);
     }, 0);
   })()
 </script>
 </div><figcaption>
-<p><span class="caption-number">Fig. 16 </span><span class="caption-text">Animation of kinetic Monte Carlo diffusion-limited growth on the honeycomb lattice (<span class="math notranslate nohighlight">\(\theta=0.30\)</span>, equal diffusion and binding barriers <span class="math notranslate nohighlight">\(E_d=E_b=0.1\)</span>, <span class="math notranslate nohighlight">\(T=0.1\)</span>): mobile molecules (amber) diffuse until contact, then bind irreversibly (navy), so compact and branched frozen clusters grow out of the well-mixed initial gas.</span><a class="headerlink" href="#fig-kmc-growth" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 17 </span><span class="caption-text">Animation of kinetic Monte Carlo diffusion-limited growth on the honeycomb lattice (<span class="math notranslate nohighlight">\(\theta=0.30\)</span>, equal diffusion and binding barriers <span class="math notranslate nohighlight">\(E_d=E_b=0.1\)</span>, <span class="math notranslate nohighlight">\(T=0.1\)</span>): mobile molecules (amber) diffuse until contact, then bind irreversibly (navy), so compact and branched frozen clusters grow out of the well-mixed initial gas.</span><a class="headerlink" href="#fig-kmc-growth" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 </div>
@@ -82046,14 +82050,106 @@ random baseline by a clear margin.</p>
 </div>
 </section>
 </section>
+<section id="exercise-7-rejection-free-bookkeeping-and-the-clock-made-physical">
+<h2>Exercise 7 — Rejection-free bookkeeping, and the clock made physical<a class="headerlink" href="#exercise-7-rejection-free-bookkeeping-and-the-clock-made-physical" title="Link to this heading">#</a></h2>
+<p>Exercise 6’s stepper is honest and slow: it re-enumerates every molecule’s
+options at every step, so each event costs <span class="math notranslate nohighlight">\(O(N)\)</span> work even though the event
+itself touches a handful of sites. The production form of the algorithm —
+<strong>Bortz–Kalos–Lebowitz</strong> <span class="bibtex-citation" id="id6">[<a class="reference internal" href="#id18" title="A. B. Bortz, M. H. Kalos, and J. L. Lebowitz. A new algorithm for monte carlo simulation of ising spin systems. Journal of Computational Physics, 17(1):10–18, 1975. doi:10.1016/0021-9991(75)90060-1.">BKL75</a>]</span> — keeps the event catalogue <em>alive</em>
+between steps: executing an event can only change the options of the sites whose
+neighbourhood it altered, so only those entries are recomputed. Same process,
+same distributions, a fraction of the work.</p>
+<p>The second half of the exercise cashes the cheque the residence-time clock has
+been writing all along. For a single tracer on the empty honeycomb lattice the
+diffusivity is exact: every hop goes to one of three neighbours chosen uniformly
+and independently of history, so consecutive hop vectors are uncorrelated,
+<span class="math notranslate nohighlight">\(\langle r^2\rangle = n\,a^2\)</span> after <span class="math notranslate nohighlight">\(n\)</span> hops with <span class="math notranslate nohighlight">\(a\)</span> the bond length, and each
+hop waits an exponential time of mean <span class="math notranslate nohighlight">\(1/r_d\)</span>. In two dimensions
+<span class="math notranslate nohighlight">\(\langle r^2\rangle = 4Dt\)</span>, so</p>
+<div class="math notranslate nohighlight" id="equation-eq-kmc-tracer">
+<span class="eqno">(22)<a class="headerlink" href="#equation-eq-kmc-tracer" title="Link to this equation">#</a></span>\[D \;=\; \frac{r_d\,a^2}{4}, \qquad r_d = \nu\,e^{-E_d/k_BT},\]</div>
+<p>and measuring <span class="math notranslate nohighlight">\(D(T)\)</span> from trajectories must hand back the barrier <span class="math notranslate nohighlight">\(E_d\)</span> the
+rates were built from — the model’s own closed loop, and the demonstration that
+kMC time is physical time once <span class="math notranslate nohighlight">\(\nu\)</span> is given a value.</p>
+<p><strong>Part a)</strong> Implement the BKL bookkeeping: an event dictionary
+<code class="docutils literal notranslate"><span class="pre">site</span> <span class="pre">-&gt;</span> <span class="pre">(can_hop,</span> <span class="pre">can_bind)</span></code> refreshed only on the sites an executed event
+touched. <strong>Write this one yourself</strong> — the implementation is the lesson.
+Certify it the strongest way available: after <em>every</em> step of a full run,
+compare the live dictionary against a from-scratch enumeration of the current
+configuration. Set equality, not statistics — and note what it buys: if the
+catalogue is identical at every configuration and the selection uses the same
+rates, the two steppers sample <em>identical</em> processes, so no distributional
+comparison is needed afterwards.</p>
+<p><strong>Part b)</strong> Measure the work. The naive stepper provably scans every mobile
+molecule each step (its loop is the proof), so its cost on a trajectory is the
+mobile count; the BKL cost is the number of refreshed sites. Plot both along a
+growth run and report the ratio.</p>
+<p><strong>Part c)</strong> Run the tracer. Measure <span class="math notranslate nohighlight">\(\langle r^2\rangle/n\)</span> against the exact
+<span class="math notranslate nohighlight">\(a^2\)</span>, measure <span class="math notranslate nohighlight">\(D\)</span> at three temperatures, and fit the Arrhenius slope of
+<span class="math notranslate nohighlight">\(\ln D\)</span> against <span class="math notranslate nohighlight">\(1/T\)</span> — it must return <span class="math notranslate nohighlight">\(E_d\)</span>. Then attach numbers: with
+<span class="math notranslate nohighlight">\(\nu = 10^{13}\,\)</span>s<span class="math notranslate nohighlight">\(^{-1}\)</span> and <span class="math notranslate nohighlight">\(a = 2.46\,\)</span>Å, report <span class="math notranslate nohighlight">\(D\)</span> in cm<span class="math notranslate nohighlight">\(^2\)</span>/s.</p>
+<div class="cell tag_solution tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>certification: 0 catalogue mismatches over 242 steps (run ended with every molecule frozen or isolated)
+</pre></div>
+</div>
+<figure class="align-default" id="fig-kmc-bkl">
+<img alt="../../_images/c3a17071b42309d3f4bc8c585f04e8fae22f67ef250e98b986ae6f060843cc52.png" src="../../_images/c3a17071b42309d3f4bc8c585f04e8fae22f67ef250e98b986ae6f060843cc52.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 18 </span><span class="caption-text">Left: work per kinetic Monte Carlo step along a growth run, measured as sites examined — the naive stepper re-scans every mobile molecule (amber), the BKL stepper refreshes only the neighbourhood the executed event touched (navy), and the gap is the algorithmic content of Bortz–Kalos–Lebowitz. Right: the tracer diffusivity against inverse temperature on Arrhenius axes; the fitted slope returns the input diffusion barrier, closing the loop between the microscopic rates the simulation was built from and the transport coefficient it predicts, Eq. eq-kmc-tracer.</span><a class="headerlink" href="#fig-kmc-bkl" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>work ratio naive/BKL over the growth run: 24.0x
+tracer &lt;r^2&gt;/n = 1.0031 (exact 1); mean wait x rate = 1.0011 (exact 1); D(T=0.08) / exact = 1.0020
+Arrhenius slope returns E_d = 0.0919 (input 0.1); with nu = 1e13/s and a = 2.46 A, D(kT = 0.025 eV) = 2.77e-05 cm^2/s
+</pre></div>
+</div>
+</div>
+</div>
+<section id="validation-7-exact-bookkeeping-measured-savings-the-barrier-returned">
+<h3>Validation 7 — exact bookkeeping, measured savings, the barrier returned<a class="headerlink" href="#validation-7-exact-bookkeeping-measured-savings-the-barrier-returned" title="Link to this heading">#</a></h3>
+<p>Five checks. The BKL catalogue must equal the from-scratch enumeration after
+<em>every</em> step of a full run — zero mismatches, which is bookkeeping correctness
+proved at the data-structure level and the reason no statistical cross-check of
+observables is needed. The measured work ratio must be large, since that saving
+is the algorithm’s entire purpose. The tracer’s squared displacement per hop
+must land on the exact bond length squared — via a segment estimator, because a
+single endpoint r² has order-one relative noise — which simultaneously
+certifies the uncorrelated-walk argument of <a class="reference internal" href="#equation-eq-kmc-tracer">Eq. 22</a> and the
+periodic unwrapping; the clock factor is gated separately and far more tightly,
+since a hundred thousand waiting-time draws pin it to a third of a percent.
+And the Arrhenius fit must hand back the diffusion barrier the rates were
+built from — the closed loop between microscopic input and measured transport.</p>
+<div class="cell tag_validation tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>✓  the live BKL catalogue equals the from-scratch enumeration after every step of a full run: the incremental bookkeeping is exact, so both steppers sample identical processes by construction   [0 mismatches over 242 steps]
+✓  and the saving is what the algorithm exists for: an order of magnitude less work per step on the same trajectory   [naive/BKL work ratio = 24.0]
+✓  the tracer&#39;s mean squared displacement per hop equals the bond length squared, as the uncorrelated-hop argument behind eq-kmc-tracer requires -- and any periodic-unwrapping error would land exactly here (segment estimator: ~1900 independent samples)   [got 1.00306 vs expected 1 (rtol=0.1, atol=1e-09)]
+✓  the clock factor separately: the mean exponential waiting time times the rate is 1, the residence-time algorithm&#39;s defining property, measured on a hundred thousand draws   [got 1.00105 vs expected 1 (rtol=0.03, atol=1e-09)]
+✓  the assembled diffusivity lands on the exact r_d a^2/4 of eq-kmc-tracer   [got 0.07177 vs expected 0.0716262 (rtol=0.12, atol=1e-09)]
+✓  and the Arrhenius slope of the measured diffusivity returns the input diffusion barrier: kMC time is physical time, closed loop   [got 0.0918548 vs expected 0.1 (rtol=0.25, atol=1e-09)]
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>True
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
 <section id="notebook-summary">
 <h2>Notebook summary<a class="headerlink" href="#notebook-summary" title="Link to this heading">#</a></h2>
 <p>We mapped adsorption onto a honeycomb lattice gas and studied it two complementary
 ways. Equilibrium Metropolis Monte Carlo reproduced the exact enumerated
 <span class="math notranslate nohighlight">\(\langle E\rangle\)</span> for small systems and, with an attractive nearest-neighbour
-interaction, drove clustering beyond the ideal-gas coverage. Kinetic Monte Carlo,
-through the residence-time (BKL) algorithm, then advanced the same model in real
-time from its rate constants, producing diffusion-limited growth. The contrast is
+interaction, drove clustering beyond the ideal-gas coverage. Kinetic Monte Carlo
+with residence-time selection then advanced the same model in real time from its
+rate constants, producing diffusion-limited growth — first with an honest
+rebuild-everything stepper, then with the Bortz–Kalos–Lebowitz bookkeeping that
+refreshes only what an event touched, certified exact against the from-scratch
+catalogue at every step and twenty-four times cheaper. The clock closed the loop:
+a tracer’s measured diffusivity landed on the exact <span class="math notranslate nohighlight">\(r_d a^2/4\)</span> and its Arrhenius
+slope handed back the input barrier, so kMC time is physical time. The contrast is
 the lesson: the equilibrium and kinetic pictures answer different questions (the
 final structure versus the pathway and timescale that reach it) from one set of
 energetics.</p>
@@ -82073,34 +82169,34 @@ freezing. Add that term and watch the islands compact as <span class="math notra
 detailed balance; the growth then <em>anneals</em> toward the equilibrium islands of
 Exercise 4, connecting the kinetic and equilibrium pictures.</p></li>
 <li><p><strong>Rejection-free efficiency.</strong> The event list here is rebuilt each step; the
-Bortz–Kalos–Lebowitz <span class="bibtex-citation" id="id6">[<a class="reference internal" href="#id17" title="A. B. Bortz, M. H. Kalos, and J. L. Lebowitz. A new algorithm for monte carlo simulation of ising spin systems. Journal of Computational Physics, 17(1):10–18, 1975. doi:10.1016/0021-9991(75)90060-1.">BKL75</a>]</span> and binning strategies update it
+Bortz–Kalos–Lebowitz <span class="bibtex-citation" id="id7">[<a class="reference internal" href="#id18" title="A. B. Bortz, M. H. Kalos, and J. L. Lebowitz. A new algorithm for monte carlo simulation of ising spin systems. Journal of Computational Physics, 17(1):10–18, 1975. doi:10.1016/0021-9991(75)90060-1.">BKL75</a>]</span> and binning strategies update it
 incrementally for large lattices.</p></li>
 <li><p><strong>Real time scales.</strong> Restoring physical attempt frequencies <span class="math notranslate nohighlight">\(\nu\sim10^{12}\,
-\mathrm{s^{-1}}\)</span> in <a class="reference internal" href="#equation-eq-arrhenius">Eq. 16</a> turns the dimensionless clock into
+\mathrm{s^{-1}}\)</span> in <a class="reference internal" href="#equation-eq-arrhenius">Eq. 17</a> turns the dimensionless clock into
 seconds, letting KMC bridge to experimental deposition rates.</p></li>
 </ul>
 <section id="references">
 <h3>References<a class="headerlink" href="#references" title="Link to this heading">#</a></h3>
-<div class="docutils container" id="id7">
+<div class="docutils container" id="id8">
 <div role="list" class="citation-list">
-<div class="citation" id="id17" role="doc-biblioentry">
+<div class="citation" id="id18" role="doc-biblioentry">
 <span class="label"><span class="fn-bracket">[</span>BKL75<span class="fn-bracket">]</span></span>
-<span class="backrefs">(<a role="doc-backlink" href="#id4">1</a>,<a role="doc-backlink" href="#id6">2</a>)</span>
+<span class="backrefs">(<a role="doc-backlink" href="#id4">1</a>,<a role="doc-backlink" href="#id6">2</a>,<a role="doc-backlink" href="#id7">3</a>)</span>
 <p>A. B. Bortz, M. H. Kalos, and J. L. Lebowitz. A new algorithm for monte carlo simulation of ising spin systems. <em>Journal of Computational Physics</em>, 17(1):10–18, 1975. <a class="reference external" href="https://doi.org/10.1016/0021-9991(75)90060-1">doi:10.1016/0021-9991(75)90060-1</a>.</p>
 </div>
-<div class="citation" id="id16" role="doc-biblioentry">
+<div class="citation" id="id17" role="doc-biblioentry">
 <span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id2">FS02</a><span class="fn-bracket">]</span></span>
 <p>Daan Frenkel and Berend Smit. <em>Understanding Molecular Simulation: From Algorithms to Applications</em>. Academic Press, 2 edition, 2002.</p>
 </div>
-<div class="citation" id="id18" role="doc-biblioentry">
+<div class="citation" id="id19" role="doc-biblioentry">
 <span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id5">Gil77</a><span class="fn-bracket">]</span></span>
 <p>Daniel T. Gillespie. Exact stochastic simulation of coupled chemical reactions. <em>The Journal of Physical Chemistry</em>, 81(25):2340–2361, 1977. <a class="reference external" href="https://doi.org/10.1021/j100540a008">doi:10.1021/j100540a008</a>.</p>
 </div>
-<div class="citation" id="id8" role="doc-biblioentry">
+<div class="citation" id="id9" role="doc-biblioentry">
 <span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id1">NB99</a><span class="fn-bracket">]</span></span>
 <p>M. E. J. Newman and G. T. Barkema. <em>Monte Carlo Methods in Statistical Physics</em>. Oxford University Press, Oxford, 1999.</p>
 </div>
-<div class="citation" id="id19" role="doc-biblioentry">
+<div class="citation" id="id20" role="doc-biblioentry">
 <span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id3">Vot07</a><span class="fn-bracket">]</span></span>
 <p>Arthur F. Voter. Introduction to the kinetic monte carlo method. <em>Radiation Effects in Solids (NATO Science Series)</em>, 235:1–23, 2007. <a class="reference external" href="https://doi.org/10.1007/978-1-4020-5295-8_1">doi:10.1007/978-1-4020-5295-8_1</a>.</p>
 </div>
@@ -82228,6 +82324,10 @@ seconds, letting KMC bridge to experimental deposition rates.</p></li>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-6-diffusion-limited-growth">Exercise 6 — Diffusion-limited growth</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#validation-6-aggregation-has-occurred">Validation 6 — aggregation has occurred</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-7-rejection-free-bookkeeping-and-the-clock-made-physical">Exercise 7 — Rejection-free bookkeeping, and the clock made physical</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#validation-7-exact-bookkeeping-measured-savings-the-barrier-returned">Validation 7 — exact bookkeeping, measured savings, the barrier returned</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#notebook-summary">Notebook summary</a></li>
