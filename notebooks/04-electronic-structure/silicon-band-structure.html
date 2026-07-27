@@ -525,6 +525,10 @@
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#validation-5-dft-underestimates-the-gap">Validation 5 — DFT underestimates the gap</a></li>
 </ul>
 </li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-6-the-empty-lattice-what-comes-from-geometry-alone">Exercise 6 — The empty lattice: what comes from geometry alone</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#validation-6-kinematics-reproduced-degeneracy-lifted">Validation 6 — kinematics reproduced, degeneracy lifted</a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#notebook-summary">Notebook summary</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#outlook">Outlook</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#references">References</a></li>
@@ -685,9 +689,18 @@ derivative discontinuity, measured on an exactly solvable system — in
 <hr class="docutils" />
 <section id="setup">
 <h2>Setup<a class="headerlink" href="#setup" title="Link to this heading">#</a></h2>
-<div class="cell docutils container">
+<p>The Setup below holds this notebook’s data and instruments — nothing you are asked
+to build. It is collapsed so the building stays yours; expand it whenever you want
+the details.</p>
+<!-- setup-policy: v2 --><div class="cell tag_hide-input docutils container">
+<details class="admonition hide above-input">
+<summary aria-label="Toggle hidden content">
+<p class="collapsed admonition-title">Show code cell source</p>
+<p class="expanded admonition-title">Hide code cell source</p>
+</summary>
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">itertools</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">xml.etree.ElementTree</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">ET</span>
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
@@ -698,7 +711,13 @@ derivative discontinuity, measured on an exactly solvable system — in
 <span class="n">INK</span><span class="p">,</span> <span class="n">AMBER</span><span class="p">,</span> <span class="n">SOFT</span> <span class="o">=</span> <span class="s2">&quot;#16213e&quot;</span><span class="p">,</span> <span class="s2">&quot;#c0851a&quot;</span><span class="p">,</span> <span class="s2">&quot;#46506b&quot;</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">scipy.constants</span><span class="w"> </span><span class="kn">import</span> <span class="n">physical_constants</span>
 
-<span class="n">HARTREE_EV</span> <span class="o">=</span> <span class="n">physical_constants</span><span class="p">[</span><span class="s2">&quot;Hartree energy in eV&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>  <span class="c1"># QE writes energies in Hartree</span>
+<span class="c1"># data: unit conversion for the committed Quantum ESPRESSO output, which writes</span>
+<span class="c1"># energies in Hartree. The XML parser is an instrument — reading someone else&#39;s file</span>
+<span class="c1"># format is not the lesson of a band-structure notebook. What IS the lesson is the</span>
+<span class="c1"># free-electron model of Exercise 6, and that you build yourself.</span>
+<span class="n">HARTREE_EV</span> <span class="o">=</span> <span class="n">physical_constants</span><span class="p">[</span><span class="s2">&quot;Hartree energy in eV&quot;</span><span class="p">][</span>
+    <span class="mi">0</span>
+<span class="p">]</span>  <span class="c1"># QE writes energies in Hartree</span>
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">data_file</span><span class="p">(</span><span class="n">name</span><span class="p">):</span>
@@ -727,6 +746,7 @@ derivative discontinuity, measured on an exactly solvable system — in
 </pre></div>
 </div>
 </div>
+</details>
 </div>
 </section>
 <section id="exercise-1-the-crystal-and-the-dft-calculation">
@@ -759,7 +779,8 @@ silicon, computed at essentially this lattice constant but with a different
 ultrasoft setup. The two shipped files are thus related PBE calculations rather than
 a byte-exact input-output pair, and both describe silicon at <span class="math notranslate nohighlight">\(a\approx 5.43\,\)</span>Å, so
 the band structure and its indirect gap are unchanged.</p>
-<p><strong>Part a)</strong> Read the lattice parameter from the input. <strong>Part b)</strong> Confirm the
+<p><strong>Part a)</strong> Read the lattice parameter from the input.</p>
+<p><strong>Part b)</strong> Confirm the
 crystal is the expected two-atom fcc cell.</p>
 <div class="cell tag_solution tag_remove-input docutils container">
 </div>
@@ -787,7 +808,8 @@ for every k-point on the path, the list of Kohn-Sham eigenvalues, along with the
 number of electrons and the Fermi energy. We parse that file directly: this is the
 actual output of the course’s calculation, not a recomputation.</p>
 <p><strong>Part a)</strong> Implement <code class="docutils literal notranslate"><span class="pre">read_qe_bands</span></code> to extract the k-points, eigenvalues (in eV),
-Fermi energy, and electron count. <strong>Part b)</strong> Confirm the electron count implies
+Fermi energy, and electron count.</p>
+<p><strong>Part b)</strong> Confirm the electron count implies
 four filled bands.</p>
 <div class="cell tag_solution tag_remove-input docutils container">
 </div>
@@ -814,7 +836,8 @@ along the L–Γ–X path, place a tick at each high-symmetry point, and draw ev
 <span class="math notranslate nohighlight">\(E_n(\mathbf k)\)</span> with energies referenced to the valence-band maximum (the
 conventional zero). Four bands sit below the gap, the rest above; the shape of
 those curves <em>is</em> the electronic structure of silicon.</p>
-<p><strong>Part a)</strong> Build the k-path distance and locate Γ. <strong>Part b)</strong> Plot all bands
+<p><strong>Part a)</strong> Build the k-path distance and locate Γ.</p>
+<p><strong>Part b)</strong> Plot all bands
 relative to the VBM, marking L, Γ, X.</p>
 <div class="cell tag_solution tag_remove-input docutils container">
 <div class="cell_output docutils container">
@@ -850,7 +873,8 @@ silicon the VBM sits at <span class="math notranslate nohighlight">\(\Gamma\)</s
 <span class="math notranslate nohighlight">\(\Gamma\)</span> to X, so the two are at different crystal momenta and the gap is
 <strong>indirect</strong>. The smallest <em>direct</em> gap, both extrema taken at <span class="math notranslate nohighlight">\(\Gamma\)</span>, is far
 larger, which confirms the indirect character.</p>
-<p><strong>Part a)</strong> Find the VBM, the CBM, and their k-points. <strong>Part b)</strong> Compute the
+<p><strong>Part a)</strong> Find the VBM, the CBM, and their k-points.</p>
+<p><strong>Part b)</strong> Compute the
 indirect gap and the direct gap at <span class="math notranslate nohighlight">\(\Gamma\)</span>.</p>
 <div class="cell tag_solution tag_remove-input docutils container">
 <div class="cell_output docutils container">
@@ -890,7 +914,8 @@ remove an electron, and approximate exchange-correlation functionals miss a
 <em>derivative discontinuity</em> that the true gap contains <span class="bibtex-citation" id="id6">[<a class="reference internal" href="#id31" title="John P. Perdew and Mel Levy. Physical content of the exact kohn-sham orbital energies: band gaps and derivative discontinuities. Physical Review Letters, 51(20):1884–1887, 1983. doi:10.1103/PhysRevLett.51.1884.">PL83</a>]</span>. The
 upshot is a systematic underestimate, often near a factor of two, that more
 expensive methods (hybrid functionals, <span class="math notranslate nohighlight">\(GW\)</span>) are needed to repair.</p>
-<p><strong>Part a)</strong> Compare the computed gap to experiment. <strong>Part b)</strong> Confirm the
+<p><strong>Part a)</strong> Compare the computed gap to experiment.</p>
+<p><strong>Part b)</strong> Confirm the
 underestimate.</p>
 <div class="cell tag_solution tag_remove-input docutils container">
 <div class="cell_output docutils container">
@@ -909,6 +934,80 @@ signature of the Kohn-Sham band-gap problem.</p>
 <div class="cell tag_validation tag_remove-input docutils container">
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>✓  the PBE gap substantially underestimates the experimental value   [PBE 0.58 eV vs experiment 1.17 eV (50%)]
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>True
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="exercise-6-the-empty-lattice-what-comes-from-geometry-alone">
+<h2>Exercise 6 — The empty lattice: what comes from geometry alone<a class="headerlink" href="#exercise-6-the-empty-lattice-what-comes-from-geometry-alone" title="Link to this heading">#</a></h2>
+<p>The band structure of Exercise 3 is a <em>result</em>, handed over by a DFT code. It is
+worth asking how much of its shape needs a code at all. Strip the crystal of its
+potential entirely, keeping only its periodicity, and the electrons are free: their
+energies are <span class="math notranslate nohighlight">\(\hbar^2k^2/2m\)</span>. Periodicity still does one thing, though. Bloch’s
+theorem <a class="reference internal" href="#equation-eq-bloch">Eq. 31</a> says <span class="math notranslate nohighlight">\(\mathbf k\)</span> and <span class="math notranslate nohighlight">\(\mathbf k+\mathbf G\)</span> label the same
+state for any reciprocal-lattice vector <span class="math notranslate nohighlight">\(\mathbf G\)</span>, so every free-electron
+parabola centred on every <span class="math notranslate nohighlight">\(\mathbf G\)</span> gets <strong>folded</strong> back into the first Brillouin
+zone. What was one parabola becomes a whole family of bands:</p>
+<div class="math notranslate nohighlight" id="equation-eq-empty-lattice">
+<span class="eqno">(32)<a class="headerlink" href="#equation-eq-empty-lattice" title="Link to this equation">#</a></span>\[E_{\mathbf G}(\mathbf k) = \frac{\hbar^2}{2m}\,\big|\mathbf k + \mathbf G\big|^2 .\]</div>
+<p>This is the <strong>empty-lattice test</strong>, and it is the cleanest way to separate the two
+things a band structure contains: the part that is pure kinematics — how many bands
+there are, roughly how wide, where they cross — and the part that genuinely needs
+the potential, which is where degeneracies split and gaps open. Silicon’s Bravais
+lattice is face-centred cubic, so its reciprocal lattice is body-centred cubic:
+<span class="math notranslate nohighlight">\(\mathbf G = (2\pi/a)(h,k,l)\)</span> with <span class="math notranslate nohighlight">\(h,k,l\)</span> all even or all odd. The shortest
+non-zero shell is the eight <span class="math notranslate nohighlight">\(\langle111\rangle\)</span> vectors with <span class="math notranslate nohighlight">\(|\mathbf G|^2 = 3\)</span> in
+these units.</p>
+<p><strong>Part a)</strong> Build the reciprocal-lattice vectors: take all integer triples <span class="math notranslate nohighlight">\((h,k,l)\)</span>
+in <span class="math notranslate nohighlight">\([-2,2]\)</span> with <code class="docutils literal notranslate"><span class="pre">itertools.product</span></code> and keep those whose components share a parity,
+which is the fcc-reciprocal (bcc) selection rule. Evaluate <a class="reference internal" href="#equation-eq-empty-lattice">Eq. 32</a> on
+the same k-path the DFT calculation used, with the prefactor
+<span class="math notranslate nohighlight">\((\hbar^2/2m)(2\pi/a)^2\)</span> built from <code class="docutils literal notranslate"><span class="pre">scipy.constants</span></code> and <span class="math notranslate nohighlight">\(a = 5.431\)</span> Å, then sort
+the energies at each k-point with <code class="docutils literal notranslate"><span class="pre">numpy.sort</span></code> and keep the lowest eight.
+<strong>Write this one yourself</strong> — the implementation is the lesson.</p>
+<p><strong>Part b)</strong> Overlay the folded free-electron bands on the DFT bands, each referenced
+to its own lowest state. Note what survives the stripping of the potential and what
+does not.</p>
+<p><strong>Part c)</strong> Make the comparison quantitative at <span class="math notranslate nohighlight">\(\Gamma\)</span>. The free-electron model
+puts a single state at the bottom and then an <strong>eightfold degenerate</strong> level at
+<span class="math notranslate nohighlight">\(3\,(\hbar^2/2m)(2\pi/a)^2\)</span>. Count how many <em>distinct</em> energies the DFT calculation
+shows among its eight lowest states at <span class="math notranslate nohighlight">\(\Gamma\)</span>, and confirm the degeneracy is
+lifted. That splitting is the crystal potential doing the one job the empty lattice
+cannot, and silicon’s gap is what is left over when it is done.</p>
+<div class="cell tag_solution tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>prefactor (hbar^2/2m)(2pi/a)^2 = 5.0994 eV
+free-electron shell at Gamma: 15.298 eV, 7 of the lowest 8 bands sit in it
+DFT at Gamma: 4 distinct levels among 8 states -&gt; [0.0, 11.96, 14.54, 15.26] eV
+bandwidth of the lowest band, free 5.10 eV vs DFT 4.15 eV
+</pre></div>
+</div>
+<figure class="align-default" id="fig-si-empty-lattice">
+<img alt="../../_images/1abbb6bc8bc4692d56e34e7e308dd2cd004fc957713a42f0fe69da2e5e981b2b.png" src="../../_images/1abbb6bc8bc4692d56e34e7e308dd2cd004fc957713a42f0fe69da2e5e981b2b.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 36 </span><span class="caption-text">The empty-lattice test for silicon along L–<span class="math notranslate nohighlight">\(\Gamma\)</span>–X. Amber: folded free-electron bands <span class="math notranslate nohighlight">\(E=(\hbar^2/2m)|\mathbf k+\mathbf G|^2\)</span> for the fcc reciprocal lattice, with no crystal potential at all. Navy: the bands from the course’s Quantum ESPRESSO calculation. Each set is referenced to its own lowest state. The number of bands, their rough widths, and the general pattern of crossings come from periodicity alone; what the potential adds is the lifting of degeneracies – most visibly the eightfold free-electron level at <span class="math notranslate nohighlight">\(\Gamma\)</span>, which the real calculation splits into four distinct energies, opening the gap.</span><a class="headerlink" href="#fig-si-empty-lattice" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</div>
+</div>
+<section id="validation-6-kinematics-reproduced-degeneracy-lifted">
+<h3>Validation 6 — kinematics reproduced, degeneracy lifted<a class="headerlink" href="#validation-6-kinematics-reproduced-degeneracy-lifted" title="Link to this heading">#</a></h3>
+<p>Three checks. The free-electron shell energy at <span class="math notranslate nohighlight">\(\Gamma\)</span> is fixed arithmetic:
+<span class="math notranslate nohighlight">\(3\,(\hbar^2/2m)(2\pi/a)^2\)</span>, and the eight <span class="math notranslate nohighlight">\(\langle111\rangle\)</span> vectors must all land
+on it. The width of the lowest band must come out comparable between the two models,
+since that width is kinematic rather than a property of the potential. And the DFT
+calculation must show that degeneracy <em>split</em> — which is the one thing the empty
+lattice provably cannot produce, and the reason silicon has a gap at all.</p>
+<div class="cell tag_validation tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>✓  the folded free-electron level at Gamma sits at 3 (hbar^2/2m)(2 pi/a)^2, the |G|^2 = 3 shell of the eight &lt;111&gt; reciprocal vectors   [got 15.2983 vs expected 15.2983 (rtol=1e-09, atol=1e-09)]
+✓  the lowest band has a comparable width with and without the potential: its bandwidth is kinematics, set by the lattice rather than by the chemistry   [free 5.10 eV vs DFT 4.15 eV]
+✓  and the real calculation splits the eightfold free-electron level into several distinct energies: the potential lifting that degeneracy is what opens silicon&#39;s gap   [7 free-electron states in one shell -&gt; 4 distinct DFT levels at Gamma]
 </pre></div>
 </div>
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>True
@@ -1096,6 +1195,10 @@ parabola near each extremum to extract it.</p></li>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-5-the-band-gap-problem">Exercise 5 — The band-gap problem</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#validation-5-dft-underestimates-the-gap">Validation 5 — DFT underestimates the gap</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-6-the-empty-lattice-what-comes-from-geometry-alone">Exercise 6 — The empty lattice: what comes from geometry alone</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#validation-6-kinematics-reproduced-degeneracy-lifted">Validation 6 — kinematics reproduced, degeneracy lifted</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#notebook-summary">Notebook summary</a></li>

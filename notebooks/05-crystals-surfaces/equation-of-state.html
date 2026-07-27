@@ -628,7 +628,7 @@ slower. For ASE see <span class="bibtex-citation" id="id1">[<a class="reference 
 has a minimum at the equilibrium volume <span class="math notranslate nohighlight">\(V_0\)</span>. Near it the energy is parabolic, and
 the curvature defines the <strong>bulk modulus</strong></p>
 <div class="math notranslate nohighlight" id="equation-eq-bulk">
-<span class="eqno">(33)<a class="headerlink" href="#equation-eq-bulk" title="Link to this equation">#</a></span>\[B = V\frac{\partial^2 E}{\partial V^2}\bigg|_{V_0},\]</div>
+<span class="eqno">(34)<a class="headerlink" href="#equation-eq-bulk" title="Link to this equation">#</a></span>\[B = V\frac{\partial^2 E}{\partial V^2}\bigg|_{V_0},\]</div>
 <p>the pressure needed to change the volume by a given fraction. Real solids are not
 perfectly parabolic, so we fit the <strong>Birch-Murnaghan</strong> equation of state
 <span class="bibtex-citation" id="id3">[<a class="reference internal" href="#id32" title="Francis Birch. Finite elastic strain of cubic crystals. Physical Review, 71(11):809–824, 1947. doi:10.1103/PhysRev.71.809.">Bir47</a>]</span>, a low-order expansion in strain that captures the asymmetry
@@ -643,7 +643,7 @@ has <strong>two</strong>, <span class="math notranslate nohighlight">\(a\)</span
 must be minimised over a two-dimensional grid. For ideal close packing of hard
 spheres the ratio is fixed at</p>
 <div class="math notranslate nohighlight" id="equation-eq-coa">
-<span class="eqno">(34)<a class="headerlink" href="#equation-eq-coa" title="Link to this equation">#</a></span>\[\frac{c}{a} = \sqrt{\tfrac{8}{3}} \approx 1.633,\]</div>
+<span class="eqno">(35)<a class="headerlink" href="#equation-eq-coa" title="Link to this equation">#</a></span>\[\frac{c}{a} = \sqrt{\tfrac{8}{3}} \approx 1.633,\]</div>
 <p>and how close a real metal sits to this value measures how nearly its bonding is
 isotropic.</p>
 </section>
@@ -705,7 +705,7 @@ attach a calculator, ask for the energy. The first physical quantity is the
 <strong>atomization energy</strong> of a nitrogen molecule, the energy released when two nitrogen
 atoms bond,</p>
 <div class="math notranslate nohighlight" id="equation-eq-atomization">
-<span class="eqno">(35)<a class="headerlink" href="#equation-eq-atomization" title="Link to this equation">#</a></span>\[E_{\rm atom} = 2\,E(\mathrm{N}) - E(\mathrm{N_2}),\]</div>
+<span class="eqno">(36)<a class="headerlink" href="#equation-eq-atomization" title="Link to this equation">#</a></span>\[E_{\rm atom} = 2\,E(\mathrm{N}) - E(\mathrm{N_2}),\]</div>
 <p>positive because the molecule is more stable than the separated atoms. We relax the
 molecule to its bond length, then compare to two isolated atoms, all with the EMT
 calculator. N₂ is famously hard to pull apart (its triple bond is one of the
@@ -741,7 +741,7 @@ triple-bonded N₂ it is several eV.</p>
 <p>Now a crystal. The course scanned the volume of face-centred-cubic silver, computing
 the total energy at each, and committed the result as <code class="docutils literal notranslate"><span class="pre">Ag-eos.traj</span></code>. We load that real
 energy-volume curve, fit the <strong>Birch-Murnaghan</strong> equation of state, and
-read off the equilibrium volume, the lattice constant, and the bulk modulus <a class="reference internal" href="#equation-eq-bulk">Eq. 33</a>. For FCC
+read off the equilibrium volume, the lattice constant, and the bulk modulus <a class="reference internal" href="#equation-eq-bulk">Eq. 34</a>. For FCC
 there are four atoms in the conventional cubic cell, so the lattice constant is
 <span class="math notranslate nohighlight">\(a=(4V_0)^{1/3}\)</span> from the per-atom volume <span class="math notranslate nohighlight">\(V_0\)</span>.</p>
 <p><strong>Part a)</strong> Load <code class="docutils literal notranslate"><span class="pre">Ag-eos.traj</span></code> and fit the equation of state. <strong>Part b)</strong> Extract the
@@ -751,7 +751,7 @@ lattice constant and bulk modulus, and compare to experiment.</p>
 <figure class="align-default" id="fig-ag-eos">
 <img alt="../../_images/fe273105de5bce02f7e5cba51fa68006eb5103439392fd7a3a4a5542676a7867.png" src="../../_images/fe273105de5bce02f7e5cba51fa68006eb5103439392fd7a3a4a5542676a7867.png" />
 <figcaption>
-<p><span class="caption-number">Fig. 41 </span><span class="caption-text">Equation of state of face-centred-cubic silver from the course’s committed ASE scan: total energy (eV) versus primitive-cell volume (points), with the Birch-Murnaghan fit (curve). The minimum gives the equilibrium volume, hence the lattice constant <span class="math notranslate nohighlight">\(a=4.06\)</span> Å (experiment 4.09 Å); the curvature gives the bulk modulus <span class="math notranslate nohighlight">\(B=100\)</span> GPa (experiment ~100 GPa).</span><a class="headerlink" href="#fig-ag-eos" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 42 </span><span class="caption-text">Equation of state of face-centred-cubic silver from the course’s committed ASE scan: total energy (eV) versus primitive-cell volume (points), with the Birch-Murnaghan fit (curve). The minimum gives the equilibrium volume, hence the lattice constant <span class="math notranslate nohighlight">\(a=4.06\)</span> Å (experiment 4.09 Å); the curvature gives the bulk modulus <span class="math notranslate nohighlight">\(B=100\)</span> GPa (experiment ~100 GPa).</span><a class="headerlink" href="#fig-ag-eos" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>a(Ag) = 4.064 Å (exp 4.09);  bulk modulus B = 100 GPa (exp ~100)
@@ -783,7 +783,7 @@ in-plane spacing <span class="math notranslate nohighlight">\(a\)</span> and the
 and committed the result as <code class="docutils literal notranslate"><span class="pre">Ni-ac-scan.traj</span></code> (a <span class="math notranslate nohighlight">\(10\times10\)</span> mesh in <span class="math notranslate nohighlight">\(a\)</span> and <span class="math notranslate nohighlight">\(c\)</span>). We load
 it, map the energy surface, and find the minimum to read off both lattice constants
 at once. Their ratio <span class="math notranslate nohighlight">\(c/a\)</span> should land near the ideal close-packed value
-<span class="math notranslate nohighlight">\(\sqrt{8/3}\approx1.633\)</span> <a class="reference internal" href="#equation-eq-coa">Eq. 34</a>.</p>
+<span class="math notranslate nohighlight">\(\sqrt{8/3}\approx1.633\)</span> <a class="reference internal" href="#equation-eq-coa">Eq. 35</a>.</p>
 <p><strong>Part a)</strong> Load <code class="docutils literal notranslate"><span class="pre">Ni-ac-scan.traj</span></code> and plot the energy over the <span class="math notranslate nohighlight">\((a,c)\)</span> grid.
 <strong>Part b)</strong> Locate the minimum and confirm the axial ratio is near ideal.</p>
 <div class="cell tag_solution tag_remove-input docutils container">
@@ -791,7 +791,7 @@ at once. Their ratio <span class="math notranslate nohighlight">\(c/a\)</span> s
 <figure class="align-default" id="fig-ni-surface">
 <img alt="../../_images/30f063d60a123ea3b8eff2bd83a11070b297ee482c77bf0726d1175e1dbba4b7.png" src="../../_images/30f063d60a123ea3b8eff2bd83a11070b297ee482c77bf0726d1175e1dbba4b7.png" />
 <figcaption>
-<p><span class="caption-number">Fig. 42 </span><span class="caption-text">Energy surface of hexagonal-close-packed nickel over its two lattice parameters, from a committed <span class="math notranslate nohighlight">\(10\times10\)</span> EMT scan that brackets the energy minimum: energy (colour) versus in-plane spacing <span class="math notranslate nohighlight">\(a\)</span> and stacking height <span class="math notranslate nohighlight">\(c\)</span>. The interior minimum (amber marker) sits at <span class="math notranslate nohighlight">\(a\approx2.49\)</span> Å and <span class="math notranslate nohighlight">\(c\approx4.06\)</span> Å, an axial ratio <span class="math notranslate nohighlight">\(c/a\approx1.633\)</span> — essentially the ideal close-packed value <span class="math notranslate nohighlight">\(\sqrt{8/3}=1.633\)</span>.</span><a class="headerlink" href="#fig-ni-surface" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 43 </span><span class="caption-text">Energy surface of hexagonal-close-packed nickel over its two lattice parameters, from a committed <span class="math notranslate nohighlight">\(10\times10\)</span> EMT scan that brackets the energy minimum: energy (colour) versus in-plane spacing <span class="math notranslate nohighlight">\(a\)</span> and stacking height <span class="math notranslate nohighlight">\(c\)</span>. The interior minimum (amber marker) sits at <span class="math notranslate nohighlight">\(a\approx2.49\)</span> Å and <span class="math notranslate nohighlight">\(c\approx4.06\)</span> Å, an axial ratio <span class="math notranslate nohighlight">\(c/a\approx1.633\)</span> — essentially the ideal close-packed value <span class="math notranslate nohighlight">\(\sqrt{8/3}=1.633\)</span>.</span><a class="headerlink" href="#fig-ni-surface" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>a(Ni) = 2.473 Å (exp 2.49), c = 4.014 Å (exp 4.07);  c/a = 1.623 (ideal 1.633)
