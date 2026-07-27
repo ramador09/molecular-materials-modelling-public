@@ -107,7 +107,8 @@ or machine, for a single number.
     "materials science",
     "density functional theory",
     "molecular dynamics",
-    "Monte Carlo"
+    "Monte Carlo",
+    "machine learning"
   ],
   "provider": {
     "@type": "Person",

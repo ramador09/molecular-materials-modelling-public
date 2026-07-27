@@ -256,6 +256,11 @@
 <li class="toctree-l2"><a class="reference internal" href="metadynamics-graphene.html">6.3 Metadynamics: Nitric Acid on Graphene</a></li>
 </ul>
 </details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../07-data-descriptors/index.html">Volume VII — Data and Descriptors</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../07-data-descriptors/structural-descriptors.html">7.1 Describing an Atomic Structure</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../07-data-descriptors/dimensionality-reduction.html">7.2 Dimensionality Reduction and Farthest-Point Sampling</a></li>
+</ul>
+</details></li>
 </ul>
 
     </div>
@@ -521,6 +526,10 @@
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#validation-4-the-rate-spans-many-orders-of-magnitude">Validation 4 — the rate spans many orders of magnitude</a></li>
 </ul>
 </li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-5-what-an-experiment-would-actually-measure">Exercise 5 — What an experiment would actually measure</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#validation-5-the-measured-activation-energy-is-not-the-barrier">Validation 5 — the measured activation energy is not the barrier</a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#notebook-summary">Notebook summary</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#outlook">Outlook</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#references">References</a></li>
@@ -632,7 +641,7 @@ PBE <span class="bibtex-citation" id="id1">[<a class="reference internal" href="
 <strong>transition state</strong>, then falls to the <strong>products</strong>. Two numbers summarise it: the
 <strong>activation barrier</strong></p>
 <div class="math notranslate nohighlight" id="equation-eq-barrier">
-<span class="eqno">(42)<a class="headerlink" href="#equation-eq-barrier" title="Link to this equation">#</a></span>\[\Delta E^{\ddagger} = E_{\rm TS} - E_{\rm reactant},\]</div>
+<span class="eqno">(43)<a class="headerlink" href="#equation-eq-barrier" title="Link to this equation">#</a></span>\[\Delta E^{\ddagger} = E_{\rm TS} - E_{\rm reactant},\]</div>
 <p>which controls the rate, and the <strong>reaction energy</strong>
 <span class="math notranslate nohighlight">\(\Delta E = E_{\rm products} - E_{\rm reactant}\)</span>, which says whether the reaction
 absorbs energy (endothermic, <span class="math notranslate nohighlight">\(\Delta E&gt;0\)</span>) or releases it. Ethanol dehydration is
@@ -653,7 +662,7 @@ convergence: barriers are a sensitive probe of both.</p>
 <p>Transition-state theory turns the barrier into a rate constant through the Eyring (or,
 equivalently, Arrhenius) form</p>
 <div class="math notranslate nohighlight" id="equation-eq-eyring">
-<span class="eqno">(43)<a class="headerlink" href="#equation-eq-eyring" title="Link to this equation">#</a></span>\[k(T) \propto \exp\!\left(-\frac{\Delta E^{\ddagger}}{k_B T}\right),\]</div>
+<span class="eqno">(44)<a class="headerlink" href="#equation-eq-eyring" title="Link to this equation">#</a></span>\[k(T) \propto \exp\!\left(-\frac{\Delta E^{\ddagger}}{k_B T}\right),\]</div>
 <p>exponentially sensitive to the barrier, so the few-kcal/mol spread between methods
 becomes orders of magnitude in the predicted rate.</p>
 </section>
@@ -661,20 +670,39 @@ becomes orders of magnitude in the predicted rate.</p>
 <hr class="docutils" />
 <section id="setup">
 <h2>Setup<a class="headerlink" href="#setup" title="Link to this heading">#</a></h2>
-<div class="cell docutils container">
+<p>The Setup below holds this notebook’s data and instruments — nothing you are asked
+to build. It is collapsed so the building stays yours; expand it whenever you want
+the details.</p>
+<!-- setup-policy: v2 --><div class="cell tag_hide-input docutils container">
+<details class="admonition hide above-input">
+<summary aria-label="Toggle hidden content">
+<p class="collapsed admonition-title">Show code cell source</p>
+<p class="expanded admonition-title">Hide code cell source</p>
+</summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
 
+<span class="kn">from</span><span class="w"> </span><span class="nn">scipy.constants</span><span class="w"> </span><span class="kn">import</span> <span class="n">physical_constants</span>
+
 <span class="kn">from</span><span class="w"> </span><span class="nn">ecp</span><span class="w"> </span><span class="kn">import</span> <span class="n">validate</span>
 
 <span class="n">INK</span><span class="p">,</span> <span class="n">AMBER</span><span class="p">,</span> <span class="n">SOFT</span> <span class="o">=</span> <span class="s2">&quot;#16213e&quot;</span><span class="p">,</span> <span class="s2">&quot;#c0851a&quot;</span><span class="p">,</span> <span class="s2">&quot;#46506b&quot;</span>
-<span class="n">HARTREE_KCAL</span> <span class="o">=</span> <span class="mf">627.503</span>                <span class="c1"># Hartree -&gt; kcal/mol</span>
-<span class="n">KB_KCAL</span> <span class="o">=</span> <span class="mf">1.987204e-3</span>                 <span class="c1"># Boltzmann constant [kcal/mol/K]</span>
+<span class="n">HARTREE_KCAL</span> <span class="o">=</span> <span class="mf">627.503</span>  <span class="c1"># Hartree -&gt; kcal/mol</span>
+<span class="c1"># data: unit conversions and constants, from scipy.constants rather than typed</span>
+<span class="c1"># digits. The reaction energetics come from the committed CP2K outputs; the rate</span>
+<span class="c1"># theory that turns a barrier into something an experiment could measure is built in</span>
+<span class="c1"># Exercise 5.</span>
+<span class="n">K_B_SI</span> <span class="o">=</span> <span class="n">physical_constants</span><span class="p">[</span><span class="s2">&quot;Boltzmann constant&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>  <span class="c1"># J/K</span>
+<span class="n">H_PLANCK</span> <span class="o">=</span> <span class="n">physical_constants</span><span class="p">[</span><span class="s2">&quot;Planck constant&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>  <span class="c1"># J s</span>
+<span class="n">R_GAS</span> <span class="o">=</span> <span class="n">physical_constants</span><span class="p">[</span><span class="s2">&quot;molar gas constant&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>  <span class="c1"># J/(mol K)</span>
+<span class="n">C_LIGHT</span> <span class="o">=</span> <span class="n">physical_constants</span><span class="p">[</span><span class="s2">&quot;speed of light in vacuum&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>  <span class="c1"># m/s</span>
+<span class="n">KCAL_PER_MOL_J</span> <span class="o">=</span> <span class="mf">4184.0</span>  <span class="c1"># J per kcal/mol</span>
+<span class="n">KB_KCAL</span> <span class="o">=</span> <span class="mf">1.987204e-3</span>  <span class="c1"># Boltzmann constant [kcal/mol/K]</span>
 <span class="n">CPK</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;H&quot;</span><span class="p">:</span> <span class="s2">&quot;#d9d9d9&quot;</span><span class="p">,</span> <span class="s2">&quot;C&quot;</span><span class="p">:</span> <span class="s2">&quot;#303030&quot;</span><span class="p">,</span> <span class="s2">&quot;O&quot;</span><span class="p">:</span> <span class="s2">&quot;#c0392b&quot;</span><span class="p">,</span> <span class="s2">&quot;N&quot;</span><span class="p">:</span> <span class="s2">&quot;#2c5fb0&quot;</span><span class="p">}</span>
-<span class="n">RADIUS</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;H&quot;</span><span class="p">:</span> <span class="mf">0.31</span><span class="p">,</span> <span class="s2">&quot;C&quot;</span><span class="p">:</span> <span class="mf">0.76</span><span class="p">,</span> <span class="s2">&quot;O&quot;</span><span class="p">:</span> <span class="mf">0.66</span><span class="p">,</span> <span class="s2">&quot;N&quot;</span><span class="p">:</span> <span class="mf">0.71</span><span class="p">}</span>   <span class="c1"># covalent radii [Å]</span>
+<span class="n">RADIUS</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;H&quot;</span><span class="p">:</span> <span class="mf">0.31</span><span class="p">,</span> <span class="s2">&quot;C&quot;</span><span class="p">:</span> <span class="mf">0.76</span><span class="p">,</span> <span class="s2">&quot;O&quot;</span><span class="p">:</span> <span class="mf">0.66</span><span class="p">,</span> <span class="s2">&quot;N&quot;</span><span class="p">:</span> <span class="mf">0.71</span><span class="p">}</span>  <span class="c1"># covalent radii [Å]</span>
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">data_file</span><span class="p">(</span><span class="n">name</span><span class="p">):</span>
@@ -719,7 +747,7 @@ becomes orders of magnitude in the predicted rate.</p>
     <span class="n">lines</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">data_file</span><span class="p">(</span><span class="n">name</span><span class="p">))</span><span class="o">.</span><span class="n">read</span><span class="p">()</span><span class="o">.</span><span class="n">splitlines</span><span class="p">()</span>
     <span class="n">n</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">lines</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">0</span><span class="p">])</span>
     <span class="n">els</span><span class="p">,</span> <span class="n">xyz</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[]</span>
-    <span class="k">for</span> <span class="n">ln</span> <span class="ow">in</span> <span class="n">lines</span><span class="p">[</span><span class="mi">2</span><span class="p">:</span><span class="mi">2</span> <span class="o">+</span> <span class="n">n</span><span class="p">]:</span>
+    <span class="k">for</span> <span class="n">ln</span> <span class="ow">in</span> <span class="n">lines</span><span class="p">[</span><span class="mi">2</span> <span class="p">:</span> <span class="mi">2</span> <span class="o">+</span> <span class="n">n</span><span class="p">]:</span>
         <span class="n">p</span> <span class="o">=</span> <span class="n">ln</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
         <span class="n">els</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">p</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
         <span class="n">xyz</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="nb">float</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">p</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">4</span><span class="p">]])</span>
@@ -752,13 +780,19 @@ becomes orders of magnitude in the predicted rate.</p>
             <span class="k">if</span> <span class="n">d</span> <span class="o">&lt;</span> <span class="mf">1.6</span> <span class="o">*</span> <span class="p">(</span><span class="n">RADIUS</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">els</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="mf">0.7</span><span class="p">)</span> <span class="o">+</span> <span class="n">RADIUS</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">els</span><span class="p">[</span><span class="n">j</span><span class="p">],</span> <span class="mf">0.7</span><span class="p">)):</span>
                 <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="o">*</span><span class="nb">zip</span><span class="p">(</span><span class="n">xyz</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">xyz</span><span class="p">[</span><span class="n">j</span><span class="p">]),</span> <span class="n">color</span><span class="o">=</span><span class="n">SOFT</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mf">2.5</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.7</span><span class="p">)</span>
     <span class="k">for</span> <span class="n">el</span><span class="p">,</span> <span class="n">r</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">els</span><span class="p">,</span> <span class="n">xyz</span><span class="p">):</span>
-        <span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="o">*</span><span class="n">r</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">320</span> <span class="o">*</span> <span class="n">RADIUS</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">el</span><span class="p">,</span> <span class="mf">0.7</span><span class="p">),</span> <span class="n">color</span><span class="o">=</span><span class="n">CPK</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">el</span><span class="p">,</span> <span class="s2">&quot;#888&quot;</span><span class="p">),</span>
-                   <span class="n">edgecolors</span><span class="o">=</span><span class="s2">&quot;white&quot;</span><span class="p">,</span> <span class="n">depthshade</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span>
+            <span class="o">*</span><span class="n">r</span><span class="p">,</span>
+            <span class="n">s</span><span class="o">=</span><span class="mi">320</span> <span class="o">*</span> <span class="n">RADIUS</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">el</span><span class="p">,</span> <span class="mf">0.7</span><span class="p">),</span>
+            <span class="n">color</span><span class="o">=</span><span class="n">CPK</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">el</span><span class="p">,</span> <span class="s2">&quot;#888&quot;</span><span class="p">),</span>
+            <span class="n">edgecolors</span><span class="o">=</span><span class="s2">&quot;white&quot;</span><span class="p">,</span>
+            <span class="n">depthshade</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="p">)</span>
     <span class="n">ax</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">xticks</span><span class="o">=</span><span class="p">[],</span> <span class="n">yticks</span><span class="o">=</span><span class="p">[],</span> <span class="n">zticks</span><span class="o">=</span><span class="p">[],</span> <span class="n">title</span><span class="o">=</span><span class="n">title</span><span class="p">)</span>
     <span class="n">ax</span><span class="o">.</span><span class="n">set_box_aspect</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
+</details>
 </div>
 </section>
 <section id="exercise-1-the-reaction-and-its-structures">
@@ -769,14 +803,15 @@ committed geometries. In the transition state the C–O bond has stretched and a
 hydrogen is midway between carbon and the departing oxygen, the geometric signature of
 a concerted dehydration. The CP2K input that produced them is a PBE deck; it ships
 here: <a class="reference download internal" download="" href="../../_downloads/984141d69fe2ce54a411a7cf28685b37/ethanol-pbe.inp"><code class="xref download docutils literal notranslate"><span class="pre">ethanol-pbe.inp</span></code></a>.</p>
-<p><strong>Part a)</strong> Load and render the four structures. <strong>Part b)</strong> Confirm the transition
+<p><strong>Part a)</strong> Load and render the four structures.</p>
+<p><strong>Part b)</strong> Confirm the transition
 state’s stretched C–O bond.</p>
 <div class="cell tag_solution tag_remove-input docutils container">
 <div class="cell_output docutils container">
 <figure class="align-default" id="fig-rxn-structures">
 <img alt="../../_images/4b049ba28efb7b14f778ad91f19eaff935fda4ad899edef77a0013075e65d5c7.png" src="../../_images/4b049ba28efb7b14f778ad91f19eaff935fda4ad899edef77a0013075e65d5c7.png" />
 <figcaption>
-<p><span class="caption-number">Fig. 48 </span><span class="caption-text">The committed CP2K-optimised structures of the ethanol dehydration: the ethanol reactant, the transition state (the C–O bond stretched, a hydrogen migrating to the leaving oxygen), and the ethene + water products. Carbon grey, oxygen red, hydrogen white.</span><a class="headerlink" href="#fig-rxn-structures" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 49 </span><span class="caption-text">The committed CP2K-optimised structures of the ethanol dehydration: the ethanol reactant, the transition state (the C–O bond stretched, a hydrogen migrating to the leaving oxygen), and the ethene + water products. Carbon grey, oxygen red, hydrogen white.</span><a class="headerlink" href="#fig-rxn-structures" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>shortest C–O distance:  ethanol 1.43 Å  -&gt;  transition state 1.90 Å (stretched)
@@ -808,14 +843,15 @@ species; the reaction profile is the energy relative to ethanol at three points 
 the path: reactant (zero by definition), transition state (the barrier), and products
 (ethene + water). We build it from the committed totals for all six method
 combinations (Assignment 5).</p>
-<p><strong>Part a)</strong> Assemble the profiles in kcal/mol. <strong>Part b)</strong> Plot them and confirm every
+<p><strong>Part a)</strong> Assemble the profiles in kcal/mol.</p>
+<p><strong>Part b)</strong> Plot them and confirm every
 transition state lies above its reactant.</p>
 <div class="cell tag_solution tag_remove-input docutils container">
 <div class="cell_output docutils container">
 <figure class="align-default" id="fig-rxn-profile">
 <img alt="../../_images/e897866c9cbe3fbf0ba9d5f6f941454c155d4ac11aa32b32b5554204dde73e6a.png" src="../../_images/e897866c9cbe3fbf0ba9d5f6f941454c155d4ac11aa32b32b5554204dde73e6a.png" />
 <figcaption>
-<p><span class="caption-number">Fig. 49 </span><span class="caption-text">Reaction-energy profiles for ethanol dehydration, from the course’s committed total energies: energy relative to ethanol (kcal/mol) at the reactant, transition state, and products, for PBE (navy) and B3LYP (amber) across three basis sets. Every path climbs a large barrier to the transition state and ends above the reactant (endothermic). The minimal SZV basis overshoots; DZVP and TZVP nearly coincide.</span><a class="headerlink" href="#fig-rxn-profile" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 50 </span><span class="caption-text">Reaction-energy profiles for ethanol dehydration, from the course’s committed total energies: energy relative to ethanol (kcal/mol) at the reactant, transition state, and products, for PBE (navy) and B3LYP (amber) across three basis sets. Every path climbs a large barrier to the transition state and ends above the reactant (endothermic). The minimal SZV basis overshoots; DZVP and TZVP nearly coincide.</span><a class="headerlink" href="#fig-rxn-profile" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 </div>
@@ -845,7 +881,8 @@ far from converged, while <strong>DZVP</strong> and <strong>TZVP</strong> agree 
 converged by triple-zeta. The two functionals still differ by a few kcal/mol at
 convergence, with the hybrid <strong>B3LYP-TZVP</strong> the most reliable estimate, landing near
 the experimental barrier of roughly 65–70 kcal/mol.</p>
-<p><strong>Part a)</strong> Tabulate barrier and reaction energy by method. <strong>Part b)</strong> Confirm the
+<p><strong>Part a)</strong> Tabulate barrier and reaction energy by method.</p>
+<p><strong>Part b)</strong> Confirm the
 basis is converged at TZVP and the B3LYP-TZVP barrier is in the experimental range.</p>
 <div class="cell tag_solution tag_remove-input docutils container">
 <div class="cell_output docutils container">
@@ -861,7 +898,7 @@ B3LYP-TZVP        66.1      11.4
 <figure class="align-default" id="fig-rxn-convergence">
 <img alt="../../_images/0fef308c62a3aafc73afced008c7b35781a8ead19f92466cad6df16e935d6c06.png" src="../../_images/0fef308c62a3aafc73afced008c7b35781a8ead19f92466cad6df16e935d6c06.png" />
 <figcaption>
-<p><span class="caption-number">Fig. 50 </span><span class="caption-text">Activation barrier of ethanol dehydration versus basis-set size for PBE (navy) and B3LYP (amber). The minimal single-zeta SZV basis overshoots badly; the barrier converges from DZVP to TZVP. At convergence the hybrid B3LYP-TZVP (~66 kcal/mol) sits in the experimental range (grey band, ~65–70 kcal/mol); PBE underestimates it.</span><a class="headerlink" href="#fig-rxn-convergence" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 51 </span><span class="caption-text">Activation barrier of ethanol dehydration versus basis-set size for PBE (navy) and B3LYP (amber). The minimal single-zeta SZV basis overshoots badly; the barrier converges from DZVP to TZVP. At convergence the hybrid B3LYP-TZVP (~66 kcal/mol) sits in the experimental range (grey band, ~65–70 kcal/mol); PBE underestimates it.</span><a class="headerlink" href="#fig-rxn-convergence" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 </div>
@@ -886,7 +923,7 @@ kcal/mol), and the best method, B3LYP-TZVP, must fall in the measured range.</p>
 <section id="exercise-4-from-barrier-to-reaction-rate">
 <h2>Exercise 4 — From barrier to reaction rate<a class="headerlink" href="#exercise-4-from-barrier-to-reaction-rate" title="Link to this heading">#</a></h2>
 <p>The barrier matters because it sets the rate, exponentially. Through transition-state
-theory <a class="reference internal" href="#equation-eq-eyring">Eq. 43</a> the rate constant scales as <span class="math notranslate nohighlight">\(e^{-\Delta E^{\ddagger}/k_BT}\)</span>, so
+theory <a class="reference internal" href="#equation-eq-eyring">Eq. 44</a> the rate constant scales as <span class="math notranslate nohighlight">\(e^{-\Delta E^{\ddagger}/k_BT}\)</span>, so
 the spread of barriers between methods becomes a spread of many orders of magnitude in
 the predicted rate. We show this directly: the relative rate at a typical reaction
 temperature, computed from each method’s barrier, ranges over nearly nine orders of
@@ -899,7 +936,7 @@ magnitude.</p>
 <figure class="align-default" id="fig-rxn-rate">
 <img alt="../../_images/76e4151812b89e4f7a0a8ba16c3ae5b506316baf8b42ed0ec3a7b2aa29164bf1.png" src="../../_images/76e4151812b89e4f7a0a8ba16c3ae5b506316baf8b42ed0ec3a7b2aa29164bf1.png" />
 <figcaption>
-<p><span class="caption-number">Fig. 51 </span><span class="caption-text">Relative reaction rate <span class="math notranslate nohighlight">\(e^{-\Delta E^{\ddagger}/k_BT}\)</span> at 600 K (log scale) for each method, normalised to the fastest. Because the rate depends exponentially on the barrier, the few-kcal/mol differences between functionals and basis sets become many orders of magnitude in rate: a converged method is not optional.</span><a class="headerlink" href="#fig-rxn-rate" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 52 </span><span class="caption-text">Relative reaction rate <span class="math notranslate nohighlight">\(e^{-\Delta E^{\ddagger}/k_BT}\)</span> at 600 K (log scale) for each method, normalised to the fastest. Because the rate depends exponentially on the barrier, the few-kcal/mol differences between functionals and basis sets become many orders of magnitude in rate: a converged method is not optional.</span><a class="headerlink" href="#fig-rxn-rate" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>predicted rate varies by a factor of 9.5e+08 across the six methods at 600 K
@@ -915,6 +952,85 @@ convergence matters.</p>
 <div class="cell tag_validation tag_remove-input docutils container">
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>✓  the method choice changes the predicted rate by orders of magnitude   [fastest/slowest rate = 9.5e+08 at 600 K]
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>True
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="exercise-5-what-an-experiment-would-actually-measure">
+<h2>Exercise 5 — What an experiment would actually measure<a class="headerlink" href="#exercise-5-what-an-experiment-would-actually-measure" title="Link to this heading">#</a></h2>
+<p>Exercise 4 compared rates through the Boltzmann factor <span class="math notranslate nohighlight">\(e^{-\Delta E^{\ddagger}/k_BT}\)</span>,
+which is enough to show that method choice matters. It is not what a kineticist
+measures. An experiment reports an <strong>Arrhenius activation energy</strong>, obtained by
+fitting</p>
+<div class="math notranslate nohighlight" id="equation-eq-arrhenius-fit">
+<span class="eqno">(45)<a class="headerlink" href="#equation-eq-arrhenius-fit" title="Link to this equation">#</a></span>\[\ln k = \ln A - \frac{E_a}{RT}\]</div>
+<p>to rate constants taken over a range of temperatures, and reading <span class="math notranslate nohighlight">\(E_a\)</span> off the
+slope against <span class="math notranslate nohighlight">\(1/T\)</span>. It is tempting to equate that <span class="math notranslate nohighlight">\(E_a\)</span> with the computed barrier.
+They are not the same number, and the difference is not experimental error.</p>
+<p>Transition-state theory <a class="reference internal" href="#equation-eq-eyring">Eq. 44</a> carries a temperature-dependent prefactor,
+<span class="math notranslate nohighlight">\(k = (k_BT/h)\,e^{-\Delta E^{\ddagger}/RT}\)</span>. Taking the logarithm and differentiating
+with respect to <span class="math notranslate nohighlight">\(1/T\)</span>, that extra factor of <span class="math notranslate nohighlight">\(T\)</span> contributes its own slope:</p>
+<div class="math notranslate nohighlight" id="equation-eq-ea-offset">
+<span class="eqno">(46)<a class="headerlink" href="#equation-eq-ea-offset" title="Link to this equation">#</a></span>\[E_a \;=\; -R\,\frac{d\ln k}{d(1/T)} \;=\; \Delta E^{\ddagger} + RT .\]</div>
+<p>So the measured activation energy sits <em>above</em> the computed barrier by <span class="math notranslate nohighlight">\(RT\)</span> — about
+1.2 kcal/mol at 600 K. Small next to a 60 kcal/mol barrier, but it is a systematic
+offset, and comparing a computed <span class="math notranslate nohighlight">\(\Delta E^{\ddagger}\)</span> with a measured <span class="math notranslate nohighlight">\(E_a\)</span> without
+it is simply comparing two different quantities.</p>
+<p>A second correction runs the other way. The reaction coordinate at a saddle point is
+an <em>imaginary</em>-frequency mode, and light nuclei tunnel through the barrier rather
+than only passing over it. Wigner’s leading correction multiplies the rate by</p>
+<div class="math notranslate nohighlight" id="equation-eq-wigner">
+<span class="eqno">(47)<a class="headerlink" href="#equation-eq-wigner" title="Link to this equation">#</a></span>\[\kappa(T) = 1 + \frac{1}{24}\left(\frac{h\,|\nu^{\ddagger}|}{k_BT}\right)^{2},\]</div>
+<p>with <span class="math notranslate nohighlight">\(|\nu^{\ddagger}|\)</span> the magnitude of the imaginary frequency. It is always
+greater than one — tunnelling can only help — and it dies away as temperature rises,
+because a hot enough molecule does not need to tunnel.</p>
+<p><strong>Part a)</strong> Implement <code class="docutils literal notranslate"><span class="pre">eyring_rate(barrier_kcal,</span> <span class="pre">T)</span></code> from <a class="reference internal" href="#equation-eq-eyring">Eq. 44</a>, using
+<code class="docutils literal notranslate"><span class="pre">scipy.constants</span></code> for <span class="math notranslate nohighlight">\(k_B\)</span>, <span class="math notranslate nohighlight">\(h\)</span> and <span class="math notranslate nohighlight">\(R\)</span> rather than typed digits. Evaluate it for
+the converged B3LYP-TZVP barrier on <code class="docutils literal notranslate"><span class="pre">numpy.linspace(500,</span> <span class="pre">700,</span> <span class="pre">41)</span></code> K.
+<strong>Write this one yourself</strong> — the implementation is the lesson.</p>
+<p><strong>Part b)</strong> Fit <a class="reference internal" href="#equation-eq-arrhenius-fit">Eq. 45</a> to those rates: <code class="docutils literal notranslate"><span class="pre">numpy.polyfit</span></code> of <span class="math notranslate nohighlight">\(\ln k\)</span>
+against <span class="math notranslate nohighlight">\(1/T\)</span>, degree 1, with <span class="math notranslate nohighlight">\(E_a = -R\times\text{slope}\)</span>. Compare <span class="math notranslate nohighlight">\(E_a\)</span> with the
+barrier you put in, and check the difference against <span class="math notranslate nohighlight">\(RT_0\)</span> at the window’s mean
+inverse temperature <span class="math notranslate nohighlight">\(T_0 = 1/\langle 1/T\rangle\)</span>.</p>
+<p><strong>Part c)</strong> Apply <a class="reference internal" href="#equation-eq-wigner">Eq. 47</a> for an imaginary frequency of <span class="math notranslate nohighlight">\(600\,\)</span>cm<span class="math notranslate nohighlight">\(^{-1}\)</span>, a
+representative value for a breaking C–O stretch, and report how much tunnelling
+changes the rate at each end of the window. Plot the Arrhenius line and the
+tunnelling factor together.</p>
+<div class="cell tag_solution tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>barrier (B3LYP-TZVP)        = 66.080 kcal/mol
+Arrhenius Ea from the fit   = 67.254 kcal/mol
+offset Ea - barrier         = 1.1737 kcal/mol
+R*T0 at T0 = 594.1 K        = 1.1806 kcal/mol   (ratio 0.9941, theory 1)
+Wigner kappa: 1.124 at 500 K -&gt; 1.063 at 700 K
+</pre></div>
+</div>
+<figure class="align-default" id="fig-rxn-arrhenius">
+<img alt="../../_images/6fc76f963bab228e2a899e83d70a49db0874419b68d22f4f0bfd2f1957316baa.png" src="../../_images/6fc76f963bab228e2a899e83d70a49db0874419b68d22f4f0bfd2f1957316baa.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 53 </span><span class="caption-text">Left: the Eyring rate constant for the converged B3LYP-TZVP barrier, plotted as <span class="math notranslate nohighlight">\(\ln k\)</span> against <span class="math notranslate nohighlight">\(1/T\)</span> over 500–700 K, with the straight-line Arrhenius fit. The fit is excellent, yet its slope returns an activation energy <span class="math notranslate nohighlight">\(RT\)</span> ABOVE the barrier that generated it – the temperature-dependent prefactor of transition-state theory contributes its own slope. Right: Wigner’s tunnelling correction <span class="math notranslate nohighlight">\(\kappa(T)\)</span> for an imaginary frequency of 600 cm<span class="math notranslate nohighlight">\(^{-1}\)</span>; it exceeds one at all temperatures, since tunnelling can only speed a reaction up, and decays as thermal energy makes it unnecessary.</span><a class="headerlink" href="#fig-rxn-arrhenius" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</div>
+</div>
+<section id="validation-5-the-measured-activation-energy-is-not-the-barrier">
+<h3>Validation 5 — the measured activation energy is not the barrier<a class="headerlink" href="#validation-5-the-measured-activation-energy-is-not-the-barrier" title="Link to this heading">#</a></h3>
+<p>Three checks, all deterministic. The fitted activation energy must come out <em>above</em>
+the barrier that generated the data, which is the whole point and would fail
+immediately if the Eyring prefactor were dropped. The size of that excess must match
+<span class="math notranslate nohighlight">\(RT_0\)</span>, which is a prediction with no free parameters. And the tunnelling factor must
+exceed one everywhere and fall with temperature — a <span class="math notranslate nohighlight">\(\kappa\)</span> below one would mean
+tunnelling had slowed the reaction down.</p>
+<div class="cell tag_validation tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>✓  the Arrhenius activation energy exceeds the barrier that generated the rates: the (k_B T / h) prefactor contributes its own slope, so a measured Ea and a computed barrier are different quantities   [Ea = 67.254 vs barrier 66.080 kcal/mol]
+✓  and the excess is R*T0 exactly, as eq-ea-offset predicts with no free parameters (a finite fit window averages the pointwise relation, hence the sub-percent tolerance)   [got 0.994088 vs expected 1 (rtol=0.03, atol=1e-09)]
+✓  and Wigner tunnelling can only speed the reaction up, by less and less as thermal energy makes the detour unnecessary   [kappa from 1.124 at 500 K to 1.063 at 700 K]
 </pre></div>
 </div>
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>True
@@ -1076,6 +1192,10 @@ path, the reason the reaction is run over a catalyst in practice.</p></li>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-4-from-barrier-to-reaction-rate">Exercise 4 — From barrier to reaction rate</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#validation-4-the-rate-spans-many-orders-of-magnitude">Validation 4 — the rate spans many orders of magnitude</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-5-what-an-experiment-would-actually-measure">Exercise 5 — What an experiment would actually measure</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#validation-5-the-measured-activation-energy-is-not-the-barrier">Validation 5 — the measured activation energy is not the barrier</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#notebook-summary">Notebook summary</a></li>

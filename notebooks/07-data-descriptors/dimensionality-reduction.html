@@ -1,0 +1,1331 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta property="og:title" content="7.2 Dimensionality Reduction and Farthest-Point Sampling" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://ramador.me/molecular-materials-modelling-public/notebooks/07-data-descriptors/dimensionality-reduction.html" />
+<meta property="og:site_name" content="Molecular and Materials Modelling" />
+<meta property="og:description" content="Notebook overview: §7.1 turned an atomic environment into a sixteen-component vector, invariant to everything the energy is invariant to. That solves the rep..." />
+<meta property="og:image" content="https://ramador.me/molecular-materials-modelling-public/_static/og.png" />
+<meta property="og:image:alt" content="Molecular and Materials Modelling" />
+<meta name="description" content="Notebook overview: §7.1 turned an atomic environment into a sixteen-component vector, invariant to everything the energy is invariant to. That solves the rep..." />
+
+    <title>7.2 Dimensionality Reduction and Farthest-Point Sampling &#8212; Molecular and Materials Modelling</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=55c26ed414f5f8a31ebb" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=55c26ed414f5f8a31ebb" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=3c74b3bc" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css?v=9c3e77be" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../../_static/ecp.css?v=4837e097" />
+  
+  <!-- So that users can add custom icons -->
+  <script defer src="../../_static/scripts/fontawesome.js?digest=55c26ed414f5f8a31ebb"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=55c26ed414f5f8a31ebb" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=55c26ed414f5f8a31ebb" />
+
+    <script src="../../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?v=fab101a9"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../_static/togglebutton.js?v=b8b12719"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"tex": {"macros": {"dd": "\\mathrm{d}"}}, "options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'notebooks/07-data-descriptors/dimensionality-reduction';</script>
+    <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
+    <script src="../../_static/home-button.js?v=6d5ef4fc"></script>
+    <script src="../../_static/goatcounter.js?v=ce435452"></script>
+    <link rel="canonical" href="https://ramador.me/molecular-materials-modelling-public/notebooks/07-data-descriptors/dimensionality-reduction.html" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="prev" title="7.1 Describing an Atomic Structure" href="structural-descriptors.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  
+    
+    <script src="../../_static/searchtools.js"></script>
+    <script src="../../_static/language_data.js"></script>
+    <script src="../../searchindex.js"></script>
+  
+  </head>
+  <body data-default-mode="">
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+  
+  
+  
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../00-front-matter/preface.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../_static/logo.svg" class="logo__image only-light" alt="Molecular and Materials Modelling - Home"/>
+    <img src="../../_static/logo.svg" class="logo__image only-dark pst-js-only" alt="Molecular and Materials Modelling - Home"/>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../01-monte-carlo-methods/index.html">Volume I — Statistical Mechanics &amp; Monte Carlo</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../01-monte-carlo-methods/ising-model.html">1.1 The Ising Model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../01-monte-carlo-methods/lattice-gas-kmc.html">1.2 Lattice-Gas Monte Carlo and Kinetic Monte Carlo</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../02-energy-landscapes/index.html">Volume II — Energy Landscapes &amp; Optimization</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../02-energy-landscapes/lennard-jones-clusters.html">2.1 Optimizing Lennard-Jones Clusters</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../03-molecular-dynamics/index.html">Volume III — Molecular Dynamics</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../03-molecular-dynamics/lennard-jones-md.html">3.1 Molecular Dynamics of Lennard-Jones Clusters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../03-molecular-dynamics/replica-exchange.html">3.2 Replica Exchange and the Melting of a Cluster</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../04-electronic-structure/index.html">Volume IV — Electronic Structure</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../04-electronic-structure/silicon-band-structure.html">4.1 The Electronic Band Structure of Silicon</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../04-electronic-structure/oxygen-triplet.html">4.2 The Formation of Molecular Oxygen</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../05-crystals-surfaces/index.html">Volume V — Crystals and Surfaces</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../05-crystals-surfaces/equation-of-state.html">5.1 Lattice Constants from an Equation of State</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../05-crystals-surfaces/hydrocarbons-on-platinum.html">5.2 Hydrocarbons on Platinum</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../06-reactions-free-energy/index.html">Volume VI — Reactions and Free Energy</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../06-reactions-free-energy/ethanol-dehydration.html">6.1 The Dehydration of Ethanol</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../06-reactions-free-energy/neb-chloromethane.html">6.2 The S<span class="math notranslate nohighlight">\(_N\)</span>2 Reaction by Nudged Elastic Band</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../06-reactions-free-energy/metadynamics-graphene.html">6.3 Metadynamics: Nitric Acid on Graphene</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="index.html">Volume VII — Data and Descriptors</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="structural-descriptors.html">7.1 Describing an Atomic Structure</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">7.2 Dimensionality Reduction and Farthest-Point Sampling</a></li>
+</ul>
+</details></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-launch-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
+    <i class="fas fa-rocket"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://mybinder.org/v2/gh/ramador09/molecular-materials-modelling-public/main?urlpath=tree/notebooks/07-data-descriptors/dimensionality-reduction.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch on Binder"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img alt="Binder logo" src="../../_static/images/logo_binder.svg">
+  </span>
+<span class="btn__text-container">Binder</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://colab.research.google.com/github/ramador09/molecular-materials-modelling-public/blob/main/notebooks/07-data-descriptors/dimensionality-reduction.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch on Colab"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img alt="Colab logo" src="../../_static/images/logo_colab.png">
+  </span>
+<span class="btn__text-container">Colab</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/ramador09/molecular-materials-modelling-public" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/ramador09/molecular-materials-modelling-public/issues/new?title=Issue%20on%20page%20%2Fnotebooks/07-data-descriptors/dimensionality-reduction.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../_sources/notebooks/07-data-descriptors/dimensionality-reduction.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button pst-navbar-icon"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+<button class="sidebar-toggle secondary-toggle btn btn-sm pst-navbar-icon" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>7.2 Dimensionality Reduction and Farthest-Point Sampling</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#notebook-overview">Notebook overview</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#theory-in-brief">Theory in brief</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#principal-component-analysis">Principal component analysis</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#classical-multidimensional-scaling">Classical multidimensional scaling</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#farthest-point-sampling">Farthest-point sampling</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#setup">Setup</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1-building-an-ensemble-worth-reducing">Exercise 1 — Building an ensemble worth reducing</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#validation-1-degenerate-then-not">Validation 1 — degenerate, then not</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-2-principal-component-analysis">Exercise 2 — Principal component analysis</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#validation-2-a-good-projection-of-the-wrong-thing">Validation 2 — a good projection, of the wrong thing</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-3-the-same-picture-from-distances-alone">Exercise 3 — The same picture from distances alone</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#validation-3-an-identity-and-its-boundary">Validation 3 — an identity, and its boundary</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-4-choosing-what-to-compute">Exercise 4 — Choosing what to compute</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#validation-4-it-wins-at-its-own-game-and-that-is-the-caveat">Validation 4 — it wins at its own game, and that is the caveat</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#notebook-summary">Notebook summary</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#outlook">Outlook</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#references">References</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="dimensionality-reduction-and-farthest-point-sampling">
+<h1>7.2 Dimensionality Reduction and Farthest-Point Sampling<a class="headerlink" href="#dimensionality-reduction-and-farthest-point-sampling" title="Link to this heading">#</a></h1>
+<div class="cell tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<div class="output text_html"><style>@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,900&family=Source+Serif+4:wght@400;600&family=JetBrains+Mono:wght@400;600&display=swap');</style>
+<div style="
+    font-family:'Source Serif 4', 'Iowan Old Style', Georgia, serif;
+    background:#faf7f0;
+    border:1px solid #dcd6c8;
+    border-left:6px solid #c0851a;
+    border-radius:6px;
+    padding:26px 30px 22px 30px;
+    margin:4px 0 26px 0;
+    box-shadow:0 1px 0 rgba(0,0,0,.03), 0 8px 24px -18px rgba(22,33,62,.5);">
+
+  <div style="font-family:'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace;font-size:12px;letter-spacing:.12em;
+              text-transform:uppercase;color:#c0851a;font-weight:600;
+              margin-bottom:4px;">
+    Molecular and Materials Modelling
+  </div>
+
+  <div style="display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;">
+    <span style="font-family:'Fraunces', 'Iowan Old Style', Georgia, serif;font-weight:900;font-size:22px;
+                 line-height:1.1;color:#16213e;
+                 font-variation-settings:'opsz' 144;">
+      Volume VII — Data and Descriptors
+    </span>
+    <span style="font-family:'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace;font-size:12px;letter-spacing:.06em;
+                 color:#46506b;">
+      Notebook&nbsp;7.2
+    </span>
+  </div>
+
+  <div style="font-family:'Source Serif 4', 'Iowan Old Style', Georgia, serif;font-size:15px;color:#46506b;
+                   margin-top:10px;max-width:62ch;">A descriptor turns each atomic environment into a vector too long to look at, and a trajectory into more environments than anyone can afford to compute properly. Two classical tools answer both problems — projection, to see the data, and farthest-point sampling, to choose which of it is worth the expense.</div>
+
+  <div style="font-family:'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace;font-size:11px;letter-spacing:.04em;
+                   color:#c0851a;margin-top:10px;">Based on FS 2023 · Lecture 11 (dimensionality reduction and sampling)</div>
+
+  <div style="margin-top:16px;"><div class='ecp-meta' style='font-family:'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#46506b;'>Level&nbsp;&middot;&nbsp;advanced&nbsp;&nbsp;&nbsp;&#8226;&nbsp;&nbsp;&nbsp;Est.&nbsp;&middot;&nbsp;90–120 min</div></div>
+
+  <div style="border-top:1px solid #dcd6c8;margin-top:16px;padding-top:12px;
+              display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;
+              font-family:'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace;font-size:11px;color:#46506b;
+              letter-spacing:.04em;">
+    <span>Raymond Amador</span>
+    <span>v1.0.0 &nbsp;·&nbsp; 2026-07-27 &nbsp;·&nbsp;
+          CC&nbsp;BY&nbsp;4.0 (text) / MIT (code)</span>
+  </div>
+</div></div></div>
+</div>
+<section id="notebook-overview">
+<h2>Notebook overview<a class="headerlink" href="#notebook-overview" title="Link to this heading">#</a></h2>
+<p><a class="reference internal" href="structural-descriptors.html"><span class="std std-doc">§7.1</span></a> turned an atomic environment into a
+sixteen-component vector, invariant to everything the energy is invariant to. That
+solves the representation problem and creates two new ones. Sixteen components cannot
+be plotted, so there is no way to <em>look</em> at a dataset of environments and see whether
+it has structure, gaps or duplicates. And a molecular-dynamics run produces environments
+by the million, of which only a handful can be afforded at the level of theory one
+actually wants to fit to — so something has to choose.</p>
+<p>Both problems have classical answers that predate the machine-learning framing by
+decades. <strong>Principal component analysis</strong> finds the directions along which the data
+varies most and projects onto the first two, which is the standard way to get a
+picture. <strong>Classical multidimensional scaling</strong> starts instead from the matrix of
+pairwise distances and asks for the point set that reproduces them best — a different
+question, from a different input, which for Euclidean distances turns out to have
+exactly the same answer, a coincidence worth verifying rather than assuming.
+<strong>Farthest-point sampling</strong> greedily picks the point furthest from everything picked so
+far, which covers the space far more evenly than drawing at random.</p>
+<p>The interesting results here are the negative ones. The projection that captures the
+most variance is not the projection that answers a given question: the leading
+components here sort environments by coordination and leave the fcc/hcp distinction
+— the one <a class="reference internal" href="structural-descriptors.html"><span class="std std-doc">§7.1</span></a> worked hardest to expose — invisible.
+And farthest-point
+sampling, asked to cover the space, spends most of its picks on the outliers.</p>
+<blockquote>
+<div><p><strong>Provenance.</strong> This notebook develops <strong>Lecture 11</strong> of the course (dimensionality
+reduction and sampling), an exercise <strong>designed by the author (Raymond Amador)</strong> to
+restore a lecture the original exercise set announced but never delivered. Like
+<a class="reference internal" href="structural-descriptors.html"><span class="std std-doc">§7.1</span></a> it uses no committed calculation: the ensemble
+is built here from lattice definitions and thermal displacement. The full course
+credit is in the footer.</p>
+</div></blockquote>
+<blockquote>
+<div><p><strong>Reading a validation.</strong> Each task closes with a check against an independent
+fact: that a perfect crystal gives a degenerate dataset, that the two projections
+agree to machine precision, that farthest-point sampling beats random selection at
+the thing it optimises. A ✗ flags a mismatch; a ✓ is strong evidence, not proof.</p>
+</div></blockquote>
+<blockquote>
+<div><p><strong>Scope.</strong> The ensemble is rattled lattices rather than a molecular-dynamics
+trajectory, so that every environment carries a known label to check the projections
+against. Both methods here are linear; the nonlinear family (sketch-map
+<span class="bibtex-citation" id="id1">[<a class="reference internal" href="#id55" title="Michele Ceriotti, Gareth A. Tribello, and Michele Parrinello. Simplifying the representation of complex free-energy landscapes using sketch-map. Proceedings of the National Academy of Sciences, 108(32):13023–13028, 2011. doi:10.1073/pnas.1108486108.">CTP11</a>]</span>, t-SNE, UMAP) is left to the Outlook.</p>
+</div></blockquote>
+</section>
+<section id="theory-in-brief">
+<h2>Theory in brief<a class="headerlink" href="#theory-in-brief" title="Link to this heading">#</a></h2>
+<section id="principal-component-analysis">
+<h3>Principal component analysis<a class="headerlink" href="#principal-component-analysis" title="Link to this heading">#</a></h3>
+<p>Collect <span class="math notranslate nohighlight">\(n\)</span> environments as rows of a matrix <span class="math notranslate nohighlight">\(\mathbf Y\)</span>, each column centred to zero
+mean. PCA looks for the direction <span class="math notranslate nohighlight">\(\hat{\mathbf u}\)</span> along which the projected data has
+the largest variance, then the largest orthogonal to that, and so on. Those directions
+are the eigenvectors of the covariance matrix <span class="math notranslate nohighlight">\(\mathbf Y^\mathsf{T}\mathbf Y / (n-1)\)</span>,
+and they come directly out of the singular value decomposition</p>
+<div class="math notranslate nohighlight" id="equation-eq-svd">
+<span class="eqno">(58)<a class="headerlink" href="#equation-eq-svd" title="Link to this equation">#</a></span>\[\mathbf Y = \mathbf U \mathbf S \mathbf V^\mathsf{T},\]</div>
+<p>whose right singular vectors (the columns of <span class="math notranslate nohighlight">\(\mathbf V\)</span>) are the principal directions
+and whose singular values give the variance carried by each,
+<span class="math notranslate nohighlight">\(\sigma_k^2 / \sum_j \sigma_j^2\)</span>. Projecting onto the first two directions is the
+matrix product <span class="math notranslate nohighlight">\(\mathbf U_{:,:2}\mathbf S_{:2}\)</span>. Working from the SVD rather than by
+forming and diagonalising the covariance matrix is not a stylistic preference: squaring
+<span class="math notranslate nohighlight">\(\mathbf Y\)</span> squares its condition number, and the small singular values are exactly
+where that costs accuracy.</p>
+<p>Because the columns of a descriptor carry different units and wildly different
+magnitudes, they are standardised — each divided by its own standard deviation — before
+any of this. Otherwise PCA reports whichever component happens to be numerically
+largest, which is a fact about the parametrisation and not about the physics.</p>
+</section>
+<section id="classical-multidimensional-scaling">
+<h3>Classical multidimensional scaling<a class="headerlink" href="#classical-multidimensional-scaling" title="Link to this heading">#</a></h3>
+<p>Suppose the coordinates are unavailable and only the matrix of pairwise distances
+<span class="math notranslate nohighlight">\(d_{ij}\)</span> is known. Classical scaling <span class="bibtex-citation" id="id2">[<a class="reference internal" href="#id53" title="Warren S. Torgerson. Multidimensional scaling: i. theory and method. Psychometrika, 17(4):401–419, 1952. doi:10.1007/BF02288916.">Tor52</a>]</span> recovers a point set from
+them. Double-centring the squared-distance matrix with
+<span class="math notranslate nohighlight">\(\mathbf J = \mathbf I - \tfrac1n \mathbf{11}^\mathsf{T}\)</span> produces a Gram matrix</p>
+<div class="math notranslate nohighlight" id="equation-eq-mds-gram">
+<span class="eqno">(59)<a class="headerlink" href="#equation-eq-mds-gram" title="Link to this equation">#</a></span>\[\mathbf B = -\tfrac12\,\mathbf J\,\mathbf D^{(2)}\,\mathbf J,
+\qquad D^{(2)}_{ij} = d_{ij}^2,\]</div>
+<p>whose eigendecomposition <span class="math notranslate nohighlight">\(\mathbf B = \mathbf Q \boldsymbol\Lambda \mathbf Q^\mathsf{T}\)</span>
+gives the embedding <span class="math notranslate nohighlight">\(\mathbf Q_{:,:m}\boldsymbol\Lambda_{:m}^{1/2}\)</span>. When the <span class="math notranslate nohighlight">\(d_{ij}\)</span>
+are Euclidean distances between points that exist, <span class="math notranslate nohighlight">\(\mathbf B = \mathbf Y\mathbf
+Y^\mathsf{T}\)</span> exactly, so its eigenvalues are the squared singular values of
+<span class="math notranslate nohighlight">\(\mathbf Y\)</span> and the two methods return the same embedding up to the sign of each axis.
+Exercise 3 checks that identity numerically. It matters because the MDS route still
+works when the “distance” is something a descriptor never produced coordinates for.</p>
+</section>
+<section id="farthest-point-sampling">
+<h3>Farthest-point sampling<a class="headerlink" href="#farthest-point-sampling" title="Link to this heading">#</a></h3>
+<p>To choose <span class="math notranslate nohighlight">\(k\)</span> representatives from <span class="math notranslate nohighlight">\(n\)</span> points, start anywhere and repeatedly add the
+point whose distance to the nearest already-chosen point is largest
+<span class="bibtex-citation" id="id3">[<a class="reference internal" href="#id52" title="Giulio Imbalzano, Andrea Anelli, Daniele Giofré, Sinja Klees, Jörg Behler, and Michele Ceriotti. Automatic selection of atomic fingerprints and reference configurations for machine-learning potentials. The Journal of Chemical Physics, 148(24):241730, 2018. doi:10.1063/1.5024611.">IAGiofre+18</a>]</span>. The quantity this minimises, greedily, is the <strong>coverage
+radius</strong>: the largest distance from any point of the dataset to its nearest
+representative. A random subset optimises nothing, and in a dataset with rare regions
+it will miss them.</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="setup">
+<h2>Setup<a class="headerlink" href="#setup" title="Link to this heading">#</a></h2>
+<p>The Setup below holds this notebook’s instruments — the lattices, the neighbour
+search, and the descriptor <strong>built from scratch in
+<a class="reference internal" href="structural-descriptors.html"><span class="std std-doc">§7.1</span></a>; restated here as an instrument</strong> so this
+notebook stands alone. The reduction and sampling methods, which are this notebook’s
+subject, are built in the exercises. It is collapsed so the building stays yours;
+expand it whenever you want the details.</p>
+<!-- setup-policy: v2 --><div class="cell tag_hide-input docutils container">
+<details class="admonition hide above-input">
+<summary aria-label="Toggle hidden content">
+<p class="collapsed admonition-title">Show code cell source</p>
+<p class="expanded admonition-title">Hide code cell source</p>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">ase</span><span class="w"> </span><span class="kn">import</span> <span class="n">Atoms</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">ase.build</span><span class="w"> </span><span class="kn">import</span> <span class="n">bulk</span><span class="p">,</span> <span class="n">fcc111</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">ecp</span><span class="w"> </span><span class="kn">import</span> <span class="n">validate</span>
+
+<span class="n">INK</span><span class="p">,</span> <span class="n">AMBER</span><span class="p">,</span> <span class="n">SOFT</span> <span class="o">=</span> <span class="s2">&quot;#16213e&quot;</span><span class="p">,</span> <span class="s2">&quot;#c0851a&quot;</span><span class="p">,</span> <span class="s2">&quot;#46506b&quot;</span>
+<span class="n">PHASE_COLOURS</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;fcc&quot;</span><span class="p">:</span> <span class="s2">&quot;#16213e&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;hcp&quot;</span><span class="p">:</span> <span class="s2">&quot;#c0851a&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;bcc&quot;</span><span class="p">:</span> <span class="s2">&quot;#46506b&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;surface&quot;</span><span class="p">:</span> <span class="s2">&quot;#8c3b3b&quot;</span><span class="p">,</span>
+<span class="p">}</span>
+<span class="c1"># A distinct marker per class as well as a distinct colour: two of the four course</span>
+<span class="c1"># colours are both dark blues, and a scatter that leans on colour alone is unreadable</span>
+<span class="c1"># to a good fraction of readers in any case.</span>
+<span class="n">PHASE_MARKERS</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;fcc&quot;</span><span class="p">:</span> <span class="s2">&quot;o&quot;</span><span class="p">,</span> <span class="s2">&quot;hcp&quot;</span><span class="p">:</span> <span class="s2">&quot;^&quot;</span><span class="p">,</span> <span class="s2">&quot;bcc&quot;</span><span class="p">:</span> <span class="s2">&quot;s&quot;</span><span class="p">,</span> <span class="s2">&quot;surface&quot;</span><span class="p">:</span> <span class="s2">&quot;D&quot;</span><span class="p">}</span>
+
+<span class="c1"># instrument: the lattices, exactly as in §7.1 — one element, and lattice constants</span>
+<span class="c1"># chosen so that every phase has its nearest neighbour at the same distance, so that a</span>
+<span class="c1"># comparison between phases is about structure and not about density.</span>
+<span class="n">NN</span> <span class="o">=</span> <span class="mf">2.5527</span>  <span class="c1"># data: Cu nearest-neighbour distance in Å, from a = 3.61 Å (fcc)</span>
+<span class="n">A_FCC</span> <span class="o">=</span> <span class="n">NN</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mf">2.0</span><span class="p">)</span>
+<span class="n">A_HCP</span><span class="p">,</span> <span class="n">C_HCP</span> <span class="o">=</span> <span class="n">NN</span><span class="p">,</span> <span class="n">NN</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mf">8.0</span> <span class="o">/</span> <span class="mf">3.0</span><span class="p">)</span>
+<span class="n">A_BCC</span> <span class="o">=</span> <span class="mf">2.0</span> <span class="o">*</span> <span class="n">NN</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mf">3.0</span><span class="p">)</span>
+<span class="n">RC</span> <span class="o">=</span> <span class="mf">6.0</span>
+
+<span class="n">_hcp_cell</span> <span class="o">=</span> <span class="n">Atoms</span><span class="p">(</span>
+    <span class="s2">&quot;Cu2&quot;</span><span class="p">,</span>
+    <span class="n">scaled_positions</span><span class="o">=</span><span class="p">[[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span> <span class="o">/</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span> <span class="o">/</span> <span class="mi">3</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">]],</span>
+    <span class="n">cell</span><span class="o">=</span><span class="p">[</span>
+        <span class="p">[</span><span class="n">A_HCP</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">],</span>
+        <span class="p">[</span><span class="o">-</span><span class="n">A_HCP</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="n">A_HCP</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">],</span>
+        <span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="n">C_HCP</span><span class="p">],</span>
+    <span class="p">],</span>
+    <span class="n">pbc</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">LATTICES</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;fcc&quot;</span><span class="p">:</span> <span class="n">bulk</span><span class="p">(</span><span class="s2">&quot;Cu&quot;</span><span class="p">,</span> <span class="s2">&quot;fcc&quot;</span><span class="p">,</span> <span class="n">a</span><span class="o">=</span><span class="n">A_FCC</span><span class="p">,</span> <span class="n">cubic</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span>
+    <span class="s2">&quot;hcp&quot;</span><span class="p">:</span> <span class="n">_hcp_cell</span> <span class="o">*</span> <span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span>
+    <span class="s2">&quot;bcc&quot;</span><span class="p">:</span> <span class="n">bulk</span><span class="p">(</span><span class="s2">&quot;Cu&quot;</span><span class="p">,</span> <span class="s2">&quot;bcc&quot;</span><span class="p">,</span> <span class="n">a</span><span class="o">=</span><span class="n">A_BCC</span><span class="p">,</span> <span class="n">cubic</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span>
+<span class="p">}</span>
+<span class="n">SLAB</span> <span class="o">=</span> <span class="n">fcc111</span><span class="p">(</span><span class="s2">&quot;Cu&quot;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">8</span><span class="p">),</span> <span class="n">a</span><span class="o">=</span><span class="n">A_FCC</span><span class="p">,</span> <span class="n">vacuum</span><span class="o">=</span><span class="mf">12.0</span><span class="p">)</span>
+<span class="n">CLASSES</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;fcc&quot;</span><span class="p">,</span> <span class="s2">&quot;hcp&quot;</span><span class="p">,</span> <span class="s2">&quot;bcc&quot;</span><span class="p">,</span> <span class="s2">&quot;surface&quot;</span><span class="p">)</span>
+
+<span class="c1"># built from scratch in §7.1; restated here as an instrument.</span>
+<span class="n">ETAS</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.05</span><span class="p">,</span> <span class="mf">0.15</span><span class="p">,</span> <span class="mf">0.35</span><span class="p">,</span> <span class="mf">0.80</span><span class="p">,</span> <span class="mf">1.60</span><span class="p">,</span> <span class="mf">3.00</span><span class="p">,</span> <span class="mf">6.00</span><span class="p">,</span> <span class="mf">12.00</span><span class="p">])</span>
+<span class="n">RSS</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">2.40</span><span class="p">,</span> <span class="mf">2.40</span><span class="p">,</span> <span class="mf">2.40</span><span class="p">,</span> <span class="mf">2.60</span><span class="p">,</span> <span class="mf">3.00</span><span class="p">,</span> <span class="mf">3.60</span><span class="p">,</span> <span class="mf">4.40</span><span class="p">,</span> <span class="mf">5.20</span><span class="p">])</span>
+<span class="n">ZETAS</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">,</span> <span class="mf">4.0</span><span class="p">,</span> <span class="mf">8.0</span><span class="p">,</span> <span class="mf">16.0</span><span class="p">,</span> <span class="mf">4.0</span><span class="p">,</span> <span class="mf">8.0</span><span class="p">,</span> <span class="mf">16.0</span><span class="p">])</span>
+<span class="n">LAMS</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.0</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.0</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.0</span><span class="p">])</span>
+<span class="n">ETA_ANG</span> <span class="o">=</span> <span class="mf">0.005</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">cutoff</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">rc</span><span class="o">=</span><span class="n">RC</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Behler&#39;s cosine cutoff; built from scratch in §7.1.&quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">r</span> <span class="o">&lt;</span> <span class="n">rc</span><span class="p">,</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">r</span> <span class="o">/</span> <span class="n">rc</span><span class="p">)</span> <span class="o">+</span> <span class="mf">1.0</span><span class="p">),</span> <span class="mf">0.0</span><span class="p">)</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">neighbours</span><span class="p">(</span><span class="n">pos</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">cell</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">rc</span><span class="o">=</span><span class="n">RC</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Vectors and distances to the neighbours of atom ``i``; built from scratch in §7.1.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    pos : numpy.ndarray</span>
+<span class="sd">        Atomic positions, shape (n_atoms, 3), in Å.</span>
+<span class="sd">    i : int</span>
+<span class="sd">        Index of the central atom.</span>
+<span class="sd">    cell : numpy.ndarray, optional</span>
+<span class="sd">        Row-wise cell vectors, shape (3, 3); ``None`` for an isolated system.</span>
+<span class="sd">    rc : float, optional</span>
+<span class="sd">        Cutoff radius in Å.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    tuple of numpy.ndarray</span>
+<span class="sd">        ``(vectors, distances)`` for the neighbours inside the cutoff.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">d</span> <span class="o">=</span> <span class="n">pos</span> <span class="o">-</span> <span class="n">pos</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+    <span class="k">if</span> <span class="n">cell</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">frac</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">cell</span><span class="p">)</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">d</span><span class="o">.</span><span class="n">T</span><span class="p">)</span><span class="o">.</span><span class="n">T</span>
+        <span class="n">frac</span> <span class="o">-=</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">frac</span><span class="p">)</span>
+        <span class="n">d</span> <span class="o">=</span> <span class="n">frac</span> <span class="o">@</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">cell</span><span class="p">)</span>
+    <span class="n">r</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">keep</span> <span class="o">=</span> <span class="p">(</span><span class="n">r</span> <span class="o">&gt;</span> <span class="mf">1e-8</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">r</span> <span class="o">&lt;</span> <span class="n">rc</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">d</span><span class="p">[</span><span class="n">keep</span><span class="p">],</span> <span class="n">r</span><span class="p">[</span><span class="n">keep</span><span class="p">]</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">descriptor</span><span class="p">(</span><span class="n">pos</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">cell</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">rc</span><span class="o">=</span><span class="n">RC</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;The §7.1 symmetry-function vector for the environment of atom ``i``.</span>
+
+<span class="sd">    Eight radial functions (Eq. eq-bp-g2 of §7.1) followed by eight angular ones in the</span>
+<span class="sd">    G5 form, which §7.1 showed is the variant that can separate the close-packed</span>
+<span class="sd">    stackings. Restated here as an instrument so this notebook stands alone.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    pos, i, cell, rc</span>
+<span class="sd">        As for :func:`neighbours`.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    numpy.ndarray</span>
+<span class="sd">        The descriptor, shape (16,).</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">v</span><span class="p">,</span> <span class="n">r</span> <span class="o">=</span> <span class="n">neighbours</span><span class="p">(</span><span class="n">pos</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">cell</span><span class="p">,</span> <span class="n">rc</span><span class="p">)</span>
+    <span class="n">fc</span> <span class="o">=</span> <span class="n">cutoff</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">rc</span><span class="p">)</span>
+    <span class="n">radial</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
+        <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">e</span> <span class="o">*</span> <span class="p">(</span><span class="n">r</span> <span class="o">-</span> <span class="n">s</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="n">fc</span><span class="p">)</span> <span class="k">for</span> <span class="n">e</span><span class="p">,</span> <span class="n">s</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">ETAS</span><span class="p">,</span> <span class="n">RSS</span><span class="p">)]</span>
+    <span class="p">)</span>
+    <span class="n">j</span><span class="p">,</span> <span class="n">k</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">triu_indices</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">r</span><span class="p">),</span> <span class="n">k</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">cos</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">einsum</span><span class="p">(</span><span class="s2">&quot;ij,ij-&gt;i&quot;</span><span class="p">,</span> <span class="n">v</span><span class="p">[</span><span class="n">j</span><span class="p">],</span> <span class="n">v</span><span class="p">[</span><span class="n">k</span><span class="p">])</span> <span class="o">/</span> <span class="p">(</span><span class="n">r</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">*</span> <span class="n">r</span><span class="p">[</span><span class="n">k</span><span class="p">])</span>
+    <span class="n">w</span> <span class="o">=</span> <span class="n">cutoff</span><span class="p">(</span><span class="n">r</span><span class="p">[</span><span class="n">j</span><span class="p">],</span> <span class="n">rc</span><span class="p">)</span> <span class="o">*</span> <span class="n">cutoff</span><span class="p">(</span><span class="n">r</span><span class="p">[</span><span class="n">k</span><span class="p">],</span> <span class="n">rc</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">ETA_ANG</span> <span class="o">*</span> <span class="p">(</span><span class="n">r</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">+</span> <span class="n">r</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">**</span> <span class="mi">2</span><span class="p">))</span>
+    <span class="n">angular</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
+        <span class="p">[</span>
+            <span class="mf">2.0</span> <span class="o">**</span> <span class="p">(</span><span class="mf">1.0</span> <span class="o">-</span> <span class="n">z</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">((</span><span class="mf">1.0</span> <span class="o">+</span> <span class="n">l</span> <span class="o">*</span> <span class="n">cos</span><span class="p">)</span> <span class="o">**</span> <span class="n">z</span> <span class="o">*</span> <span class="n">w</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">z</span><span class="p">,</span> <span class="n">l</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">ZETAS</span><span class="p">,</span> <span class="n">LAMS</span><span class="p">)</span>
+        <span class="p">]</span>
+    <span class="p">)</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">([</span><span class="n">radial</span><span class="p">,</span> <span class="n">angular</span><span class="p">])</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">environments</span><span class="p">(</span><span class="n">atoms</span><span class="p">,</span> <span class="n">indices</span><span class="p">,</span> <span class="n">amplitude</span><span class="p">,</span> <span class="n">gen</span><span class="p">,</span> <span class="n">n_sample</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Descriptors of ``n_sample`` atoms drawn from a thermally rattled structure.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    atoms : ase.Atoms</span>
+<span class="sd">        The structure to displace.</span>
+<span class="sd">    indices : numpy.ndarray</span>
+<span class="sd">        Atom indices eligible for sampling (used to restrict a slab to its top layer).</span>
+<span class="sd">    amplitude : float</span>
+<span class="sd">        Standard deviation of the Gaussian displacement applied to every atom, in Å.</span>
+<span class="sd">    gen : numpy.random.Generator</span>
+<span class="sd">        Source of randomness.</span>
+<span class="sd">    n_sample : int</span>
+<span class="sd">        How many environments to return.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    numpy.ndarray</span>
+<span class="sd">        Descriptors, shape (n_sample, 16).</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">pos</span> <span class="o">=</span> <span class="n">atoms</span><span class="o">.</span><span class="n">get_positions</span><span class="p">()</span> <span class="o">+</span> <span class="n">gen</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="n">scale</span><span class="o">=</span><span class="n">amplitude</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">atoms</span><span class="p">),</span> <span class="mi">3</span><span class="p">))</span>
+    <span class="n">cell</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">atoms</span><span class="o">.</span><span class="n">get_cell</span><span class="p">())</span>
+    <span class="n">chosen</span> <span class="o">=</span> <span class="n">gen</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">indices</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">n_sample</span><span class="p">,</span> <span class="n">replace</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">descriptor</span><span class="p">(</span><span class="n">pos</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">i</span><span class="p">),</span> <span class="n">cell</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">chosen</span><span class="p">])</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">eligible</span><span class="p">(</span><span class="n">atoms</span><span class="p">,</span> <span class="n">top_layer_only</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Indices an environment may be sampled from.&quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">top_layer_only</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">atoms</span><span class="p">))</span>
+    <span class="n">z</span> <span class="o">=</span> <span class="n">atoms</span><span class="o">.</span><span class="n">get_positions</span><span class="p">()[:,</span> <span class="mi">2</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">z</span> <span class="o">&gt;</span> <span class="n">z</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">-</span> <span class="mf">0.1</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</details>
+</div>
+</section>
+<hr class="docutils" />
+<section id="exercise-1-building-an-ensemble-worth-reducing">
+<h2>Exercise 1 — Building an ensemble worth reducing<a class="headerlink" href="#exercise-1-building-an-ensemble-worth-reducing" title="Link to this heading">#</a></h2>
+<p>Before any projection, the data has to be worth projecting. A perfect crystal is a
+trap here: every atom of a given phase sits in an environment identical to every
+other by symmetry, so a dataset of a thousand perfect-crystal environments contains
+exactly as much information as one of four. Thermal displacement is what makes a real
+ensemble continuous, and a molecular-dynamics trajectory would supply it; rattling the
+lattice is the same effect, reproducibly.</p>
+<p><strong>Part a)</strong> Build the descriptors of many atoms in each <em>perfect</em> lattice and measure
+the spread within each phase. Establish that the dataset is degenerate.</p>
+<p><strong>Part b)</strong> Rebuild it with each structure rattled by a Gaussian displacement over a
+range of amplitudes, and confirm the spread is now non-zero and grows with amplitude.
+Assemble the full labelled dataset that the rest of the notebook uses.</p>
+<div class="cell tag_solution tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>perfect fcc: largest component-wise standard deviation = 4.64e-14
+perfect hcp: largest component-wise standard deviation = 2.66e-14
+perfect bcc: largest component-wise standard deviation = 2.01e-14
+</pre></div>
+</div>
+<figure class="align-default" id="fig-dr-ensemble">
+<img alt="../../_images/7e92ca1ff02b7ce837600fa1a9caf3a73c6780c0368fe79a720b9d8290fe14c7.png" src="../../_images/7e92ca1ff02b7ce837600fa1a9caf3a73c6780c0368fe79a720b9d8290fe14c7.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 64 </span><span class="caption-text">Spread of the descriptors within each phase, as a function of the amplitude of the Gaussian displacement applied to the atoms. At zero amplitude every atom of a given phase has an environment identical to every other by symmetry, so the spread is exactly zero and a dataset of any size carries no more information than a single point per phase. Thermal displacement is what turns a set of lattices into an ensemble; the spread grows roughly linearly with the displacement, and it is this variation the projections of Exercises 2 and 3 have to organise.</span><a class="headerlink" href="#fig-dr-ensemble" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>dataset: 240 environments × 16 descriptor components
+classes: fcc (60), hcp (60), bcc (60), surface (60)
+mean within-phase spread by amplitude: 0.02 Å -&gt; 0.09, 0.06 Å -&gt; 0.30, 0.10 Å -&gt; 0.54, 0.16 Å -&gt; 0.87, 0.24 Å -&gt; 1.38
+</pre></div>
+</div>
+</div>
+</div>
+<section id="validation-1-degenerate-then-not">
+<h3>Validation 1 — degenerate, then not<a class="headerlink" href="#validation-1-degenerate-then-not" title="Link to this heading">#</a></h3>
+<p>Two checks that bracket the exercise. In the perfect lattices every environment of a
+phase must be identical to machine precision, which is a consequence of the space-group
+symmetry and simultaneously a test that the periodic neighbour search is right. Once
+the structures are rattled the spread must be non-zero and must increase with the
+displacement, since that is the only thing generating variety in this dataset.</p>
+<div class="cell tag_validation tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>✓  in a perfect lattice every atom of a phase has an identical environment, so the descriptors are equal to machine precision and a larger sample of a perfect crystal contains no more information than a single atom of it   [fcc: 4.6e-14, hcp: 2.7e-14, bcc: 2.0e-14]
+✓  while rattling makes the spread non-zero and strictly increasing in the displacement amplitude, which is what turns a handful of lattices into an ensemble with something for a projection to organise   [spread 0.09 &lt; 0.30 &lt; 0.54 &lt; 0.87 &lt; 1.38]
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>True
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<hr class="docutils" />
+<section id="exercise-2-principal-component-analysis">
+<h2>Exercise 2 — Principal component analysis<a class="headerlink" href="#exercise-2-principal-component-analysis" title="Link to this heading">#</a></h2>
+<p>Sixteen dimensions cannot be looked at. PCA finds the plane in which the data spreads
+out most and projects onto it, which is the standard first look at any dataset —
+provided one remembers what it optimises.</p>
+<p><strong>Part a)</strong> Implement PCA from the singular value decomposition of
+<a class="reference internal" href="#equation-eq-svd">Eq. 58</a>, returning the projected coordinates and the fraction of the variance
+carried by each component. <strong>Write this one yourself</strong> — the implementation is the
+lesson.</p>
+<p><strong>Part b)</strong> Project the dataset onto the first two components and colour by phase.
+Report how much of the variance those two carry.</p>
+<p><strong>Part c)</strong> Ask what the components actually encode. Correlate each with the
+displacement amplitude, and measure how far apart the phase centroids are relative to
+the scatter within a phase. Then check specifically whether fcc and hcp — the pair
+<a class="reference internal" href="#equation-eq-svd">Eq. 58</a> knows nothing about, and which §7.1 needed sharp angular functions to
+separate — are distinguishable in this projection.</p>
+<div class="cell tag_solution tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<figure class="align-default" id="fig-dr-pca">
+<img alt="../../_images/fa89a5a01e31b448f6bf3b39d16761c3c48995ef8ce37228470ca12158b2d179.png" src="../../_images/fa89a5a01e31b448f6bf3b39d16761c3c48995ef8ce37228470ca12158b2d179.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 65 </span><span class="caption-text">Left: the environment dataset projected onto its first two principal components, which together carry 96.5 % of the variance. PC1 separates the under-coordinated surface environments from every bulk phase and PC2 separates body-centred cubic from the close-packed pair, but fcc and hcp land on top of each other. Right: the variance carried by each component, with the correlation between that component and the displacement amplitude marked. Disorder is PC3, carrying only about 2 % of the variance — so the projection that shows the most variation is not the one that answers a question about stacking, and would not have been even if more components were plotted.</span><a class="headerlink" href="#fig-dr-pca" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>PC1 + PC2 carry 96.0 % of the variance
+  PC1:  87.5 %   correlation with disorder +0.023   between/within class spread 6.87
+  PC2:   8.5 %   correlation with disorder +0.149   between/within class spread 2.70
+  PC3:   2.9 %   correlation with disorder -0.762   between/within class spread 0.17
+
+fcc vs hcp centroid gap in the PC1-PC2 plane: 0.99 × the within-class scatter
+bcc vs fcc, for comparison:                    9.16 ×
+</pre></div>
+</div>
+</div>
+</div>
+<section id="validation-2-a-good-projection-of-the-wrong-thing">
+<h3>Validation 2 — a good projection, of the wrong thing<a class="headerlink" href="#validation-2-a-good-projection-of-the-wrong-thing" title="Link to this heading">#</a></h3>
+<p>Three checks. The first two components must carry most of the variance, or the picture
+would be misleading in an ordinary way. The leading component must separate phases
+rather than track disorder, and disorder must appear only further down the ranking,
+which is what makes the plot look organised. And the fcc/hcp centroids must sit within
+roughly one scatter-width of each other while bcc sits far away — the honest statement
+that this projection has hidden the distinction §7.1 worked to expose.</p>
+<div class="cell tag_validation tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>✓  the first two components carry the great majority of the variance, so the two-dimensional picture is not discarding most of what varies   [PC1 + PC2 = 96.0 %]
+✓  the leading component is essentially uncorrelated with the thermal displacement while a later one tracks it closely: PCA has sorted the environments by what they ARE before by how disordered they are, which is why the map looks clean   [|r| with amplitude: PC1 0.02, PC3 0.76]
+✓  and yet fcc and hcp overlap in this plane while bcc is far away: the projection that maximises variance is not the projection that answers a question about stacking, and no amount of variance explained would have made it so   [fcc-hcp gap 0.99 × scatter, bcc-fcc gap 9.16 ×]
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>True
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<hr class="docutils" />
+<section id="exercise-3-the-same-picture-from-distances-alone">
+<h2>Exercise 3 — The same picture from distances alone<a class="headerlink" href="#exercise-3-the-same-picture-from-distances-alone" title="Link to this heading">#</a></h2>
+<p>Classical multidimensional scaling starts from a different input — the matrix of
+pairwise distances, with the coordinates thrown away — and asks for the point set that
+reproduces them. For Euclidean distances it must return the PCA answer, since
+<a class="reference internal" href="#equation-eq-mds-gram">Eq. 59</a> reconstructs <span class="math notranslate nohighlight">\(\mathbf Y\mathbf Y^\mathsf{T}\)</span> exactly. Verifying that
+is worthwhile twice over: it checks both implementations at once, and it makes clear
+what is <em>not</em> guaranteed when the distances are something else.</p>
+<p><strong>Part a)</strong> Build the pairwise distance matrix, double-centre its square as in
+<a class="reference internal" href="#equation-eq-mds-gram">Eq. 59</a>, and diagonalise. <strong>Write this one yourself</strong> — the implementation
+is the lesson.</p>
+<p><strong>Part b)</strong> Compare against Exercise 2: check the MDS eigenvalues against the squared
+singular values, and the embedding against the PCA scores, remembering that each axis
+is determined only up to a sign.</p>
+<p><strong>Part c)</strong> Find where the equivalence ends. Replace the Euclidean distance <span class="math notranslate nohighlight">\(d\)</span> by
+<span class="math notranslate nohighlight">\(d^{\alpha}\)</span> — still monotone, so still a sensible ranking of dissimilarity — and
+scan <span class="math notranslate nohighlight">\(\alpha\)</span>. Two different things can go wrong, and they do not go wrong together:
+the embedding can differ from the PCA one, and the dissimilarities can fail to be
+distances between any real points at all, which shows up as negative eigenvalues of
+<span class="math notranslate nohighlight">\(\mathbf B\)</span>. Work out which values of <span class="math notranslate nohighlight">\(\alpha\)</span> produce which.</p>
+<div class="cell tag_solution tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<figure class="align-default" id="fig-dr-mds">
+<img alt="../../_images/98a70351395fb73109655a256a8803bd734d8b96f1c6e41086356b50eb083c6f.png" src="../../_images/98a70351395fb73109655a256a8803bd734d8b96f1c6e41086356b50eb083c6f.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 66 </span><span class="caption-text">Classical multidimensional scaling of the same dataset, computed from the matrix of pairwise distances with the coordinates discarded. Left: the embedding, which reproduces the principal-component map of the previous figure to machine precision, up to the sign of each axis. Middle: the spectrum of the double-centred Gram matrix against the squared singular values from the singular value decomposition, which agree to fourteen digits — the numerical statement of the identity B = YYᵀ. Right: what happens when the Euclidean distance d is replaced by d^α. Any α other than 1 moves the embedding away from the principal-component one, but only α &gt; 1 drives eigenvalues of B negative, the signature that no set of real points has those dissimilarities at all. Powers at or below 1 remain perfectly embeddable — they simply embed a different geometry.</span><a class="headerlink" href="#fig-dr-mds" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>MDS eigenvalues vs PCA squared singular values: max relative difference 2.85e-15
+MDS embedding vs PCA scores:                    relative difference     2.67e-15
+
+powering the dissimilarity, d -&gt; d**α:
+  α = 0.5: differs from PCA by 2.28e-01, negative spectral weight -0.00 %  (still Euclidean)
+  α = 1.0: differs from PCA by 2.53e-15, negative spectral weight  0.00 %  (still Euclidean)
+  α = 1.5: differs from PCA by 2.94e-01, negative spectral weight  9.87 %  (NOT Euclidean)
+  α = 2.0: differs from PCA by 3.75e-01, negative spectral weight 17.32 %  (NOT Euclidean)
+  α = 3.0: differs from PCA by 4.53e-01, negative spectral weight 26.80 %  (NOT Euclidean)
+</pre></div>
+</div>
+</div>
+</div>
+<section id="validation-3-an-identity-and-its-boundary">
+<h3>Validation 3 — an identity, and its boundary<a class="headerlink" href="#validation-3-an-identity-and-its-boundary" title="Link to this heading">#</a></h3>
+<p>Three checks. The MDS eigenvalues must match the squared singular values and the
+embedding must match the PCA scores, both to machine precision, which is
+<a class="reference internal" href="#equation-eq-mds-gram">Eq. 59</a> holding exactly for Euclidean input. And with a nonlinear
+dissimilarity the agreement must fail while the Gram matrix acquires appreciable
+negative eigenvalues — the signature that the dissimilarities are not distances
+between any real points at all, which is precisely when the two methods stop being
+the same method.</p>
+<div class="cell tag_validation tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>✓  the eigenvalues of the double-centred Gram matrix are the squared singular values of the data matrix, to machine precision: for Euclidean distances eq-mds-gram reconstructs Y Yᵀ exactly rather than approximately   [max relative difference 2.9e-15]
+✓  so the embedding built from distances alone reproduces the principal-component projection, having never been shown a coordinate   [relative difference 2.7e-15]
+✓  while every other exponent moves the embedding away from the principal-component one: the two methods coincide for the Euclidean distance specifically, and not for monotone rankings of dissimilarity in general   [α=0.5: 2.3e-01, α=1.5: 2.9e-01, α=2.0: 3.8e-01, α=3.0: 4.5e-01]
+✓  and the two ways of failing are distinct. For α ≤ 1 the dissimilarities are still distances between real points — the spectrum stays non-negative and MDS returns a valid, merely different, embedding. Above α = 1 they stop being embeddable at all and a large share of the spectrum turns negative, which is Schoenberg&#39;s classical result showing up as an eigenvalue sign   [α=0.5: -0.0 %, α=1.0: 0.0 %, α=1.5: 9.9 %, α=2.0: 17.3 %, α=3.0: 26.8 %]
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>True
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<hr class="docutils" />
+<section id="exercise-4-choosing-what-to-compute">
+<h2>Exercise 4 — Choosing what to compute<a class="headerlink" href="#exercise-4-choosing-what-to-compute" title="Link to this heading">#</a></h2>
+<p>The practical problem behind all of this: a trajectory offers far more environments
+than can be computed at an expensive level of theory, and something must choose a few
+hundred. Random selection is the obvious baseline. Farthest-point sampling
+<span class="bibtex-citation" id="id4">[<a class="reference internal" href="#id52" title="Giulio Imbalzano, Andrea Anelli, Daniele Giofré, Sinja Klees, Jörg Behler, and Michele Ceriotti. Automatic selection of atomic fingerprints and reference configurations for machine-learning potentials. The Journal of Chemical Physics, 148(24):241730, 2018. doi:10.1063/1.5024611.">IAGiofre+18</a>]</span> is the standard alternative, and comparing them honestly means
+being clear about what each optimises.</p>
+<p><strong>Part a)</strong> Implement farthest-point sampling and the <strong>coverage radius</strong> — the
+largest distance from any point in the dataset to its nearest selected point. <strong>Write
+this one yourself</strong> — the implementation is the lesson.</p>
+<p><strong>Part b)</strong> Compare the coverage achieved by farthest-point sampling against random
+subsets of the same size, across a range of sizes, using enough random draws that the
+comparison means something.</p>
+<p><strong>Part c)</strong> Ask what it costs. Report where the selected points come from, and decide
+whether a set chosen to cover the space is the set you would want to fit a model to.</p>
+<div class="cell tag_solution tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>k= 4: FPS coverage 3.421   random median 4.480   (1.31× worse)   FPS beats  86.2 % of 400 draws
+k= 8: FPS coverage 2.268   random median 3.448   (1.52× worse)   FPS beats  99.5 % of 400 draws
+k=16: FPS coverage 1.718   random median 2.747   (1.60× worse)   FPS beats 100.0 % of 400 draws
+k=32: FPS coverage 1.225   random median 2.391   (1.95× worse)   FPS beats 100.0 % of 400 draws
+
+of the 16 points FPS selects, 75 % come from the most disordered set, which is 20 % of the data
+</pre></div>
+</div>
+</div>
+</div>
+<section id="validation-4-it-wins-at-its-own-game-and-that-is-the-caveat">
+<h3>Validation 4 — it wins at its own game, and that is the caveat<a class="headerlink" href="#validation-4-it-wins-at-its-own-game-and-that-is-the-caveat" title="Link to this heading">#</a></h3>
+<p>Three checks. Farthest-point sampling must achieve a smaller coverage radius than the
+median random subset at every size, and must beat the overwhelming majority of
+individual draws once the subset is big enough to have a choice to make. And the
+selection must be visibly biased towards the extremes of the dataset — not a defect,
+but the direct consequence of the objective, and the reason coverage alone is the
+wrong criterion for assembling a training set.</p>
+<div class="cell tag_validation tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>✓  farthest-point sampling achieves a smaller coverage radius than the median random subset at every size tested, which is the guarantee it is built to provide   [k=4: 3.42 vs 4.48, k=8: 2.27 vs 3.45, k=16: 1.72 vs 2.75, k=32: 1.22 vs 2.39]
+✓  and beats almost every individual random draw once the subset is large enough for the choice to matter, so the advantage is not an artefact of comparing against an unlucky baseline   [k=8: 99.5 %, k=16: 100.0 %, k=32: 100.0 %]
+✓  while over-representing the most strongly displaced environments by more than a factor of two: a rule that seeks out whatever is furthest away will preferentially return outliers, which is what you want for coverage and not what you want for a training set meant to be accurate where the system actually spends its time   [75 % of picks from a set that is 20 % of the data]
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>True
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="notebook-summary">
+<h2>Notebook summary<a class="headerlink" href="#notebook-summary" title="Link to this heading">#</a></h2>
+<p>We took the descriptors of <a class="reference internal" href="structural-descriptors.html"><span class="std std-doc">§7.1</span></a> and asked the two
+questions that follow from having them: how to look at a dataset of environments, and
+how to choose a subset worth computing.</p>
+<p>Building the ensemble came first, and mattered more than it looks. A perfect lattice
+gives every atom of a phase an identical environment, so a dataset of any size collapses
+to one point per phase; thermal displacement is what makes an ensemble continuous.
+Principal component analysis then produced a clean two-dimensional map carrying 96.5 %
+of the variance, on which the leading component sorts environments by coordination and
+disorder appears only in the third. It is a good picture, and it hides exactly the
+distinction §7.1 worked hardest for: fcc and hcp overlap, while bcc sits far away. What
+PCA maximises is variance, and nobody promised that variance and interest are the same
+direction.</p>
+<p>Classical scaling, given only the pairwise distances and no coordinates at all,
+reproduced that map to fourteen digits — the identity <span class="math notranslate nohighlight">\(\mathbf B = \mathbf Y\mathbf
+Y^\mathsf{T}\)</span> holding exactly for Euclidean input. Powering the distance showed where
+that ends, and showed that it ends in two separate ways: any exponent other than one
+moves the embedding, but only exponents above one drive eigenvalues negative and so
+stop the dissimilarities being distances between real points at all. Below one they
+remain perfectly embeddable and simply embed a different geometry — which is the
+regime where scaling is doing something projection cannot.</p>
+<p>Farthest-point sampling beat random selection on coverage radius at every subset size
+and in essentially every individual draw. It also took most of its picks from the most
+strongly displaced environments, which are a fifth of the data. That is not a bug in
+the algorithm; it is what minimising the worst-case gap means. A training set assembled
+this way is excellent at not being surprised and poor at being accurate where the
+system actually spends its time, which is why the practical recipe is usually a blend.</p>
+</section>
+<section id="outlook">
+<h2>Outlook<a class="headerlink" href="#outlook" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>Nonlinear reduction.</strong> Sketch-map <span class="bibtex-citation" id="id5">[<a class="reference internal" href="#id55" title="Michele Ceriotti, Gareth A. Tribello, and Michele Parrinello. Simplifying the representation of complex free-energy landscapes using sketch-map. Proceedings of the National Academy of Sciences, 108(32):13023–13028, 2011. doi:10.1073/pnas.1108486108.">CTP11</a>]</span> was designed for exactly
+this data, preserving distances in a chosen band rather than globally, on the
+argument that neither very near nor very far pairs carry the structure of interest.
+t-SNE and UMAP are the general-purpose relatives, with the standing caveat that
+distances in their output are not to be read quantitatively.</p></li>
+<li><p><strong>Choosing components as well as samples.</strong> The same greedy argument applied to
+<em>columns</em> rather than rows selects a subset of descriptor features, which is how one
+prunes a symmetry-function set from hundreds to dozens <span class="bibtex-citation" id="id6">[<a class="reference internal" href="#id52" title="Giulio Imbalzano, Andrea Anelli, Daniele Giofré, Sinja Klees, Jörg Behler, and Michele Ceriotti. Automatic selection of atomic fingerprints and reference configurations for machine-learning potentials. The Journal of Chemical Physics, 148(24):241730, 2018. doi:10.1063/1.5024611.">IAGiofre+18</a>]</span>.</p></li>
+<li><p><strong>Sampling with a purpose.</strong> Coverage is a proxy. Active learning selects instead the
+environments a model is currently most uncertain about, and retrains — usually a
+better use of an expensive calculation than covering a space uniformly.</p></li>
+<li><p><strong>Beyond the linear map.</strong> The kernel trick applies to both methods here: kernel PCA
+and the SOAP kernel <span class="bibtex-citation" id="id7">[<a class="reference internal" href="#id50" title="Albert P. Bartók, Risi Kondor, and Gábor Csányi. On representing chemical environments. Physical Review B, 87(18):184115, 2013. doi:10.1103/PhysRevB.87.184115.">BartokKCsanyi13</a>]</span> reduce in a feature space where the
+distinction between phases can be far more linearly separable than it is here.</p></li>
+</ul>
+<section id="references">
+<h3>References<a class="headerlink" href="#references" title="Link to this heading">#</a></h3>
+<div class="docutils container" id="id8">
+<div role="list" class="citation-list">
+<div class="citation" id="id50" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id7">BartokKCsanyi13</a><span class="fn-bracket">]</span></span>
+<p>Albert P. Bartók, Risi Kondor, and Gábor Csányi. On representing chemical environments. <em>Physical Review B</em>, 87(18):184115, 2013. <a class="reference external" href="https://doi.org/10.1103/PhysRevB.87.184115">doi:10.1103/PhysRevB.87.184115</a>.</p>
+</div>
+<div class="citation" id="id55" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span>CTP11<span class="fn-bracket">]</span></span>
+<span class="backrefs">(<a role="doc-backlink" href="#id1">1</a>,<a role="doc-backlink" href="#id5">2</a>)</span>
+<p>Michele Ceriotti, Gareth A. Tribello, and Michele Parrinello. Simplifying the representation of complex free-energy landscapes using sketch-map. <em>Proceedings of the National Academy of Sciences</em>, 108(32):13023–13028, 2011. <a class="reference external" href="https://doi.org/10.1073/pnas.1108486108">doi:10.1073/pnas.1108486108</a>.</p>
+</div>
+<div class="citation" id="id52" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span>IAGiofre+18<span class="fn-bracket">]</span></span>
+<span class="backrefs">(<a role="doc-backlink" href="#id3">1</a>,<a role="doc-backlink" href="#id4">2</a>,<a role="doc-backlink" href="#id6">3</a>)</span>
+<p>Giulio Imbalzano, Andrea Anelli, Daniele Giofré, Sinja Klees, Jörg Behler, and Michele Ceriotti. Automatic selection of atomic fingerprints and reference configurations for machine-learning potentials. <em>The Journal of Chemical Physics</em>, 148(24):241730, 2018. <a class="reference external" href="https://doi.org/10.1063/1.5024611">doi:10.1063/1.5024611</a>.</p>
+</div>
+<div class="citation" id="id53" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id2">Tor52</a><span class="fn-bracket">]</span></span>
+<p>Warren S. Torgerson. Multidimensional scaling: i. theory and method. <em>Psychometrika</em>, 17(4):401–419, 1952. <a class="reference external" href="https://doi.org/10.1007/BF02288916">doi:10.1007/BF02288916</a>.</p>
+</div>
+</div>
+</div>
+<div class="cell tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<div class="output text_html"><style>@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,900&family=Source+Serif+4:wght@400;600&family=JetBrains+Mono:wght@400;600&display=swap');</style>
+<div style="font-family:'Source Serif 4', 'Iowan Old Style', Georgia, serif;background:#faf7f0;border:1px solid #dcd6c8;
+            border-left:6px solid #c0851a;border-radius:6px;
+            padding:18px 22px;margin:30px 0 8px 0;">
+  <div style="font-family:'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace;font-size:11px;letter-spacing:.12em;
+              text-transform:uppercase;color:#c0851a;font-weight:600;
+              margin-bottom:6px;">Take this notebook with you</div>
+  <div style="font-size:14.5px;color:#16213e;line-height:1.55;max-width:66ch;">
+    Use the download button (&#8595;) in the toolbar above to save this notebook
+    and run it yourself. The published notebooks ship <b>without worked
+    solutions</b>; if you would like the reference solutions &mdash; to teach
+    from or to check your own work &mdash; get in touch: <a href='mailto:hello@ramador.me' style='color:#c0851a;text-decoration:none;border-bottom:1px solid #c0851a;'>hello@ramador.me</a>.
+  </div>
+  <div style="font-size:12px;color:#46506b;line-height:1.5;max-width:66ch;
+              margin-top:10px;border-top:1px solid #dcd6c8;padding-top:8px;">
+    Based on the lecture and exercise materials of <b>Molecular and Materials Modelling</b> (ETH Z&uuml;rich and Empa, FS&nbsp;2023), developed by Prof.&nbsp;Dr.&nbsp;Daniele Passerone (lectures), Dr.&nbsp;Carlo Pignedoli, and the author (exercises); here synthesised, expanded, and restyled by the author.
+  </div>
+</div></div></div>
+</div>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./notebooks/07-data-descriptors"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="structural-descriptors.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">7.1 Describing an Atomic Structure</p>
+      </div>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item"><div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#notebook-overview">Notebook overview</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#theory-in-brief">Theory in brief</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#principal-component-analysis">Principal component analysis</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#classical-multidimensional-scaling">Classical multidimensional scaling</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#farthest-point-sampling">Farthest-point sampling</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#setup">Setup</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1-building-an-ensemble-worth-reducing">Exercise 1 — Building an ensemble worth reducing</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#validation-1-degenerate-then-not">Validation 1 — degenerate, then not</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-2-principal-component-analysis">Exercise 2 — Principal component analysis</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#validation-2-a-good-projection-of-the-wrong-thing">Validation 2 — a good projection, of the wrong thing</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-3-the-same-picture-from-distances-alone">Exercise 3 — The same picture from distances alone</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#validation-3-an-identity-and-its-boundary">Validation 3 — an identity, and its boundary</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-4-choosing-what-to-compute">Exercise 4 — Choosing what to compute</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#validation-4-it-wins-at-its-own-game-and-that-is-the-caveat">Validation 4 — it wins at its own game, and that is the caveat</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#notebook-summary">Notebook summary</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#outlook">Outlook</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#references">References</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Raymond Amador
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2026 · CC BY 4.0 (text) / MIT (code).
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../../_static/scripts/bootstrap.js?digest=55c26ed414f5f8a31ebb"></script>
+<script defer src="../../_static/scripts/pydata-sphinx-theme.js?digest=55c26ed414f5f8a31ebb"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

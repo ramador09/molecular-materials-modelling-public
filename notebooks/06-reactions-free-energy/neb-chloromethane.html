@@ -256,6 +256,11 @@
 <li class="toctree-l2"><a class="reference internal" href="metadynamics-graphene.html">6.3 Metadynamics: Nitric Acid on Graphene</a></li>
 </ul>
 </details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../07-data-descriptors/index.html">Volume VII — Data and Descriptors</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../07-data-descriptors/structural-descriptors.html">7.1 Describing an Atomic Structure</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../07-data-descriptors/dimensionality-reduction.html">7.2 Dimensionality Reduction and Farthest-Point Sampling</a></li>
+</ul>
+</details></li>
 </ul>
 
     </div>
@@ -516,6 +521,10 @@
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#validation-3-the-band-has-converged">Validation 3 — the band has converged</a></li>
 </ul>
 </li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-4-building-the-band-nudged-elastic-band-from-scratch">Exercise 4 — Building the band: nudged elastic band from scratch</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#validation-4-the-band-lands-on-the-analytic-saddle">Validation 4 — the band lands on the analytic saddle</a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#notebook-summary">Notebook summary</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#outlook">Outlook</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#references">References</a></li>
@@ -614,7 +623,7 @@ proof.</p>
 <blockquote>
 <div><p><strong>Scope.</strong> Energies are the committed CP2K totals (Hartree, converted to kcal/mol);
 we analyse the band rather than rerun it. For the method see the nudged elastic band
-<span class="bibtex-citation" id="id1">[<a class="reference internal" href="#id34" title="Graeme Henkelman, Blas P. Uberuaga, and Hannes Jónsson. A climbing image nudged elastic band method for finding saddle points and minimum energy paths. The Journal of Chemical Physics, 113(22):9901–9904, 2000. doi:10.1063/1.1329672.">HUJonsson00</a>]</span>.</p>
+<span class="bibtex-citation" id="id1">[<a class="reference internal" href="#id35" title="Graeme Henkelman, Blas P. Uberuaga, and Hannes Jónsson. A climbing image nudged elastic band method for finding saddle points and minimum energy paths. The Journal of Chemical Physics, 113(22):9901–9904, 2000. doi:10.1063/1.1329672.">HUJonsson00</a>]</span>.</p>
 </div></blockquote>
 </section>
 <section id="theory-in-brief">
@@ -624,9 +633,9 @@ we analyse the band rather than rerun it. For the method see the nudged elastic 
 <p>A reaction follows the <strong>minimum-energy path</strong> on the potential surface: the lowest
 ridge crossing from the reactant valley to the product valley. Its highest point is
 the <strong>transition state</strong>, and the energy there above the reactant is the activation
-barrier <a class="reference internal" href="#equation-eq-barrier-neb">Eq. 44</a>,</p>
+barrier <a class="reference internal" href="#equation-eq-barrier-neb">Eq. 48</a>,</p>
 <div class="math notranslate nohighlight" id="equation-eq-barrier-neb">
-<span class="eqno">(44)<a class="headerlink" href="#equation-eq-barrier-neb" title="Link to this equation">#</a></span>\[\Delta E^{\ddagger} = E_{\rm TS} - E_{\rm reactant}.\]</div>
+<span class="eqno">(48)<a class="headerlink" href="#equation-eq-barrier-neb" title="Link to this equation">#</a></span>\[\Delta E^{\ddagger} = E_{\rm TS} - E_{\rm reactant}.\]</div>
 </section>
 <section id="nudged-elastic-band">
 <h3>Nudged elastic band<a class="headerlink" href="#nudged-elastic-band" title="Link to this heading">#</a></h3>
@@ -644,7 +653,15 @@ its midpoint.</p>
 <hr class="docutils" />
 <section id="setup">
 <h2>Setup<a class="headerlink" href="#setup" title="Link to this heading">#</a></h2>
-<div class="cell docutils container">
+<p>The Setup below holds this notebook’s data and instruments — nothing you are asked
+to build. It is collapsed so the building stays yours; expand it whenever you want
+the details.</p>
+<!-- setup-policy: v2 --><div class="cell tag_hide-input docutils container">
+<details class="admonition hide above-input">
+<summary aria-label="Toggle hidden content">
+<p class="collapsed admonition-title">Show code cell source</p>
+<p class="expanded admonition-title">Hide code cell source</p>
+</summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
 
@@ -703,17 +720,19 @@ its midpoint.</p>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">lines</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">data_file</span><span class="p">(</span><span class="n">name</span><span class="p">))</span><span class="o">.</span><span class="n">read</span><span class="p">()</span><span class="o">.</span><span class="n">splitlines</span><span class="p">()</span>
     <span class="n">n</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">lines</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">0</span><span class="p">])</span>
-    <span class="n">els</span> <span class="o">=</span> <span class="p">[</span><span class="n">ln</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">ln</span> <span class="ow">in</span> <span class="n">lines</span><span class="p">[</span><span class="mi">2</span><span class="p">:</span><span class="mi">2</span> <span class="o">+</span> <span class="n">n</span><span class="p">]]</span>
-    <span class="n">xyz</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="nb">float</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">ln</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">1</span><span class="p">:</span><span class="mi">4</span><span class="p">]]</span> <span class="k">for</span> <span class="n">ln</span> <span class="ow">in</span> <span class="n">lines</span><span class="p">[</span><span class="mi">2</span><span class="p">:</span><span class="mi">2</span> <span class="o">+</span> <span class="n">n</span><span class="p">]])</span>
+    <span class="n">els</span> <span class="o">=</span> <span class="p">[</span><span class="n">ln</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">ln</span> <span class="ow">in</span> <span class="n">lines</span><span class="p">[</span><span class="mi">2</span> <span class="p">:</span> <span class="mi">2</span> <span class="o">+</span> <span class="n">n</span><span class="p">]]</span>
+    <span class="n">xyz</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="nb">float</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">ln</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">1</span><span class="p">:</span><span class="mi">4</span><span class="p">]]</span> <span class="k">for</span> <span class="n">ln</span> <span class="ow">in</span> <span class="n">lines</span><span class="p">[</span><span class="mi">2</span> <span class="p">:</span> <span class="mi">2</span> <span class="o">+</span> <span class="n">n</span><span class="p">]])</span>
     <span class="k">return</span> <span class="n">els</span><span class="p">,</span> <span class="n">xyz</span>
 
 
 <span class="n">DISPLAY_R</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;H&quot;</span><span class="p">:</span> <span class="mf">0.42</span><span class="p">,</span> <span class="s2">&quot;C&quot;</span><span class="p">:</span> <span class="mf">0.74</span><span class="p">,</span> <span class="s2">&quot;Cl&quot;</span><span class="p">:</span> <span class="mf">1.02</span><span class="p">}</span>  <span class="c1"># drawing radii (Å)</span>
 
+
 <span class="k">def</span><span class="w"> </span><span class="nf">_lighten</span><span class="p">(</span><span class="n">color</span><span class="p">,</span> <span class="n">f</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Blend an RGB colour a fraction ``f`` of the way toward white.&quot;&quot;&quot;</span>
     <span class="n">r</span><span class="p">,</span> <span class="n">g</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="n">mcolors</span><span class="o">.</span><span class="n">to_rgb</span><span class="p">(</span><span class="n">color</span><span class="p">)</span>
     <span class="k">return</span> <span class="p">(</span><span class="n">r</span> <span class="o">+</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">r</span><span class="p">)</span> <span class="o">*</span> <span class="n">f</span><span class="p">,</span> <span class="n">g</span> <span class="o">+</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">g</span><span class="p">)</span> <span class="o">*</span> <span class="n">f</span><span class="p">,</span> <span class="n">b</span> <span class="o">+</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">b</span><span class="p">)</span> <span class="o">*</span> <span class="n">f</span><span class="p">)</span>
+
 
 <span class="k">def</span><span class="w"> </span><span class="nf">sn2_frame</span><span class="p">(</span><span class="n">els</span><span class="p">,</span> <span class="n">xyz</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Orthonormal viewing frame aligned to the Cl···C···Cl axis.</span>
@@ -742,6 +761,7 @@ its midpoint.</p>
     <span class="n">w</span> <span class="o">=</span> <span class="n">w</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">w</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">C</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">([</span><span class="n">u</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">cross</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">w</span><span class="p">)])</span>
 
+
 <span class="k">def</span><span class="w"> </span><span class="nf">draw_sn2</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="n">els</span><span class="p">,</span> <span class="n">xyz</span><span class="p">,</span> <span class="n">C</span><span class="p">,</span> <span class="n">R</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Orthographic ball-and-stick view of an Sₙ2 endpoint in a shared frame.</span>
 
@@ -763,24 +783,42 @@ its midpoint.</p>
 <span class="sd">    The bonded C–Cl (short) is drawn solid, the attacking/leaving C–Cl (long)</span>
 <span class="sd">    dashed, so the exchange of partners is visible at a glance.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">P</span> <span class="o">=</span> <span class="p">(</span><span class="n">xyz</span> <span class="o">-</span> <span class="n">C</span><span class="p">)</span> <span class="o">@</span> <span class="n">R</span><span class="o">.</span><span class="n">T</span>                                <span class="c1"># [Cl-axis, up, depth]</span>
+    <span class="n">P</span> <span class="o">=</span> <span class="p">(</span><span class="n">xyz</span> <span class="o">-</span> <span class="n">C</span><span class="p">)</span> <span class="o">@</span> <span class="n">R</span><span class="o">.</span><span class="n">T</span>  <span class="c1"># [Cl-axis, up, depth]</span>
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">els</span><span class="p">)):</span>
         <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">els</span><span class="p">)):</span>
             <span class="n">d</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">xyz</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">xyz</span><span class="p">[</span><span class="n">j</span><span class="p">])</span>
             <span class="k">if</span> <span class="p">{</span><span class="n">els</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">els</span><span class="p">[</span><span class="n">j</span><span class="p">]}</span> <span class="o">==</span> <span class="p">{</span><span class="s2">&quot;C&quot;</span><span class="p">,</span> <span class="s2">&quot;Cl&quot;</span><span class="p">}:</span>
                 <span class="n">solid</span> <span class="o">=</span> <span class="n">d</span> <span class="o">&lt;</span> <span class="mf">2.0</span>
-                <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="n">P</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">P</span><span class="p">[</span><span class="n">j</span><span class="p">,</span> <span class="mi">0</span><span class="p">]],</span> <span class="p">[</span><span class="n">P</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">P</span><span class="p">[</span><span class="n">j</span><span class="p">,</span> <span class="mi">1</span><span class="p">]],</span> <span class="n">color</span><span class="o">=</span><span class="n">SOFT</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mf">2.2</span><span class="p">,</span>
-                        <span class="n">ls</span><span class="o">=</span><span class="s2">&quot;-&quot;</span> <span class="k">if</span> <span class="n">solid</span> <span class="k">else</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)),</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.85</span> <span class="k">if</span> <span class="n">solid</span> <span class="k">else</span> <span class="mf">0.5</span><span class="p">,</span>
-                        <span class="n">zorder</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+                <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+                    <span class="p">[</span><span class="n">P</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">P</span><span class="p">[</span><span class="n">j</span><span class="p">,</span> <span class="mi">0</span><span class="p">]],</span>
+                    <span class="p">[</span><span class="n">P</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">P</span><span class="p">[</span><span class="n">j</span><span class="p">,</span> <span class="mi">1</span><span class="p">]],</span>
+                    <span class="n">color</span><span class="o">=</span><span class="n">SOFT</span><span class="p">,</span>
+                    <span class="n">lw</span><span class="o">=</span><span class="mf">2.2</span><span class="p">,</span>
+                    <span class="n">ls</span><span class="o">=</span><span class="s2">&quot;-&quot;</span> <span class="k">if</span> <span class="n">solid</span> <span class="k">else</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)),</span>
+                    <span class="n">alpha</span><span class="o">=</span><span class="mf">0.85</span> <span class="k">if</span> <span class="n">solid</span> <span class="k">else</span> <span class="mf">0.5</span><span class="p">,</span>
+                    <span class="n">zorder</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+                <span class="p">)</span>
             <span class="k">elif</span> <span class="n">d</span> <span class="o">&lt;</span> <span class="mf">1.3</span> <span class="o">*</span> <span class="p">(</span><span class="n">RADIUS</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">els</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="mf">0.7</span><span class="p">)</span> <span class="o">+</span> <span class="n">RADIUS</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">els</span><span class="p">[</span><span class="n">j</span><span class="p">],</span> <span class="mf">0.7</span><span class="p">)):</span>
-                <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="n">P</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">P</span><span class="p">[</span><span class="n">j</span><span class="p">,</span> <span class="mi">0</span><span class="p">]],</span> <span class="p">[</span><span class="n">P</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">P</span><span class="p">[</span><span class="n">j</span><span class="p">,</span> <span class="mi">1</span><span class="p">]],</span> <span class="n">color</span><span class="o">=</span><span class="n">SOFT</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mf">2.2</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+                <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+                    <span class="p">[</span><span class="n">P</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">P</span><span class="p">[</span><span class="n">j</span><span class="p">,</span> <span class="mi">0</span><span class="p">]],</span> <span class="p">[</span><span class="n">P</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">P</span><span class="p">[</span><span class="n">j</span><span class="p">,</span> <span class="mi">1</span><span class="p">]],</span> <span class="n">color</span><span class="o">=</span><span class="n">SOFT</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mf">2.2</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">1</span>
+                <span class="p">)</span>
     <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">argsort</span><span class="p">(</span><span class="n">P</span><span class="p">[:,</span> <span class="mi">2</span><span class="p">]):</span>
         <span class="n">c</span><span class="p">,</span> <span class="n">r</span> <span class="o">=</span> <span class="n">CPK</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">els</span><span class="p">[</span><span class="n">k</span><span class="p">],</span> <span class="s2">&quot;#888&quot;</span><span class="p">),</span> <span class="n">DISPLAY_R</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">els</span><span class="p">[</span><span class="n">k</span><span class="p">],</span> <span class="mf">0.5</span><span class="p">)</span>
         <span class="n">z</span> <span class="o">=</span> <span class="mf">2.0</span> <span class="o">+</span> <span class="n">P</span><span class="p">[</span><span class="n">k</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span>
-        <span class="n">ax</span><span class="o">.</span><span class="n">add_patch</span><span class="p">(</span><span class="n">Circle</span><span class="p">((</span><span class="n">P</span><span class="p">[</span><span class="n">k</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">P</span><span class="p">[</span><span class="n">k</span><span class="p">,</span> <span class="mi">1</span><span class="p">]),</span> <span class="n">r</span><span class="p">,</span> <span class="n">facecolor</span><span class="o">=</span><span class="n">c</span><span class="p">,</span>
-                            <span class="n">edgecolor</span><span class="o">=</span><span class="s2">&quot;white&quot;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mf">0.6</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="n">z</span><span class="p">))</span>
-        <span class="n">ax</span><span class="o">.</span><span class="n">add_patch</span><span class="p">(</span><span class="n">Circle</span><span class="p">((</span><span class="n">P</span><span class="p">[</span><span class="n">k</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="mf">0.3</span> <span class="o">*</span> <span class="n">r</span><span class="p">,</span> <span class="n">P</span><span class="p">[</span><span class="n">k</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="mf">0.3</span> <span class="o">*</span> <span class="n">r</span><span class="p">),</span> <span class="mf">0.34</span> <span class="o">*</span> <span class="n">r</span><span class="p">,</span>
-                            <span class="n">facecolor</span><span class="o">=</span><span class="n">_lighten</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">),</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s2">&quot;none&quot;</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="n">z</span> <span class="o">+</span> <span class="mf">0.01</span><span class="p">))</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">add_patch</span><span class="p">(</span>
+            <span class="n">Circle</span><span class="p">(</span>
+                <span class="p">(</span><span class="n">P</span><span class="p">[</span><span class="n">k</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">P</span><span class="p">[</span><span class="n">k</span><span class="p">,</span> <span class="mi">1</span><span class="p">]),</span> <span class="n">r</span><span class="p">,</span> <span class="n">facecolor</span><span class="o">=</span><span class="n">c</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s2">&quot;white&quot;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mf">0.6</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="n">z</span>
+            <span class="p">)</span>
+        <span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">add_patch</span><span class="p">(</span>
+            <span class="n">Circle</span><span class="p">(</span>
+                <span class="p">(</span><span class="n">P</span><span class="p">[</span><span class="n">k</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="mf">0.3</span> <span class="o">*</span> <span class="n">r</span><span class="p">,</span> <span class="n">P</span><span class="p">[</span><span class="n">k</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="mf">0.3</span> <span class="o">*</span> <span class="n">r</span><span class="p">),</span>
+                <span class="mf">0.34</span> <span class="o">*</span> <span class="n">r</span><span class="p">,</span>
+                <span class="n">facecolor</span><span class="o">=</span><span class="n">_lighten</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">),</span>
+                <span class="n">edgecolor</span><span class="o">=</span><span class="s2">&quot;none&quot;</span><span class="p">,</span>
+                <span class="n">zorder</span><span class="o">=</span><span class="n">z</span> <span class="o">+</span> <span class="mf">0.01</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="p">)</span>
     <span class="n">ax</span><span class="o">.</span><span class="n">set_aspect</span><span class="p">(</span><span class="s2">&quot;equal&quot;</span><span class="p">)</span>
     <span class="n">ax</span><span class="o">.</span><span class="n">margins</span><span class="p">(</span><span class="mf">0.15</span><span class="p">)</span>
     <span class="n">ax</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">([])</span>
@@ -790,6 +828,7 @@ its midpoint.</p>
 </pre></div>
 </div>
 </div>
+</details>
 </div>
 </section>
 <section id="exercise-1-the-reactant-and-product">
@@ -801,14 +840,15 @@ hallmark of the Sₙ2 mechanism is that the three hydrogens <strong>invert</stro
 passes through a planar <span class="math notranslate nohighlight">\(\mathrm{CH_3}\)</span> transition state, like an umbrella turning
 inside out — so the product’s pyramid opens the opposite way from the reactant’s, and
 the product geometry is the reactant reflected through that planar midpoint.</p>
-<p><strong>Part a)</strong> Render the reactant and product. <strong>Part b)</strong> Confirm the C–Cl bonding
+<p><strong>Part a)</strong> Render the reactant and product.</p>
+<p><strong>Part b)</strong> Confirm the C–Cl bonding
 swaps between the two (the chlorine that is bonded becomes the one that leaves).</p>
 <div class="cell tag_solution tag_remove-input docutils container">
 <div class="cell_output docutils container">
 <figure class="align-default" id="fig-sn2-endpoints">
 <img alt="../../_images/0af79dcf11a592017fc5ab63835cd210c4f5f04f199857839a4165226610d8a9.png" src="../../_images/0af79dcf11a592017fc5ab63835cd210c4f5f04f199857839a4165226610d8a9.png" />
 <figcaption>
-<p><span class="caption-number">Fig. 52 </span><span class="caption-text">The committed Sₙ2 endpoints: chloromethane with an attacking chloride (reactant) and the product after exchange (carbon grey, hydrogen white, chlorine green). The reaction swaps which chlorine is bonded to carbon; along the path between them, the three hydrogens invert through a planar transition state.</span><a class="headerlink" href="#fig-sn2-endpoints" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 54 </span><span class="caption-text">The committed Sₙ2 endpoints: chloromethane with an attacking chloride (reactant) and the product after exchange (carbon grey, hydrogen white, chlorine green). The reaction swaps which chlorine is bonded to carbon; along the path between them, the three hydrogens invert through a planar transition state.</span><a class="headerlink" href="#fig-sn2-endpoints" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>reactant C–Cl distances: 1.76, 2.26 Å;  product: 1.76, 2.26 Å
@@ -839,14 +879,15 @@ file; its last line is the converged path. We read the ten image energies, measu
 each relative to the endpoints, and plot the profile against the reaction coordinate
 (the cumulative distance along the band). The result is a single symmetric barrier;
 its height is the activation energy of the exchange.</p>
-<p><strong>Part a)</strong> Read the converged band and plot the energy profile. <strong>Part b)</strong> Extract
+<p><strong>Part a)</strong> Read the converged band and plot the energy profile.</p>
+<p><strong>Part b)</strong> Extract
 the activation barrier and confirm the path is symmetric.</p>
 <div class="cell tag_solution tag_remove-input docutils container">
 <div class="cell_output docutils container">
 <figure class="align-default" id="fig-sn2-mep">
 <img alt="../../_images/b617914e2888709e9f170b1991d11e5d672484615745d4dd4ffe4deb535e5eb8.png" src="../../_images/b617914e2888709e9f170b1991d11e5d672484615745d4dd4ffe4deb535e5eb8.png" />
 <figcaption>
-<p><span class="caption-number">Fig. 53 </span><span class="caption-text">Minimum-energy path of the chloride-exchange Sₙ2 reaction from the converged nudged-elastic-band calculation: image energy (kcal/mol, relative to the endpoints) against the reaction coordinate. The path is thermoneutral (equal endpoints) and approximately symmetric, and its single peak, the trigonal-bipyramidal transition state, sits ~8 kcal/mol above the reactant: the gas-phase central barrier of the exchange.</span><a class="headerlink" href="#fig-sn2-mep" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 55 </span><span class="caption-text">Minimum-energy path of the chloride-exchange Sₙ2 reaction from the converged nudged-elastic-band calculation: image energy (kcal/mol, relative to the endpoints) against the reaction coordinate. The path is thermoneutral (equal endpoints) and approximately symmetric, and its single peak, the trigonal-bipyramidal transition state, sits ~8 kcal/mol above the reactant: the gas-phase central barrier of the exchange.</span><a class="headerlink" href="#fig-sn2-mep" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>activation barrier = 8.01 kcal/mol; transition state at image 4 of 9
@@ -882,14 +923,15 @@ relative to the endpoints) against step shows the band settling. It starts from 
 straight-line interpolation between the endpoints, whose strained geometries
 overestimate the barrier, and relaxes downward as the chain finds the true ridge,
 converging after a few tens of iterations.</p>
-<p><strong>Part a)</strong> Compute the barrier at every optimisation step. <strong>Part b)</strong> Confirm it has
+<p><strong>Part a)</strong> Compute the barrier at every optimisation step.</p>
+<p><strong>Part b)</strong> Confirm it has
 converged by the final steps.</p>
 <div class="cell tag_solution tag_remove-input docutils container">
 <div class="cell_output docutils container">
 <figure class="align-default" id="fig-sn2-convergence">
 <img alt="../../_images/4c4ce127d02b9a382f80357bc2c0b646eb597d358ed70a8326611fdb1017dad6.png" src="../../_images/4c4ce127d02b9a382f80357bc2c0b646eb597d358ed70a8326611fdb1017dad6.png" />
 <figcaption>
-<p><span class="caption-number">Fig. 54 </span><span class="caption-text">Convergence of the nudged-elastic-band barrier: the activation energy (highest image relative to the endpoints) versus band-optimisation step. The initial straight-line interpolation overestimates the barrier through its strained geometries; as the chain relaxes onto the minimum-energy path the barrier falls and levels off, converged to ~8 kcal/mol after a few tens of iterations.</span><a class="headerlink" href="#fig-sn2-convergence" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 56 </span><span class="caption-text">Convergence of the nudged-elastic-band barrier: the activation energy (highest image relative to the endpoints) versus band-optimisation step. The initial straight-line interpolation overestimates the barrier through its strained geometries; as the chain relaxes onto the minimum-energy path the barrier falls and levels off, converged to ~8 kcal/mol after a few tens of iterations.</span><a class="headerlink" href="#fig-sn2-convergence" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 </div>
@@ -901,6 +943,87 @@ should agree to a small fraction of a kcal/mol.</p>
 <div class="cell tag_validation tag_remove-input docutils container">
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>✓  the NEB barrier has converged over the last few steps   [change over the final 5 steps = 0.000 kcal/mol (converged at 8.01)]
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>True
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="exercise-4-building-the-band-nudged-elastic-band-from-scratch">
+<h2>Exercise 4 — Building the band: nudged elastic band from scratch<a class="headerlink" href="#exercise-4-building-the-band-nudged-elastic-band-from-scratch" title="Link to this heading">#</a></h2>
+<p>We have read a nudged-elastic-band calculation without ever writing one. The method
+is the notebook’s title, and it is short enough to build in full — on a model
+surface, where the right answer is known in closed form and the band’s failure modes
+are visible rather than inferred.</p>
+<p>The problem NEB solves is that a chain of images between two minima wants to do two
+wrong things. Left to slide downhill, every image falls into a minimum and the chain
+collapses to the endpoints. Tied together with springs and nothing else, the chain
+is pulled straight and cuts the corner, riding over ground far above the true path.
+The fix is to <strong>split the forces by direction</strong>. Along the local tangent
+<span class="math notranslate nohighlight">\(\hat{\boldsymbol\tau}\)</span> only the spring acts, keeping the images spread out;
+perpendicular to it only the potential acts, pulling the chain down into the valley:</p>
+<div class="math notranslate nohighlight" id="equation-eq-neb-force">
+<span class="eqno">(49)<a class="headerlink" href="#equation-eq-neb-force" title="Link to this equation">#</a></span>\[\mathbf F_i = -\nabla V(\mathbf R_i)\big|_{\perp}
+  + k\big(|\mathbf R_{i+1}-\mathbf R_i| - |\mathbf R_i-\mathbf R_{i-1}|\big)\hat{\boldsymbol\tau}_i,
+\qquad
+\nabla V\big|_{\perp} = \nabla V - (\nabla V\cdot\hat{\boldsymbol\tau})\hat{\boldsymbol\tau}.\]</div>
+<p>Neither force is allowed to act in the other’s direction, and that single
+restriction is the whole method. The tangent itself needs care: the naive choice
+<span class="math notranslate nohighlight">\(\mathbf R_{i+1}-\mathbf R_{i-1}\)</span> develops kinks near the saddle, so we use the
+<strong>improved tangent</strong> of Henkelman and Jónsson <span class="bibtex-citation" id="id2">[<a class="reference internal" href="#id35" title="Graeme Henkelman, Blas P. Uberuaga, and Hannes Jónsson. A climbing image nudged elastic band method for finding saddle points and minimum energy paths. The Journal of Chemical Physics, 113(22):9901–9904, 2000. doi:10.1063/1.1329672.">HUJonsson00</a>]</span>, which points
+toward whichever neighbour is higher in energy.</p>
+<p>The test surface has a deliberately <em>curved</em> valley,</p>
+<div class="math notranslate nohighlight" id="equation-eq-neb-surface">
+<span class="eqno">(50)<a class="headerlink" href="#equation-eq-neb-surface" title="Link to this equation">#</a></span>\[V(x,y) = (x^2-1)^2 + K\big(y - a(1-x^2)\big)^2 ,\]</div>
+<p>with minima at <span class="math notranslate nohighlight">\((\pm1,0)\)</span> and a valley floor along <span class="math notranslate nohighlight">\(y=a(1-x^2)\)</span>, so the true saddle
+sits at <span class="math notranslate nohighlight">\((0,a)\)</span> with <span class="math notranslate nohighlight">\(V=1\)</span>. A straight line between the minima passes through
+<span class="math notranslate nohighlight">\((0,0)\)</span>, where <span class="math notranslate nohighlight">\(V = 1+Ka^2\)</span> — for <span class="math notranslate nohighlight">\(K=5\)</span>, <span class="math notranslate nohighlight">\(a=1/2\)</span> that is <span class="math notranslate nohighlight">\(2.25\)</span>, more than twice the
+real barrier. The band has to bend to find the truth, which is exactly what makes
+the relaxation worth watching.</p>
+<p><strong>Part a)</strong> Implement <code class="docutils literal notranslate"><span class="pre">neb_relax(band,</span> <span class="pre">k_spring,</span> <span class="pre">n_steps,</span> <span class="pre">dt)</span></code>. For each interior
+image: form the improved tangent, normalise it, project the potential gradient onto
+the plane perpendicular to it with <code class="docutils literal notranslate"><span class="pre">numpy.dot</span></code>, add the spring term along it from
+<a class="reference internal" href="#equation-eq-neb-force">Eq. 49</a>, and step every image by steepest descent. Hold the endpoints
+fixed — they are minima already, and releasing them would let the whole band slide
+into one basin.
+<strong>Write this one yourself</strong> — the implementation is the lesson.</p>
+<p><strong>Part b)</strong> Relax a straight-line band of eleven images and animate it. Watch two
+things at once: the chain bending up into the curved valley, and the images
+redistributing themselves evenly as the springs equalise their spacing.</p>
+<p><strong>Part c)</strong> Check the converged band against the closed-form answer — the barrier
+height, the saddle position, and the evenness of the spacing — and compare its
+barrier with the straight-line estimate it started from. That ratio is the size of
+the error a linear-interpolation guess would have handed you.</p>
+<div class="cell tag_solution tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>straight-line band peak V = 2.2500 (at image 5)
+relaxed band peak      V = 1.0000 (at image 5)
+true saddle:             V = 1.0000 at (0, 0.5)
+relaxed peak position    = (+0.00000, +0.50000)
+image-spacing spread     = 0.0112 (springs equalise what the potential would not)
+linear interpolation overestimates the barrier by 125 %
+</pre></div>
+</div>
+</div>
+</div>
+<section id="validation-4-the-band-lands-on-the-analytic-saddle">
+<h3>Validation 4 — the band lands on the analytic saddle<a class="headerlink" href="#validation-4-the-band-lands-on-the-analytic-saddle" title="Link to this heading">#</a></h3>
+<p>The model surface was chosen so the answer is known exactly, which makes every
+check here a comparison against closed form rather than against another
+calculation. The relaxed barrier must equal <span class="math notranslate nohighlight">\(V=1\)</span> and its position <span class="math notranslate nohighlight">\((0,a)\)</span>; the
+springs must have equalised the image spacing, since that is their only job; and the
+straight-line band it started from must be substantially too high, which is the
+reason the relaxation was needed at all. Nothing here is random, so the tolerances
+are tight.</p>
+<div class="cell tag_validation tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>✓  the relaxed band&#39;s barrier equals the analytic saddle value of the surface in eq-neb-surface   [got 1 vs expected 1 (rtol=0.001, atol=1e-09)]
+✓  and it sits at the saddle POSITION (0, a): the band bent up into the curved valley rather than cutting the corner   [max|Δ| = 2.22045e-16 (rtol=1e-06, atol=0.002)]
+✓  the spring term has spread the images evenly along the path, which is the only thing it is permitted to do   [spacing spread 0.0112 across 11 images]
+✓  and the straight-line guess it started from overestimates the barrier by more than a factor of two: on a curved path, linear interpolation is an upper bound that can be very loose   [straight line 2.250 vs relaxed 1.000]
 </pre></div>
 </div>
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>True
@@ -936,10 +1059,11 @@ minima, which is why the exercise optimised them first.</p></li>
 </ul>
 <section id="references">
 <h3>References<a class="headerlink" href="#references" title="Link to this heading">#</a></h3>
-<div class="docutils container" id="id2">
+<div class="docutils container" id="id3">
 <div role="list" class="citation-list">
-<div class="citation" id="id34" role="doc-biblioentry">
-<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id1">HUJonsson00</a><span class="fn-bracket">]</span></span>
+<div class="citation" id="id35" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span>HUJonsson00<span class="fn-bracket">]</span></span>
+<span class="backrefs">(<a role="doc-backlink" href="#id1">1</a>,<a role="doc-backlink" href="#id2">2</a>)</span>
 <p>Graeme Henkelman, Blas P. Uberuaga, and Hannes Jónsson. A climbing image nudged elastic band method for finding saddle points and minimum energy paths. <em>The Journal of Chemical Physics</em>, 113(22):9901–9904, 2000. <a class="reference external" href="https://doi.org/10.1063/1.1329672">doi:10.1063/1.1329672</a>.</p>
 </div>
 </div>
@@ -1052,6 +1176,10 @@ minima, which is why the exercise optimised them first.</p></li>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-3-convergence-of-the-band">Exercise 3 — Convergence of the band</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#validation-3-the-band-has-converged">Validation 3 — the band has converged</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-4-building-the-band-nudged-elastic-band-from-scratch">Exercise 4 — Building the band: nudged elastic band from scratch</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#validation-4-the-band-lands-on-the-analytic-saddle">Validation 4 — the band lands on the analytic saddle</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#notebook-summary">Notebook summary</a></li>

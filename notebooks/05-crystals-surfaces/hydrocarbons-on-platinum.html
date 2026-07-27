@@ -256,6 +256,11 @@
 <li class="toctree-l2"><a class="reference internal" href="../06-reactions-free-energy/metadynamics-graphene.html">6.3 Metadynamics: Nitric Acid on Graphene</a></li>
 </ul>
 </details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../07-data-descriptors/index.html">Volume VII — Data and Descriptors</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../07-data-descriptors/structural-descriptors.html">7.1 Describing an Atomic Structure</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../07-data-descriptors/dimensionality-reduction.html">7.2 Dimensionality Reduction and Farthest-Point Sampling</a></li>
+</ul>
+</details></li>
 </ul>
 
     </div>
@@ -516,6 +521,10 @@
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#validation-3-dispersion-is-decisive-and-benzene-binds-most">Validation 3 — dispersion is decisive, and benzene binds most</a></li>
 </ul>
 </li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-4-basis-set-superposition-error-and-the-counterpoise-cure">Exercise 4 — Basis-set superposition error, and the counterpoise cure</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#validation-4-the-signature-of-an-artefact">Validation 4 — the signature of an artefact</a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#notebook-summary">Notebook summary</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#outlook">Outlook</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#references">References</a></li>
@@ -616,8 +625,8 @@ mismatch; a ✓ is strong evidence, not proof.</p>
 <blockquote>
 <div><p><strong>Scope.</strong> Energies are the committed density-functional totals (Hartree, converted
 to eV); we analyse them rather than recompute the slab calculations, which are large
-and beyond a notebook. For dispersion see Grimme’s D3 <span class="bibtex-citation" id="id1">[<a class="reference internal" href="#id33" title="Stefan Grimme, Jens Antony, Stephan Ehrlich, and Helge Krieg. A consistent and accurate ab initio parametrization of density functional dispersion correction (DFT-D) for the 94 elements H-Pu. The Journal of Chemical Physics, 132(15):154104, 2010. doi:10.1063/1.3382344.">GAEK10</a>]</span> and the
-BEEF-vdW functional <span class="bibtex-citation" id="id2">[<a class="reference internal" href="#id34" title="Jess Wellendorff, Keld T. Lundgaard, Andreas Møgelhøj, and others. Density functionals for surface science: exchange-correlation model development with Bayesian error estimation. Physical Review B, 85(23):235149, 2012. doi:10.1103/PhysRevB.85.235149.">WLMogelhoj+12</a>]</span>.</p>
+and beyond a notebook. For dispersion see Grimme’s D3 <span class="bibtex-citation" id="id1">[<a class="reference internal" href="#id34" title="Stefan Grimme, Jens Antony, Stephan Ehrlich, and Helge Krieg. A consistent and accurate ab initio parametrization of density functional dispersion correction (DFT-D) for the 94 elements H-Pu. The Journal of Chemical Physics, 132(15):154104, 2010. doi:10.1063/1.3382344.">GAEK10</a>]</span> and the
+BEEF-vdW functional <span class="bibtex-citation" id="id2">[<a class="reference internal" href="#id35" title="Jess Wellendorff, Keld T. Lundgaard, Andreas Møgelhøj, and others. Density functionals for surface science: exchange-correlation model development with Bayesian error estimation. Physical Review B, 85(23):235149, 2012. doi:10.1103/PhysRevB.85.235149.">WLMogelhoj+12</a>]</span>.</p>
 </div></blockquote>
 </section>
 <section id="theory-in-brief">
@@ -648,12 +657,22 @@ methods.</p>
 <hr class="docutils" />
 <section id="setup">
 <h2>Setup<a class="headerlink" href="#setup" title="Link to this heading">#</a></h2>
-<div class="cell docutils container">
+<p>The Setup below holds this notebook’s data and instruments — nothing you are asked
+to build. It is collapsed so the building stays yours; expand it whenever you want
+the details.</p>
+<!-- setup-policy: v2 --><div class="cell tag_hide-input docutils container">
+<details class="admonition hide above-input">
+<summary aria-label="Toggle hidden content">
+<p class="collapsed admonition-title">Show code cell source</p>
+<p class="expanded admonition-title">Hide code cell source</p>
+</summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">scipy.linalg</span><span class="w"> </span><span class="kn">import</span> <span class="n">eigh</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">ecp</span><span class="w"> </span><span class="kn">import</span> <span class="n">validate</span>
 
@@ -705,12 +724,13 @@ methods.</p>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">lines</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">data_file</span><span class="p">(</span><span class="n">name</span><span class="p">))</span><span class="o">.</span><span class="n">read</span><span class="p">()</span><span class="o">.</span><span class="n">splitlines</span><span class="p">()</span>
     <span class="n">n</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">lines</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">0</span><span class="p">])</span>
-    <span class="n">els</span> <span class="o">=</span> <span class="p">[</span><span class="n">ln</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">ln</span> <span class="ow">in</span> <span class="n">lines</span><span class="p">[</span><span class="mi">2</span><span class="p">:</span><span class="mi">2</span> <span class="o">+</span> <span class="n">n</span><span class="p">]]</span>
-    <span class="n">xyz</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="nb">float</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">ln</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">1</span><span class="p">:</span><span class="mi">4</span><span class="p">]]</span> <span class="k">for</span> <span class="n">ln</span> <span class="ow">in</span> <span class="n">lines</span><span class="p">[</span><span class="mi">2</span><span class="p">:</span><span class="mi">2</span> <span class="o">+</span> <span class="n">n</span><span class="p">]])</span>
+    <span class="n">els</span> <span class="o">=</span> <span class="p">[</span><span class="n">ln</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">ln</span> <span class="ow">in</span> <span class="n">lines</span><span class="p">[</span><span class="mi">2</span> <span class="p">:</span> <span class="mi">2</span> <span class="o">+</span> <span class="n">n</span><span class="p">]]</span>
+    <span class="n">xyz</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="nb">float</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">ln</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">1</span><span class="p">:</span><span class="mi">4</span><span class="p">]]</span> <span class="k">for</span> <span class="n">ln</span> <span class="ow">in</span> <span class="n">lines</span><span class="p">[</span><span class="mi">2</span> <span class="p">:</span> <span class="mi">2</span> <span class="o">+</span> <span class="n">n</span><span class="p">]])</span>
     <span class="k">return</span> <span class="n">els</span><span class="p">,</span> <span class="n">xyz</span>
 </pre></div>
 </div>
 </div>
+</details>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -773,24 +793,36 @@ methods.</p>
             <span class="k">if</span> <span class="n">b</span> <span class="o">&lt;=</span> <span class="n">a</span> <span class="ow">or</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">xyz</span><span class="p">[</span><span class="n">a</span><span class="p">]</span> <span class="o">-</span> <span class="n">xyz</span><span class="p">[</span><span class="n">b</span><span class="p">])</span> <span class="o">&gt;=</span> <span class="mf">1.7</span><span class="p">:</span>
                 <span class="k">continue</span>  <span class="c1"># C-C ~1.4 Å, C-H ~1.1 Å; longer pairs are not bonded</span>
             <span class="n">zmid</span> <span class="o">=</span> <span class="p">((</span><span class="n">xyz</span><span class="p">[</span><span class="n">a</span><span class="p">,</span> <span class="n">dep</span><span class="p">]</span> <span class="o">+</span> <span class="n">xyz</span><span class="p">[</span><span class="n">b</span><span class="p">,</span> <span class="n">dep</span><span class="p">])</span> <span class="o">/</span> <span class="mi">2</span> <span class="o">-</span> <span class="n">lo</span><span class="p">)</span> <span class="o">/</span> <span class="n">span</span>
-            <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="n">xyz</span><span class="p">[</span><span class="n">a</span><span class="p">,</span> <span class="n">hor</span><span class="p">],</span> <span class="n">xyz</span><span class="p">[</span><span class="n">b</span><span class="p">,</span> <span class="n">hor</span><span class="p">]],</span> <span class="p">[</span><span class="n">xyz</span><span class="p">[</span><span class="n">a</span><span class="p">,</span> <span class="n">ver</span><span class="p">],</span> <span class="n">xyz</span><span class="p">[</span><span class="n">b</span><span class="p">,</span> <span class="n">ver</span><span class="p">]],</span>
-                    <span class="n">color</span><span class="o">=</span><span class="s2">&quot;#3f3f3f&quot;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mf">2.6</span><span class="p">,</span> <span class="n">solid_capstyle</span><span class="o">=</span><span class="s2">&quot;round&quot;</span><span class="p">,</span>
-                    <span class="n">zorder</span><span class="o">=</span><span class="mi">200</span> <span class="o">+</span> <span class="n">zmid</span> <span class="o">*</span> <span class="mi">50</span><span class="p">)</span>
+            <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+                <span class="p">[</span><span class="n">xyz</span><span class="p">[</span><span class="n">a</span><span class="p">,</span> <span class="n">hor</span><span class="p">],</span> <span class="n">xyz</span><span class="p">[</span><span class="n">b</span><span class="p">,</span> <span class="n">hor</span><span class="p">]],</span>
+                <span class="p">[</span><span class="n">xyz</span><span class="p">[</span><span class="n">a</span><span class="p">,</span> <span class="n">ver</span><span class="p">],</span> <span class="n">xyz</span><span class="p">[</span><span class="n">b</span><span class="p">,</span> <span class="n">ver</span><span class="p">]],</span>
+                <span class="n">color</span><span class="o">=</span><span class="s2">&quot;#3f3f3f&quot;</span><span class="p">,</span>
+                <span class="n">lw</span><span class="o">=</span><span class="mf">2.6</span><span class="p">,</span>
+                <span class="n">solid_capstyle</span><span class="o">=</span><span class="s2">&quot;round&quot;</span><span class="p">,</span>
+                <span class="n">zorder</span><span class="o">=</span><span class="mi">200</span> <span class="o">+</span> <span class="n">zmid</span> <span class="o">*</span> <span class="mi">50</span><span class="p">,</span>
+            <span class="p">)</span>
 
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">argsort</span><span class="p">(</span><span class="n">depth</span><span class="p">):</span>  <span class="c1"># far first, so near atoms occlude correctly</span>
         <span class="n">el</span> <span class="o">=</span> <span class="n">els</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
         <span class="n">base</span> <span class="o">=</span> <span class="n">CPK</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">el</span><span class="p">,</span> <span class="s2">&quot;#888888&quot;</span><span class="p">)</span>
-        <span class="n">near</span> <span class="o">=</span> <span class="p">(</span><span class="n">xyz</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">dep</span><span class="p">]</span> <span class="o">-</span> <span class="n">lo</span><span class="p">)</span> <span class="o">/</span> <span class="n">span</span>            <span class="c1"># 0 far, 1 near the viewer</span>
+        <span class="n">near</span> <span class="o">=</span> <span class="p">(</span><span class="n">xyz</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">dep</span><span class="p">]</span> <span class="o">-</span> <span class="n">lo</span><span class="p">)</span> <span class="o">/</span> <span class="n">span</span>  <span class="c1"># 0 far, 1 near the viewer</span>
         <span class="k">if</span> <span class="n">el</span> <span class="o">==</span> <span class="s2">&quot;Pt&quot;</span><span class="p">:</span>
             <span class="n">base</span> <span class="o">=</span> <span class="n">_blend</span><span class="p">(</span><span class="n">base</span><span class="p">,</span> <span class="mf">0.55</span> <span class="o">*</span> <span class="p">(</span><span class="mf">1.0</span> <span class="o">-</span> <span class="n">near</span><span class="p">))</span>  <span class="c1"># deeper layers recede</span>
         <span class="n">r</span> <span class="o">=</span> <span class="n">DISPLAY_R</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">el</span><span class="p">,</span> <span class="mf">0.6</span><span class="p">)</span>
         <span class="n">zo</span> <span class="o">=</span> <span class="p">(</span><span class="mi">250</span> <span class="k">if</span> <span class="n">is_mol</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">else</span> <span class="mi">100</span><span class="p">)</span> <span class="o">+</span> <span class="n">near</span> <span class="o">*</span> <span class="mi">40</span>
         <span class="n">cx</span><span class="p">,</span> <span class="n">cy</span> <span class="o">=</span> <span class="n">xyz</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">hor</span><span class="p">],</span> <span class="n">xyz</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">ver</span><span class="p">]</span>
-        <span class="n">ax</span><span class="o">.</span><span class="n">add_patch</span><span class="p">(</span><span class="n">Circle</span><span class="p">((</span><span class="n">cx</span><span class="p">,</span> <span class="n">cy</span><span class="p">),</span> <span class="n">r</span><span class="p">,</span> <span class="n">facecolor</span><span class="o">=</span><span class="n">base</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s2">&quot;#20242c&quot;</span><span class="p">,</span>
-                            <span class="n">lw</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="n">zo</span><span class="p">))</span>
-        <span class="n">ax</span><span class="o">.</span><span class="n">add_patch</span><span class="p">(</span><span class="n">Circle</span><span class="p">((</span><span class="n">cx</span> <span class="o">-</span> <span class="mf">0.32</span> <span class="o">*</span> <span class="n">r</span><span class="p">,</span> <span class="n">cy</span> <span class="o">+</span> <span class="mf">0.32</span> <span class="o">*</span> <span class="n">r</span><span class="p">),</span> <span class="mf">0.40</span> <span class="o">*</span> <span class="n">r</span><span class="p">,</span>  <span class="c1"># highlight</span>
-                            <span class="n">facecolor</span><span class="o">=</span><span class="n">_blend</span><span class="p">(</span><span class="n">base</span><span class="p">,</span> <span class="mf">0.6</span><span class="p">),</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s2">&quot;none&quot;</span><span class="p">,</span>
-                            <span class="n">zorder</span><span class="o">=</span><span class="n">zo</span> <span class="o">+</span> <span class="mf">0.1</span><span class="p">))</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">add_patch</span><span class="p">(</span>
+            <span class="n">Circle</span><span class="p">((</span><span class="n">cx</span><span class="p">,</span> <span class="n">cy</span><span class="p">),</span> <span class="n">r</span><span class="p">,</span> <span class="n">facecolor</span><span class="o">=</span><span class="n">base</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s2">&quot;#20242c&quot;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="n">zo</span><span class="p">)</span>
+        <span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">add_patch</span><span class="p">(</span>
+            <span class="n">Circle</span><span class="p">(</span>
+                <span class="p">(</span><span class="n">cx</span> <span class="o">-</span> <span class="mf">0.32</span> <span class="o">*</span> <span class="n">r</span><span class="p">,</span> <span class="n">cy</span> <span class="o">+</span> <span class="mf">0.32</span> <span class="o">*</span> <span class="n">r</span><span class="p">),</span>
+                <span class="mf">0.40</span> <span class="o">*</span> <span class="n">r</span><span class="p">,</span>  <span class="c1"># highlight</span>
+                <span class="n">facecolor</span><span class="o">=</span><span class="n">_blend</span><span class="p">(</span><span class="n">base</span><span class="p">,</span> <span class="mf">0.6</span><span class="p">),</span>
+                <span class="n">edgecolor</span><span class="o">=</span><span class="s2">&quot;none&quot;</span><span class="p">,</span>
+                <span class="n">zorder</span><span class="o">=</span><span class="n">zo</span> <span class="o">+</span> <span class="mf">0.1</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="p">)</span>
 
     <span class="n">pad</span> <span class="o">=</span> <span class="mf">1.6</span>
     <span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="n">xyz</span><span class="p">[:,</span> <span class="n">hor</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">()</span> <span class="o">-</span> <span class="n">pad</span><span class="p">,</span> <span class="n">xyz</span><span class="p">[:,</span> <span class="n">hor</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">+</span> <span class="n">pad</span><span class="p">)</span>
@@ -856,7 +888,8 @@ converted to eV, is the adsorption energy, and it lands close to the experimenta
 Read that agreement with care, though — Exercise 3 recomputes the adsorption energy
 with two different functionals and finds it moving by more than an electron-volt, so
 this close match is one calculation’s result, not a sign that the method is exact.</p>
-<p><strong>Part a)</strong> Compute <span class="math notranslate nohighlight">\(E_{\rm ads}\)</span> from the three totals. <strong>Part b)</strong> Confirm this
+<p><strong>Part a)</strong> Compute <span class="math notranslate nohighlight">\(E_{\rm ads}\)</span> from the three totals.</p>
+<p><strong>Part b)</strong> Confirm this
 committed calculation lands near the measured benzene adsorption energy.</p>
 <div class="cell tag_solution tag_remove-input docutils container">
 <div class="cell_output docutils container">
@@ -892,7 +925,8 @@ it leaves methane and ethane <em>unbound</em> (positive adsorption energy), and 
 <strong>overbinding</strong> every molecule. The lesson is that for physisorption the dispersion
 treatment, not just the functional, decides the answer.</p>
 <p><strong>Part a)</strong> Plot the adsorption energies of the three hydrocarbons for both methods
-against experiment. <strong>Part b)</strong> Confirm dispersion is decisive: benzene binds most
+against experiment.</p>
+<p><strong>Part b)</strong> Confirm dispersion is decisive: benzene binds most
 strongly throughout, and the two methods bracket experiment.</p>
 <div class="cell tag_solution tag_remove-input docutils container">
 <div class="cell_output docutils container">
@@ -913,6 +947,100 @@ sensitivity.</p>
 <div class="cell tag_validation tag_remove-input docutils container">
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>✓  benzene binds most strongly, and the two methods bracket experiment   [benzene: BEEF-vdW -0.975, exp -1.72, D3 -2.852 eV]
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>True
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="exercise-4-basis-set-superposition-error-and-the-counterpoise-cure">
+<h2>Exercise 4 — Basis-set superposition error, and the counterpoise cure<a class="headerlink" href="#exercise-4-basis-set-superposition-error-and-the-counterpoise-cure" title="Link to this heading">#</a></h2>
+<p>The adsorption energy <a class="reference internal" href="#equation-eq-eads">Eq. 41</a> looks unimpeachable: take the bound system,
+subtract the pieces. It hides a systematic error that has embarrassed a great deal
+of published adsorption chemistry, and Lecture 8 names it in its own title.</p>
+<p>The trouble is that a calculation never uses a <em>complete</em> basis. It uses a finite
+set of functions attached to the atoms. When the molecule sits on the surface, the
+molecule’s electrons can borrow the slab’s basis functions — and the slab’s can
+borrow the molecule’s. Each fragment is therefore described <em>better</em> in the
+combined calculation than it was on its own, and it is described better for a
+reason that has nothing whatever to do with bonding. That artificial stabilisation
+is counted as binding. The <strong>basis-set superposition error</strong> (BSSE) makes
+adsorption look stronger than it is, and it is worst exactly where it is least
+welcome: weak physisorption, where the true binding is small enough for the
+artefact to rival it.</p>
+<p>Boys and Bernardi’s <strong>counterpoise</strong> correction <span class="bibtex-citation" id="id3">[<a class="reference internal" href="#id42" title="S. F. Boys and F. Bernardi. The calculation of small molecular interactions by the differences of separate total energies. some procedures with reduced errors. Molecular Physics, 19(4):553–566, 1970. doi:10.1080/00268977000101561.">BB70</a>]</span> removes
+it by refusing the asymmetry. Compute <em>each fragment in the full dimer basis</em> —
+with the partner’s basis functions present but its nuclei and electrons absent,
+so-called <strong>ghost</strong> functions — so that every term in <a class="reference internal" href="#equation-eq-eads">Eq. 41</a> is evaluated in
+one and the same basis:</p>
+<div class="math notranslate nohighlight" id="equation-eq-counterpoise">
+<span class="eqno">(42)<a class="headerlink" href="#equation-eq-counterpoise" title="Link to this equation">#</a></span>\[E_{\rm ads}^{\rm CP} = E_{AB}^{AB} - E_{A}^{AB} - E_{B}^{AB},\]</div>
+<p>where the superscript is the basis and the subscript the system.</p>
+<p>We cannot run that on benzene and platinum here. We can build the mechanism from
+scratch, in a model small enough to see all the way through: one particle in one
+dimension, two Gaussian wells for the two “fragments”, and a handful of Gaussian
+basis functions on each. Every integral is analytic. The companion Elementary
+Computational Physics course does the same experiment on a real hydrogen atom with
+real ghost Gaussians in
+<a class="reference external" href="https://ramador.me/elementary-computational-physics-public/notebooks/08-electronic-structure/gaussian-basis-sets.html">ECP §8.18</a>;
+what follows is the same effect, stripped to the point where its cause is
+unmistakable.</p>
+<p><strong>Part a)</strong> Implement <code class="docutils literal notranslate"><span class="pre">matrices(basis,</span> <span class="pre">wells)</span></code> for a basis of Gaussians
+<span class="math notranslate nohighlight">\(g_i(x)=e^{-a_i(x-c_i)^2}\)</span>: the overlap <span class="math notranslate nohighlight">\(S_{ij}\)</span>, the kinetic matrix, and the
+potential of a set of Gaussian wells. Use the Gaussian product rule — the product
+of two Gaussians is a third, centred at <span class="math notranslate nohighlight">\(P=(a_iA+a_jB)/(a_i+a_j)\)</span> with exponent
+<span class="math notranslate nohighlight">\(p=a_i+a_j\)</span> and prefactor <span class="math notranslate nohighlight">\(e^{-\mu(A-B)^2}\)</span>, <span class="math notranslate nohighlight">\(\mu=a_ia_j/p\)</span> — so every integral is
+closed-form and nothing is quadrature. Crucially, <code class="docutils literal notranslate"><span class="pre">wells</span></code> lists the wells present in
+the <em>potential</em>: a basis function whose centre is not among them is a <strong>ghost</strong>,
+contributing variational freedom and no attraction. That single argument is what
+makes the whole experiment possible.
+<strong>Write this one yourself</strong> — the implementation is the lesson.</p>
+<p><strong>Part b)</strong> Solve the generalised eigenvalue problem <span class="math notranslate nohighlight">\(Hc=ESc\)</span> with
+<code class="docutils literal notranslate"><span class="pre">scipy.linalg.eigh(H,</span> <span class="pre">S)</span></code> — generalised, because Gaussians on different centres are
+not orthogonal. Compute fragment <span class="math notranslate nohighlight">\(A\)</span>’s ground state twice: in its own basis, and in
+the combined basis with <span class="math notranslate nohighlight">\(B\)</span>’s functions present as ghosts. The difference is the
+BSSE, and by the variational principle its sign is not in doubt.</p>
+<p><strong>Part c)</strong> Establish the two properties that identify BSSE as an artefact rather
+than physics. It must <strong>vanish as the fragments separate</strong>, since functions too far
+away are no use to borrow. And it must <strong>shrink as the fragment’s own basis
+improves</strong>, since there is nothing left to borrow once a fragment is already well
+described. Scan both. Watch <em>which</em> additions help: the diagnosis is in the detail.</p>
+<div class="cell tag_solution tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>E(A, own basis)          = -1.38011138
+E(A, dimer basis, ghost) = -1.38127085
+BSSE                     = 1.159e-03  (positive: spurious stabilisation)
+BSSE vs separation: [ 1.70e-03  1.16e-03  1.85e-06  7.33e-13 -8.88e-16  0.00e+00]
+BSSE vs basis size ([3, 6, 9, 12]): [1.16e-03 1.23e-05 1.17e-05 3.50e-08]
+fragment energy falls monotonically with basis size: [-1.380111 -1.387219 -1.387222 -1.387247]
+</pre></div>
+</div>
+<figure class="align-default" id="fig-pt-bsse">
+<img alt="../../_images/f2312adc6fb2cde26970c4013730964400010692a951ad5c3aee395812a75c10.png" src="../../_images/f2312adc6fb2cde26970c4013730964400010692a951ad5c3aee395812a75c10.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 48 </span><span class="caption-text">Basis-set superposition error in a one-dimensional two-fragment model, computed exactly. Left: BSSE against fragment half-separation on a logarithmic axis; it falls by orders of magnitude once the fragments stop overlapping, because functions too far away cannot be borrowed. Right: BSSE against the number of basis functions per fragment; it collapses as the fragment’s own basis improves, and the collapse comes from adding a DIFFUSE exponent rather than a tight one, since it is the loosely bound tail a fragment borrows from its neighbour. Both behaviours identify BSSE as an artefact of an incomplete basis, not a property of the system.</span><a class="headerlink" href="#fig-pt-bsse" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</div>
+</div>
+<section id="validation-4-the-signature-of-an-artefact">
+<h3>Validation 4 — the signature of an artefact<a class="headerlink" href="#validation-4-the-signature-of-an-artefact" title="Link to this heading">#</a></h3>
+<p>Four checks, all deterministic — there is no randomness anywhere in this model, so
+the tolerances can be tight. The BSSE must be positive, which the variational
+principle guarantees and which therefore tests the implementation rather than the
+physics. It must fall away once the fragments stop overlapping. It must shrink as
+the fragment’s own basis improves. And the fragment energy itself must decrease
+monotonically with basis size, since adding functions can never raise a variational
+minimum — the check that would catch a wrong sign or a broken matrix element.</p>
+<div class="cell tag_validation tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>✓  ghost functions lower the fragment&#39;s energy: the variational principle guarantees the sign, so this tests the matrices rather than the physics   [BSSE = 1.159e-03]
+✓  and it dies away as the fragments separate — functions too far off cannot be borrowed, which is why BSSE is a short-range artefact   [BSSE falls from 1.7e-03 at d = 1.0 to below 1e-10 by d = 3.5, decreasing at every resolvable separation]
+✓  and it collapses as the fragment&#39;s own basis improves: there is nothing left to borrow once a fragment is already well described, so BSSE vanishes in the complete-basis limit   [BSSE 1.16e-03 -&gt; 3.50e-08 for 3 -&gt; 12 functions per fragment]
+✓  the fragment energy never rises when basis functions are added, as the variational principle requires   [E = [-1.380111 -1.387219 -1.387222 -1.387247]]
 </pre></div>
 </div>
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>True
@@ -947,13 +1075,17 @@ pairwise <span class="math notranslate nohighlight">\(-C_6/r^6\)</span> picture 
 </ul>
 <section id="references">
 <h3>References<a class="headerlink" href="#references" title="Link to this heading">#</a></h3>
-<div class="docutils container" id="id3">
+<div class="docutils container" id="id4">
 <div role="list" class="citation-list">
-<div class="citation" id="id33" role="doc-biblioentry">
+<div class="citation" id="id42" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id3">BB70</a><span class="fn-bracket">]</span></span>
+<p>S. F. Boys and F. Bernardi. The calculation of small molecular interactions by the differences of separate total energies. some procedures with reduced errors. <em>Molecular Physics</em>, 19(4):553–566, 1970. <a class="reference external" href="https://doi.org/10.1080/00268977000101561">doi:10.1080/00268977000101561</a>.</p>
+</div>
+<div class="citation" id="id34" role="doc-biblioentry">
 <span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id1">GAEK10</a><span class="fn-bracket">]</span></span>
 <p>Stefan Grimme, Jens Antony, Stephan Ehrlich, and Helge Krieg. A consistent and accurate ab initio parametrization of density functional dispersion correction (DFT-D) for the 94 elements H-Pu. <em>The Journal of Chemical Physics</em>, 132(15):154104, 2010. <a class="reference external" href="https://doi.org/10.1063/1.3382344">doi:10.1063/1.3382344</a>.</p>
 </div>
-<div class="citation" id="id34" role="doc-biblioentry">
+<div class="citation" id="id35" role="doc-biblioentry">
 <span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id2">WLMogelhoj+12</a><span class="fn-bracket">]</span></span>
 <p>Jess Wellendorff, Keld T. Lundgaard, Andreas Møgelhøj, and others. Density functionals for surface science: exchange-correlation model development with Bayesian error estimation. <em>Physical Review B</em>, 85(23):235149, 2012. <a class="reference external" href="https://doi.org/10.1103/PhysRevB.85.235149">doi:10.1103/PhysRevB.85.235149</a>.</p>
 </div>
@@ -1067,6 +1199,10 @@ pairwise <span class="math notranslate nohighlight">\(-C_6/r^6\)</span> picture 
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-3-functional-sensitivity-assignment-6">Exercise 3 — Functional sensitivity (Assignment 6)</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#validation-3-dispersion-is-decisive-and-benzene-binds-most">Validation 3 — dispersion is decisive, and benzene binds most</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-4-basis-set-superposition-error-and-the-counterpoise-cure">Exercise 4 — Basis-set superposition error, and the counterpoise cure</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#validation-4-the-signature-of-an-artefact">Validation 4 — the signature of an artefact</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#notebook-summary">Notebook summary</a></li>

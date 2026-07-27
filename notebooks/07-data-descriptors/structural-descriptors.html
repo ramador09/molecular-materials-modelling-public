@@ -1,0 +1,1337 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta property="og:title" content="7.1 Describing an Atomic Structure" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://ramador.me/molecular-materials-modelling-public/notebooks/07-data-descriptors/structural-descriptors.html" />
+<meta property="og:site_name" content="Molecular and Materials Modelling" />
+<meta property="og:description" content="Notebook overview: Every method in this course so far has taken a structure and returned a number: an energy, a force, a band gap. Machine learning proposes ..." />
+<meta property="og:image" content="https://ramador.me/molecular-materials-modelling-public/_static/og.png" />
+<meta property="og:image:alt" content="Molecular and Materials Modelling" />
+<meta name="description" content="Notebook overview: Every method in this course so far has taken a structure and returned a number: an energy, a force, a band gap. Machine learning proposes ..." />
+
+    <title>7.1 Describing an Atomic Structure &#8212; Molecular and Materials Modelling</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=55c26ed414f5f8a31ebb" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=55c26ed414f5f8a31ebb" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=3c74b3bc" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css?v=9c3e77be" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../../_static/ecp.css?v=4837e097" />
+  
+  <!-- So that users can add custom icons -->
+  <script defer src="../../_static/scripts/fontawesome.js?digest=55c26ed414f5f8a31ebb"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=55c26ed414f5f8a31ebb" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=55c26ed414f5f8a31ebb" />
+
+    <script src="../../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?v=fab101a9"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../_static/togglebutton.js?v=b8b12719"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"tex": {"macros": {"dd": "\\mathrm{d}"}}, "options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'notebooks/07-data-descriptors/structural-descriptors';</script>
+    <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
+    <script src="../../_static/home-button.js?v=6d5ef4fc"></script>
+    <script src="../../_static/goatcounter.js?v=ce435452"></script>
+    <link rel="canonical" href="https://ramador.me/molecular-materials-modelling-public/notebooks/07-data-descriptors/structural-descriptors.html" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="7.2 Dimensionality Reduction and Farthest-Point Sampling" href="dimensionality-reduction.html" />
+    <link rel="prev" title="Volume VII — Data and Descriptors" href="index.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  
+    
+    <script src="../../_static/searchtools.js"></script>
+    <script src="../../_static/language_data.js"></script>
+    <script src="../../searchindex.js"></script>
+  
+  </head>
+  <body data-default-mode="">
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+  
+  
+  
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../00-front-matter/preface.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../_static/logo.svg" class="logo__image only-light" alt="Molecular and Materials Modelling - Home"/>
+    <img src="../../_static/logo.svg" class="logo__image only-dark pst-js-only" alt="Molecular and Materials Modelling - Home"/>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../01-monte-carlo-methods/index.html">Volume I — Statistical Mechanics &amp; Monte Carlo</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../01-monte-carlo-methods/ising-model.html">1.1 The Ising Model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../01-monte-carlo-methods/lattice-gas-kmc.html">1.2 Lattice-Gas Monte Carlo and Kinetic Monte Carlo</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../02-energy-landscapes/index.html">Volume II — Energy Landscapes &amp; Optimization</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../02-energy-landscapes/lennard-jones-clusters.html">2.1 Optimizing Lennard-Jones Clusters</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../03-molecular-dynamics/index.html">Volume III — Molecular Dynamics</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../03-molecular-dynamics/lennard-jones-md.html">3.1 Molecular Dynamics of Lennard-Jones Clusters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../03-molecular-dynamics/replica-exchange.html">3.2 Replica Exchange and the Melting of a Cluster</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../04-electronic-structure/index.html">Volume IV — Electronic Structure</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../04-electronic-structure/silicon-band-structure.html">4.1 The Electronic Band Structure of Silicon</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../04-electronic-structure/oxygen-triplet.html">4.2 The Formation of Molecular Oxygen</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../05-crystals-surfaces/index.html">Volume V — Crystals and Surfaces</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../05-crystals-surfaces/equation-of-state.html">5.1 Lattice Constants from an Equation of State</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../05-crystals-surfaces/hydrocarbons-on-platinum.html">5.2 Hydrocarbons on Platinum</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../06-reactions-free-energy/index.html">Volume VI — Reactions and Free Energy</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../06-reactions-free-energy/ethanol-dehydration.html">6.1 The Dehydration of Ethanol</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../06-reactions-free-energy/neb-chloromethane.html">6.2 The S<span class="math notranslate nohighlight">\(_N\)</span>2 Reaction by Nudged Elastic Band</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../06-reactions-free-energy/metadynamics-graphene.html">6.3 Metadynamics: Nitric Acid on Graphene</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="index.html">Volume VII — Data and Descriptors</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">7.1 Describing an Atomic Structure</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dimensionality-reduction.html">7.2 Dimensionality Reduction and Farthest-Point Sampling</a></li>
+</ul>
+</details></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-launch-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
+    <i class="fas fa-rocket"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://mybinder.org/v2/gh/ramador09/molecular-materials-modelling-public/main?urlpath=tree/notebooks/07-data-descriptors/structural-descriptors.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch on Binder"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img alt="Binder logo" src="../../_static/images/logo_binder.svg">
+  </span>
+<span class="btn__text-container">Binder</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://colab.research.google.com/github/ramador09/molecular-materials-modelling-public/blob/main/notebooks/07-data-descriptors/structural-descriptors.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch on Colab"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img alt="Colab logo" src="../../_static/images/logo_colab.png">
+  </span>
+<span class="btn__text-container">Colab</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/ramador09/molecular-materials-modelling-public" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/ramador09/molecular-materials-modelling-public/issues/new?title=Issue%20on%20page%20%2Fnotebooks/07-data-descriptors/structural-descriptors.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../_sources/notebooks/07-data-descriptors/structural-descriptors.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button pst-navbar-icon"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+<button class="sidebar-toggle secondary-toggle btn btn-sm pst-navbar-icon" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>7.1 Describing an Atomic Structure</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#notebook-overview">Notebook overview</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#theory-in-brief">Theory in brief</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-a-descriptor-has-to-be-blind-to">What a descriptor has to be blind to</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#atom-centred-symmetry-functions">Atom-centred symmetry functions</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#setup">Setup</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1-coordinates-are-not-a-description">Exercise 1 — Coordinates are not a description</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#validation-1-the-coordinates-move-the-physics-does-not">Validation 1 — the coordinates move, the physics does not</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-2-radial-symmetry-functions">Exercise 2 — Radial symmetry functions</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#validation-2-invariant-and-not-vacuous">Validation 2 — invariant, and not vacuous</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-3-what-radial-functions-cannot-see">Exercise 3 — What radial functions cannot see</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#validation-3-a-provable-blindness">Validation 3 — a provable blindness</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-4-angles-and-a-trap-in-the-standard-form">Exercise 4 — Angles, and a trap in the standard form</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#validation-4-the-angular-functions-and-the-one-that-works">Validation 4 — the angular functions, and the one that works</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#why-the-smooth-filters-are-blind-at-low">Why the smooth filters are blind at low ζ</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#notebook-summary">Notebook summary</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#outlook">Outlook</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#references">References</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="describing-an-atomic-structure">
+<h1>7.1 Describing an Atomic Structure<a class="headerlink" href="#describing-an-atomic-structure" title="Link to this heading">#</a></h1>
+<div class="cell tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<div class="output text_html"><style>@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,900&family=Source+Serif+4:wght@400;600&family=JetBrains+Mono:wght@400;600&display=swap');</style>
+<div style="
+    font-family:'Source Serif 4', 'Iowan Old Style', Georgia, serif;
+    background:#faf7f0;
+    border:1px solid #dcd6c8;
+    border-left:6px solid #c0851a;
+    border-radius:6px;
+    padding:26px 30px 22px 30px;
+    margin:4px 0 26px 0;
+    box-shadow:0 1px 0 rgba(0,0,0,.03), 0 8px 24px -18px rgba(22,33,62,.5);">
+
+  <div style="font-family:'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace;font-size:12px;letter-spacing:.12em;
+              text-transform:uppercase;color:#c0851a;font-weight:600;
+              margin-bottom:4px;">
+    Molecular and Materials Modelling
+  </div>
+
+  <div style="display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;">
+    <span style="font-family:'Fraunces', 'Iowan Old Style', Georgia, serif;font-weight:900;font-size:22px;
+                 line-height:1.1;color:#16213e;
+                 font-variation-settings:'opsz' 144;">
+      Volume VII — Data and Descriptors
+    </span>
+    <span style="font-family:'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace;font-size:12px;letter-spacing:.06em;
+                 color:#46506b;">
+      Notebook&nbsp;7.1
+    </span>
+  </div>
+
+  <div style="font-family:'Source Serif 4', 'Iowan Old Style', Georgia, serif;font-size:15px;color:#46506b;
+                   margin-top:10px;max-width:62ch;">Before a machine can learn anything about a structure, the structure has to be turned into numbers — and the obvious numbers, the atomic coordinates, are the wrong ones. We build descriptors that are blind to the things physics is blind to, and then find out what they are blind to that physics is not.</div>
+
+  <div style="font-family:'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace;font-size:11px;letter-spacing:.04em;
+                   color:#c0851a;margin-top:10px;">Based on FS 2023 · Lecture 10 (machine learning for atomistic systems)</div>
+
+  <div style="margin-top:16px;"><div class='ecp-meta' style='font-family:'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#46506b;'>Level&nbsp;&middot;&nbsp;advanced&nbsp;&nbsp;&nbsp;&#8226;&nbsp;&nbsp;&nbsp;Est.&nbsp;&middot;&nbsp;90–120 min</div></div>
+
+  <div style="border-top:1px solid #dcd6c8;margin-top:16px;padding-top:12px;
+              display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;
+              font-family:'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace;font-size:11px;color:#46506b;
+              letter-spacing:.04em;">
+    <span>Raymond Amador</span>
+    <span>v1.0.0 &nbsp;·&nbsp; 2026-07-27 &nbsp;·&nbsp;
+          CC&nbsp;BY&nbsp;4.0 (text) / MIT (code)</span>
+  </div>
+</div></div></div>
+</div>
+<section id="notebook-overview">
+<h2>Notebook overview<a class="headerlink" href="#notebook-overview" title="Link to this heading">#</a></h2>
+<p>Every method in this course so far has taken a structure and returned a number: an
+energy, a force, a band gap. Machine learning proposes to shortcut the expensive part
+by <em>fitting</em> that map from many examples. But a fit needs its input as a fixed-length
+vector of numbers, and the obvious choice — the list of atomic coordinates — is a
+catastrophe. Translate the system, rotate it, or simply relabel the atoms, and the
+coordinate vector changes completely while every physical property stays exactly the
+same. A model trained on coordinates would have to learn those symmetries from data,
+spending its capacity rediscovering facts we already know.</p>
+<p>The fix is a <strong>descriptor</strong>: a function of the structure that is invariant to
+translation, rotation and permutation by construction. This notebook builds one from
+scratch — the <strong>atom-centred symmetry functions</strong> of Behler and Parrinello
+<span class="bibtex-citation" id="id1">[<a class="reference internal" href="#id48" title="Jörg Behler and Michele Parrinello. Generalized neural-network representation of high-dimensional potential-energy surfaces. Physical Review Letters, 98(14):146401, 2007. doi:10.1103/PhysRevLett.98.146401.">BP07</a>]</span> — verifies its invariance to machine precision, and then asks the
+sharper question: what does it fail to distinguish? The answer turns out to be
+specific and instructive. Radial functions alone cannot tell face-centred cubic from
+hexagonal close packed, <em>provably</em>, because within the first two neighbour shells the
+two stackings have identical sets of interatomic distances. Adding angular functions
+is supposed to fix that, and in the standard form it silently does not, for a reason
+worth knowing.</p>
+<blockquote>
+<div><p><strong>Provenance.</strong> This notebook develops <strong>Lecture 10</strong> of the course (machine
+learning for atomistic systems), an exercise <strong>designed by the author (Raymond
+Amador)</strong> to restore a lecture the original exercise set announced but never
+delivered. Unlike most of this course it uses no committed calculation: every
+structure is built here from its lattice definition, so the numbers can be
+re-derived from scratch. The full course credit is in the footer.</p>
+</div></blockquote>
+<blockquote>
+<div><p><strong>Reading a validation.</strong> Each task closes with a check against an independent
+fact: that a symmetry operation leaves the descriptor unchanged to machine
+precision, that two lattices with identical shells give identical radial
+descriptors, that angular functions separate what radial ones cannot. A ✗ flags a
+mismatch; a ✓ is strong evidence, not proof.</p>
+</div></blockquote>
+<blockquote>
+<div><p><strong>Scope.</strong> We build symmetry functions, not a fitted potential — the descriptor is
+the subject here, and <a class="reference internal" href="dimensionality-reduction.html"><span class="std std-doc">§7.2</span></a> takes the descriptors this notebook produces
+and asks how to visualise and sample them. Structures are perfect and rattled
+lattices rather than trajectory snapshots, so that the shell structure is exact and
+the failures are provable rather than statistical.</p>
+</div></blockquote>
+</section>
+<section id="theory-in-brief">
+<h2>Theory in brief<a class="headerlink" href="#theory-in-brief" title="Link to this heading">#</a></h2>
+<section id="what-a-descriptor-has-to-be-blind-to">
+<h3>What a descriptor has to be blind to<a class="headerlink" href="#what-a-descriptor-has-to-be-blind-to" title="Link to this heading">#</a></h3>
+<p>The energy of an isolated system is unchanged by three operations, so any input to a
+model of the energy should be unchanged by them too:</p>
+<ul class="simple">
+<li><p><strong>Translation.</strong> Moving every atom by the same vector changes nothing physical.</p></li>
+<li><p><strong>Rotation.</strong> So does rigidly rotating the whole system.</p></li>
+<li><p><strong>Permutation.</strong> Two atoms of the same element are indistinguishable; swapping
+their labels is not a physical change at all.</p></li>
+</ul>
+<p>Cartesian coordinates satisfy none of these. Interatomic <em>distances</em> satisfy the
+first two immediately, and the third if we only ever use them in sums over
+neighbours, which is the design that follows.</p>
+</section>
+<section id="atom-centred-symmetry-functions">
+<h3>Atom-centred symmetry functions<a class="headerlink" href="#atom-centred-symmetry-functions" title="Link to this heading">#</a></h3>
+<p>Behler and Parrinello <span class="bibtex-citation" id="id2">[<a class="reference internal" href="#id48" title="Jörg Behler and Michele Parrinello. Generalized neural-network representation of high-dimensional potential-energy surfaces. Physical Review Letters, 98(14):146401, 2007. doi:10.1103/PhysRevLett.98.146401.">BP07</a>]</span> describe the environment of each atom <span class="math notranslate nohighlight">\(i\)</span>
+separately, as a vector of sums over its neighbours. Every sum is cut off smoothly at
+a radius <span class="math notranslate nohighlight">\(R_c\)</span>, so that atoms entering and leaving the environment do not make the
+descriptor jump:</p>
+<div class="math notranslate nohighlight" id="equation-eq-bp-cutoff">
+<span class="eqno">(53)<a class="headerlink" href="#equation-eq-bp-cutoff" title="Link to this equation">#</a></span>\[\begin{split}f_c(r) = \begin{cases}
+  \tfrac12\left[\cos\!\left(\pi r / R_c\right) + 1\right], &amp; r &lt; R_c,\\
+  0, &amp; r \ge R_c.
+\end{cases}\end{split}\]</div>
+<p>The <strong>radial</strong> functions place a Gaussian at a chosen distance <span class="math notranslate nohighlight">\(R_s\)</span> and ask how much
+neighbour density sits there. Varying the width <span class="math notranslate nohighlight">\(\eta\)</span> and the centre <span class="math notranslate nohighlight">\(R_s\)</span> across a
+set of functions samples the radial distribution at different resolutions:</p>
+<div class="math notranslate nohighlight" id="equation-eq-bp-g2">
+<span class="eqno">(54)<a class="headerlink" href="#equation-eq-bp-g2" title="Link to this equation">#</a></span>\[G_i^{2} = \sum_{j \ne i} e^{-\eta\,(r_{ij} - R_s)^2}\, f_c(r_{ij}).\]</div>
+<p>Radial functions can only ever see the <em>multiset of distances</em> from atom <span class="math notranslate nohighlight">\(i\)</span>. Two
+environments with the same distances are identical to every <span class="math notranslate nohighlight">\(G^2\)</span>, no matter how many
+are used — which is exactly the trap Exercise 3 walks into. To see more, the descriptor
+has to look at <strong>angles</strong>, summing over pairs of neighbours <span class="math notranslate nohighlight">\((j,k)\)</span> with <span class="math notranslate nohighlight">\(\theta_{jik}\)</span>
+the angle they subtend at <span class="math notranslate nohighlight">\(i\)</span>:</p>
+<div class="math notranslate nohighlight" id="equation-eq-bp-g4">
+<span class="eqno">(55)<a class="headerlink" href="#equation-eq-bp-g4" title="Link to this equation">#</a></span>\[G_i^{4} = 2^{1-\zeta} \sum_{j \ne i}\sum_{k &gt; j}
+  \left(1 + \lambda \cos\theta_{jik}\right)^{\zeta}
+  e^{-\eta\left(r_{ij}^2 + r_{ik}^2 + r_{jk}^2\right)}
+  f_c(r_{ij})\, f_c(r_{ik})\, f_c(r_{jk}).\]</div>
+<p>Here <span class="math notranslate nohighlight">\(\lambda = \pm 1\)</span> shifts the peak of the angular factor between <span class="math notranslate nohighlight">\(\theta = 0\)</span> and
+<span class="math notranslate nohighlight">\(\theta = \pi\)</span>, and <span class="math notranslate nohighlight">\(\zeta\)</span> sharpens it: large <span class="math notranslate nohighlight">\(\zeta\)</span> resolves fine angular structure,
+small <span class="math notranslate nohighlight">\(\zeta\)</span> blurs it. The exponential and cutoff factors involve <span class="math notranslate nohighlight">\(r_{jk}\)</span>, the
+distance between the two <em>neighbours</em> — an apparently innocent choice that Exercise 4
+shows is anything but. Behler’s alternative drops it <span class="bibtex-citation" id="id3">[<a class="reference internal" href="#id49" title="Jörg Behler. Atom-centered symmetry functions for constructing high-dimensional neural network potentials. The Journal of Chemical Physics, 134(7):074106, 2011. doi:10.1063/1.3553717.">Beh11</a>]</span>:</p>
+<div class="math notranslate nohighlight" id="equation-eq-bp-g5">
+<span class="eqno">(56)<a class="headerlink" href="#equation-eq-bp-g5" title="Link to this equation">#</a></span>\[G_i^{5} = 2^{1-\zeta} \sum_{j \ne i}\sum_{k &gt; j}
+  \left(1 + \lambda \cos\theta_{jik}\right)^{\zeta}
+  e^{-\eta\left(r_{ij}^2 + r_{ik}^2\right)}
+  f_c(r_{ij})\, f_c(r_{ik}).\]</div>
+<p>Symmetry functions are one descriptor family among several. The <strong>smooth overlap of
+atomic positions</strong> (SOAP) <span class="bibtex-citation" id="id4">[<a class="reference internal" href="#id50" title="Albert P. Bartók, Risi Kondor, and Gábor Csányi. On representing chemical environments. Physical Review B, 87(18):184115, 2013. doi:10.1103/PhysRevB.87.184115.">BartokKCsanyi13</a>]</span> takes a different route to the same
+requirements: it smears each neighbour into a Gaussian density, expands that density
+in radial functions and spherical harmonics, and builds rotationally invariant
+combinations of the coefficients. It is systematically improvable in a way a
+hand-chosen set of symmetry functions is not, at a higher cost.</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="setup">
+<h2>Setup<a class="headerlink" href="#setup" title="Link to this heading">#</a></h2>
+<p>The Setup below holds this notebook’s instruments — nothing you are asked to build.
+The descriptors themselves are the subject of the notebook and are built in the
+exercises. It is collapsed so the building stays yours; expand it whenever you want
+the details.</p>
+<!-- setup-policy: v2 --><div class="cell tag_hide-input docutils container">
+<details class="admonition hide above-input">
+<summary aria-label="Toggle hidden content">
+<p class="collapsed admonition-title">Show code cell source</p>
+<p class="expanded admonition-title">Hide code cell source</p>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">ase</span><span class="w"> </span><span class="kn">import</span> <span class="n">Atoms</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">ase.build</span><span class="w"> </span><span class="kn">import</span> <span class="n">bulk</span><span class="p">,</span> <span class="n">fcc111</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">ecp</span><span class="w"> </span><span class="kn">import</span> <span class="n">validate</span>
+
+<span class="n">INK</span><span class="p">,</span> <span class="n">AMBER</span><span class="p">,</span> <span class="n">SOFT</span> <span class="o">=</span> <span class="s2">&quot;#16213e&quot;</span><span class="p">,</span> <span class="s2">&quot;#c0851a&quot;</span><span class="p">,</span> <span class="s2">&quot;#46506b&quot;</span>
+
+<span class="c1"># instrument: the lattices. Every phase is copper and every lattice constant is chosen</span>
+<span class="c1"># to put the NEAREST NEIGHBOUR at the same distance, so that comparing two phases is a</span>
+<span class="c1"># comparison of how the shells are arranged and not of how dense the two metals are.</span>
+<span class="c1"># Comparing, say, Cu-fcc against Mg-hcp would mostly measure the density difference</span>
+<span class="c1"># between copper and magnesium, and would answer a question nobody asked.</span>
+<span class="n">NN</span> <span class="o">=</span> <span class="mf">2.5527</span>  <span class="c1"># data: Cu nearest-neighbour distance in Å, from a = 3.61 Å (fcc)</span>
+<span class="n">A_FCC</span> <span class="o">=</span> <span class="n">NN</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mf">2.0</span><span class="p">)</span>
+<span class="n">A_HCP</span><span class="p">,</span> <span class="n">C_HCP</span> <span class="o">=</span> <span class="n">NN</span><span class="p">,</span> <span class="n">NN</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mf">8.0</span> <span class="o">/</span> <span class="mf">3.0</span><span class="p">)</span>  <span class="c1"># ideal c/a keeps the 12 neighbours equal</span>
+<span class="n">A_BCC</span> <span class="o">=</span> <span class="mf">2.0</span> <span class="o">*</span> <span class="n">NN</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mf">3.0</span><span class="p">)</span>  <span class="c1"># bcc nearest neighbour is the body diagonal, a√3/2</span>
+
+<span class="n">_hcp_cell</span> <span class="o">=</span> <span class="n">Atoms</span><span class="p">(</span>
+    <span class="s2">&quot;Cu2&quot;</span><span class="p">,</span>
+    <span class="n">scaled_positions</span><span class="o">=</span><span class="p">[[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span> <span class="o">/</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span> <span class="o">/</span> <span class="mi">3</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">]],</span>
+    <span class="n">cell</span><span class="o">=</span><span class="p">[</span>
+        <span class="p">[</span><span class="n">A_HCP</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">],</span>
+        <span class="p">[</span><span class="o">-</span><span class="n">A_HCP</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="n">A_HCP</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">],</span>
+        <span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="n">C_HCP</span><span class="p">],</span>
+    <span class="p">],</span>
+    <span class="n">pbc</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="n">LATTICES</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;fcc&quot;</span><span class="p">:</span> <span class="n">bulk</span><span class="p">(</span><span class="s2">&quot;Cu&quot;</span><span class="p">,</span> <span class="s2">&quot;fcc&quot;</span><span class="p">,</span> <span class="n">a</span><span class="o">=</span><span class="n">A_FCC</span><span class="p">,</span> <span class="n">cubic</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span>
+    <span class="s2">&quot;hcp&quot;</span><span class="p">:</span> <span class="n">_hcp_cell</span> <span class="o">*</span> <span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span>
+    <span class="s2">&quot;bcc&quot;</span><span class="p">:</span> <span class="n">bulk</span><span class="p">(</span><span class="s2">&quot;Cu&quot;</span><span class="p">,</span> <span class="s2">&quot;bcc&quot;</span><span class="p">,</span> <span class="n">a</span><span class="o">=</span><span class="n">A_BCC</span><span class="p">,</span> <span class="n">cubic</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span>
+<span class="p">}</span>
+<span class="n">SLAB</span> <span class="o">=</span> <span class="n">fcc111</span><span class="p">(</span><span class="s2">&quot;Cu&quot;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">8</span><span class="p">),</span> <span class="n">a</span><span class="o">=</span><span class="n">A_FCC</span><span class="p">,</span> <span class="n">vacuum</span><span class="o">=</span><span class="mf">12.0</span><span class="p">)</span>
+<span class="n">PHASES</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;fcc&quot;</span><span class="p">,</span> <span class="s2">&quot;hcp&quot;</span><span class="p">,</span> <span class="s2">&quot;bcc&quot;</span><span class="p">)</span>
+
+
+<span class="n">RC_FIRST_SHELL</span> <span class="o">=</span> <span class="mf">2.9</span>  <span class="c1"># Å: encloses the twelve nearest neighbours of these lattices</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">neighbours</span><span class="p">(</span><span class="n">pos</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">cell</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">rc</span><span class="o">=</span><span class="mf">6.0</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Vectors and distances to the neighbours of atom ``i`` within ``rc``.</span>
+
+<span class="sd">    Uses the minimum-image convention when a cell is supplied, which is exact here</span>
+<span class="sd">    because every cell edge is more than twice the largest cutoff used.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    pos : numpy.ndarray</span>
+<span class="sd">        Atomic positions, shape (n_atoms, 3), in Å.</span>
+<span class="sd">    i : int</span>
+<span class="sd">        Index of the central atom.</span>
+<span class="sd">    cell : numpy.ndarray, optional</span>
+<span class="sd">        Row-wise cell vectors, shape (3, 3). ``None`` treats the system as isolated.</span>
+<span class="sd">    rc : float, optional</span>
+<span class="sd">        Cutoff radius in Å.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    tuple of numpy.ndarray</span>
+<span class="sd">        ``(vectors, distances)``: the displacement vectors from atom ``i`` to each</span>
+<span class="sd">        neighbour inside the cutoff, shape (n_neighbours, 3), and their lengths.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">d</span> <span class="o">=</span> <span class="n">pos</span> <span class="o">-</span> <span class="n">pos</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+    <span class="k">if</span> <span class="n">cell</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">frac</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">cell</span><span class="p">)</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">d</span><span class="o">.</span><span class="n">T</span><span class="p">)</span><span class="o">.</span><span class="n">T</span>
+        <span class="n">frac</span> <span class="o">-=</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">frac</span><span class="p">)</span>
+        <span class="n">d</span> <span class="o">=</span> <span class="n">frac</span> <span class="o">@</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">cell</span><span class="p">)</span>
+    <span class="n">r</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">keep</span> <span class="o">=</span> <span class="p">(</span><span class="n">r</span> <span class="o">&gt;</span> <span class="mf">1e-8</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">r</span> <span class="o">&lt;</span> <span class="n">rc</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">d</span><span class="p">[</span><span class="n">keep</span><span class="p">],</span> <span class="n">r</span><span class="p">[</span><span class="n">keep</span><span class="p">]</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">shells</span><span class="p">(</span><span class="n">pos</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">cell</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">rc</span><span class="o">=</span><span class="mf">6.0</span><span class="p">,</span> <span class="n">decimals</span><span class="o">=</span><span class="mi">3</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;The neighbour shells of atom ``i`` as ``(distance, count)`` pairs.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    pos, i, cell, rc</span>
+<span class="sd">        As for :func:`neighbours`.</span>
+<span class="sd">    decimals : int, optional</span>
+<span class="sd">        Rounding applied before grouping distances into shells.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    tuple of numpy.ndarray</span>
+<span class="sd">        ``(distances, counts)``, sorted by distance.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">_</span><span class="p">,</span> <span class="n">r</span> <span class="o">=</span> <span class="n">neighbours</span><span class="p">(</span><span class="n">pos</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">cell</span><span class="p">,</span> <span class="n">rc</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">decimals</span><span class="p">),</span> <span class="n">return_counts</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">cell_of</span><span class="p">(</span><span class="n">atoms</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Row-wise cell vectors of an ASE object as a plain array.&quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">atoms</span><span class="o">.</span><span class="n">get_cell</span><span class="p">())</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">random_rotation</span><span class="p">(</span><span class="n">gen</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;A uniformly distributed proper rotation matrix, shape (3, 3).</span>
+
+<span class="sd">    Built by QR-factorising a Gaussian matrix, whose Q is Haar-distributed on the</span>
+<span class="sd">    orthogonal group once the sign convention of R&#39;s diagonal is fixed; the final</span>
+<span class="sd">    determinant check discards the reflections.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    gen : numpy.random.Generator</span>
+<span class="sd">        Source of randomness.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    numpy.ndarray</span>
+<span class="sd">        A rotation matrix with determinant +1.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">q</span><span class="p">,</span> <span class="n">r</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">qr</span><span class="p">(</span><span class="n">gen</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">)))</span>
+    <span class="n">q</span> <span class="o">=</span> <span class="n">q</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sign</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="n">r</span><span class="p">))</span>
+    <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">det</span><span class="p">(</span><span class="n">q</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">q</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">*=</span> <span class="o">-</span><span class="mf">1.0</span>
+    <span class="k">return</span> <span class="n">q</span>
+</pre></div>
+</div>
+</div>
+</details>
+</div>
+<div class="cell tag_remove-input docutils container">
+</div>
+</section>
+<hr class="docutils" />
+<section id="exercise-1-coordinates-are-not-a-description">
+<h2>Exercise 1 — Coordinates are not a description<a class="headerlink" href="#exercise-1-coordinates-are-not-a-description" title="Link to this heading">#</a></h2>
+<p>Start with the failure, because it motivates everything else. Take a chunk of copper,
+apply the three operations the energy is blind to, and measure how much the <em>vector of
+coordinates</em> changed. If that number is large, a model reading coordinates is being
+handed a moving target.</p>
+<p><strong>Part a)</strong> Build a copper lattice, centre it on its own centroid, and apply a random
+rotation and a random permutation of the atom labels. Measure the Euclidean distance
+between the original coordinate vector and each transformed one, and compare against
+the root-mean-square atomic position — the natural scale of the structure itself.</p>
+<p><strong>Part b)</strong> Confirm the physics did not move: check that the multiset of interatomic
+distances is unchanged by all three operations, since that is what the energy of a
+pairwise system actually depends on.</p>
+<div class="cell tag_solution tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<figure class="align-default" id="fig-desc-cartesian">
+<img alt="../../_images/eade6482287fd056bf9afbe6edad6fe0f360844b1daf7a8628875e669e62517d.png" src="../../_images/eade6482287fd056bf9afbe6edad6fe0f360844b1daf7a8628875e669e62517d.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 60 </span><span class="caption-text">The same 108-atom copper crystal before (left) and after (right) a rigid rotation, with three atoms marked to show that the structure is unchanged while every coordinate is different. Rotation, translation and relabelling leave the set of interatomic distances — and therefore the energy — exactly invariant, but move the coordinate vector by more than the size of the structure itself, which is why atomic coordinates make a poor input to a fitted model.</span><a class="headerlink" href="#fig-desc-cartesian" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>||X - X(translation)|| =   41.491 Å   ( 7.77 × the structure size)
+||X - X(rotation)|| =   89.511 Å   (16.76 × the structure size)
+||X - X(rotation + relabelling)|| =   80.466 Å   (15.07 × the structure size)
+RMS atomic position (the structure&#39;s own scale) = 5.339 Å
+max change in any pair distance under translation           : 1.78e-15 Å
+max change in any pair distance under rotation              : 5.33e-15 Å
+max change in any pair distance under rotation + relabelling: 5.33e-15 Å
+</pre></div>
+</div>
+</div>
+</div>
+<section id="validation-1-the-coordinates-move-the-physics-does-not">
+<h3>Validation 1 — the coordinates move, the physics does not<a class="headerlink" href="#validation-1-the-coordinates-move-the-physics-does-not" title="Link to this heading">#</a></h3>
+<p>Two checks that between them state the whole problem. The coordinate vector must move
+by at least the size of the structure under operations that change nothing, and the
+set of interatomic distances must not move at all. A model fed coordinates would have
+to learn to undo the first; a model fed distances gets the second for free.</p>
+<div class="cell tag_validation tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>✓  every symmetry operation displaces the coordinate vector by more than the whole size of the structure, so coordinates encode the arbitrary choice of frame and labelling at least as strongly as they encode the structure   [translation: 7.77×, rotation: 16.76×, rotation + relabelling: 15.07×]
+✓  while the multiset of interatomic distances is unchanged to machine precision by all three, which is why every descriptor that follows is built out of distances rather than positions   [largest change in any pair distance: 5.3e-15 Å]
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>True
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<hr class="docutils" />
+<section id="exercise-2-radial-symmetry-functions">
+<h2>Exercise 2 — Radial symmetry functions<a class="headerlink" href="#exercise-2-radial-symmetry-functions" title="Link to this heading">#</a></h2>
+<p>Now build the first real descriptor. Equation <a class="reference internal" href="#equation-eq-bp-g2">Eq. 54</a> sums a Gaussian over the
+neighbours of one atom, so it depends only on distances and only through a sum — the
+two properties that buy invariance to all three operations at once.</p>
+<p><strong>Part a)</strong> Implement the cutoff of <a class="reference internal" href="#equation-eq-bp-cutoff">Eq. 53</a> and the radial functions of
+<a class="reference internal" href="#equation-eq-bp-g2">Eq. 54</a>, taking the neighbour distances from the <code class="docutils literal notranslate"><span class="pre">neighbours</span></code> instrument.
+<strong>Write this one yourself</strong> — the implementation is the lesson.</p>
+<p><strong>Part b)</strong> Verify invariance numerically. Apply a translation, a rotation, and a
+permutation of the neighbour labels to an isolated cluster, and confirm the descriptor
+of the central atom is unchanged to machine precision in every case.</p>
+<p><strong>Part c)</strong> Show the descriptor is doing something: plot the radial functions against
+distance and compare the descriptor of a bulk atom against one in the surface layer of
+a slab, where the missing half-space should show up as missing neighbour density.</p>
+<div class="cell tag_solution tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>relative change in the descriptor under translation : 1.80e-16
+relative change in the descriptor under rotation    : 1.15e-18
+relative change in the descriptor under permutation : 0.00e+00
+</pre></div>
+</div>
+<figure class="align-default" id="fig-desc-g2">
+<img alt="../../_images/e7e6c1483fe2aaf8f847e63b304740053ea0b2c382cb0cb28fb69c3b19d09ada.png" src="../../_images/e7e6c1483fe2aaf8f847e63b304740053ea0b2c382cb0cb28fb69c3b19d09ada.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 61 </span><span class="caption-text">Left: the radial symmetry functions of Eq. eq-bp-g2, each a Gaussian of width set by η centred at Rs, multiplied by the smooth cutoff of Eq. eq-bp-cutoff which takes every one of them to zero at Rc = 6 Å. Right: the resulting descriptor for an atom in bulk fcc copper and for one in the top layer of a (111) slab. The surface atom is missing roughly half its neighbours, so every component drops, and the components probing the near shells drop least because those neighbours are the ones the surface still has.</span><a class="headerlink" href="#fig-desc-g2" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>bulk atom: 78 neighbours within 6.0 Å; surface atom: 48
+every component drops at the surface; the largest drop leaves 54.7 % of the bulk value
+</pre></div>
+</div>
+</div>
+</div>
+<section id="validation-2-invariant-and-not-vacuous">
+<h3>Validation 2 — invariant, and not vacuous<a class="headerlink" href="#validation-2-invariant-and-not-vacuous" title="Link to this heading">#</a></h3>
+<p>Three checks. The descriptor must be unchanged to machine precision by all three
+symmetry operations, which is the property it was built for. It must nonetheless
+distinguish a bulk atom from a surface one, since a descriptor invariant to everything
+would be useless. And the surface values must be <em>lower</em> in every component, because
+the surface atom is missing neighbours rather than merely rearranged ones.</p>
+<div class="cell tag_validation tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>✓  translation, rotation and relabelling leave the radial descriptor unchanged to machine precision, so the invariance is exact by construction rather than approximately learned from data   [translation: 1.8e-16, rotation: 1.1e-18, permutation: 0.0e+00]
+✓  and yet it separates a bulk atom from a surface atom by a wide margin, so the invariance was not bought by throwing the structural information away   [relative difference 0.310]
+✓  with every component lower at the surface, as it must be when an environment loses neighbours rather than rearranging the ones it has   [largest surviving fraction 54.7 % of the bulk value]
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>True
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<hr class="docutils" />
+<section id="exercise-3-what-radial-functions-cannot-see">
+<h2>Exercise 3 — What radial functions cannot see<a class="headerlink" href="#exercise-3-what-radial-functions-cannot-see" title="Link to this heading">#</a></h2>
+<p>Face-centred cubic and hexagonal close packed are the two ways of stacking
+close-packed planes: <code class="docutils literal notranslate"><span class="pre">ABCABC</span></code> for fcc, <code class="docutils literal notranslate"><span class="pre">ABAB</span></code> for hcp. Both give every atom twelve
+nearest neighbours at the same distance. The difference between them is real —
+different metals choose different stackings, and the stacking-fault energy between
+them is a quantity people compute — but it is subtle, and it is exactly the kind of
+thing a descriptor has to be able to see.</p>
+<p><strong>Part a)</strong> Tabulate the neighbour shells of fcc, hcp and bcc at a cutoff of 4 Å,
+with all three at the same nearest-neighbour distance. Establish which pairs of phases
+share a shell structure and which do not.</p>
+<p><strong>Part b)</strong> Compute the radial descriptor of <a class="reference internal" href="#equation-eq-bp-g2">Eq. 54</a> for each phase at that
+cutoff and compare them. Predict the outcome from Part a before running it, then
+confirm that no choice of <span class="math notranslate nohighlight">\(\eta\)</span> and <span class="math notranslate nohighlight">\(R_s\)</span> could change it.</p>
+<div class="cell tag_solution tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<figure class="align-default" id="fig-desc-shells">
+<img alt="../../_images/1a8de6b1169b46c63f1b24867332845bce56b6a562c49e9d3f35d0a856905b31.png" src="../../_images/1a8de6b1169b46c63f1b24867332845bce56b6a562c49e9d3f35d0a856905b31.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 62 </span><span class="caption-text">Top: the twelve nearest neighbours of an atom in fcc (a cuboctahedron) and in hcp (an anticuboctahedron) — the same twelve atoms at the same distance, arranged differently. Bottom: neighbour shells of the three phases at a common nearest-neighbour distance of 2.553 Å, with the 4 Å cutoff of Exercise 3 marked. Inside that cutoff fcc and hcp have exactly the same shells — twelve neighbours at 2.553 Å and six at 3.610 Å — and differ only from 4.169 Å outwards, where hcp has two neighbours that fcc does not. A radial descriptor cut off at 4 Å is therefore blind to the difference between them, not approximately but identically. Body-centred cubic, with eight neighbours in its first shell rather than twelve, is distinguishable immediately.</span><a class="headerlink" href="#fig-desc-shells" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>fcc: within 4.0 Å -&gt; 12@2.553 Å, 6@3.610 Å
+hcp: within 4.0 Å -&gt; 12@2.553 Å, 6@3.610 Å
+bcc: within 4.0 Å -&gt; 8@2.553 Å, 6@2.948 Å
+
+relative difference of the radial descriptors at Rc = 4.0 Å
+  fcc vs hcp: 7.98e-16   &lt;- identical to machine precision
+  fcc vs bcc: 9.17e-02
+</pre></div>
+</div>
+</div>
+</div>
+<section id="validation-3-a-provable-blindness">
+<h3>Validation 3 — a provable blindness<a class="headerlink" href="#validation-3-a-provable-blindness" title="Link to this heading">#</a></h3>
+<p>Two checks. The radial descriptors of fcc and hcp must agree to machine precision,
+which is a statement not about this parameter set but about every possible one: a
+function of the distance multiset cannot separate environments whose distance
+multisets are equal. And bcc must be separated comfortably, so that the failure is
+specific to the close-packed pair rather than a descriptor that never works.</p>
+<div class="cell tag_validation tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>✓  the radial descriptors of fcc and hcp are identical to machine precision, and no richer set of η and Rs could change that: inside this cutoff the two phases present the same multiset of distances, and G2 sees nothing else   [relative difference 8.0e-16]
+✓  while bcc, whose first shell holds eight neighbours rather than twelve, is separated easily — so the blindness is specific to the two close-packed stackings and not a descriptor that fails at everything   [relative difference 0.092]
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>True
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<hr class="docutils" />
+<section id="exercise-4-angles-and-a-trap-in-the-standard-form">
+<h2>Exercise 4 — Angles, and a trap in the standard form<a class="headerlink" href="#exercise-4-angles-and-a-trap-in-the-standard-form" title="Link to this heading">#</a></h2>
+<p>If distances cannot separate fcc from hcp, angles must: the twelve nearest neighbours
+form a cuboctahedron in fcc and an <em>anti</em>cuboctahedron in hcp, the same twelve
+distances arranged differently. Equation <a class="reference internal" href="#equation-eq-bp-g4">Eq. 55</a> is the standard angular
+symmetry function, so applying it should settle the matter.</p>
+<p><strong>Part a)</strong> Compute the first-shell bond-angle distributions of fcc and hcp and
+confirm that they genuinely differ. This establishes that there is something for an
+angular descriptor to find.</p>
+<p><strong>Part b)</strong> Implement <a class="reference internal" href="#equation-eq-bp-g4">Eq. 55</a> and apply it to the two phases at the 4 Å cutoff.
+<strong>Write this one yourself</strong> — the implementation is the lesson. Then explain the
+result: it is not the one Part a leads you to expect, and the reason is in the formula.</p>
+<p><strong>Part c)</strong> Implement the <span class="math notranslate nohighlight">\(G^5\)</span> variant of <a class="reference internal" href="#equation-eq-bp-g5">Eq. 56</a>, which differs only by
+dropping the factors involving <span class="math notranslate nohighlight">\(r_{jk}\)</span>, and compare. Then scan the angular sharpness
+<span class="math notranslate nohighlight">\(\zeta\)</span> and find where the separation appears.</p>
+<div class="cell tag_solution tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>fcc first-shell angles: 24@60°  12@90°  24@120°  6@180°
+hcp first-shell angles: 24@60°  12@90°  3@109°  18@120°  6@146°  3@180°
+</pre></div>
+</div>
+<figure class="align-default" id="fig-desc-angles">
+<img alt="../../_images/e723f9a2b33950127c9d338768909dbddbbc66af9f1c6300ccca00c8ac85340a.png" src="../../_images/e723f9a2b33950127c9d338768909dbddbbc66af9f1c6300ccca00c8ac85340a.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 63 </span><span class="caption-text">Left: bond-angle distributions of the twelve nearest neighbours in fcc and hcp. The two agree at 60° and 90° and part company above 100°, where fcc has 24 pairs at 120° and 6 at 180° while hcp spreads its count over 110°, 120°, 146° and 180°. Right: the relative difference between the fcc and hcp angular descriptors as the sharpness ζ is increased, for the standard G4 of Eq. eq-bp-g4 and the G5 variant of Eq. eq-bp-g5. G4 stays at machine zero for every ζ, because its cutoff on the neighbour–neighbour distance rjk discards precisely the wide-angle pairs where the two phases differ. G5, which has no such factor, separates them once ζ is large enough to resolve the angular structure.</span><a class="headerlink" href="#fig-desc-angles" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>widest angle whose pair survives G4&#39;s r_jk cutoff at Rc = 4.0 Å: 90°
+G4 fcc-hcp separation, over ζ = [1.0, 2.0, 4.0, 8.0, 16.0, 32.0]:
+   2.4e-15  2.3e-15  2.8e-15  3.7e-15  4.2e-15  4.2e-15
+G5 fcc-hcp separation:
+   1.5e-15  1.5e-15  2.9e-03  4.2e-02  2.1e-01  4.1e-01
+</pre></div>
+</div>
+</div>
+</div>
+<section id="validation-4-the-angular-functions-and-the-one-that-works">
+<h3>Validation 4 — the angular functions, and the one that works<a class="headerlink" href="#validation-4-the-angular-functions-and-the-one-that-works" title="Link to this heading">#</a></h3>
+<p>Four checks. The bond-angle distributions must genuinely differ, or there would be
+nothing for an angular function to find. The standard <span class="math notranslate nohighlight">\(G^4\)</span> must nonetheless return
+machine zero at every sharpness, because its <span class="math notranslate nohighlight">\(r_{jk}\)</span> factors discard the wide-angle
+pairs; the explicit statement of that mechanism is that the widest angle it keeps
+falls short of where the distributions part company. And <span class="math notranslate nohighlight">\(G^5\)</span>, differing only by
+those factors, must separate the two phases — but only once <span class="math notranslate nohighlight">\(\zeta\)</span> is large enough,
+since a blurred angular filter averages the difference away.</p>
+<div class="cell tag_validation tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>✓  the first-shell bond-angle distributions of fcc and hcp genuinely differ, so an angular descriptor has something real to detect where a radial one had nothing   [18 pairs fall in different angle bins]
+✓  yet the standard G4 returns machine zero at every sharpness ζ: its cutoff on the neighbour-neighbour distance rjk is a cutoff on angle in disguise, and at this radius it discards exactly the wide-angle pairs where the two phases differ   [largest G4 separation over the scan: 4.2e-15]
+✓  which the geometry states directly: two neighbours at distance d subtending θ lie 2d sin(θ/2) apart, so the widest angle surviving the rjk cutoff falls below the range where the fcc and hcp distributions separate   [widest surviving angle 90°, while the distributions differ above 100°]
+✓  and G5, which differs from G4 only by dropping those factors, separates the two stackings — but only for sharp angular filters: at ζ = 1 the difference is still machine zero, because a broad filter averages over precisely what distinguishes them   [G5 separation 1.5e-15 at ζ = 1, 4.1e-01 at ζ = 32]
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>True
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="why-the-smooth-filters-are-blind-at-low">
+<h3>Why the smooth filters are blind at low ζ<a class="headerlink" href="#why-the-smooth-filters-are-blind-at-low" title="Link to this heading">#</a></h3>
+<p>The <span class="math notranslate nohighlight">\(\zeta = 1\)</span> result is not a numerical accident but a small theorem. At <span class="math notranslate nohighlight">\(\zeta = 1\)</span>
+the angular sum is, up to constants, <span class="math notranslate nohighlight">\(\sum_{j&lt;k} \cos\theta_{jik}\)</span>, and for neighbours
+all at the same distance that sum is fixed by</p>
+<div class="math notranslate nohighlight" id="equation-eq-cos-sum">
+<span class="eqno">(57)<a class="headerlink" href="#equation-eq-cos-sum" title="Link to this equation">#</a></span>\[\sum_{j&lt;k} \cos\theta_{jik}
+  = \frac{1}{2}\left[\left\lVert \sum_j \hat{\mathbf r}_j \right\rVert^2 - n\right],\]</div>
+<p>with <span class="math notranslate nohighlight">\(n\)</span> the number of neighbours. Both the cuboctahedron and the anticuboctahedron
+have <span class="math notranslate nohighlight">\(\sum_j \hat{\mathbf r}_j = \mathbf 0\)</span> by symmetry and both have <span class="math notranslate nohighlight">\(n = 12\)</span>, so the
+two sums are equal before any structure is looked at. Only the higher moments of the
+angular distribution — reached by <span class="math notranslate nohighlight">\(\zeta \ge 4\)</span> — carry the difference.</p>
+<div class="cell tag_solution tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>fcc: n = 12, ||Σ r̂|| = 3.09e-15, Σcos θ = -6.000000, predicted -6.000000
+hcp: n = 12, ||Σ r̂|| = 2.89e-15, Σcos θ = -6.000000, predicted -6.000000
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell tag_validation tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>✓  the two stackings have the same sum of neighbour-pair cosines, exactly as eq-cos-sum requires once both shells are found to have twelve neighbours and a vanishing sum of unit vectors — which is why no ζ = 1 angular function, however parametrised, can tell them apart   [got -6 vs expected -6 (rtol=1e-06, atol=1e-10)]
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>True
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="notebook-summary">
+<h2>Notebook summary<a class="headerlink" href="#notebook-summary" title="Link to this heading">#</a></h2>
+<p>We asked what it takes to hand an atomic structure to a fitting method, and found that
+the obvious answer fails immediately: rotating or relabelling a copper crystal moves
+its coordinate vector by more than the size of the crystal while leaving every
+interatomic distance, and therefore the energy, exactly where it was.</p>
+<p>Building the descriptor out of sums over neighbour distances bought all three
+invariances by construction, verified here to machine precision, without making the
+descriptor vacuous — a surface atom and a bulk atom remain far apart. But invariance is
+not the whole requirement. Cut off at 4 Å, fcc and hcp present <em>identical</em> multisets of
+distances, so their radial descriptors agree to machine precision and no choice of
+parameters could do otherwise.</p>
+<p>The angular functions that ought to rescue this turned out to have a trap in their
+standard form. Two neighbours at distance <span class="math notranslate nohighlight">\(d\)</span> subtending an angle <span class="math notranslate nohighlight">\(\theta\)</span> lie
+<span class="math notranslate nohighlight">\(2d\sin(\theta/2)\)</span> apart, so <span class="math notranslate nohighlight">\(G^4\)</span>’s cutoff on the neighbour–neighbour distance is a
+cutoff on angle in disguise: at this radius it keeps nothing wider than about 90° and
+discards exactly the wide-angle pairs where the two stackings differ. The <span class="math notranslate nohighlight">\(G^5\)</span>
+variant, identical but for those factors, separates them — and then only for sharp
+angular filters, since <a class="reference internal" href="#equation-eq-cos-sum">Eq. 57</a> forces the <span class="math notranslate nohighlight">\(\zeta = 1\)</span> response of the two
+shells to be equal whatever the parametrisation.</p>
+<p>The moral is not that symmetry functions are bad. It is that a descriptor’s blind
+spots are properties of its functional form, they are not always where intuition puts
+them, and they can be found by construction rather than discovered later in a model
+that quietly cannot represent what it was asked to.</p>
+</section>
+<section id="outlook">
+<h2>Outlook<a class="headerlink" href="#outlook" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>Systematic completeness.</strong> SOAP <span class="bibtex-citation" id="id5">[<a class="reference internal" href="#id50" title="Albert P. Bartók, Risi Kondor, and Gábor Csányi. On representing chemical environments. Physical Review B, 87(18):184115, 2013. doi:10.1103/PhysRevB.87.184115.">BartokKCsanyi13</a>]</span> reaches the same invariances by
+expanding a smoothed neighbour density in radial functions and spherical harmonics,
+which can be converged by raising the expansion order rather than by adding
+hand-picked functions. The trade is cost and interpretability.</p></li>
+<li><p><strong>Descriptors you have already built.</strong> The Steinhardt order parameter <span class="math notranslate nohighlight">\(q_6\)</span> of
+<a class="reference internal" href="../02-energy-landscapes/lennard-jones-clusters.html"><span class="std std-doc">§2.1</span></a> is a descriptor by this definition, invariant to all three operations
+and designed to separate icosahedral from close-packed order — a single-purpose
+ancestor of the vectors built here.</p></li>
+<li><p><strong>From descriptor to potential.</strong> Feeding these vectors to a neural network, one per
+element, and summing the atomic outputs gives a Behler–Parrinello potential
+<span class="bibtex-citation" id="id6">[<a class="reference internal" href="#id48" title="Jörg Behler and Michele Parrinello. Generalized neural-network representation of high-dimensional potential-energy surfaces. Physical Review Letters, 98(14):146401, 2007. doi:10.1103/PhysRevLett.98.146401.">BP07</a>]</span>. Its accuracy is bounded above by what the descriptor can
+distinguish, which is why this notebook came first.</p></li>
+<li><p><strong>The many-body completeness question.</strong> Two distinct environments can share <em>all</em>
+their two- and three-body correlations, so even angular descriptors have degeneracies
+<span class="bibtex-citation" id="id7">[<a class="reference internal" href="#id51" title="Sergey N. Pozdnyakov, Michael J. Willatt, Albert P. Bartók, Christoph Ortner, Gábor Csányi, and Michele Ceriotti. Incompleteness of atomic structure representations. Physical Review Letters, 125(16):166001, 2020. doi:10.1103/PhysRevLett.125.166001.">PWBartok+20</a>]</span>. The fcc/hcp case here is a mild, curable instance.</p></li>
+</ul>
+<section id="references">
+<h3>References<a class="headerlink" href="#references" title="Link to this heading">#</a></h3>
+<div class="docutils container" id="id8">
+<div role="list" class="citation-list">
+<div class="citation" id="id50" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span>BartokKCsanyi13<span class="fn-bracket">]</span></span>
+<span class="backrefs">(<a role="doc-backlink" href="#id4">1</a>,<a role="doc-backlink" href="#id5">2</a>)</span>
+<p>Albert P. Bartók, Risi Kondor, and Gábor Csányi. On representing chemical environments. <em>Physical Review B</em>, 87(18):184115, 2013. <a class="reference external" href="https://doi.org/10.1103/PhysRevB.87.184115">doi:10.1103/PhysRevB.87.184115</a>.</p>
+</div>
+<div class="citation" id="id49" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id3">Beh11</a><span class="fn-bracket">]</span></span>
+<p>Jörg Behler. Atom-centered symmetry functions for constructing high-dimensional neural network potentials. <em>The Journal of Chemical Physics</em>, 134(7):074106, 2011. <a class="reference external" href="https://doi.org/10.1063/1.3553717">doi:10.1063/1.3553717</a>.</p>
+</div>
+<div class="citation" id="id48" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span>BP07<span class="fn-bracket">]</span></span>
+<span class="backrefs">(<a role="doc-backlink" href="#id1">1</a>,<a role="doc-backlink" href="#id2">2</a>,<a role="doc-backlink" href="#id6">3</a>)</span>
+<p>Jörg Behler and Michele Parrinello. Generalized neural-network representation of high-dimensional potential-energy surfaces. <em>Physical Review Letters</em>, 98(14):146401, 2007. <a class="reference external" href="https://doi.org/10.1103/PhysRevLett.98.146401">doi:10.1103/PhysRevLett.98.146401</a>.</p>
+</div>
+<div class="citation" id="id51" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id7">PWBartok+20</a><span class="fn-bracket">]</span></span>
+<p>Sergey N. Pozdnyakov, Michael J. Willatt, Albert P. Bartók, Christoph Ortner, Gábor Csányi, and Michele Ceriotti. Incompleteness of atomic structure representations. <em>Physical Review Letters</em>, 125(16):166001, 2020. <a class="reference external" href="https://doi.org/10.1103/PhysRevLett.125.166001">doi:10.1103/PhysRevLett.125.166001</a>.</p>
+</div>
+</div>
+</div>
+<div class="cell tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<div class="output text_html"><style>@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,900&family=Source+Serif+4:wght@400;600&family=JetBrains+Mono:wght@400;600&display=swap');</style>
+<div style="font-family:'Source Serif 4', 'Iowan Old Style', Georgia, serif;background:#faf7f0;border:1px solid #dcd6c8;
+            border-left:6px solid #c0851a;border-radius:6px;
+            padding:18px 22px;margin:30px 0 8px 0;">
+  <div style="font-family:'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace;font-size:11px;letter-spacing:.12em;
+              text-transform:uppercase;color:#c0851a;font-weight:600;
+              margin-bottom:6px;">Take this notebook with you</div>
+  <div style="font-size:14.5px;color:#16213e;line-height:1.55;max-width:66ch;">
+    Use the download button (&#8595;) in the toolbar above to save this notebook
+    and run it yourself. The published notebooks ship <b>without worked
+    solutions</b>; if you would like the reference solutions &mdash; to teach
+    from or to check your own work &mdash; get in touch: <a href='mailto:hello@ramador.me' style='color:#c0851a;text-decoration:none;border-bottom:1px solid #c0851a;'>hello@ramador.me</a>.
+  </div>
+  <div style="font-size:12px;color:#46506b;line-height:1.5;max-width:66ch;
+              margin-top:10px;border-top:1px solid #dcd6c8;padding-top:8px;">
+    Based on the lecture and exercise materials of <b>Molecular and Materials Modelling</b> (ETH Z&uuml;rich and Empa, FS&nbsp;2023), developed by Prof.&nbsp;Dr.&nbsp;Daniele Passerone (lectures), Dr.&nbsp;Carlo Pignedoli, and the author (exercises); here synthesised, expanded, and restyled by the author.
+  </div>
+</div></div></div>
+</div>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./notebooks/07-data-descriptors"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="index.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Volume VII — Data and Descriptors</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="dimensionality-reduction.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">7.2 Dimensionality Reduction and Farthest-Point Sampling</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item"><div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#notebook-overview">Notebook overview</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#theory-in-brief">Theory in brief</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-a-descriptor-has-to-be-blind-to">What a descriptor has to be blind to</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#atom-centred-symmetry-functions">Atom-centred symmetry functions</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#setup">Setup</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1-coordinates-are-not-a-description">Exercise 1 — Coordinates are not a description</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#validation-1-the-coordinates-move-the-physics-does-not">Validation 1 — the coordinates move, the physics does not</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-2-radial-symmetry-functions">Exercise 2 — Radial symmetry functions</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#validation-2-invariant-and-not-vacuous">Validation 2 — invariant, and not vacuous</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-3-what-radial-functions-cannot-see">Exercise 3 — What radial functions cannot see</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#validation-3-a-provable-blindness">Validation 3 — a provable blindness</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-4-angles-and-a-trap-in-the-standard-form">Exercise 4 — Angles, and a trap in the standard form</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#validation-4-the-angular-functions-and-the-one-that-works">Validation 4 — the angular functions, and the one that works</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#why-the-smooth-filters-are-blind-at-low">Why the smooth filters are blind at low ζ</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#notebook-summary">Notebook summary</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#outlook">Outlook</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#references">References</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Raymond Amador
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2026 · CC BY 4.0 (text) / MIT (code).
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../../_static/scripts/bootstrap.js?digest=55c26ed414f5f8a31ebb"></script>
+<script defer src="../../_static/scripts/pydata-sphinx-theme.js?digest=55c26ed414f5f8a31ebb"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
