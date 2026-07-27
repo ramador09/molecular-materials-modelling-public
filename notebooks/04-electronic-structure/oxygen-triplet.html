@@ -700,6 +700,9 @@ the details.</p>
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.colors</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">mcolors</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">scipy.ndimage</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">ndi</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">mpl_toolkits.mplot3d.art3d</span><span class="w"> </span><span class="kn">import</span> <span class="n">Poly3DCollection</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">skimage.measure</span><span class="w"> </span><span class="kn">import</span> <span class="n">marching_cubes</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">ecp</span><span class="w"> </span><span class="kn">import</span> <span class="n">validate</span>
@@ -775,7 +778,110 @@ the details.</p>
     <span class="p">)</span>
 
 
-<span class="k">def</span><span class="w"> </span><span class="nf">show_isosurface</span><span class="p">(</span><span class="n">cube</span><span class="p">,</span> <span class="n">levels</span><span class="p">,</span> <span class="n">title</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">add_isosurfaces</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="n">cube</span><span class="p">,</span> <span class="n">levels</span><span class="p">,</span> <span class="n">upsample</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">1.0</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Draw a cube file&#39;s isosurfaces on a 3-D axis, lit and depth-sorted.</span>
+
+<span class="sd">    The committed cubes are downsampled to keep the repository lean, and a</span>
+<span class="sd">    marching-cubes mesh built directly on that coarse grid renders as large flat</span>
+<span class="sd">    facets. The field itself is smooth, so a cubic-spline interpolation of the</span>
+<span class="sd">    grid (display only — every integral in this notebook is computed on the raw</span>
+<span class="sd">    committed data) recovers a mesh close to what the full-resolution cube would</span>
+<span class="sd">    give. All levels go into a single collection so matplotlib&#39;s painter sort</span>
+<span class="sd">    sees every triangle at once, and faces are shaded by their normals against a</span>
+<span class="sd">    fixed light, which is what makes the lobes read as three-dimensional.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    ax : mpl_toolkits.mplot3d.axes3d.Axes3D</span>
+<span class="sd">        The target 3-D axis.</span>
+<span class="sd">    cube : dict</span>
+<span class="sd">        A parsed cube from ``read_cube``.</span>
+<span class="sd">    levels : list of tuple</span>
+<span class="sd">        ``(isovalue, colour)`` pairs (amber for positive lobes, navy for negative).</span>
+<span class="sd">    upsample : int, optional</span>
+<span class="sd">        Spline upsampling factor for the display mesh (default 3).</span>
+<span class="sd">    alpha : float, optional</span>
+<span class="sd">        Surface opacity. Opaque suits well-separated orbital lobes; a density</span>
+<span class="sd">        that encloses its nucleus, or a difference density whose two signs</span>
+<span class="sd">        interpenetrate, needs some translucency to show what is inside.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    numpy.ndarray</span>
+<span class="sd">        All surface vertices, shape (n, 3) — the caller frames the view with them.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">d</span><span class="p">,</span> <span class="n">vec</span><span class="p">,</span> <span class="n">origin</span> <span class="o">=</span> <span class="n">cube</span><span class="p">[</span><span class="s2">&quot;data&quot;</span><span class="p">],</span> <span class="n">cube</span><span class="p">[</span><span class="s2">&quot;vec&quot;</span><span class="p">],</span> <span class="n">cube</span><span class="p">[</span><span class="s2">&quot;origin&quot;</span><span class="p">]</span>
+    <span class="n">spacing</span> <span class="o">=</span> <span class="p">(</span><span class="n">vec</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">vec</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">vec</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span>
+    <span class="n">dz</span> <span class="o">=</span> <span class="n">ndi</span><span class="o">.</span><span class="n">zoom</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="n">upsample</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+    <span class="n">sp</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">s</span> <span class="o">*</span> <span class="p">(</span><span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">nz</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="k">for</span> <span class="n">s</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">nz</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">spacing</span><span class="p">,</span> <span class="n">d</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">dz</span><span class="o">.</span><span class="n">shape</span><span class="p">))</span>
+    <span class="n">light</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.45</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">,</span> <span class="mf">0.85</span><span class="p">])</span>
+    <span class="n">light</span> <span class="o">=</span> <span class="n">light</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">light</span><span class="p">)</span>
+    <span class="n">tris</span><span class="p">,</span> <span class="n">cols</span><span class="p">,</span> <span class="n">all_verts</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[],</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">lvl</span><span class="p">,</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">levels</span><span class="p">:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="n">dz</span><span class="o">.</span><span class="n">min</span><span class="p">()</span> <span class="o">&lt;</span> <span class="n">lvl</span> <span class="o">&lt;</span> <span class="n">dz</span><span class="o">.</span><span class="n">max</span><span class="p">()):</span>
+            <span class="k">continue</span>
+        <span class="n">verts</span><span class="p">,</span> <span class="n">faces</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">marching_cubes</span><span class="p">(</span><span class="n">dz</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="n">lvl</span><span class="p">,</span> <span class="n">spacing</span><span class="o">=</span><span class="n">sp</span><span class="p">)</span>
+        <span class="n">verts</span> <span class="o">=</span> <span class="n">verts</span> <span class="o">+</span> <span class="n">origin</span>
+        <span class="n">tri</span> <span class="o">=</span> <span class="n">verts</span><span class="p">[</span><span class="n">faces</span><span class="p">]</span>
+        <span class="n">normal</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cross</span><span class="p">(</span><span class="n">tri</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">tri</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">tri</span><span class="p">[:,</span> <span class="mi">2</span><span class="p">]</span> <span class="o">-</span> <span class="n">tri</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">])</span>
+        <span class="n">normal</span> <span class="o">=</span> <span class="n">normal</span> <span class="o">/</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">normal</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">keepdims</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="o">+</span> <span class="mf">1e-30</span><span class="p">)</span>
+        <span class="c1"># two-sided lighting: a closed lobe shows both face orientations</span>
+        <span class="n">shade</span> <span class="o">=</span> <span class="mf">0.62</span> <span class="o">+</span> <span class="mf">0.38</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">normal</span> <span class="o">@</span> <span class="n">light</span><span class="p">)</span>
+        <span class="n">base</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">mcolors</span><span class="o">.</span><span class="n">to_rgb</span><span class="p">(</span><span class="n">col</span><span class="p">))</span>
+        <span class="n">rgb</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="n">shade</span><span class="p">[:,</span> <span class="kc">None</span><span class="p">]</span> <span class="o">*</span> <span class="n">base</span><span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="p">:],</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">)</span>
+        <span class="n">tris</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">tri</span><span class="p">)</span>
+        <span class="n">cols</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">([</span><span class="n">rgb</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">full</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="n">rgb</span><span class="p">),</span> <span class="mi">1</span><span class="p">),</span> <span class="n">alpha</span><span class="p">)],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span>
+        <span class="n">all_verts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">verts</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">tris</span><span class="p">:</span>
+        <span class="n">coll</span> <span class="o">=</span> <span class="n">Poly3DCollection</span><span class="p">(</span>
+            <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">(</span><span class="n">tris</span><span class="p">),</span> <span class="n">facecolors</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">(</span><span class="n">cols</span><span class="p">),</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s2">&quot;none&quot;</span>
+        <span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">add_collection3d</span><span class="p">(</span><span class="n">coll</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">(</span><span class="n">all_verts</span><span class="p">)</span> <span class="k">if</span> <span class="n">all_verts</span> <span class="k">else</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">frame_molecule</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="n">verts</span><span class="p">,</span> <span class="n">atoms</span><span class="p">,</span> <span class="n">title</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Frame a 3-D axis tightly around a rendered molecule.</span>
+
+<span class="sd">    The default framing shows the whole simulation cell, most of which is vacuum,</span>
+<span class="sd">    so the molecule shrinks into a corner of an empty box. Fitting the limits to</span>
+<span class="sd">    the surface and the atoms — with the same span on every axis, so nothing is</span>
+<span class="sd">    distorted — is what makes the orbital fill the figure.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    ax : mpl_toolkits.mplot3d.axes3d.Axes3D</span>
+<span class="sd">        The target 3-D axis.</span>
+<span class="sd">    verts : numpy.ndarray</span>
+<span class="sd">        Surface vertices from :func:`add_isosurfaces`, shape (n, 3).</span>
+<span class="sd">    atoms : numpy.ndarray</span>
+<span class="sd">        Atom positions, shape (n_atoms, 3).</span>
+<span class="sd">    title : str</span>
+<span class="sd">        Panel title.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span>
+        <span class="o">*</span><span class="n">atoms</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">110</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;#3a3a3a&quot;</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s2">&quot;white&quot;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">depthshade</span><span class="o">=</span><span class="kc">False</span>
+    <span class="p">)</span>
+    <span class="n">pts</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">([</span><span class="n">verts</span><span class="p">,</span> <span class="n">atoms</span><span class="p">])</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">verts</span><span class="p">)</span> <span class="k">else</span> <span class="n">atoms</span>
+    <span class="n">centre</span> <span class="o">=</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="p">(</span><span class="n">pts</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span> <span class="o">+</span> <span class="n">pts</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">))</span>
+    <span class="c1"># Per-axis limits, with the box aspect set to the same ratios: units stay</span>
+    <span class="c1"># equal on screen (nothing is distorted), but an elongated molecule gets an</span>
+    <span class="c1"># elongated box instead of rattling around inside a cube of vacuum.</span>
+    <span class="n">span</span> <span class="o">=</span> <span class="n">pts</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span> <span class="o">-</span> <span class="n">pts</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">half</span> <span class="o">=</span> <span class="mf">0.56</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">maximum</span><span class="p">(</span><span class="n">span</span><span class="p">,</span> <span class="mf">0.45</span> <span class="o">*</span> <span class="n">span</span><span class="o">.</span><span class="n">max</span><span class="p">())</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="n">centre</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">half</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">centre</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">half</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="n">centre</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">half</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">centre</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">half</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_zlim</span><span class="p">(</span><span class="n">centre</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">-</span> <span class="n">half</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">centre</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">+</span> <span class="n">half</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_box_aspect</span><span class="p">(</span><span class="nb">tuple</span><span class="p">(</span><span class="n">half</span><span class="p">))</span>
+    <span class="c1"># The cubes put the molecular axis along z; rolling the camera by 90 degrees</span>
+    <span class="c1"># lays it horizontal on screen, the orientation every textbook MO diagram</span>
+    <span class="c1"># uses, and the one that actually fills a wide panel.</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">view_init</span><span class="p">(</span><span class="n">elev</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span> <span class="n">azim</span><span class="o">=-</span><span class="mi">58</span><span class="p">,</span> <span class="n">roll</span><span class="o">=</span><span class="mi">90</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_axis_off</span><span class="p">()</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="n">title</span><span class="p">)</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">show_isosurface</span><span class="p">(</span><span class="n">cube</span><span class="p">,</span> <span class="n">levels</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">1.0</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Render cube isosurfaces with the atoms marked, on a new 3-D figure.</span>
 
 <span class="sd">    Parameters</span>
@@ -792,33 +898,11 @@ the details.</p>
 <span class="sd">    matplotlib.figure.Figure</span>
 <span class="sd">        The figure with the rendered isosurface(s).</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">d</span><span class="p">,</span> <span class="n">vec</span><span class="p">,</span> <span class="n">origin</span> <span class="o">=</span> <span class="n">cube</span><span class="p">[</span><span class="s2">&quot;data&quot;</span><span class="p">],</span> <span class="n">cube</span><span class="p">[</span><span class="s2">&quot;vec&quot;</span><span class="p">],</span> <span class="n">cube</span><span class="p">[</span><span class="s2">&quot;origin&quot;</span><span class="p">]</span>
-    <span class="n">spacing</span> <span class="o">=</span> <span class="p">(</span><span class="n">vec</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">vec</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">vec</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span>
-    <span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mf">4.6</span><span class="p">,</span> <span class="mf">4.4</span><span class="p">))</span>
+    <span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mf">4.8</span><span class="p">,</span> <span class="mf">4.5</span><span class="p">))</span>
     <span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="n">projection</span><span class="o">=</span><span class="s2">&quot;3d&quot;</span><span class="p">)</span>
-    <span class="k">for</span> <span class="n">lvl</span><span class="p">,</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">levels</span><span class="p">:</span>
-        <span class="k">if</span> <span class="n">d</span><span class="o">.</span><span class="n">min</span><span class="p">()</span> <span class="o">&lt;</span> <span class="n">lvl</span> <span class="o">&lt;</span> <span class="n">d</span><span class="o">.</span><span class="n">max</span><span class="p">():</span>
-            <span class="n">verts</span><span class="p">,</span> <span class="n">faces</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">marching_cubes</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="n">lvl</span><span class="p">,</span> <span class="n">spacing</span><span class="o">=</span><span class="n">spacing</span><span class="p">)</span>
-            <span class="n">verts</span> <span class="o">=</span> <span class="n">verts</span> <span class="o">+</span> <span class="n">origin</span>
-            <span class="n">ax</span><span class="o">.</span><span class="n">plot_trisurf</span><span class="p">(</span>
-                <span class="n">verts</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span>
-                <span class="n">verts</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span>
-                <span class="n">faces</span><span class="p">,</span>
-                <span class="n">verts</span><span class="p">[:,</span> <span class="mi">2</span><span class="p">],</span>
-                <span class="n">color</span><span class="o">=</span><span class="n">col</span><span class="p">,</span>
-                <span class="n">alpha</span><span class="o">=</span><span class="mf">0.45</span><span class="p">,</span>
-                <span class="n">lw</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
-            <span class="p">)</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span>
-        <span class="n">cube</span><span class="p">[</span><span class="s2">&quot;atoms&quot;</span><span class="p">][:,</span> <span class="mi">0</span><span class="p">],</span>
-        <span class="n">cube</span><span class="p">[</span><span class="s2">&quot;atoms&quot;</span><span class="p">][:,</span> <span class="mi">1</span><span class="p">],</span>
-        <span class="n">cube</span><span class="p">[</span><span class="s2">&quot;atoms&quot;</span><span class="p">][:,</span> <span class="mi">2</span><span class="p">],</span>
-        <span class="n">s</span><span class="o">=</span><span class="mi">140</span><span class="p">,</span>
-        <span class="n">color</span><span class="o">=</span><span class="s2">&quot;#444&quot;</span><span class="p">,</span>
-        <span class="n">depthshade</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-    <span class="p">)</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">xticks</span><span class="o">=</span><span class="p">[],</span> <span class="n">yticks</span><span class="o">=</span><span class="p">[],</span> <span class="n">zticks</span><span class="o">=</span><span class="p">[],</span> <span class="n">title</span><span class="o">=</span><span class="n">title</span><span class="p">)</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">set_box_aspect</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+    <span class="n">verts</span> <span class="o">=</span> <span class="n">add_isosurfaces</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="n">cube</span><span class="p">,</span> <span class="n">levels</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="n">alpha</span><span class="p">)</span>
+    <span class="n">frame_molecule</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="n">verts</span><span class="p">,</span> <span class="n">cube</span><span class="p">[</span><span class="s2">&quot;atoms&quot;</span><span class="p">],</span> <span class="n">title</span><span class="p">)</span>
+    <span class="n">fig</span><span class="o">.</span><span class="n">subplots_adjust</span><span class="p">(</span><span class="n">left</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">right</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">bottom</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">top</span><span class="o">=</span><span class="mf">0.92</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">fig</span>
 </pre></div>
 </div>
@@ -888,7 +972,7 @@ a physical density.</p>
 <div class="cell tag_solution tag_remove-input docutils container">
 <div class="cell_output docutils container">
 <figure class="align-default" id="fig-o2-density">
-<img alt="../../_images/4526aafd6142cbde2ba6e5d2f7720e6e00b0c5d02167f8df691ae8656a969e0f.png" src="../../_images/4526aafd6142cbde2ba6e5d2f7720e6e00b0c5d02167f8df691ae8656a969e0f.png" />
+<img alt="../../_images/0d3cd2ac933d2757ad9a8ff41d5737d644f2cd6f07965bc1881de1178867d7b1.png" src="../../_images/0d3cd2ac933d2757ad9a8ff41d5737d644f2cd6f07965bc1881de1178867d7b1.png" />
 <figcaption>
 <p><span class="caption-number">Fig. 37 </span><span class="caption-text">Isosurface of the O₂ electron density from the CP2K calculation (amber, <span class="math notranslate nohighlight">\(\rho=0.05\,e/a_0^3\)</span>), with the two oxygen nuclei marked. The density forms a single connected cloud spanning both atoms, the signature of a bonded molecule. (Cube downsampled for display.)</span><a class="headerlink" href="#fig-o2-density" title="Link to this image">#</a></p>
 </figcaption>
@@ -930,7 +1014,7 @@ is conserved.</p>
 <div class="cell tag_solution tag_remove-input docutils container">
 <div class="cell_output docutils container">
 <figure class="align-default" id="fig-o2-diff">
-<img alt="../../_images/b483eef8088f12eced8362d52307ec360034b6d2ee20a9601eac1e3771b7ae1c.png" src="../../_images/b483eef8088f12eced8362d52307ec360034b6d2ee20a9601eac1e3771b7ae1c.png" />
+<img alt="../../_images/e7e01c54a443caf7c9d941d215a0cd2660aadd331b171f12ac75285e3ef365d4.png" src="../../_images/e7e01c54a443caf7c9d941d215a0cd2660aadd331b171f12ac75285e3ef365d4.png" />
 <figcaption>
 <p><span class="caption-number">Fig. 38 </span><span class="caption-text">Electron-density difference <span class="math notranslate nohighlight">\(\Delta\rho=\rho_{\mathrm{O_2}}-2\rho_{\mathrm{O}}\)</span> from the CP2K calculation: amber where charge accumulates on bonding, navy where it is depleted (<span class="math notranslate nohighlight">\(\pm0.004\,e/a_0^3\)</span>). The redistribution into the bonding region is what a Lewis double bond depicts only schematically. (Cube downsampled for display.)</span><a class="headerlink" href="#fig-o2-diff" title="Link to this image">#</a></p>
 </figcaption>
@@ -968,7 +1052,7 @@ visible as the change of lobe colour across the bond.</p>
 <div class="cell tag_solution tag_remove-input docutils container">
 <div class="cell_output docutils container">
 <figure class="align-default" id="fig-o2-orbitals">
-<img alt="../../_images/197ac23ad20143d7e7acdd5b9d8ac10b175e5289e16b5d9cae57a4c82d2c0f39.png" src="../../_images/197ac23ad20143d7e7acdd5b9d8ac10b175e5289e16b5d9cae57a4c82d2c0f39.png" />
+<img alt="../../_images/6545f8dcd3f5ee0428f0aa3f9468a0b615321ea8810a01b5e73a4b818892bd85.png" src="../../_images/6545f8dcd3f5ee0428f0aa3f9468a0b615321ea8810a01b5e73a4b818892bd85.png" />
 <figcaption>
 <p><span class="caption-number">Fig. 39 </span><span class="caption-text">Three O₂ molecular orbitals from the CP2K calculation (amber/navy = opposite sign of the wavefunction): the bonding <span class="math notranslate nohighlight">\(\pi_{2p}\)</span> and <span class="math notranslate nohighlight">\(\sigma_{2p}\)</span>, which build up amplitude between the nuclei, and the antibonding <span class="math notranslate nohighlight">\(\pi^*\)</span> (the HOMO), whose node between the atoms is the colour change across the bond. The two electrons in this <span class="math notranslate nohighlight">\(\pi^*\)</span> pair are the unpaired ones. (Cubes downsampled for display.)</span><a class="headerlink" href="#fig-o2-orbitals" title="Link to this image">#</a></p>
 </figcaption>
@@ -1011,7 +1095,7 @@ the atom’s electrons.</p>
 <div class="cell tag_solution tag_remove-input docutils container">
 <div class="cell_output docutils container">
 <figure class="align-default" id="fig-o-density">
-<img alt="../../_images/ce1a263ef17eb78d7cf132ccfc4f190286ca191a88d84906bd3bc63e60091e5f.png" src="../../_images/ce1a263ef17eb78d7cf132ccfc4f190286ca191a88d84906bd3bc63e60091e5f.png" />
+<img alt="../../_images/c6defcd82263ee3b1ab219dbcc417c69d36ee601c7fbd5c94798c45600ed3c09.png" src="../../_images/c6defcd82263ee3b1ab219dbcc417c69d36ee601c7fbd5c94798c45600ed3c09.png" />
 <figcaption>
 <p><span class="caption-number">Fig. 40 </span><span class="caption-text">Electron density of a single oxygen atom from the CP2K calculation (amber, <span class="math notranslate nohighlight">\(\rho=0.05\,e/a_0^3\)</span>): one cloud about one nucleus, holding its six valence electrons — the 1s core is folded into the GTH pseudopotential — half the molecule’s twelve. (Cube downsampled for display.)</span><a class="headerlink" href="#fig-o-density" title="Link to this image">#</a></p>
 </figcaption>
