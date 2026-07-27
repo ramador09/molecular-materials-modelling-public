@@ -13,9 +13,10 @@ input decks and analyse the **real committed output** of the course calculations
 
 ```{admonition} Source lectures
 :class: note
-This volume develops **Lectures 4–5** of *Molecular and Materials Modelling*
-(FS 2023), *band theory of crystals*, and the density-functional-theory lectures
-that follow (6–8). Each notebook repeats its specific lecture provenance in its
+This volume develops **Lecture 5** of *Molecular and Materials Modelling*
+(FS 2023) — *band theory of crystals* — and **Lecture 6** — *molecular orbital
+theory*. The remaining density-functional lectures land where their systems
+live: Lecture 7 in Volume VI and Lecture 8 in Volume V. Each notebook repeats its specific lecture provenance in its
 overview; the full lecture map is in `manifest.yml`.
 ```
 

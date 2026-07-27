@@ -893,6 +893,9 @@ a physical density.</p>
 <p><span class="caption-number">Fig. 37 </span><span class="caption-text">Isosurface of the O₂ electron density from the CP2K calculation (amber, <span class="math notranslate nohighlight">\(\rho=0.05\,e/a_0^3\)</span>), with the two oxygen nuclei marked. The density forms a single connected cloud spanning both atoms, the signature of a bonded molecule. (Cube downsampled for display.)</span><a class="headerlink" href="#fig-o2-density" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>min ρ = -8.76e-06; ∫ρ d³r = 11.885 (the 12 GTH valence electrons)
+</pre></div>
+</div>
 </div>
 </div>
 <section id="validation-2-a-physical-electron-density">
@@ -970,6 +973,9 @@ visible as the change of lobe colour across the bond.</p>
 <p><span class="caption-number">Fig. 39 </span><span class="caption-text">Three O₂ molecular orbitals from the CP2K calculation (amber/navy = opposite sign of the wavefunction): the bonding <span class="math notranslate nohighlight">\(\pi_{2p}\)</span> and <span class="math notranslate nohighlight">\(\sigma_{2p}\)</span>, which build up amplitude between the nuclei, and the antibonding <span class="math notranslate nohighlight">\(\pi^*\)</span> (the HOMO), whose node between the atoms is the colour change across the bond. The two electrons in this <span class="math notranslate nohighlight">\(\pi^*\)</span> pair are the unpaired ones. (Cubes downsampled for display.)</span><a class="headerlink" href="#fig-o2-orbitals" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>∫|ψ|² d³r = 0.9870, 0.9994, 1.0200
+</pre></div>
+</div>
 </div>
 </div>
 <section id="validation-4-proper-one-electron-orbitals">
@@ -995,8 +1001,10 @@ single-electron molecular orbitals.</p>
 spherical-ish cloud about a single nucleus, and crucially it holds <strong>half</strong> the
 electrons of the molecule. Comparing the integrated densities is a clean,
 downsampling-proof check: the molecule must contain exactly twice the atom’s
-electrons (16 versus 8), so the <em>ratio</em> of the integrals is 2 even though each
-absolute integral is undercounted by the coarse grid.</p>
+electrons — 12 valence electrons against 6, since the GTH pseudopotentials fold
+each 1s core into the potential and the cubes therefore hold valence density
+only — so the <em>ratio</em> of the integrals is 2, with the per-cent-level shortfall
+of each absolute integral being the coarse grid’s quadrature error.</p>
 <p><strong>Part a)</strong> Render the O-atom density.</p>
 <p><strong>Part b)</strong> Confirm the molecule has twice
 the atom’s electrons.</p>
@@ -1005,10 +1013,10 @@ the atom’s electrons.</p>
 <figure class="align-default" id="fig-o-density">
 <img alt="../../_images/ce1a263ef17eb78d7cf132ccfc4f190286ca191a88d84906bd3bc63e60091e5f.png" src="../../_images/ce1a263ef17eb78d7cf132ccfc4f190286ca191a88d84906bd3bc63e60091e5f.png" />
 <figcaption>
-<p><span class="caption-number">Fig. 40 </span><span class="caption-text">Electron density of a single oxygen atom from the CP2K calculation (amber, <span class="math notranslate nohighlight">\(\rho=0.05\,e/a_0^3\)</span>): one cloud about one nucleus, holding eight electrons, half the molecule’s sixteen. (Cube downsampled for display.)</span><a class="headerlink" href="#fig-o-density" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 40 </span><span class="caption-text">Electron density of a single oxygen atom from the CP2K calculation (amber, <span class="math notranslate nohighlight">\(\rho=0.05\,e/a_0^3\)</span>): one cloud about one nucleus, holding its six valence electrons — the 1s core is folded into the GTH pseudopotential — half the molecule’s twelve. (Cube downsampled for display.)</span><a class="headerlink" href="#fig-o-density" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>∫ρ(O₂) / ∫ρ(O) = 1.998  (O₂ has 16 electrons, O has 8  -&gt;  ratio 2)
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>∫ρ(O₂) = 11.89, ∫ρ(O) = 5.95 valence electrons  -&gt;  ratio 1.998  (12 vs 6; the 1s cores live in the pseudopotential)
 </pre></div>
 </div>
 </div>
