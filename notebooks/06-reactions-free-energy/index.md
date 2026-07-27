@@ -8,5 +8,14 @@ for a transition state, to metadynamics reconstructing a free-energy surface fro
 biased trajectory. The energies are the course's own committed density-functional and
 tight-binding results.
 
+```{admonition} Source lectures
+:class: note
+This volume develops **Lecture 7** of *Molecular and Materials Modelling*
+(FS 2023) — *density functionals and basis sets, on the ethanol dehydration* —
+and **Lecture 13** — *transition states and free energy: the nudged elastic band
+and metadynamics*. Each notebook repeats its specific lecture provenance in its
+overview; the full lecture map is in `manifest.yml`.
+```
+
 ```{tableofcontents}
 ```
