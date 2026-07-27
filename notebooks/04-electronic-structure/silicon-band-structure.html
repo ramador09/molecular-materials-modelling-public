@@ -651,7 +651,7 @@ every lattice vector <span class="math notranslate nohighlight">\(\mathbf R\)</s
 eigenstates can be labelled by a <strong>crystal momentum</strong> <span class="math notranslate nohighlight">\(\mathbf k\)</span> and a band index
 <span class="math notranslate nohighlight">\(n\)</span>, and take the form</p>
 <div class="math notranslate nohighlight" id="equation-eq-bloch">
-<span class="eqno">(34)<a class="headerlink" href="#equation-eq-bloch" title="Link to this equation">#</a></span>\[\psi_{n\mathbf k}(\mathbf r) = e^{i\mathbf k\cdot\mathbf r}\,u_{n\mathbf k}(\mathbf r),
+<span class="eqno">(36)<a class="headerlink" href="#equation-eq-bloch" title="Link to this equation">#</a></span>\[\psi_{n\mathbf k}(\mathbf r) = e^{i\mathbf k\cdot\mathbf r}\,u_{n\mathbf k}(\mathbf r),
 \qquad u_{n\mathbf k}(\mathbf r+\mathbf R)=u_{n\mathbf k}(\mathbf r),\]</div>
 <p>with energies <span class="math notranslate nohighlight">\(E_n(\mathbf k)\)</span>. Because <span class="math notranslate nohighlight">\(\mathbf k\)</span> and <span class="math notranslate nohighlight">\(\mathbf k+\mathbf G\)</span>
 (for a reciprocal-lattice vector <span class="math notranslate nohighlight">\(\mathbf G\)</span>) give the same state, every distinct
@@ -849,7 +849,7 @@ relative to the VBM, marking L, Γ, X.</p>
 <figure class="align-default" id="fig-si-bands">
 <img alt="../../_images/bdc9f902809205b54319cabf48abae249fa484fd114207413826da203609b552.png" src="../../_images/bdc9f902809205b54319cabf48abae249fa484fd114207413826da203609b552.png" />
 <figcaption>
-<p><span class="caption-number">Fig. 38 </span><span class="caption-text">Electronic band structure of silicon from the course’s Quantum ESPRESSO (PBE) calculation, along the high-symmetry path L–Γ–X, with energies referenced to the valence-band maximum (VBM, dashed). The four filled valence bands lie below the shaded gap; the conduction bands above. The VBM sits at <span class="math notranslate nohighlight">\(\Gamma\)</span> (amber) and the conduction-band minimum (CBM, navy) lies along <span class="math notranslate nohighlight">\(\Gamma\)</span>–X, so the fundamental gap is indirect.</span><a class="headerlink" href="#fig-si-bands" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 40 </span><span class="caption-text">Electronic band structure of silicon from the course’s Quantum ESPRESSO (PBE) calculation, along the high-symmetry path L–Γ–X, with energies referenced to the valence-band maximum (VBM, dashed). The four filled valence bands lie below the shaded gap; the conduction bands above. The VBM sits at <span class="math notranslate nohighlight">\(\Gamma\)</span> (amber) and the conduction-band minimum (CBM, navy) lies along <span class="math notranslate nohighlight">\(\Gamma\)</span>–X, so the fundamental gap is indirect.</span><a class="headerlink" href="#fig-si-bands" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 </div>
@@ -927,7 +927,7 @@ underestimate.</p>
 <figure class="align-default" id="fig-si-gap">
 <img alt="../../_images/6cd81b872ef7575216665c7755520d1084da5df69e54e2543c54deb8b62c19ce.png" src="../../_images/6cd81b872ef7575216665c7755520d1084da5df69e54e2543c54deb8b62c19ce.png" />
 <figcaption>
-<p><span class="caption-number">Fig. 39 </span><span class="caption-text">The density-functional band-gap problem for silicon: the PBE Kohn-Sham gap (amber) against the experimental value of 1.17 eV (navy). PBE recovers barely half the measured gap, a systematic underestimate rooted in the missing derivative discontinuity of approximate exchange-correlation functionals, not in the convergence of the calculation.</span><a class="headerlink" href="#fig-si-gap" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 41 </span><span class="caption-text">The density-functional band-gap problem for silicon: the PBE Kohn-Sham gap (amber) against the experimental value of 1.17 eV (navy). PBE recovers barely half the measured gap, a systematic underestimate rooted in the missing derivative discontinuity of approximate exchange-correlation functionals, not in the convergence of the calculation.</span><a class="headerlink" href="#fig-si-gap" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>PBE misses the experimental gap by 0.59 eV (50% of it)
@@ -957,12 +957,12 @@ signature of the Kohn-Sham band-gap problem.</p>
 worth asking how much of its shape needs a code at all. Strip the crystal of its
 potential entirely, keeping only its periodicity, and the electrons are free: their
 energies are <span class="math notranslate nohighlight">\(\hbar^2k^2/2m\)</span>. Periodicity still does one thing, though. Bloch’s
-theorem <a class="reference internal" href="#equation-eq-bloch">Eq. 34</a> says <span class="math notranslate nohighlight">\(\mathbf k\)</span> and <span class="math notranslate nohighlight">\(\mathbf k+\mathbf G\)</span> label the same
+theorem <a class="reference internal" href="#equation-eq-bloch">Eq. 36</a> says <span class="math notranslate nohighlight">\(\mathbf k\)</span> and <span class="math notranslate nohighlight">\(\mathbf k+\mathbf G\)</span> label the same
 state for any reciprocal-lattice vector <span class="math notranslate nohighlight">\(\mathbf G\)</span>, so every free-electron
 parabola centred on every <span class="math notranslate nohighlight">\(\mathbf G\)</span> gets <strong>folded</strong> back into the first Brillouin
 zone. What was one parabola becomes a whole family of bands:</p>
 <div class="math notranslate nohighlight" id="equation-eq-empty-lattice">
-<span class="eqno">(35)<a class="headerlink" href="#equation-eq-empty-lattice" title="Link to this equation">#</a></span>\[E_{\mathbf G}(\mathbf k) = \frac{\hbar^2}{2m}\,\big|\mathbf k + \mathbf G\big|^2 .\]</div>
+<span class="eqno">(37)<a class="headerlink" href="#equation-eq-empty-lattice" title="Link to this equation">#</a></span>\[E_{\mathbf G}(\mathbf k) = \frac{\hbar^2}{2m}\,\big|\mathbf k + \mathbf G\big|^2 .\]</div>
 <p>This is the <strong>empty-lattice test</strong>, and it is the cleanest way to separate the two
 things a band structure contains: the part that is pure kinematics — how many bands
 there are, roughly how wide, where they cross — and the part that genuinely needs
@@ -973,7 +973,7 @@ non-zero shell is the eight <span class="math notranslate nohighlight">\(\langle
 these units.</p>
 <p><strong>Part a)</strong> Build the reciprocal-lattice vectors: take all integer triples <span class="math notranslate nohighlight">\((h,k,l)\)</span>
 in <span class="math notranslate nohighlight">\([-2,2]\)</span> with <code class="docutils literal notranslate"><span class="pre">itertools.product</span></code> and keep those whose components share a parity,
-which is the fcc-reciprocal (bcc) selection rule. Evaluate <a class="reference internal" href="#equation-eq-empty-lattice">Eq. 35</a> on
+which is the fcc-reciprocal (bcc) selection rule. Evaluate <a class="reference internal" href="#equation-eq-empty-lattice">Eq. 37</a> on
 the same k-path the DFT calculation used, with the prefactor
 <span class="math notranslate nohighlight">\((\hbar^2/2m)(2\pi/a)^2\)</span> built from <code class="docutils literal notranslate"><span class="pre">scipy.constants</span></code> and <span class="math notranslate nohighlight">\(a = 5.431\)</span> Å, then sort
 the energies at each k-point with <code class="docutils literal notranslate"><span class="pre">numpy.sort</span></code> and keep the lowest eight.
@@ -998,7 +998,7 @@ bandwidth of the lowest band, free 5.10 eV vs DFT 4.15 eV
 <figure class="align-default" id="fig-si-empty-lattice">
 <img alt="../../_images/1abbb6bc8bc4692d56e34e7e308dd2cd004fc957713a42f0fe69da2e5e981b2b.png" src="../../_images/1abbb6bc8bc4692d56e34e7e308dd2cd004fc957713a42f0fe69da2e5e981b2b.png" />
 <figcaption>
-<p><span class="caption-number">Fig. 40 </span><span class="caption-text">The empty-lattice test for silicon along L–<span class="math notranslate nohighlight">\(\Gamma\)</span>–X. Amber: folded free-electron bands <span class="math notranslate nohighlight">\(E=(\hbar^2/2m)|\mathbf k+\mathbf G|^2\)</span> for the fcc reciprocal lattice, with no crystal potential at all. Navy: the bands from the course’s Quantum ESPRESSO calculation. Each set is referenced to its own lowest state. The number of bands, their rough widths, and the general pattern of crossings come from periodicity alone; what the potential adds is the lifting of degeneracies – most visibly the eightfold free-electron level at <span class="math notranslate nohighlight">\(\Gamma\)</span>, which the real calculation splits into four distinct energies, opening the gap.</span><a class="headerlink" href="#fig-si-empty-lattice" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 42 </span><span class="caption-text">The empty-lattice test for silicon along L–<span class="math notranslate nohighlight">\(\Gamma\)</span>–X. Amber: folded free-electron bands <span class="math notranslate nohighlight">\(E=(\hbar^2/2m)|\mathbf k+\mathbf G|^2\)</span> for the fcc reciprocal lattice, with no crystal potential at all. Navy: the bands from the course’s Quantum ESPRESSO calculation. Each set is referenced to its own lowest state. The number of bands, their rough widths, and the general pattern of crossings come from periodicity alone; what the potential adds is the lifting of degeneracies – most visibly the eightfold free-electron level at <span class="math notranslate nohighlight">\(\Gamma\)</span>, which the real calculation splits into four distinct energies, opening the gap.</span><a class="headerlink" href="#fig-si-empty-lattice" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 </div>
