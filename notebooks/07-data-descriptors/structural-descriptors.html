@@ -659,7 +659,7 @@ separately, as a vector of sums over its neighbours. Every sum is cut off smooth
 a radius <span class="math notranslate nohighlight">\(R_c\)</span>, so that atoms entering and leaving the environment do not make the
 descriptor jump:</p>
 <div class="math notranslate nohighlight" id="equation-eq-bp-cutoff">
-<span class="eqno">(61)<a class="headerlink" href="#equation-eq-bp-cutoff" title="Link to this equation">#</a></span>\[\begin{split}f_c(r) = \begin{cases}
+<span class="eqno">(65)<a class="headerlink" href="#equation-eq-bp-cutoff" title="Link to this equation">#</a></span>\[\begin{split}f_c(r) = \begin{cases}
   \tfrac12\left[\cos\!\left(\pi r / R_c\right) + 1\right], &amp; r &lt; R_c,\\
   0, &amp; r \ge R_c.
 \end{cases}\end{split}\]</div>
@@ -667,14 +667,14 @@ descriptor jump:</p>
 neighbour density sits there. Varying the width <span class="math notranslate nohighlight">\(\eta\)</span> and the centre <span class="math notranslate nohighlight">\(R_s\)</span> across a
 set of functions samples the radial distribution at different resolutions:</p>
 <div class="math notranslate nohighlight" id="equation-eq-bp-g2">
-<span class="eqno">(62)<a class="headerlink" href="#equation-eq-bp-g2" title="Link to this equation">#</a></span>\[G_i^{2} = \sum_{j \ne i} e^{-\eta\,(r_{ij} - R_s)^2}\, f_c(r_{ij}).\]</div>
+<span class="eqno">(66)<a class="headerlink" href="#equation-eq-bp-g2" title="Link to this equation">#</a></span>\[G_i^{2} = \sum_{j \ne i} e^{-\eta\,(r_{ij} - R_s)^2}\, f_c(r_{ij}).\]</div>
 <p>Radial functions can only ever see the <em>multiset of distances</em> from atom <span class="math notranslate nohighlight">\(i\)</span>. Two
 environments with the same distances are identical to every <span class="math notranslate nohighlight">\(G^2\)</span>, no matter how many
 are used — which is exactly the trap Exercise 3 walks into. To see more, the descriptor
 has to look at <strong>angles</strong>, summing over pairs of neighbours <span class="math notranslate nohighlight">\((j,k)\)</span> with <span class="math notranslate nohighlight">\(\theta_{jik}\)</span>
 the angle they subtend at <span class="math notranslate nohighlight">\(i\)</span>:</p>
 <div class="math notranslate nohighlight" id="equation-eq-bp-g4">
-<span class="eqno">(63)<a class="headerlink" href="#equation-eq-bp-g4" title="Link to this equation">#</a></span>\[G_i^{4} = 2^{1-\zeta} \sum_{j \ne i}\sum_{k &gt; j}
+<span class="eqno">(67)<a class="headerlink" href="#equation-eq-bp-g4" title="Link to this equation">#</a></span>\[G_i^{4} = 2^{1-\zeta} \sum_{j \ne i}\sum_{k &gt; j}
   \left(1 + \lambda \cos\theta_{jik}\right)^{\zeta}
   e^{-\eta\left(r_{ij}^2 + r_{ik}^2 + r_{jk}^2\right)}
   f_c(r_{ij})\, f_c(r_{ik})\, f_c(r_{jk}).\]</div>
@@ -684,7 +684,7 @@ small <span class="math notranslate nohighlight">\(\zeta\)</span> blurs it. The 
 distance between the two <em>neighbours</em> — an apparently innocent choice that Exercise 4
 shows is anything but. Behler’s alternative drops it <span class="bibtex-citation" id="id3">[<a class="reference internal" href="#id49" title="Jörg Behler. Atom-centered symmetry functions for constructing high-dimensional neural network potentials. The Journal of Chemical Physics, 134(7):074106, 2011. doi:10.1063/1.3553717.">Beh11</a>]</span>:</p>
 <div class="math notranslate nohighlight" id="equation-eq-bp-g5">
-<span class="eqno">(64)<a class="headerlink" href="#equation-eq-bp-g5" title="Link to this equation">#</a></span>\[G_i^{5} = 2^{1-\zeta} \sum_{j \ne i}\sum_{k &gt; j}
+<span class="eqno">(68)<a class="headerlink" href="#equation-eq-bp-g5" title="Link to this equation">#</a></span>\[G_i^{5} = 2^{1-\zeta} \sum_{j \ne i}\sum_{k &gt; j}
   \left(1 + \lambda \cos\theta_{jik}\right)^{\zeta}
   e^{-\eta\left(r_{ij}^2 + r_{ik}^2\right)}
   f_c(r_{ij})\, f_c(r_{ik}).\]</div>
@@ -858,7 +858,7 @@ pairwise system actually depends on.</p>
 <figure class="align-default" id="fig-desc-cartesian">
 <img alt="../../_images/eade6482287fd056bf9afbe6edad6fe0f360844b1daf7a8628875e669e62517d.png" src="../../_images/eade6482287fd056bf9afbe6edad6fe0f360844b1daf7a8628875e669e62517d.png" />
 <figcaption>
-<p><span class="caption-number">Fig. 72 </span><span class="caption-text">The same 108-atom copper crystal before (left) and after (right) a rigid rotation, with three atoms marked to show that the structure is unchanged while every coordinate is different. Rotation, translation and relabelling leave the set of interatomic distances — and therefore the energy — exactly invariant, but move the coordinate vector by more than the size of the structure itself, which is why atomic coordinates make a poor input to a fitted model.</span><a class="headerlink" href="#fig-desc-cartesian" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 76 </span><span class="caption-text">The same 108-atom copper crystal before (left) and after (right) a rigid rotation, with three atoms marked to show that the structure is unchanged while every coordinate is different. Rotation, translation and relabelling leave the set of interatomic distances — and therefore the energy — exactly invariant, but move the coordinate vector by more than the size of the structure itself, which is why atomic coordinates make a poor input to a fitted model.</span><a class="headerlink" href="#fig-desc-cartesian" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>||X - X(translation)|| =   41.491 Å   ( 7.77 × the structure size)
@@ -894,11 +894,11 @@ to learn to undo the first; a model fed distances gets the second for free.</p>
 <hr class="docutils" />
 <section id="exercise-2-radial-symmetry-functions">
 <h2>Exercise 2 — Radial symmetry functions<a class="headerlink" href="#exercise-2-radial-symmetry-functions" title="Link to this heading">#</a></h2>
-<p>Now build the first real descriptor. Equation <a class="reference internal" href="#equation-eq-bp-g2">Eq. 62</a> sums a Gaussian over the
+<p>Now build the first real descriptor. Equation <a class="reference internal" href="#equation-eq-bp-g2">Eq. 66</a> sums a Gaussian over the
 neighbours of one atom, so it depends only on distances and only through a sum — the
 two properties that buy invariance to all three operations at once.</p>
-<p><strong>Part a)</strong> Implement the cutoff of <a class="reference internal" href="#equation-eq-bp-cutoff">Eq. 61</a> and the radial functions of
-<a class="reference internal" href="#equation-eq-bp-g2">Eq. 62</a>, taking the neighbour distances from the <code class="docutils literal notranslate"><span class="pre">neighbours</span></code> instrument.
+<p><strong>Part a)</strong> Implement the cutoff of <a class="reference internal" href="#equation-eq-bp-cutoff">Eq. 65</a> and the radial functions of
+<a class="reference internal" href="#equation-eq-bp-g2">Eq. 66</a>, taking the neighbour distances from the <code class="docutils literal notranslate"><span class="pre">neighbours</span></code> instrument.
 <strong>Write this one yourself</strong> — the implementation is the lesson.</p>
 <p><strong>Part b)</strong> Verify invariance numerically. Apply a translation, a rotation, and a
 permutation of the neighbour labels to an isolated cluster, and confirm the descriptor
@@ -916,7 +916,7 @@ relative change in the descriptor under permutation : 0.00e+00
 <figure class="align-default" id="fig-desc-g2">
 <img alt="../../_images/e7e6c1483fe2aaf8f847e63b304740053ea0b2c382cb0cb28fb69c3b19d09ada.png" src="../../_images/e7e6c1483fe2aaf8f847e63b304740053ea0b2c382cb0cb28fb69c3b19d09ada.png" />
 <figcaption>
-<p><span class="caption-number">Fig. 73 </span><span class="caption-text">Left: the radial symmetry functions of Eq. eq-bp-g2, each a Gaussian of width set by η centred at Rs, multiplied by the smooth cutoff of Eq. eq-bp-cutoff which takes every one of them to zero at Rc = 6 Å. Right: the resulting descriptor for an atom in bulk fcc copper and for one in the top layer of a (111) slab. The surface atom is missing roughly half its neighbours, so every component drops, and the components probing the near shells drop least because those neighbours are the ones the surface still has.</span><a class="headerlink" href="#fig-desc-g2" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 77 </span><span class="caption-text">Left: the radial symmetry functions of Eq. eq-bp-g2, each a Gaussian of width set by η centred at Rs, multiplied by the smooth cutoff of Eq. eq-bp-cutoff which takes every one of them to zero at Rc = 6 Å. Right: the resulting descriptor for an atom in bulk fcc copper and for one in the top layer of a (111) slab. The surface atom is missing roughly half its neighbours, so every component drops, and the components probing the near shells drop least because those neighbours are the ones the surface still has.</span><a class="headerlink" href="#fig-desc-g2" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>bulk atom: 78 neighbours within 6.0 Å; surface atom: 48
@@ -958,7 +958,7 @@ thing a descriptor has to be able to see.</p>
 <p><strong>Part a)</strong> Tabulate the neighbour shells of fcc, hcp and bcc at a cutoff of 4 Å,
 with all three at the same nearest-neighbour distance. Establish which pairs of phases
 share a shell structure and which do not.</p>
-<p><strong>Part b)</strong> Compute the radial descriptor of <a class="reference internal" href="#equation-eq-bp-g2">Eq. 62</a> for each phase at that
+<p><strong>Part b)</strong> Compute the radial descriptor of <a class="reference internal" href="#equation-eq-bp-g2">Eq. 66</a> for each phase at that
 cutoff and compare them. Predict the outcome from Part a before running it, then
 confirm that no choice of <span class="math notranslate nohighlight">\(\eta\)</span> and <span class="math notranslate nohighlight">\(R_s\)</span> could change it.</p>
 <div class="cell tag_solution tag_remove-input docutils container">
@@ -966,7 +966,7 @@ confirm that no choice of <span class="math notranslate nohighlight">\(\eta\)</s
 <figure class="align-default" id="fig-desc-shells">
 <img alt="../../_images/1a8de6b1169b46c63f1b24867332845bce56b6a562c49e9d3f35d0a856905b31.png" src="../../_images/1a8de6b1169b46c63f1b24867332845bce56b6a562c49e9d3f35d0a856905b31.png" />
 <figcaption>
-<p><span class="caption-number">Fig. 74 </span><span class="caption-text">Top: the twelve nearest neighbours of an atom in fcc (a cuboctahedron) and in hcp (an anticuboctahedron) — the same twelve atoms at the same distance, arranged differently. Bottom: neighbour shells of the three phases at a common nearest-neighbour distance of 2.553 Å, with the 4 Å cutoff of Exercise 3 marked. Inside that cutoff fcc and hcp have exactly the same shells — twelve neighbours at 2.553 Å and six at 3.610 Å — and differ only from 4.169 Å outwards, where hcp has two neighbours that fcc does not. A radial descriptor cut off at 4 Å is therefore blind to the difference between them, not approximately but identically. Body-centred cubic, with eight neighbours in its first shell rather than twelve, is distinguishable immediately.</span><a class="headerlink" href="#fig-desc-shells" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 78 </span><span class="caption-text">Top: the twelve nearest neighbours of an atom in fcc (a cuboctahedron) and in hcp (an anticuboctahedron) — the same twelve atoms at the same distance, arranged differently. Bottom: neighbour shells of the three phases at a common nearest-neighbour distance of 2.553 Å, with the 4 Å cutoff of Exercise 3 marked. Inside that cutoff fcc and hcp have exactly the same shells — twelve neighbours at 2.553 Å and six at 3.610 Å — and differ only from 4.169 Å outwards, where hcp has two neighbours that fcc does not. A radial descriptor cut off at 4 Å is therefore blind to the difference between them, not approximately but identically. Body-centred cubic, with eight neighbours in its first shell rather than twelve, is distinguishable immediately.</span><a class="headerlink" href="#fig-desc-shells" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>fcc: within 4.0 Å -&gt; 12@2.553 Å, 6@3.610 Å
@@ -1005,15 +1005,15 @@ specific to the close-packed pair rather than a descriptor that never works.</p>
 <h2>Exercise 4 — Angles, and a trap in the standard form<a class="headerlink" href="#exercise-4-angles-and-a-trap-in-the-standard-form" title="Link to this heading">#</a></h2>
 <p>If distances cannot separate fcc from hcp, angles must: the twelve nearest neighbours
 form a cuboctahedron in fcc and an <em>anti</em>cuboctahedron in hcp, the same twelve
-distances arranged differently. Equation <a class="reference internal" href="#equation-eq-bp-g4">Eq. 63</a> is the standard angular
+distances arranged differently. Equation <a class="reference internal" href="#equation-eq-bp-g4">Eq. 67</a> is the standard angular
 symmetry function, so applying it should settle the matter.</p>
 <p><strong>Part a)</strong> Compute the first-shell bond-angle distributions of fcc and hcp and
 confirm that they genuinely differ. This establishes that there is something for an
 angular descriptor to find.</p>
-<p><strong>Part b)</strong> Implement <a class="reference internal" href="#equation-eq-bp-g4">Eq. 63</a> and apply it to the two phases at the 4 Å cutoff.
+<p><strong>Part b)</strong> Implement <a class="reference internal" href="#equation-eq-bp-g4">Eq. 67</a> and apply it to the two phases at the 4 Å cutoff.
 <strong>Write this one yourself</strong> — the implementation is the lesson. Then explain the
 result: it is not the one Part a leads you to expect, and the reason is in the formula.</p>
-<p><strong>Part c)</strong> Implement the <span class="math notranslate nohighlight">\(G^5\)</span> variant of <a class="reference internal" href="#equation-eq-bp-g5">Eq. 64</a>, which differs only by
+<p><strong>Part c)</strong> Implement the <span class="math notranslate nohighlight">\(G^5\)</span> variant of <a class="reference internal" href="#equation-eq-bp-g5">Eq. 68</a>, which differs only by
 dropping the factors involving <span class="math notranslate nohighlight">\(r_{jk}\)</span>, and compare. Then scan the angular sharpness
 <span class="math notranslate nohighlight">\(\zeta\)</span> and find where the separation appears.</p>
 <div class="cell tag_solution tag_remove-input docutils container">
@@ -1025,7 +1025,7 @@ hcp first-shell angles: 24@60°  12@90°  3@109°  18@120°  6@146°  3@180°
 <figure class="align-default" id="fig-desc-angles">
 <img alt="../../_images/e723f9a2b33950127c9d338768909dbddbbc66af9f1c6300ccca00c8ac85340a.png" src="../../_images/e723f9a2b33950127c9d338768909dbddbbc66af9f1c6300ccca00c8ac85340a.png" />
 <figcaption>
-<p><span class="caption-number">Fig. 75 </span><span class="caption-text">Left: bond-angle distributions of the twelve nearest neighbours in fcc and hcp. The two agree at 60° and 90° and part company above 100°, where fcc has 24 pairs at 120° and 6 at 180° while hcp spreads its count over 110°, 120°, 146° and 180°. Right: the relative difference between the fcc and hcp angular descriptors as the sharpness ζ is increased, for the standard G4 of Eq. eq-bp-g4 and the G5 variant of Eq. eq-bp-g5. G4 stays at machine zero for every ζ, because its cutoff on the neighbour–neighbour distance rjk discards precisely the wide-angle pairs where the two phases differ. G5, which has no such factor, separates them once ζ is large enough to resolve the angular structure.</span><a class="headerlink" href="#fig-desc-angles" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 79 </span><span class="caption-text">Left: bond-angle distributions of the twelve nearest neighbours in fcc and hcp. The two agree at 60° and 90° and part company above 100°, where fcc has 24 pairs at 120° and 6 at 180° while hcp spreads its count over 110°, 120°, 146° and 180°. Right: the relative difference between the fcc and hcp angular descriptors as the sharpness ζ is increased, for the standard G4 of Eq. eq-bp-g4 and the G5 variant of Eq. eq-bp-g5. G4 stays at machine zero for every ζ, because its cutoff on the neighbour–neighbour distance rjk discards precisely the wide-angle pairs where the two phases differ. G5, which has no such factor, separates them once ζ is large enough to resolve the angular structure.</span><a class="headerlink" href="#fig-desc-angles" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>widest angle whose pair survives G4&#39;s r_jk cutoff at Rc = 4.0 Å: 90°
@@ -1066,7 +1066,7 @@ since a blurred angular filter averages the difference away.</p>
 the angular sum is, up to constants, <span class="math notranslate nohighlight">\(\sum_{j&lt;k} \cos\theta_{jik}\)</span>, and for neighbours
 all at the same distance that sum is fixed by</p>
 <div class="math notranslate nohighlight" id="equation-eq-cos-sum">
-<span class="eqno">(65)<a class="headerlink" href="#equation-eq-cos-sum" title="Link to this equation">#</a></span>\[\sum_{j&lt;k} \cos\theta_{jik}
+<span class="eqno">(69)<a class="headerlink" href="#equation-eq-cos-sum" title="Link to this equation">#</a></span>\[\sum_{j&lt;k} \cos\theta_{jik}
   = \frac{1}{2}\left[\left\lVert \sum_j \hat{\mathbf r}_j \right\rVert^2 - n\right],\]</div>
 <p>with <span class="math notranslate nohighlight">\(n\)</span> the number of neighbours. Both the cuboctahedron and the anticuboctahedron
 have <span class="math notranslate nohighlight">\(\sum_j \hat{\mathbf r}_j = \mathbf 0\)</span> by symmetry and both have <span class="math notranslate nohighlight">\(n = 12\)</span>, so the
@@ -1110,7 +1110,7 @@ standard form. Two neighbours at distance <span class="math notranslate nohighli
 cutoff on angle in disguise: at this radius it keeps nothing wider than about 90° and
 discards exactly the wide-angle pairs where the two stackings differ. The <span class="math notranslate nohighlight">\(G^5\)</span>
 variant, identical but for those factors, separates them — and then only for sharp
-angular filters, since <a class="reference internal" href="#equation-eq-cos-sum">Eq. 65</a> forces the <span class="math notranslate nohighlight">\(\zeta = 1\)</span> response of the two
+angular filters, since <a class="reference internal" href="#equation-eq-cos-sum">Eq. 69</a> forces the <span class="math notranslate nohighlight">\(\zeta = 1\)</span> response of the two
 shells to be equal whatever the parametrisation.</p>
 <p>The moral is not that symmetry functions are bad. It is that a descriptor’s blind
 spots are properties of its functional form, they are not always where intuition puts

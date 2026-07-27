@@ -525,6 +525,10 @@
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#validation-4-a-straight-line-is-a-warning-not-a-result">Validation 4 — a straight line is a warning, not a result</a></li>
 </ul>
 </li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-5-metadynamics-run-not-read">Exercise 5 — Metadynamics run, not read</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#validation-5-the-method-s-three-promises-kept-against-a-closed-form">Validation 5 — the method’s three promises, kept against a closed form</a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#notebook-summary">Notebook summary</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#outlook">Outlook</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#references">References</a></li>
@@ -646,7 +650,7 @@ coordinates.</p>
 <p>Every <span class="math notranslate nohighlight">\(\tau\)</span> steps a Gaussian of height <span class="math notranslate nohighlight">\(W\)</span> and width <span class="math notranslate nohighlight">\(\sigma\)</span> is added to the bias at
 the current CV value <span class="math notranslate nohighlight">\(\mathbf s_t\)</span>:</p>
 <div class="math notranslate nohighlight" id="equation-eq-metad">
-<span class="eqno">(59)<a class="headerlink" href="#equation-eq-metad" title="Link to this equation">#</a></span>\[V(\mathbf s, t) = \sum_{t' \le t} W \exp\!\left(-\sum_i \frac{(s_i - s_i(t'))^2}{2\sigma_i^2}\right).\]</div>
+<span class="eqno">(62)<a class="headerlink" href="#equation-eq-metad" title="Link to this equation">#</a></span>\[V(\mathbf s, t) = \sum_{t' \le t} W \exp\!\left(-\sum_i \frac{(s_i - s_i(t'))^2}{2\sigma_i^2}\right).\]</div>
 <p>The bias accumulates in the basins the system visits, raising their floor until the
 system spills into the next basin. In the long-time limit the bias becomes the inverse
 of the underlying free energy, so the <strong>free-energy surface</strong> is reconstructed
@@ -749,7 +753,7 @@ composition (a carbon sheet plus two HNO₃).</p>
 <figure class="align-default" id="fig-mtd-system">
 <img alt="../../_images/946361349e6cfb7c80858a37e3a3f5b347033a8edace8bc03e62faef216b5ff6.png" src="../../_images/946361349e6cfb7c80858a37e3a3f5b347033a8edace8bc03e62faef216b5ff6.png" />
 <figcaption>
-<p><span class="caption-number">Fig. 68 </span><span class="caption-text">The committed metadynamics system: a graphene sheet (60 carbon atoms, grey) with two nitric-acid molecules above it (nitrogen blue, oxygen red, hydrogen white). The forces come from density-functional tight binding, cheap enough for the long biased trajectory.</span><a class="headerlink" href="#fig-mtd-system" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 71 </span><span class="caption-text">The committed metadynamics system: a graphene sheet (60 carbon atoms, grey) with two nitric-acid molecules above it (nitrogen blue, oxygen red, hydrogen white). The forces come from density-functional tight binding, cheap enough for the long biased trajectory.</span><a class="headerlink" href="#fig-mtd-system" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>composition: 60×C, 2×H, 2×N, 6×O
@@ -800,7 +804,7 @@ means against the size of the fluctuations about them.</p>
 <figure class="align-default" id="fig-mtd-cvs">
 <img alt="../../_images/a45fcfb5c16cb56f160f70351f949edfb2be0ecccf02d2a6cde17b0e542a1f99.png" src="../../_images/a45fcfb5c16cb56f160f70351f949edfb2be0ecccf02d2a6cde17b0e542a1f99.png" />
 <figcaption>
-<p><span class="caption-number">Fig. 69 </span><span class="caption-text">The three collective variables (coordination numbers) along the metadynamics trajectory, from the committed COLVAR log. After a brief startup transient at the far left — recorded before the first hill was deposited — each variable settles and fluctuates about a fixed value for the remaining twenty picoseconds. The explored range stops growing almost immediately, which is the visual form of the diagnosis Exercise 4 makes quantitatively: the bias never pushed the system out of its initial basin.</span><a class="headerlink" href="#fig-mtd-cvs" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 72 </span><span class="caption-text">The three collective variables (coordination numbers) along the metadynamics trajectory, from the committed COLVAR log. After a brief startup transient at the far left — recorded before the first hill was deposited — each variable settles and fluctuates about a fixed value for the remaining twenty picoseconds. The explored range stops growing almost immediately, which is the visual form of the diagnosis Exercise 4 makes quantitatively: the bias never pushed the system out of its initial basin.</span><a class="headerlink" href="#fig-mtd-cvs" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>CV explored ranges: {&#39;C–O coordination&#39;: np.float64(0.234), &#39;N–O coordination&#39;: np.float64(0.165), &#39;H–C coordination&#39;: np.float64(0.171)}
@@ -837,7 +841,7 @@ fluctuation width. This is a stalled search, and recognising one is the skill.</
 <h2>Exercise 3 — Reconstructing the free-energy surface<a class="headerlink" href="#exercise-3-reconstructing-the-free-energy-surface" title="Link to this heading">#</a></h2>
 <p>The <code class="docutils literal notranslate"><span class="pre">HILLS</span></code> log lists every deposited Gaussian: its centre in CV space, its widths,
 and its height. Summing them and flipping the sign reconstructs the free-energy surface
-<a class="reference internal" href="#equation-eq-metad">Eq. 59</a> (Assignment 4). We project onto two of the variables, the C–O and H–C
+<a class="reference internal" href="#equation-eq-metad">Eq. 62</a> (Assignment 4). We project onto two of the variables, the C–O and H–C
 coordinations that describe the acid approaching and bonding to the sheet, and contour
 the result. The minimum marks the most-visited configuration; because this is a short
 run the surface maps the explored basin rather than a fully converged barrier.</p>
@@ -849,7 +853,7 @@ Confirm its minimum coincides with where the trajectory spent the most time.</p>
 <figure class="align-default" id="fig-mtd-fes">
 <img alt="../../_images/aca3a4c883c25aa84552d611edf5c4da89ae301c96ce23dc6c178c6dae2aceb2.png" src="../../_images/aca3a4c883c25aa84552d611edf5c4da89ae301c96ce23dc6c178c6dae2aceb2.png" />
 <figcaption>
-<p><span class="caption-number">Fig. 70 </span><span class="caption-text">Free-energy surface of the nitric-acid/graphene system, reconstructed by summing the metadynamics hills over the C–O and H–C coordination numbers (kcal/mol, relative to the minimum). The basin (dark) is the configuration the short run explored; the trajectory’s most-visited point (amber marker) sits in it, confirming the reconstruction. A longer run would extend the surface to neighbouring basins and the barriers between them.</span><a class="headerlink" href="#fig-mtd-fes" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 73 </span><span class="caption-text">Free-energy surface of the nitric-acid/graphene system, reconstructed by summing the metadynamics hills over the C–O and H–C coordination numbers (kcal/mol, relative to the minimum). The basin (dark) is the configuration the short run explored; the trajectory’s most-visited point (amber marker) sits in it, confirming the reconstruction. A longer run would extend the surface to neighbouring basins and the barriers between them.</span><a class="headerlink" href="#fig-mtd-fes" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>FES minimum at (0.19, 0.10); most-visited at (0.19, 0.10)
@@ -893,7 +897,7 @@ keeps rising <em>linearly</em> for as long as the run continues — it never set
 has to stop and hope. <strong>Well-tempered</strong> metadynamics <span class="bibtex-citation" id="id2">[<a class="reference internal" href="#id42" title="Alessandro Barducci, Giovanni Bussi, and Michele Parrinello. Well-tempered metadynamics: a smoothly converging and tunable free-energy method. Physical Review Letters, 100(2):020603, 2008. doi:10.1103/PhysRevLett.100.020603.">BBP08</a>]</span> fixes this
 by shrinking each hill according to the bias already deposited where it lands,</p>
 <div class="math notranslate nohighlight" id="equation-eq-well-tempered">
-<span class="eqno">(60)<a class="headerlink" href="#equation-eq-well-tempered" title="Link to this equation">#</a></span>\[h_i = h_0\,\exp\!\left[-\frac{V(\mathbf s_i, t_i)}{k_B\,\Delta T}\right],\]</div>
+<span class="eqno">(63)<a class="headerlink" href="#equation-eq-well-tempered" title="Link to this equation">#</a></span>\[h_i = h_0\,\exp\!\left[-\frac{V(\mathbf s_i, t_i)}{k_B\,\Delta T}\right],\]</div>
 <p>so deposition slows as a region fills and the bias converges to a definite limit
 rather than growing without bound. The bias-growth curve tells the two apart at a
 glance: straight means standard and unconverged; bending over means well-tempered
@@ -916,7 +920,7 @@ centres occupy. A run that is exploring should be leaving that box. Finally, mea
 how much the accumulated bias actually <em>varies</em> across that region, as a fraction of
 its own size — remembering that what pushes the system is the gradient of the bias and
 not its value, so a bias that rises uniformly is a bias that pushes on nothing.</p>
-<p><strong>Part c)</strong> Apply <a class="reference internal" href="#equation-eq-well-tempered">Eq. 60</a> to the <em>same</em> hill positions, with
+<p><strong>Part c)</strong> Apply <a class="reference internal" href="#equation-eq-well-tempered">Eq. 63</a> to the <em>same</em> hill positions, with
 <span class="math notranslate nohighlight">\(k_B\Delta T = 0.10\)</span> in the units of the committed file, and re-accumulate. Compare
 the two growth curves and the height of the last hill against the first. This is the
 same trajectory rebiased under a different rule, so the difference is the rule and
@@ -1118,42 +1122,42 @@ input[type=range].anim-slider {
 </style>
 
 <div class="animation">
-  <img id="_anim_imgc5c79d337b6d4bfc8e9ffbabee0ba0df">
+  <img id="_anim_img1e2766d004bb4d92900917d3204c9f5a">
   <div class="anim-controls">
-    <input id="_anim_sliderc5c79d337b6d4bfc8e9ffbabee0ba0df" type="range" class="anim-slider"
+    <input id="_anim_slider1e2766d004bb4d92900917d3204c9f5a" type="range" class="anim-slider"
            name="points" min="0" max="1" step="1" value="0"
-           oninput="animc5c79d337b6d4bfc8e9ffbabee0ba0df.set_frame(parseInt(this.value));">
+           oninput="anim1e2766d004bb4d92900917d3204c9f5a.set_frame(parseInt(this.value));">
     <div class="anim-buttons">
-      <button title="Decrease speed" aria-label="Decrease speed" onclick="animc5c79d337b6d4bfc8e9ffbabee0ba0df.slower()">
+      <button title="Decrease speed" aria-label="Decrease speed" onclick="anim1e2766d004bb4d92900917d3204c9f5a.slower()">
           <i class="fa fa-minus"></i></button>
-      <button title="First frame" aria-label="First frame" onclick="animc5c79d337b6d4bfc8e9ffbabee0ba0df.first_frame()">
+      <button title="First frame" aria-label="First frame" onclick="anim1e2766d004bb4d92900917d3204c9f5a.first_frame()">
         <i class="fa fa-fast-backward"></i></button>
-      <button title="Previous frame" aria-label="Previous frame" onclick="animc5c79d337b6d4bfc8e9ffbabee0ba0df.previous_frame()">
+      <button title="Previous frame" aria-label="Previous frame" onclick="anim1e2766d004bb4d92900917d3204c9f5a.previous_frame()">
           <i class="fa fa-step-backward"></i></button>
-      <button title="Play backwards" aria-label="Play backwards" onclick="animc5c79d337b6d4bfc8e9ffbabee0ba0df.reverse_animation()">
+      <button title="Play backwards" aria-label="Play backwards" onclick="anim1e2766d004bb4d92900917d3204c9f5a.reverse_animation()">
           <i class="fa fa-play fa-flip-horizontal"></i></button>
-      <button title="Pause" aria-label="Pause" onclick="animc5c79d337b6d4bfc8e9ffbabee0ba0df.pause_animation()">
+      <button title="Pause" aria-label="Pause" onclick="anim1e2766d004bb4d92900917d3204c9f5a.pause_animation()">
           <i class="fa fa-pause"></i></button>
-      <button title="Play" aria-label="Play" onclick="animc5c79d337b6d4bfc8e9ffbabee0ba0df.play_animation()">
+      <button title="Play" aria-label="Play" onclick="anim1e2766d004bb4d92900917d3204c9f5a.play_animation()">
           <i class="fa fa-play"></i></button>
-      <button title="Next frame" aria-label="Next frame" onclick="animc5c79d337b6d4bfc8e9ffbabee0ba0df.next_frame()">
+      <button title="Next frame" aria-label="Next frame" onclick="anim1e2766d004bb4d92900917d3204c9f5a.next_frame()">
           <i class="fa fa-step-forward"></i></button>
-      <button title="Last frame" aria-label="Last frame" onclick="animc5c79d337b6d4bfc8e9ffbabee0ba0df.last_frame()">
+      <button title="Last frame" aria-label="Last frame" onclick="anim1e2766d004bb4d92900917d3204c9f5a.last_frame()">
           <i class="fa fa-fast-forward"></i></button>
-      <button title="Increase speed" aria-label="Increase speed" onclick="animc5c79d337b6d4bfc8e9ffbabee0ba0df.faster()">
+      <button title="Increase speed" aria-label="Increase speed" onclick="anim1e2766d004bb4d92900917d3204c9f5a.faster()">
           <i class="fa fa-plus"></i></button>
     </div>
-    <form title="Repetition mode" aria-label="Repetition mode" action="#n" name="_anim_loop_selectc5c79d337b6d4bfc8e9ffbabee0ba0df"
+    <form title="Repetition mode" aria-label="Repetition mode" action="#n" name="_anim_loop_select1e2766d004bb4d92900917d3204c9f5a"
           class="anim-state">
-      <input type="radio" name="state" value="once" id="_anim_radio1_c5c79d337b6d4bfc8e9ffbabee0ba0df"
+      <input type="radio" name="state" value="once" id="_anim_radio1_1e2766d004bb4d92900917d3204c9f5a"
              >
-      <label for="_anim_radio1_c5c79d337b6d4bfc8e9ffbabee0ba0df">Once</label>
-      <input type="radio" name="state" value="loop" id="_anim_radio2_c5c79d337b6d4bfc8e9ffbabee0ba0df"
+      <label for="_anim_radio1_1e2766d004bb4d92900917d3204c9f5a">Once</label>
+      <input type="radio" name="state" value="loop" id="_anim_radio2_1e2766d004bb4d92900917d3204c9f5a"
              checked>
-      <label for="_anim_radio2_c5c79d337b6d4bfc8e9ffbabee0ba0df">Loop</label>
-      <input type="radio" name="state" value="reflect" id="_anim_radio3_c5c79d337b6d4bfc8e9ffbabee0ba0df"
+      <label for="_anim_radio2_1e2766d004bb4d92900917d3204c9f5a">Loop</label>
+      <input type="radio" name="state" value="reflect" id="_anim_radio3_1e2766d004bb4d92900917d3204c9f5a"
              >
-      <label for="_anim_radio3_c5c79d337b6d4bfc8e9ffbabee0ba0df">Reflect</label>
+      <label for="_anim_radio3_1e2766d004bb4d92900917d3204c9f5a">Reflect</label>
     </form>
   </div>
 </div>
@@ -1163,9 +1167,9 @@ input[type=range].anim-slider {
   /* Instantiate the Animation class. */
   /* The IDs given should match those used in the template above. */
   (function() {
-    var img_id = "_anim_imgc5c79d337b6d4bfc8e9ffbabee0ba0df";
-    var slider_id = "_anim_sliderc5c79d337b6d4bfc8e9ffbabee0ba0df";
-    var loop_select_id = "_anim_loop_selectc5c79d337b6d4bfc8e9ffbabee0ba0df";
+    var img_id = "_anim_img1e2766d004bb4d92900917d3204c9f5a";
+    var slider_id = "_anim_slider1e2766d004bb4d92900917d3204c9f5a";
+    var loop_select_id = "_anim_loop_select1e2766d004bb4d92900917d3204c9f5a";
     var frames = new Array(100);
     
   frames[0] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAA6gAAAF6CAYAAAAUKHUlAAAAOnRFWHRTb2Z0d2FyZQBNYXRwbG90\
@@ -97245,13 +97249,13 @@ QMj1jvmYAAAAAElFTkSuQmCC\
     /* set a timeout to make sure all the above elements are created before
        the object is initialized. */
     setTimeout(function() {
-        animc5c79d337b6d4bfc8e9ffbabee0ba0df = new Animation(frames, img_id, slider_id, 33,
+        anim1e2766d004bb4d92900917d3204c9f5a = new Animation(frames, img_id, slider_id, 33,
                                  loop_select_id);
     }, 0);
   })()
 </script>
 </div><figcaption>
-<p><span class="caption-number">Fig. 71 </span><span class="caption-text">Animation of the metadynamics bias accumulating on the C–O / H–C collective-variable plane, hill by hill, from the course’s committed HILLS file. Left: the bias surface with the hill centres deposited so far marked in white. All two hundred centres fall in one small cluster, and the recorded hill width is several times wider than the region they cover, so every hill blankets the whole visible area at once: the panel brightens uniformly as the bias grows, varying by only a few percent of its height from corner to corner. Since the dynamics responds to the gradient of the bias rather than its value, a bias this flat pushes on nothing, which is why the cluster never spreads. Right: the maximum bias against the number of hills deposited, for the run as performed (navy) and for the same hill positions rebiased by the well-tempered rule of Eq. eq-well-tempered (amber). The navy curve is a straight line – the hallmark of standard metadynamics, whose fixed-height hills keep piling up indefinitely – while the well-tempered curve bends over as deposition slows in the filling basin.</span><a class="headerlink" href="#fig-mtd-fill-anim" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 74 </span><span class="caption-text">Animation of the metadynamics bias accumulating on the C–O / H–C collective-variable plane, hill by hill, from the course’s committed HILLS file. Left: the bias surface with the hill centres deposited so far marked in white. All two hundred centres fall in one small cluster, and the recorded hill width is several times wider than the region they cover, so every hill blankets the whole visible area at once: the panel brightens uniformly as the bias grows, varying by only a few percent of its height from corner to corner. Since the dynamics responds to the gradient of the bias rather than its value, a bias this flat pushes on nothing, which is why the cluster never spreads. Right: the maximum bias against the number of hills deposited, for the run as performed (navy) and for the same hill positions rebiased by the well-tempered rule of Eq. eq-well-tempered (amber). The navy curve is a straight line – the hallmark of standard metadynamics, whose fixed-height hills keep piling up indefinitely – while the well-tempered curve bends over as deposition slows in the filling basin.</span><a class="headerlink" href="#fig-mtd-fill-anim" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 </div>
@@ -97279,6 +97283,74 @@ both of which its own data is able to tell us.</p>
 ✓  the recorded hill width exceeds the span its own centres cover in BOTH collective variables, so no feature narrower than the whole explored region could have been resolved however long the run continued   [width/span = 3.2 (C–O coordination), 4.5 (H–C coordination)]
 ✓  and the biased trajectory never escapes the box its own hills occupy: this run filled one basin without crossing out of it, which is the geometric statement of what the straight growth curve says arithmetically   [97.9 % of the biased trajectory inside the hill box]
 ✓  and across that region the bias is nearly flat, varying by under a tenth of its own height: since the dynamics feels the GRADIENT of the bias, these hills raised the whole neighbourhood without pushing the system out of any part of it, which is the mechanism behind the two findings above   [bias varies by 4.4 % of its height across the explored region]
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>True
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="exercise-5-metadynamics-run-not-read">
+<h2>Exercise 5 — Metadynamics run, not read<a class="headerlink" href="#exercise-5-metadynamics-run-not-read" title="Link to this heading">#</a></h2>
+<p>Every exercise above <em>reads</em> a metadynamics log; nowhere in this course has
+anyone <em>run</em> metadynamics. This exercise closes that loop on a system where
+every answer is known in closed form: the double well
+<span class="math notranslate nohighlight">\(V(x) = (x^2-1)^2\)</span> — barrier exactly <span class="math notranslate nohighlight">\(1\)</span> at <span class="math notranslate nohighlight">\(x=0\)</span>, minima at <span class="math notranslate nohighlight">\(\pm1\)</span> — under
+overdamped Langevin dynamics,</p>
+<div class="math notranslate nohighlight" id="equation-eq-mtd-langevin">
+<span class="eqno">(64)<a class="headerlink" href="#equation-eq-mtd-langevin" title="Link to this equation">#</a></span>\[x_{k+1} = x_k - \bigl[V'(x_k) + V_b'(x_k, t)\bigr]\,\Delta t
+          + \sqrt{2k_BT\,\Delta t}\;\xi_k,\]</div>
+<p>with the bias <span class="math notranslate nohighlight">\(V_b\)</span> grown by Gaussian deposition exactly as <a class="reference internal" href="#equation-eq-metad">Eq. 62</a>
+prescribes. At <span class="math notranslate nohighlight">\(k_BT = 0.12\)</span> the barrier is <span class="math notranslate nohighlight">\(8.3\,k_BT\)</span>: unbiased dynamics
+stays trapped for the whole observation window, and the deposition is what
+gets it out — the mechanism of the method, demonstrated rather than described.
+Afterwards the accumulated bias must <em>be</em> the free-energy surface it filled:
+<span class="math notranslate nohighlight">\(V + V_b \approx\)</span> const across the basin, checkable pointwise because <span class="math notranslate nohighlight">\(V\)</span> is
+analytic. The well-tempered variant shrinks its hills as <a class="reference internal" href="#equation-eq-well-tempered">Eq. 63</a>
+prescribes, and its bias converges to <span class="math notranslate nohighlight">\(-\Delta T/(T+\Delta T)\,F\)</span> — the
+rescaling that must be applied before its reconstruction is compared.</p>
+<p><strong>Part a)</strong> Implement the Langevin propagator with Gaussian deposition.
+<strong>Write this one yourself</strong> — the implementation is the lesson. Run unbiased
+and biased dynamics from the same start: the first must stay trapped over the
+window, the second must cross.</p>
+<p><strong>Part b)</strong> Test the reconstruction: <span class="math notranslate nohighlight">\(V + V_b\)</span> over the sampled region against
+a constant, with <span class="math notranslate nohighlight">\(V\)</span> known exactly.</p>
+<p><strong>Part c)</strong> Repeat with the well-tempered rule: the hills must decay, and the
+<em>rescaled</em> bias must reconstruct the same surface.</p>
+<div class="cell tag_solution tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<figure class="align-default" id="fig-mtd-run">
+<img alt="../../_images/6a1a83f643002c20b3fa0e8fae6c8a181a9bdd7e973c5df73f7a96cb8c239f31.png" src="../../_images/6a1a83f643002c20b3fa0e8fae6c8a181a9bdd7e973c5df73f7a96cb8c239f31.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 75 </span><span class="caption-text">Metadynamics run from scratch on the analytic double well under overdamped Langevin dynamics. Left: the trajectories — unbiased dynamics (grey) rattles in its starting well for the entire window at 8.3 kT of barrier, while the depositing run (amber) escapes within tens of time units and thereafter diffuses over both basins. Right: the filled landscape — the sum of the exact potential and the accumulated bias is flat across the sampled region to a few percent of the barrier (navy: standard deposition; amber: the well-tempered bias after its (T+ΔT)/ΔT rescaling), which is the method’s defining promise, checked against a closed form rather than against another simulation.</span><a class="headerlink" href="#fig-mtd-run" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>unbiased: no crossing in 300 t.u.; metadynamics crosses at 62.5 t.u. (well-tempered: 213.8)
+reconstruction flatness (std of V + bias over the basin): standard 0.0587, well-tempered (rescaled) 0.0399 (barrier = 1)
+well-tempered hill decay: last hills at 22% of the first
+</pre></div>
+</div>
+</div>
+</div>
+<section id="validation-5-the-method-s-three-promises-kept-against-a-closed-form">
+<h3>Validation 5 — the method’s three promises, kept against a closed form<a class="headerlink" href="#validation-5-the-method-s-three-promises-kept-against-a-closed-form" title="Link to this heading">#</a></h3>
+<p>Five checks. Unbiased dynamics must stay trapped over its whole window — the
+problem must exist before the cure is credited. The depositing run must cross,
+and fast. The filled landscape <span class="math notranslate nohighlight">\(V + V_b\)</span> must be flat across the basin to a
+few percent of the barrier, with <span class="math notranslate nohighlight">\(V\)</span> known exactly — the reconstruction
+promise, checked pointwise. The well-tempered hills must decay as
+<a class="reference internal" href="#equation-eq-well-tempered">Eq. 63</a> prescribes. And the well-tempered bias, after its
+<span class="math notranslate nohighlight">\((T+\Delta T)/\Delta T\)</span> rescaling, must reconstruct the same surface — the
+factor Exercise 4 could only state, here verified.</p>
+<div class="cell tag_validation tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>✓  unbiased Langevin dynamics stays trapped in its starting well for the entire window: at 8.3 kT of barrier there is a problem to solve   [no crossing in 300 time units]
+✓  the depositing run crosses within tens of time units: the growing bias is what opens the trap   [first crossing at 62.5 time units]
+✓  the filled landscape V + V_b is flat across the basin to a few percent of the barrier -- metadynamics&#39; defining promise, checked against the closed-form V rather than against another simulation   [std 0.0587 of a barrier of 1]
+✓  the well-tempered hills decay as deposition proceeds, eq-well-tempered acting on a run this notebook performed rather than merely re-weighted   [late hills at 22% of the first]
+✓  and the well-tempered bias reconstructs the same surface once the (T+dT)/dT factor is applied -- the rescaling verified, not assumed   [rescaled flatness 0.0399]
 </pre></div>
 </div>
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>True
@@ -97326,7 +97398,10 @@ misses the true slow mode leaves a hidden barrier. The exercise’s four candida
 proton transfers, the dissociation the exercise is named for, appearing as a second
 basin across a barrier in the H–C coordination.</p></li>
 <li><p><strong>Reweighting.</strong> The deposited bias can be used to reweight the trajectory back to
-unbiased ensemble averages of other observables.</p></li>
+unbiased ensemble averages of other observables. Doing that honestly for the
+committed run would need the thermostat temperature in the same units as the
+HILLS energies, which the archive does not record — the double-well run of
+Exercise 5, where every unit is known, is the clean place the machinery lives.</p></li>
 </ul>
 <section id="references">
 <h3>References<a class="headerlink" href="#references" title="Link to this heading">#</a></h3>
@@ -97454,6 +97529,10 @@ unbiased ensemble averages of other observables.</p></li>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-4-watching-the-hills-fill-and-asking-whether-they-filled-enough">Exercise 4 — Watching the hills fill, and asking whether they filled enough</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#validation-4-a-straight-line-is-a-warning-not-a-result">Validation 4 — a straight line is a warning, not a result</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-5-metadynamics-run-not-read">Exercise 5 — Metadynamics run, not read</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#validation-5-the-method-s-three-promises-kept-against-a-closed-form">Validation 5 — the method’s three promises, kept against a closed form</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#notebook-summary">Notebook summary</a></li>

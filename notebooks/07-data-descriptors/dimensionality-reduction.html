@@ -647,7 +647,7 @@ the largest variance, then the largest orthogonal to that, and so on. Those dire
 are the eigenvectors of the covariance matrix <span class="math notranslate nohighlight">\(\mathbf Y^\mathsf{T}\mathbf Y / (n-1)\)</span>,
 and they come directly out of the singular value decomposition</p>
 <div class="math notranslate nohighlight" id="equation-eq-svd">
-<span class="eqno">(66)<a class="headerlink" href="#equation-eq-svd" title="Link to this equation">#</a></span>\[\mathbf Y = \mathbf U \mathbf S \mathbf V^\mathsf{T},\]</div>
+<span class="eqno">(70)<a class="headerlink" href="#equation-eq-svd" title="Link to this equation">#</a></span>\[\mathbf Y = \mathbf U \mathbf S \mathbf V^\mathsf{T},\]</div>
 <p>whose right singular vectors (the columns of <span class="math notranslate nohighlight">\(\mathbf V\)</span>) are the principal directions
 and whose singular values give the variance carried by each,
 <span class="math notranslate nohighlight">\(\sigma_k^2 / \sum_j \sigma_j^2\)</span>. Projecting onto the first two directions is the
@@ -667,7 +667,7 @@ largest, which is a fact about the parametrisation and not about the physics.</p
 them. Double-centring the squared-distance matrix with
 <span class="math notranslate nohighlight">\(\mathbf J = \mathbf I - \tfrac1n \mathbf{11}^\mathsf{T}\)</span> produces a Gram matrix</p>
 <div class="math notranslate nohighlight" id="equation-eq-mds-gram">
-<span class="eqno">(67)<a class="headerlink" href="#equation-eq-mds-gram" title="Link to this equation">#</a></span>\[\mathbf B = -\tfrac12\,\mathbf J\,\mathbf D^{(2)}\,\mathbf J,
+<span class="eqno">(71)<a class="headerlink" href="#equation-eq-mds-gram" title="Link to this equation">#</a></span>\[\mathbf B = -\tfrac12\,\mathbf J\,\mathbf D^{(2)}\,\mathbf J,
 \qquad D^{(2)}_{ij} = d_{ij}^2,\]</div>
 <p>whose eigendecomposition <span class="math notranslate nohighlight">\(\mathbf B = \mathbf Q \boldsymbol\Lambda \mathbf Q^\mathsf{T}\)</span>
 gives the embedding <span class="math notranslate nohighlight">\(\mathbf Q_{:,:m}\boldsymbol\Lambda_{:m}^{1/2}\)</span>. When the <span class="math notranslate nohighlight">\(d_{ij}\)</span>
@@ -888,7 +888,7 @@ perfect bcc: largest component-wise standard deviation = 2.01e-14
 <figure class="align-default" id="fig-dr-ensemble">
 <img alt="../../_images/7e92ca1ff02b7ce837600fa1a9caf3a73c6780c0368fe79a720b9d8290fe14c7.png" src="../../_images/7e92ca1ff02b7ce837600fa1a9caf3a73c6780c0368fe79a720b9d8290fe14c7.png" />
 <figcaption>
-<p><span class="caption-number">Fig. 76 </span><span class="caption-text">Spread of the descriptors within each phase, as a function of the amplitude of the Gaussian displacement applied to the atoms. At zero amplitude every atom of a given phase has an environment identical to every other by symmetry, so the spread is exactly zero and a dataset of any size carries no more information than a single point per phase. Thermal displacement is what turns a set of lattices into an ensemble; the spread grows roughly linearly with the displacement, and it is this variation the projections of Exercises 2 and 3 have to organise.</span><a class="headerlink" href="#fig-dr-ensemble" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 80 </span><span class="caption-text">Spread of the descriptors within each phase, as a function of the amplitude of the Gaussian displacement applied to the atoms. At zero amplitude every atom of a given phase has an environment identical to every other by symmetry, so the spread is exactly zero and a dataset of any size carries no more information than a single point per phase. Thermal displacement is what turns a set of lattices into an ensemble; the spread grows roughly linearly with the displacement, and it is this variation the projections of Exercises 2 and 3 have to organise.</span><a class="headerlink" href="#fig-dr-ensemble" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>dataset: 240 environments × 16 descriptor components
@@ -925,7 +925,7 @@ displacement, since that is the only thing generating variety in this dataset.</
 out most and projects onto it, which is the standard first look at any dataset —
 provided one remembers what it optimises.</p>
 <p><strong>Part a)</strong> Implement PCA from the singular value decomposition of
-<a class="reference internal" href="#equation-eq-svd">Eq. 66</a>, returning the projected coordinates and the fraction of the variance
+<a class="reference internal" href="#equation-eq-svd">Eq. 70</a>, returning the projected coordinates and the fraction of the variance
 carried by each component. <strong>Write this one yourself</strong> — the implementation is the
 lesson.</p>
 <p><strong>Part b)</strong> Project the dataset onto the first two components and colour by phase.
@@ -933,14 +933,14 @@ Report how much of the variance those two carry.</p>
 <p><strong>Part c)</strong> Ask what the components actually encode. Correlate each with the
 displacement amplitude, and measure how far apart the phase centroids are relative to
 the scatter within a phase. Then check specifically whether fcc and hcp — the pair
-<a class="reference internal" href="#equation-eq-svd">Eq. 66</a> knows nothing about, and which §7.1 needed sharp angular functions to
+<a class="reference internal" href="#equation-eq-svd">Eq. 70</a> knows nothing about, and which §7.1 needed sharp angular functions to
 separate — are distinguishable in this projection.</p>
 <div class="cell tag_solution tag_remove-input docutils container">
 <div class="cell_output docutils container">
 <figure class="align-default" id="fig-dr-pca">
 <img alt="../../_images/fa89a5a01e31b448f6bf3b39d16761c3c48995ef8ce37228470ca12158b2d179.png" src="../../_images/fa89a5a01e31b448f6bf3b39d16761c3c48995ef8ce37228470ca12158b2d179.png" />
 <figcaption>
-<p><span class="caption-number">Fig. 77 </span><span class="caption-text">Left: the environment dataset projected onto its first two principal components, which together carry 96.5 % of the variance. PC1 separates the under-coordinated surface environments from every bulk phase and PC2 separates body-centred cubic from the close-packed pair, but fcc and hcp land on top of each other. Right: the variance carried by each component, with the correlation between that component and the displacement amplitude marked. Disorder is PC3, carrying only about 2 % of the variance — so the projection that shows the most variation is not the one that answers a question about stacking, and would not have been even if more components were plotted.</span><a class="headerlink" href="#fig-dr-pca" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 81 </span><span class="caption-text">Left: the environment dataset projected onto its first two principal components, which together carry 96.5 % of the variance. PC1 separates the under-coordinated surface environments from every bulk phase and PC2 separates body-centred cubic from the close-packed pair, but fcc and hcp land on top of each other. Right: the variance carried by each component, with the correlation between that component and the displacement amplitude marked. Disorder is PC3, carrying only about 2 % of the variance — so the projection that shows the most variation is not the one that answers a question about stacking, and would not have been even if more components were plotted.</span><a class="headerlink" href="#fig-dr-pca" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>PC1 + PC2 carry 96.0 % of the variance
@@ -982,11 +982,11 @@ that this projection has hidden the distinction §7.1 worked to expose.</p>
 <p>Classical multidimensional scaling starts from a different input — the matrix of
 pairwise distances, with the coordinates thrown away — and asks for the point set that
 reproduces them. For Euclidean distances it must return the PCA answer, since
-<a class="reference internal" href="#equation-eq-mds-gram">Eq. 67</a> reconstructs <span class="math notranslate nohighlight">\(\mathbf Y\mathbf Y^\mathsf{T}\)</span> exactly. Verifying that
+<a class="reference internal" href="#equation-eq-mds-gram">Eq. 71</a> reconstructs <span class="math notranslate nohighlight">\(\mathbf Y\mathbf Y^\mathsf{T}\)</span> exactly. Verifying that
 is worthwhile twice over: it checks both implementations at once, and it makes clear
 what is <em>not</em> guaranteed when the distances are something else.</p>
 <p><strong>Part a)</strong> Build the pairwise distance matrix, double-centre its square as in
-<a class="reference internal" href="#equation-eq-mds-gram">Eq. 67</a>, and diagonalise. <strong>Write this one yourself</strong> — the implementation
+<a class="reference internal" href="#equation-eq-mds-gram">Eq. 71</a>, and diagonalise. <strong>Write this one yourself</strong> — the implementation
 is the lesson.</p>
 <p><strong>Part b)</strong> Compare against Exercise 2: check the MDS eigenvalues against the squared
 singular values, and the embedding against the PCA scores, remembering that each axis
@@ -1002,7 +1002,7 @@ distances between any real points at all, which shows up as negative eigenvalues
 <figure class="align-default" id="fig-dr-mds">
 <img alt="../../_images/98a70351395fb73109655a256a8803bd734d8b96f1c6e41086356b50eb083c6f.png" src="../../_images/98a70351395fb73109655a256a8803bd734d8b96f1c6e41086356b50eb083c6f.png" />
 <figcaption>
-<p><span class="caption-number">Fig. 78 </span><span class="caption-text">Classical multidimensional scaling of the same dataset, computed from the matrix of pairwise distances with the coordinates discarded. Left: the embedding, which reproduces the principal-component map of the previous figure to machine precision, up to the sign of each axis. Middle: the spectrum of the double-centred Gram matrix against the squared singular values from the singular value decomposition, which agree to fourteen digits — the numerical statement of the identity B = YYᵀ. Right: what happens when the Euclidean distance d is replaced by d^α. Any α other than 1 moves the embedding away from the principal-component one, but only α &gt; 1 drives eigenvalues of B negative, the signature that no set of real points has those dissimilarities at all. Powers at or below 1 remain perfectly embeddable — they simply embed a different geometry.</span><a class="headerlink" href="#fig-dr-mds" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 82 </span><span class="caption-text">Classical multidimensional scaling of the same dataset, computed from the matrix of pairwise distances with the coordinates discarded. Left: the embedding, which reproduces the principal-component map of the previous figure to machine precision, up to the sign of each axis. Middle: the spectrum of the double-centred Gram matrix against the squared singular values from the singular value decomposition, which agree to fourteen digits — the numerical statement of the identity B = YYᵀ. Right: what happens when the Euclidean distance d is replaced by d^α. Any α other than 1 moves the embedding away from the principal-component one, but only α &gt; 1 drives eigenvalues of B negative, the signature that no set of real points has those dissimilarities at all. Powers at or below 1 remain perfectly embeddable — they simply embed a different geometry.</span><a class="headerlink" href="#fig-dr-mds" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>MDS eigenvalues vs PCA squared singular values: max relative difference 2.85e-15
@@ -1022,7 +1022,7 @@ powering the dissimilarity, d -&gt; d**α:
 <h3>Validation 3 — an identity, and its boundary<a class="headerlink" href="#validation-3-an-identity-and-its-boundary" title="Link to this heading">#</a></h3>
 <p>Three checks. The MDS eigenvalues must match the squared singular values and the
 embedding must match the PCA scores, both to machine precision, which is
-<a class="reference internal" href="#equation-eq-mds-gram">Eq. 67</a> holding exactly for Euclidean input. And with a nonlinear
+<a class="reference internal" href="#equation-eq-mds-gram">Eq. 71</a> holding exactly for Euclidean input. And with a nonlinear
 dissimilarity the agreement must fail while the Gram matrix acquires appreciable
 negative eigenvalues — the signature that the dissimilarities are not distances
 between any real points at all, which is precisely when the two methods stop being
@@ -1254,42 +1254,42 @@ input[type=range].anim-slider {
 </style>
 
 <div class="animation">
-  <img id="_anim_imgc28a663b2c5543dd8bc3e29007319abc">
+  <img id="_anim_img8f3eb865d2de44c38d097899ecceb3e5">
   <div class="anim-controls">
-    <input id="_anim_sliderc28a663b2c5543dd8bc3e29007319abc" type="range" class="anim-slider"
+    <input id="_anim_slider8f3eb865d2de44c38d097899ecceb3e5" type="range" class="anim-slider"
            name="points" min="0" max="1" step="1" value="0"
-           oninput="animc28a663b2c5543dd8bc3e29007319abc.set_frame(parseInt(this.value));">
+           oninput="anim8f3eb865d2de44c38d097899ecceb3e5.set_frame(parseInt(this.value));">
     <div class="anim-buttons">
-      <button title="Decrease speed" aria-label="Decrease speed" onclick="animc28a663b2c5543dd8bc3e29007319abc.slower()">
+      <button title="Decrease speed" aria-label="Decrease speed" onclick="anim8f3eb865d2de44c38d097899ecceb3e5.slower()">
           <i class="fa fa-minus"></i></button>
-      <button title="First frame" aria-label="First frame" onclick="animc28a663b2c5543dd8bc3e29007319abc.first_frame()">
+      <button title="First frame" aria-label="First frame" onclick="anim8f3eb865d2de44c38d097899ecceb3e5.first_frame()">
         <i class="fa fa-fast-backward"></i></button>
-      <button title="Previous frame" aria-label="Previous frame" onclick="animc28a663b2c5543dd8bc3e29007319abc.previous_frame()">
+      <button title="Previous frame" aria-label="Previous frame" onclick="anim8f3eb865d2de44c38d097899ecceb3e5.previous_frame()">
           <i class="fa fa-step-backward"></i></button>
-      <button title="Play backwards" aria-label="Play backwards" onclick="animc28a663b2c5543dd8bc3e29007319abc.reverse_animation()">
+      <button title="Play backwards" aria-label="Play backwards" onclick="anim8f3eb865d2de44c38d097899ecceb3e5.reverse_animation()">
           <i class="fa fa-play fa-flip-horizontal"></i></button>
-      <button title="Pause" aria-label="Pause" onclick="animc28a663b2c5543dd8bc3e29007319abc.pause_animation()">
+      <button title="Pause" aria-label="Pause" onclick="anim8f3eb865d2de44c38d097899ecceb3e5.pause_animation()">
           <i class="fa fa-pause"></i></button>
-      <button title="Play" aria-label="Play" onclick="animc28a663b2c5543dd8bc3e29007319abc.play_animation()">
+      <button title="Play" aria-label="Play" onclick="anim8f3eb865d2de44c38d097899ecceb3e5.play_animation()">
           <i class="fa fa-play"></i></button>
-      <button title="Next frame" aria-label="Next frame" onclick="animc28a663b2c5543dd8bc3e29007319abc.next_frame()">
+      <button title="Next frame" aria-label="Next frame" onclick="anim8f3eb865d2de44c38d097899ecceb3e5.next_frame()">
           <i class="fa fa-step-forward"></i></button>
-      <button title="Last frame" aria-label="Last frame" onclick="animc28a663b2c5543dd8bc3e29007319abc.last_frame()">
+      <button title="Last frame" aria-label="Last frame" onclick="anim8f3eb865d2de44c38d097899ecceb3e5.last_frame()">
           <i class="fa fa-fast-forward"></i></button>
-      <button title="Increase speed" aria-label="Increase speed" onclick="animc28a663b2c5543dd8bc3e29007319abc.faster()">
+      <button title="Increase speed" aria-label="Increase speed" onclick="anim8f3eb865d2de44c38d097899ecceb3e5.faster()">
           <i class="fa fa-plus"></i></button>
     </div>
-    <form title="Repetition mode" aria-label="Repetition mode" action="#n" name="_anim_loop_selectc28a663b2c5543dd8bc3e29007319abc"
+    <form title="Repetition mode" aria-label="Repetition mode" action="#n" name="_anim_loop_select8f3eb865d2de44c38d097899ecceb3e5"
           class="anim-state">
-      <input type="radio" name="state" value="once" id="_anim_radio1_c28a663b2c5543dd8bc3e29007319abc"
+      <input type="radio" name="state" value="once" id="_anim_radio1_8f3eb865d2de44c38d097899ecceb3e5"
              >
-      <label for="_anim_radio1_c28a663b2c5543dd8bc3e29007319abc">Once</label>
-      <input type="radio" name="state" value="loop" id="_anim_radio2_c28a663b2c5543dd8bc3e29007319abc"
+      <label for="_anim_radio1_8f3eb865d2de44c38d097899ecceb3e5">Once</label>
+      <input type="radio" name="state" value="loop" id="_anim_radio2_8f3eb865d2de44c38d097899ecceb3e5"
              checked>
-      <label for="_anim_radio2_c28a663b2c5543dd8bc3e29007319abc">Loop</label>
-      <input type="radio" name="state" value="reflect" id="_anim_radio3_c28a663b2c5543dd8bc3e29007319abc"
+      <label for="_anim_radio2_8f3eb865d2de44c38d097899ecceb3e5">Loop</label>
+      <input type="radio" name="state" value="reflect" id="_anim_radio3_8f3eb865d2de44c38d097899ecceb3e5"
              >
-      <label for="_anim_radio3_c28a663b2c5543dd8bc3e29007319abc">Reflect</label>
+      <label for="_anim_radio3_8f3eb865d2de44c38d097899ecceb3e5">Reflect</label>
     </form>
   </div>
 </div>
@@ -1299,9 +1299,9 @@ input[type=range].anim-slider {
   /* Instantiate the Animation class. */
   /* The IDs given should match those used in the template above. */
   (function() {
-    var img_id = "_anim_imgc28a663b2c5543dd8bc3e29007319abc";
-    var slider_id = "_anim_sliderc28a663b2c5543dd8bc3e29007319abc";
-    var loop_select_id = "_anim_loop_selectc28a663b2c5543dd8bc3e29007319abc";
+    var img_id = "_anim_img8f3eb865d2de44c38d097899ecceb3e5";
+    var slider_id = "_anim_slider8f3eb865d2de44c38d097899ecceb3e5";
+    var loop_select_id = "_anim_loop_select8f3eb865d2de44c38d097899ecceb3e5";
     var frames = new Array(16);
     
   frames[0] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAA94AAAGMCAYAAAAstHr+AAAAOnRFWHRTb2Z0d2FyZQBNYXRwbG90\
@@ -15582,13 +15582,13 @@ ywAAAABJRU5ErkJggg==\
     /* set a timeout to make sure all the above elements are created before
        the object is initialized. */
     setTimeout(function() {
-        animc28a663b2c5543dd8bc3e29007319abc = new Animation(frames, img_id, slider_id, 33,
+        anim8f3eb865d2de44c38d097899ecceb3e5 = new Animation(frames, img_id, slider_id, 33,
                                  loop_select_id);
     }, 0);
   })()
 </script>
 </div><figcaption>
-<p><span class="caption-number">Fig. 79 </span><span class="caption-text">Animation of farthest-point sampling on the principal-component map, one selection at a time. Each new point (amber, with the newest in red) is the one furthest from everything already chosen. The early picks go straight to the corners of the distribution, which is what makes the coverage fall so quickly, and is also why the selection is dominated by the most strongly displaced environments rather than by typical ones. The curve tracks the coverage radius against the random-selection baseline.</span><a class="headerlink" href="#fig-dr-fps-anim" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 83 </span><span class="caption-text">Animation of farthest-point sampling on the principal-component map, one selection at a time. Each new point (amber, with the newest in red) is the one furthest from everything already chosen. The early picks go straight to the corners of the distribution, which is what makes the coverage fall so quickly, and is also why the selection is dominated by the most strongly displaced environments rather than by typical ones. The curve tracks the coverage radius against the random-selection baseline.</span><a class="headerlink" href="#fig-dr-fps-anim" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 </div>

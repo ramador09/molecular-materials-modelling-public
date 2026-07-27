@@ -525,6 +525,10 @@
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#validation-4-the-band-lands-on-the-analytic-saddle">Validation 4 — the band lands on the analytic saddle</a></li>
 </ul>
 </li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-5-the-climbing-image">Exercise 5 — The climbing image</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#validation-5-luck-removed-resolution-bounded">Validation 5 — luck removed, resolution bounded</a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#notebook-summary">Notebook summary</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#outlook">Outlook</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#references">References</a></li>
@@ -623,7 +627,7 @@ proof.</p>
 <blockquote>
 <div><p><strong>Scope.</strong> Energies are the committed CP2K totals (Hartree, converted to kcal/mol);
 we analyse the band rather than rerun it. For the method see the nudged elastic band
-<span class="bibtex-citation" id="id1">[<a class="reference internal" href="#id35" title="Graeme Henkelman, Blas P. Uberuaga, and Hannes Jónsson. A climbing image nudged elastic band method for finding saddle points and minimum energy paths. The Journal of Chemical Physics, 113(22):9901–9904, 2000. doi:10.1063/1.1329672.">HUJonsson00</a>]</span>.</p>
+<span class="bibtex-citation" id="id1">[<a class="reference internal" href="#id36" title="Graeme Henkelman, Blas P. Uberuaga, and Hannes Jónsson. A climbing image nudged elastic band method for finding saddle points and minimum energy paths. The Journal of Chemical Physics, 113(22):9901–9904, 2000. doi:10.1063/1.1329672.">HUJonsson00b</a>]</span>.</p>
 </div></blockquote>
 </section>
 <section id="theory-in-brief">
@@ -633,9 +637,9 @@ we analyse the band rather than rerun it. For the method see the nudged elastic 
 <p>A reaction follows the <strong>minimum-energy path</strong> on the potential surface: the lowest
 ridge crossing from the reactant valley to the product valley. Its highest point is
 the <strong>transition state</strong>, and the energy there above the reactant is the activation
-barrier <a class="reference internal" href="#equation-eq-barrier-neb">Eq. 56</a>,</p>
+barrier <a class="reference internal" href="#equation-eq-barrier-neb">Eq. 58</a>,</p>
 <div class="math notranslate nohighlight" id="equation-eq-barrier-neb">
-<span class="eqno">(56)<a class="headerlink" href="#equation-eq-barrier-neb" title="Link to this equation">#</a></span>\[\Delta E^{\ddagger} = E_{\rm TS} - E_{\rm reactant}.\]</div>
+<span class="eqno">(58)<a class="headerlink" href="#equation-eq-barrier-neb" title="Link to this equation">#</a></span>\[\Delta E^{\ddagger} = E_{\rm TS} - E_{\rm reactant}.\]</div>
 </section>
 <section id="nudged-elastic-band">
 <h3>Nudged elastic band<a class="headerlink" href="#nudged-elastic-band" title="Link to this heading">#</a></h3>
@@ -848,7 +852,7 @@ swaps between the two (the chlorine that is bonded becomes the one that leaves).
 <figure class="align-default" id="fig-sn2-endpoints">
 <img alt="../../_images/0af79dcf11a592017fc5ab63835cd210c4f5f04f199857839a4165226610d8a9.png" src="../../_images/0af79dcf11a592017fc5ab63835cd210c4f5f04f199857839a4165226610d8a9.png" />
 <figcaption>
-<p><span class="caption-number">Fig. 64 </span><span class="caption-text">The committed Sₙ2 endpoints: chloromethane with an attacking chloride (reactant) and the product after exchange (carbon grey, hydrogen white, chlorine green). The reaction swaps which chlorine is bonded to carbon; along the path between them, the three hydrogens invert through a planar transition state.</span><a class="headerlink" href="#fig-sn2-endpoints" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 66 </span><span class="caption-text">The committed Sₙ2 endpoints: chloromethane with an attacking chloride (reactant) and the product after exchange (carbon grey, hydrogen white, chlorine green). The reaction swaps which chlorine is bonded to carbon; along the path between them, the three hydrogens invert through a planar transition state.</span><a class="headerlink" href="#fig-sn2-endpoints" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>reactant C–Cl distances: 1.76, 2.26 Å;  product: 1.76, 2.26 Å
@@ -887,7 +891,7 @@ the activation barrier and confirm the path is symmetric.</p>
 <figure class="align-default" id="fig-sn2-mep">
 <img alt="../../_images/b617914e2888709e9f170b1991d11e5d672484615745d4dd4ffe4deb535e5eb8.png" src="../../_images/b617914e2888709e9f170b1991d11e5d672484615745d4dd4ffe4deb535e5eb8.png" />
 <figcaption>
-<p><span class="caption-number">Fig. 65 </span><span class="caption-text">Minimum-energy path of the chloride-exchange Sₙ2 reaction from the converged nudged-elastic-band calculation: image energy (kcal/mol, relative to the endpoints) against the reaction coordinate. The path is thermoneutral (equal endpoints) and approximately symmetric, and its single peak, the trigonal-bipyramidal transition state, sits ~8 kcal/mol above the reactant: the gas-phase central barrier of the exchange.</span><a class="headerlink" href="#fig-sn2-mep" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 67 </span><span class="caption-text">Minimum-energy path of the chloride-exchange Sₙ2 reaction from the converged nudged-elastic-band calculation: image energy (kcal/mol, relative to the endpoints) against the reaction coordinate. The path is thermoneutral (equal endpoints) and approximately symmetric, and its single peak, the trigonal-bipyramidal transition state, sits ~8 kcal/mol above the reactant: the gas-phase central barrier of the exchange.</span><a class="headerlink" href="#fig-sn2-mep" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>activation barrier = 8.01 kcal/mol; transition state at image 4 of 9
@@ -931,7 +935,7 @@ converged by the final steps.</p>
 <figure class="align-default" id="fig-sn2-convergence">
 <img alt="../../_images/4c4ce127d02b9a382f80357bc2c0b646eb597d358ed70a8326611fdb1017dad6.png" src="../../_images/4c4ce127d02b9a382f80357bc2c0b646eb597d358ed70a8326611fdb1017dad6.png" />
 <figcaption>
-<p><span class="caption-number">Fig. 66 </span><span class="caption-text">Convergence of the nudged-elastic-band barrier: the activation energy (highest image relative to the endpoints) versus band-optimisation step. The initial straight-line interpolation overestimates the barrier through its strained geometries; as the chain relaxes onto the minimum-energy path the barrier falls and levels off, converged to ~8 kcal/mol after a few tens of iterations.</span><a class="headerlink" href="#fig-sn2-convergence" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 68 </span><span class="caption-text">Convergence of the nudged-elastic-band barrier: the activation energy (highest image relative to the endpoints) versus band-optimisation step. The initial straight-line interpolation overestimates the barrier through its strained geometries; as the chain relaxes onto the minimum-energy path the barrier falls and levels off, converged to ~8 kcal/mol after a few tens of iterations.</span><a class="headerlink" href="#fig-sn2-convergence" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 </div>
@@ -966,18 +970,18 @@ The fix is to <strong>split the forces by direction</strong>. Along the local ta
 <span class="math notranslate nohighlight">\(\hat{\boldsymbol\tau}\)</span> only the spring acts, keeping the images spread out;
 perpendicular to it only the potential acts, pulling the chain down into the valley:</p>
 <div class="math notranslate nohighlight" id="equation-eq-neb-force">
-<span class="eqno">(57)<a class="headerlink" href="#equation-eq-neb-force" title="Link to this equation">#</a></span>\[\mathbf F_i = -\nabla V(\mathbf R_i)\big|_{\perp}
+<span class="eqno">(59)<a class="headerlink" href="#equation-eq-neb-force" title="Link to this equation">#</a></span>\[\mathbf F_i = -\nabla V(\mathbf R_i)\big|_{\perp}
   + k\big(|\mathbf R_{i+1}-\mathbf R_i| - |\mathbf R_i-\mathbf R_{i-1}|\big)\hat{\boldsymbol\tau}_i,
 \qquad
 \nabla V\big|_{\perp} = \nabla V - (\nabla V\cdot\hat{\boldsymbol\tau})\hat{\boldsymbol\tau}.\]</div>
 <p>Neither force is allowed to act in the other’s direction, and that single
 restriction is the whole method. The tangent itself needs care: the naive choice
 <span class="math notranslate nohighlight">\(\mathbf R_{i+1}-\mathbf R_{i-1}\)</span> develops kinks near the saddle, so we use the
-<strong>improved tangent</strong> of Henkelman and Jónsson <span class="bibtex-citation" id="id2">[<a class="reference internal" href="#id35" title="Graeme Henkelman, Blas P. Uberuaga, and Hannes Jónsson. A climbing image nudged elastic band method for finding saddle points and minimum energy paths. The Journal of Chemical Physics, 113(22):9901–9904, 2000. doi:10.1063/1.1329672.">HUJonsson00</a>]</span>, which points
+<strong>improved tangent</strong> of Henkelman and Jónsson <span class="bibtex-citation" id="id2">[<a class="reference internal" href="#id36" title="Graeme Henkelman, Blas P. Uberuaga, and Hannes Jónsson. A climbing image nudged elastic band method for finding saddle points and minimum energy paths. The Journal of Chemical Physics, 113(22):9901–9904, 2000. doi:10.1063/1.1329672.">HUJonsson00b</a>]</span>, which points
 toward whichever neighbour is higher in energy.</p>
 <p>The test surface has a deliberately <em>curved</em> valley,</p>
 <div class="math notranslate nohighlight" id="equation-eq-neb-surface">
-<span class="eqno">(58)<a class="headerlink" href="#equation-eq-neb-surface" title="Link to this equation">#</a></span>\[V(x,y) = (x^2-1)^2 + K\big(y - a(1-x^2)\big)^2 ,\]</div>
+<span class="eqno">(60)<a class="headerlink" href="#equation-eq-neb-surface" title="Link to this equation">#</a></span>\[V(x,y) = (x^2-1)^2 + K\big(y - a(1-x^2)\big)^2 ,\]</div>
 <p>with minima at <span class="math notranslate nohighlight">\((\pm1,0)\)</span> and a valley floor along <span class="math notranslate nohighlight">\(y=a(1-x^2)\)</span>, so the true saddle
 sits at <span class="math notranslate nohighlight">\((0,a)\)</span> with <span class="math notranslate nohighlight">\(V=1\)</span>. A straight line between the minima passes through
 <span class="math notranslate nohighlight">\((0,0)\)</span>, where <span class="math notranslate nohighlight">\(V = 1+Ka^2\)</span> — for <span class="math notranslate nohighlight">\(K=5\)</span>, <span class="math notranslate nohighlight">\(a=1/2\)</span> that is <span class="math notranslate nohighlight">\(2.25\)</span>, more than twice the
@@ -986,7 +990,7 @@ the relaxation worth watching.</p>
 <p><strong>Part a)</strong> Implement <code class="docutils literal notranslate"><span class="pre">neb_relax(band,</span> <span class="pre">k_spring,</span> <span class="pre">n_steps,</span> <span class="pre">dt)</span></code>. For each interior
 image: form the improved tangent, normalise it, project the potential gradient onto
 the plane perpendicular to it with <code class="docutils literal notranslate"><span class="pre">numpy.dot</span></code>, add the spring term along it from
-<a class="reference internal" href="#equation-eq-neb-force">Eq. 57</a>, and step every image by steepest descent. Hold the endpoints
+<a class="reference internal" href="#equation-eq-neb-force">Eq. 59</a>, and step every image by steepest descent. Hold the endpoints
 fixed — they are minima already, and releasing them would let the whole band slide
 into one basin.
 <strong>Write this one yourself</strong> — the implementation is the lesson.</p>
@@ -1193,42 +1197,42 @@ input[type=range].anim-slider {
 </style>
 
 <div class="animation">
-  <img id="_anim_img71501bdbae6d462eae5a0f0d1fdf40ca">
+  <img id="_anim_img6416ac7470bb4db38bafdff806de9f9b">
   <div class="anim-controls">
-    <input id="_anim_slider71501bdbae6d462eae5a0f0d1fdf40ca" type="range" class="anim-slider"
+    <input id="_anim_slider6416ac7470bb4db38bafdff806de9f9b" type="range" class="anim-slider"
            name="points" min="0" max="1" step="1" value="0"
-           oninput="anim71501bdbae6d462eae5a0f0d1fdf40ca.set_frame(parseInt(this.value));">
+           oninput="anim6416ac7470bb4db38bafdff806de9f9b.set_frame(parseInt(this.value));">
     <div class="anim-buttons">
-      <button title="Decrease speed" aria-label="Decrease speed" onclick="anim71501bdbae6d462eae5a0f0d1fdf40ca.slower()">
+      <button title="Decrease speed" aria-label="Decrease speed" onclick="anim6416ac7470bb4db38bafdff806de9f9b.slower()">
           <i class="fa fa-minus"></i></button>
-      <button title="First frame" aria-label="First frame" onclick="anim71501bdbae6d462eae5a0f0d1fdf40ca.first_frame()">
+      <button title="First frame" aria-label="First frame" onclick="anim6416ac7470bb4db38bafdff806de9f9b.first_frame()">
         <i class="fa fa-fast-backward"></i></button>
-      <button title="Previous frame" aria-label="Previous frame" onclick="anim71501bdbae6d462eae5a0f0d1fdf40ca.previous_frame()">
+      <button title="Previous frame" aria-label="Previous frame" onclick="anim6416ac7470bb4db38bafdff806de9f9b.previous_frame()">
           <i class="fa fa-step-backward"></i></button>
-      <button title="Play backwards" aria-label="Play backwards" onclick="anim71501bdbae6d462eae5a0f0d1fdf40ca.reverse_animation()">
+      <button title="Play backwards" aria-label="Play backwards" onclick="anim6416ac7470bb4db38bafdff806de9f9b.reverse_animation()">
           <i class="fa fa-play fa-flip-horizontal"></i></button>
-      <button title="Pause" aria-label="Pause" onclick="anim71501bdbae6d462eae5a0f0d1fdf40ca.pause_animation()">
+      <button title="Pause" aria-label="Pause" onclick="anim6416ac7470bb4db38bafdff806de9f9b.pause_animation()">
           <i class="fa fa-pause"></i></button>
-      <button title="Play" aria-label="Play" onclick="anim71501bdbae6d462eae5a0f0d1fdf40ca.play_animation()">
+      <button title="Play" aria-label="Play" onclick="anim6416ac7470bb4db38bafdff806de9f9b.play_animation()">
           <i class="fa fa-play"></i></button>
-      <button title="Next frame" aria-label="Next frame" onclick="anim71501bdbae6d462eae5a0f0d1fdf40ca.next_frame()">
+      <button title="Next frame" aria-label="Next frame" onclick="anim6416ac7470bb4db38bafdff806de9f9b.next_frame()">
           <i class="fa fa-step-forward"></i></button>
-      <button title="Last frame" aria-label="Last frame" onclick="anim71501bdbae6d462eae5a0f0d1fdf40ca.last_frame()">
+      <button title="Last frame" aria-label="Last frame" onclick="anim6416ac7470bb4db38bafdff806de9f9b.last_frame()">
           <i class="fa fa-fast-forward"></i></button>
-      <button title="Increase speed" aria-label="Increase speed" onclick="anim71501bdbae6d462eae5a0f0d1fdf40ca.faster()">
+      <button title="Increase speed" aria-label="Increase speed" onclick="anim6416ac7470bb4db38bafdff806de9f9b.faster()">
           <i class="fa fa-plus"></i></button>
     </div>
-    <form title="Repetition mode" aria-label="Repetition mode" action="#n" name="_anim_loop_select71501bdbae6d462eae5a0f0d1fdf40ca"
+    <form title="Repetition mode" aria-label="Repetition mode" action="#n" name="_anim_loop_select6416ac7470bb4db38bafdff806de9f9b"
           class="anim-state">
-      <input type="radio" name="state" value="once" id="_anim_radio1_71501bdbae6d462eae5a0f0d1fdf40ca"
+      <input type="radio" name="state" value="once" id="_anim_radio1_6416ac7470bb4db38bafdff806de9f9b"
              >
-      <label for="_anim_radio1_71501bdbae6d462eae5a0f0d1fdf40ca">Once</label>
-      <input type="radio" name="state" value="loop" id="_anim_radio2_71501bdbae6d462eae5a0f0d1fdf40ca"
+      <label for="_anim_radio1_6416ac7470bb4db38bafdff806de9f9b">Once</label>
+      <input type="radio" name="state" value="loop" id="_anim_radio2_6416ac7470bb4db38bafdff806de9f9b"
              checked>
-      <label for="_anim_radio2_71501bdbae6d462eae5a0f0d1fdf40ca">Loop</label>
-      <input type="radio" name="state" value="reflect" id="_anim_radio3_71501bdbae6d462eae5a0f0d1fdf40ca"
+      <label for="_anim_radio2_6416ac7470bb4db38bafdff806de9f9b">Loop</label>
+      <input type="radio" name="state" value="reflect" id="_anim_radio3_6416ac7470bb4db38bafdff806de9f9b"
              >
-      <label for="_anim_radio3_71501bdbae6d462eae5a0f0d1fdf40ca">Reflect</label>
+      <label for="_anim_radio3_6416ac7470bb4db38bafdff806de9f9b">Reflect</label>
     </form>
   </div>
 </div>
@@ -1238,9 +1242,9 @@ input[type=range].anim-slider {
   /* Instantiate the Animation class. */
   /* The IDs given should match those used in the template above. */
   (function() {
-    var img_id = "_anim_img71501bdbae6d462eae5a0f0d1fdf40ca";
-    var slider_id = "_anim_slider71501bdbae6d462eae5a0f0d1fdf40ca";
-    var loop_select_id = "_anim_loop_select71501bdbae6d462eae5a0f0d1fdf40ca";
+    var img_id = "_anim_img6416ac7470bb4db38bafdff806de9f9b";
+    var slider_id = "_anim_slider6416ac7470bb4db38bafdff806de9f9b";
+    var loop_select_id = "_anim_loop_select6416ac7470bb4db38bafdff806de9f9b";
     var frames = new Array(52);
     
   frames[0] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAA6gAAAF6CAYAAAAUKHUlAAAAOnRFWHRTb2Z0d2FyZQBNYXRwbG90\
@@ -60253,13 +60257,13 @@ D2L10TLwMih5AAAAAElFTkSuQmCC\
     /* set a timeout to make sure all the above elements are created before
        the object is initialized. */
     setTimeout(function() {
-        anim71501bdbae6d462eae5a0f0d1fdf40ca = new Animation(frames, img_id, slider_id, 33,
+        anim6416ac7470bb4db38bafdff806de9f9b = new Animation(frames, img_id, slider_id, 33,
                                  loop_select_id);
     }, 0);
   })()
 </script>
 </div><figcaption>
-<p><span class="caption-number">Fig. 67 </span><span class="caption-text">Animation of a nudged-elastic-band relaxation on the model surface of Eq. eq-neb-surface, whose minimum-energy path is curved. Left: contours of <span class="math notranslate nohighlight">\(V(x,y)\)</span> with the eleven-image band; it starts as the straight line between the two minima (which cuts the corner and rides far too high) and bends upward onto the valley floor, the images spreading evenly as the spring term equalises their spacing. Right: the energy profile along the band at the same instant, falling from a straight-line peak of 2.25 to the true saddle value of 1.00. The endpoints are held fixed throughout; releasing them would let the whole chain slide into one basin.</span><a class="headerlink" href="#fig-sn2-neb-anim" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 69 </span><span class="caption-text">Animation of a nudged-elastic-band relaxation on the model surface of Eq. eq-neb-surface, whose minimum-energy path is curved. Left: contours of <span class="math notranslate nohighlight">\(V(x,y)\)</span> with the eleven-image band; it starts as the straight line between the two minima (which cuts the corner and rides far too high) and bends upward onto the valley floor, the images spreading evenly as the spring term equalises their spacing. Right: the energy profile along the band at the same instant, falling from a straight-line peak of 2.25 to the true saddle value of 1.00. The endpoints are held fixed throughout; releasing them would let the whole chain slide into one basin.</span><a class="headerlink" href="#fig-sn2-neb-anim" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 </div>
@@ -60279,6 +60283,68 @@ are tight.</p>
 ✓  and it sits at the saddle POSITION (0, a): the band bent up into the curved valley rather than cutting the corner   [max|Δ| = 2.22045e-16 (rtol=1e-06, atol=0.002)]
 ✓  the spring term has spread the images evenly along the path, which is the only thing it is permitted to do   [spacing spread 0.0112 across 11 images]
 ✓  and the straight-line guess it started from overestimates the barrier by more than a factor of two: on a curved path, linear interpolation is an upper bound that can be very loose   [straight line 2.250 vs relaxed 1.000]
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>True
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="exercise-5-the-climbing-image">
+<h2>Exercise 5 — The climbing image<a class="headerlink" href="#exercise-5-the-climbing-image" title="Link to this heading">#</a></h2>
+<p>Exercise 4’s from-scratch band has a quiet dependence it should not have: its
+barrier estimate is the energy of whichever <em>image</em> happens to sit highest,
+and where the images sit depends on how many there are. Give the band an odd
+count on a symmetric path and a node lands on the saddle by luck; give it an
+even count and every image misses the top — the measured barrier <em>undershoots</em>
+by the discretisation, however well the band has converged.</p>
+<p>The <strong>climbing image</strong> <span class="bibtex-citation" id="id3">[<a class="reference internal" href="#id56" title="Graeme Henkelman, Blas P. Uberuaga, and Hannes Jónsson. A climbing image nudged elastic band method for finding saddle points and minimum energy paths. The Journal of Chemical Physics, 113(22):9901–9904, 2000. doi:10.1063/1.1329672.">HUJonsson00a</a>]</span> removes the luck. After the
+band has roughly converged, its highest image changes contract: the spring
+force on it is switched off, and the true force’s component <em>along</em> the path
+is inverted,</p>
+<div class="math notranslate nohighlight" id="equation-eq-cineb">
+<span class="eqno">(61)<a class="headerlink" href="#equation-eq-cineb" title="Link to this equation">#</a></span>\[\mathbf F_{\rm CI} \;=\; -\nabla V + 2\,(\nabla V\cdot\hat{\boldsymbol\tau})\,
+\hat{\boldsymbol\tau},\]</div>
+<p>so that one image minimises across the path and <em>maximises</em> along it — it
+climbs to the exact saddle wherever the band’s nodes fall. One image obeys
+<a class="reference internal" href="#equation-eq-cineb">Eq. 61</a>; its neighbours keep the ordinary NEB contract and follow it up.</p>
+<p><strong>Part a)</strong> Extend the Exercise 3 machinery with the climbing contract and run
+both versions on the model surface with an <em>even</em> band, where no node can sit
+at the top. <strong>Write this one yourself</strong> — the implementation is the lesson.</p>
+<p><strong>Part b)</strong> Measure the cure: the plain band’s highest image against the exact
+saddle energy, the climber against the same — and then re-read the committed
+CP2K band with the sharpened eye, bounding how well <em>its</em> barrier is resolved
+from its own image spacing around the maximum.</p>
+<div class="cell tag_solution tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<figure class="align-default" id="fig-sn2-cineb">
+<img alt="../../_images/2f7c2805a80f0e789f3aa8d270c4cd03d8d90ed624fe4588e4fe06c65a31b828.png" src="../../_images/2f7c2805a80f0e789f3aa8d270c4cd03d8d90ed624fe4588e4fe06c65a31b828.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 70 </span><span class="caption-text">The climbing image on the model surface with the curved minimum-energy path, using an eight-image band so that no node can sit at the saddle by luck. Left: both converged bands on the energy landscape; the plain band’s images (amber) straddle the saddle and its best image undershoots the barrier, while the climbing image (navy star) has walked to the exact saddle point regardless of where its neighbours sit. Right: the energy profiles along both bands; the plain band’s maximum is bounded by its discretisation, the climber’s is the saddle energy itself. The same argument bounds the committed CP2K band’s barrier resolution by its own image spacing around the maximum.</span><a class="headerlink" href="#fig-sn2-cineb" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>plain NEB best image undershoots the saddle by 0.0541; climbing image error 0.00e+00 at (-0.0000, 0.5000)
+committed CP2K band: top image 8.01 kcal/mol, drop to nearest neighbour 1.63 kcal/mol -- the barrier is resolved no better than that
+</pre></div>
+</div>
+</div>
+</div>
+<section id="validation-5-luck-removed-resolution-bounded">
+<h3>Validation 5 — luck removed, resolution bounded<a class="headerlink" href="#validation-5-luck-removed-resolution-bounded" title="Link to this heading">#</a></h3>
+<p>Four checks. The plain even-image band must undershoot the exact saddle — the
+discretisation error the climbing image exists to remove, demonstrated rather
+than asserted. The climber must land on the exact saddle in energy and in
+position. Its error must be far below the plain band’s. And the committed
+band’s own resolution bound must be a small fraction of its barrier, which is
+what makes Exercise 2’s quoted number trustworthy.</p>
+<div class="cell tag_validation tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>✓  with an even band no image can sit at the saddle, and the plain NEB&#39;s best image undershoots the exact barrier by its discretisation   [undershoot 0.0541 (exact saddle V = 1)]
+✓  the climbing image lands on the exact saddle energy regardless of where the band&#39;s nodes fall   [got 1 vs expected 1 (rtol=1e-06, atol=0.001)]
+✓  and on the exact saddle POSITION (0, a) of the curved path, not merely on an energy contour of the right height   [climber at (-0.0000, 0.5000), saddle at (0, 0.5)]
+✓  the cure is an order of magnitude, and the committed CP2K band&#39;s own image spacing bounds its barrier resolution to a small fraction of the quoted value   [errors 0.0e+00 vs 0.0541; CP2K resolution 1.63 of 8.01 kcal/mol]
 </pre></div>
 </div>
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>True
@@ -60314,10 +60380,14 @@ minima, which is why the exercise optimised them first.</p></li>
 </ul>
 <section id="references">
 <h3>References<a class="headerlink" href="#references" title="Link to this heading">#</a></h3>
-<div class="docutils container" id="id3">
+<div class="docutils container" id="id4">
 <div role="list" class="citation-list">
-<div class="citation" id="id35" role="doc-biblioentry">
-<span class="label"><span class="fn-bracket">[</span>HUJonsson00<span class="fn-bracket">]</span></span>
+<div class="citation" id="id56" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id3">HUJonsson00a</a><span class="fn-bracket">]</span></span>
+<p>Graeme Henkelman, Blas P. Uberuaga, and Hannes Jónsson. A climbing image nudged elastic band method for finding saddle points and minimum energy paths. <em>The Journal of Chemical Physics</em>, 113(22):9901–9904, 2000. <a class="reference external" href="https://doi.org/10.1063/1.1329672">doi:10.1063/1.1329672</a>.</p>
+</div>
+<div class="citation" id="id36" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span>HUJonsson00b<span class="fn-bracket">]</span></span>
 <span class="backrefs">(<a role="doc-backlink" href="#id1">1</a>,<a role="doc-backlink" href="#id2">2</a>)</span>
 <p>Graeme Henkelman, Blas P. Uberuaga, and Hannes Jónsson. A climbing image nudged elastic band method for finding saddle points and minimum energy paths. <em>The Journal of Chemical Physics</em>, 113(22):9901–9904, 2000. <a class="reference external" href="https://doi.org/10.1063/1.1329672">doi:10.1063/1.1329672</a>.</p>
 </div>
@@ -60435,6 +60505,10 @@ minima, which is why the exercise optimised them first.</p></li>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-4-building-the-band-nudged-elastic-band-from-scratch">Exercise 4 — Building the band: nudged elastic band from scratch</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#validation-4-the-band-lands-on-the-analytic-saddle">Validation 4 — the band lands on the analytic saddle</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-5-the-climbing-image">Exercise 5 — The climbing image</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#validation-5-luck-removed-resolution-bounded">Validation 5 — luck removed, resolution bounded</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#notebook-summary">Notebook summary</a></li>

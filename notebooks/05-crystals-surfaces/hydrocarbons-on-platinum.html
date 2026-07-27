@@ -525,6 +525,10 @@
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#validation-4-the-signature-of-an-artefact">Validation 4 — the signature of an artefact</a></li>
 </ul>
 </li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-5-a-model-of-sticking-the-newnsanderson-picture">Exercise 5 — A model of sticking: the Newns–Anderson picture</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#validation-5-a-model-held-to-its-own-closed-forms">Validation 5 — a model held to its own closed forms</a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#notebook-summary">Notebook summary</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#outlook">Outlook</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#references">References</a></li>
@@ -625,8 +629,8 @@ mismatch; a ✓ is strong evidence, not proof.</p>
 <blockquote>
 <div><p><strong>Scope.</strong> Energies are the committed density-functional totals (Hartree, converted
 to eV); we analyse them rather than recompute the slab calculations, which are large
-and beyond a notebook. For dispersion see Grimme’s D3 <span class="bibtex-citation" id="id1">[<a class="reference internal" href="#id34" title="Stefan Grimme, Jens Antony, Stephan Ehrlich, and Helge Krieg. A consistent and accurate ab initio parametrization of density functional dispersion correction (DFT-D) for the 94 elements H-Pu. The Journal of Chemical Physics, 132(15):154104, 2010. doi:10.1063/1.3382344.">GAEK10</a>]</span> and the
-BEEF-vdW functional <span class="bibtex-citation" id="id2">[<a class="reference internal" href="#id35" title="Jess Wellendorff, Keld T. Lundgaard, Andreas Møgelhøj, and others. Density functionals for surface science: exchange-correlation model development with Bayesian error estimation. Physical Review B, 85(23):235149, 2012. doi:10.1103/PhysRevB.85.235149.">WLMogelhoj+12</a>]</span>.</p>
+and beyond a notebook. For dispersion see Grimme’s D3 <span class="bibtex-citation" id="id1">[<a class="reference internal" href="#id35" title="Stefan Grimme, Jens Antony, Stephan Ehrlich, and Helge Krieg. A consistent and accurate ab initio parametrization of density functional dispersion correction (DFT-D) for the 94 elements H-Pu. The Journal of Chemical Physics, 132(15):154104, 2010. doi:10.1063/1.3382344.">GAEK10</a>]</span> and the
+BEEF-vdW functional <span class="bibtex-citation" id="id2">[<a class="reference internal" href="#id36" title="Jess Wellendorff, Keld T. Lundgaard, Andreas Møgelhøj, and others. Density functionals for surface science: exchange-correlation model development with Bayesian error estimation. Physical Review B, 85(23):235149, 2012. doi:10.1103/PhysRevB.85.235149.">WLMogelhoj+12</a>]</span>.</p>
 </div></blockquote>
 </section>
 <section id="theory-in-brief">
@@ -975,7 +979,7 @@ is counted as binding. The <strong>basis-set superposition error</strong> (BSSE)
 adsorption look stronger than it is, and it is worst exactly where it is least
 welcome: weak physisorption, where the true binding is small enough for the
 artefact to rival it.</p>
-<p>Boys and Bernardi’s <strong>counterpoise</strong> correction <span class="bibtex-citation" id="id3">[<a class="reference internal" href="#id42" title="S. F. Boys and F. Bernardi. The calculation of small molecular interactions by the differences of separate total energies. some procedures with reduced errors. Molecular Physics, 19(4):553–566, 1970. doi:10.1080/00268977000101561.">BB70</a>]</span> removes
+<p>Boys and Bernardi’s <strong>counterpoise</strong> correction <span class="bibtex-citation" id="id3">[<a class="reference internal" href="#id43" title="S. F. Boys and F. Bernardi. The calculation of small molecular interactions by the differences of separate total energies. some procedures with reduced errors. Molecular Physics, 19(4):553–566, 1970. doi:10.1080/00268977000101561.">BB70</a>]</span> removes
 it by refusing the asymmetry. Compute <em>each fragment in the full dimer basis</em> —
 with the partner’s basis functions present but its nuclei and electrons absent,
 so-called <strong>ghost</strong> functions — so that every term in <a class="reference internal" href="#equation-eq-eads">Eq. 49</a> is evaluated in
@@ -1054,6 +1058,83 @@ minimum — the check that would catch a wrong sign or a broken matrix element.<
 </div>
 </section>
 </section>
+<section id="exercise-5-a-model-of-sticking-the-newnsanderson-picture">
+<h2>Exercise 5 — A model of sticking: the Newns–Anderson picture<a class="headerlink" href="#exercise-5-a-model-of-sticking-the-newnsanderson-picture" title="Link to this heading">#</a></h2>
+<p>The committed totals say <em>how much</em> each molecule binds; nothing yet says
+<em>why</em> an adsorbate level and a metal surface bind at all. The canonical answer
+is the <strong>Newns–Anderson model</strong> <span class="bibtex-citation" id="id4">[<a class="reference internal" href="#id56" title="D. M. Newns. Self-consistent model of hydrogen chemisorption. Physical Review, 178(3):1123–1135, 1969. doi:10.1103/PhysRev.178.1123.">New69</a>]</span>: one adsorbate orbital at
+energy <span class="math notranslate nohighlight">\(\varepsilon_a\)</span>, hybridising with strength <span class="math notranslate nohighlight">\(V\)</span> into a surface band. The
+entire model is two functions of energy — the level <em>broadening</em>
+<span class="math notranslate nohighlight">\(\Delta(\varepsilon) = \pi V^2 \rho_{\rm band}(\varepsilon)\)</span> and the level
+<em>shift</em> <span class="math notranslate nohighlight">\(\Lambda(\varepsilon)\)</span>, its Hilbert transform — and the adsorbate’s
+spectral function follows exactly:</p>
+<div class="math notranslate nohighlight" id="equation-eq-newns">
+<span class="eqno">(51)<a class="headerlink" href="#equation-eq-newns" title="Link to this equation">#</a></span>\[\rho_a(\varepsilon) \;=\; \frac{1}{\pi}\,
+\frac{\Delta(\varepsilon)}
+     {\bigl[\varepsilon - \varepsilon_a - \Lambda(\varepsilon)\bigr]^2
+       + \Delta(\varepsilon)^2}
+\;+\; \sum_{\rm poles} w_p\,\delta(\varepsilon - \varepsilon_p),\]</div>
+<p>where the <span class="math notranslate nohighlight">\(\delta\)</span>-poles are <strong>split-off states</strong>: solutions of
+<span class="math notranslate nohighlight">\(\varepsilon = \varepsilon_a + \Lambda(\varepsilon)\)</span> <em>outside</em> the band, where
+<span class="math notranslate nohighlight">\(\Delta = 0\)</span>, each carrying weight <span class="math notranslate nohighlight">\(w_p = [1 - \Lambda'(\varepsilon_p)]^{-1}\)</span>.
+For the semi-elliptic band the Hilbert transform is closed-form, so every
+claim below is checkable against exact limits: the sum rule (one electron of
+spectral weight, band plus poles, always), the wide-band limit (a Lorentzian
+of width <span class="math notranslate nohighlight">\(\Delta(\varepsilon_a)\)</span>), the <em>threshold</em> <span class="math notranslate nohighlight">\(V_c = W/\sqrt2\)</span> at which
+split-off states first appear for a band-centre level, and particle–hole
+symmetry (occupancy exactly <span class="math notranslate nohighlight">\(\tfrac12\)</span> at the band centre). Weak coupling is
+physisorption’s broadened resonance; strong coupling is chemisorption’s
+bonding/antibonding pair — the covalent channel this notebook’s committed,
+dispersion-dominated energies deliberately do not probe, built here as the
+instrument that would.</p>
+<p><strong>Part a)</strong> Implement <span class="math notranslate nohighlight">\(\Delta\)</span>, the closed-form <span class="math notranslate nohighlight">\(\Lambda\)</span>, the in-band
+<span class="math notranslate nohighlight">\(\rho_a\)</span>, and the pole finder (searched separately below and above the band —
+interpolating across the gap fabricates roots). <strong>Write this one yourself</strong> —
+the implementation is the lesson. Gate the sum rule.</p>
+<p><strong>Part b)</strong> Show the two regimes and <em>measure</em> the threshold: scan <span class="math notranslate nohighlight">\(V\)</span> and
+find where split-off weight first appears, against the exact <span class="math notranslate nohighlight">\(W/\sqrt2\)</span>.</p>
+<p><strong>Part c)</strong> Fill the level: occupancy <span class="math notranslate nohighlight">\(n_a(\varepsilon_a)\)</span> at fixed Fermi
+energy, with the exact half-filling point and the two saturation limits.</p>
+<div class="cell tag_solution tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<figure class="align-default" id="fig-pt-newns">
+<img alt="../../_images/2961ed6eaedd4897ab2098cadd9655ba993b80a7194522fd821043ac07ddb2db.png" src="../../_images/2961ed6eaedd4897ab2098cadd9655ba993b80a7194522fd821043ac07ddb2db.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 59 </span><span class="caption-text">The Newns–Anderson model with a semi-elliptic surface band, every panel checkable against a closed form. Left: the adsorbate spectral function in the two regimes — weak coupling gives a broadened resonance inside the band (amber, indistinguishable from the wide-band Lorentzian, dotted), strong coupling splits bonding and antibonding states off both band edges (navy sticks), the spectral picture of chemisorption. Middle: the split-off weight against coupling strength; it first appears at the exact threshold W/√2 for a band-centre level (dashed). Right: the level occupancy against level position at fixed Fermi energy — exactly one half at the band centre by particle–hole symmetry, saturating to full and empty in the deep and high limits.</span><a class="headerlink" href="#fig-pt-newns" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>sum rule: weak 1.00000, strong 1.00000 (strong = band 0.446 + poles 0.554)
+threshold: measured V_c = 0.725, exact W/sqrt(2) = 0.707
+occupancy at band centre: 0.5000 (exact 1/2 by particle-hole symmetry)
+</pre></div>
+</div>
+</div>
+</div>
+<section id="validation-5-a-model-held-to-its-own-closed-forms">
+<h3>Validation 5 — a model held to its own closed forms<a class="headerlink" href="#validation-5-a-model-held-to-its-own-closed-forms" title="Link to this heading">#</a></h3>
+<p>Five checks, every one against an exact statement of the model. The spectral
+weight must sum to one in both regimes — band plus poles, the sum rule that
+catches any error in <span class="math notranslate nohighlight">\(\Lambda\)</span>, the pole weights, or the branch choice. The
+weak-coupling resonance must be the wide-band Lorentzian. The split-off
+threshold must land on <span class="math notranslate nohighlight">\(W/\sqrt2\)</span>. The band-centre occupancy must be exactly
+one half. And the occupancy must fall monotonically as the level rises through
+the band — filling behaving like filling.</p>
+<div class="cell tag_validation tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>✓  the spectral sum rule holds in the weak-coupling regime: one electron of weight, all of it in-band   [got 1 vs expected 1 (rtol=0.001, atol=1e-09)]
+✓  and in the strong-coupling regime, where over half the weight has split off the band edges -- the same electron, redistributed into the bonding/antibonding pair   [got 1 vs expected 1 (rtol=0.001, atol=1e-09)]
+✓  the weak-coupling resonance is the wide-band Lorentzian of width Delta(ea), the analytic limit the full solution must contain   [L1 difference over the resonance window &lt; 0.08]
+✓  split-off states first appear at the exact threshold W/sqrt(2) for a band-centre level -- the scan rediscovers the closed form   [got 0.725 vs expected 0.707107 (rtol=1e-06, atol=0.02)]
+✓  the occupancy is exactly one half at the band centre (particle-hole symmetry) and falls monotonically as the level rises through the band   [n(0) = 0.5000; monotone over 41 level positions]
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>True
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
 <section id="notebook-summary">
 <h2>Notebook summary<a class="headerlink" href="#notebook-summary" title="Link to this heading">#</a></h2>
 <p>We computed the adsorption energies of benzene, methane, and ethane on Pt(111) from
@@ -1079,17 +1160,21 @@ pairwise <span class="math notranslate nohighlight">\(-C_6/r^6\)</span> picture 
 </ul>
 <section id="references">
 <h3>References<a class="headerlink" href="#references" title="Link to this heading">#</a></h3>
-<div class="docutils container" id="id4">
+<div class="docutils container" id="id5">
 <div role="list" class="citation-list">
-<div class="citation" id="id42" role="doc-biblioentry">
+<div class="citation" id="id43" role="doc-biblioentry">
 <span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id3">BB70</a><span class="fn-bracket">]</span></span>
 <p>S. F. Boys and F. Bernardi. The calculation of small molecular interactions by the differences of separate total energies. some procedures with reduced errors. <em>Molecular Physics</em>, 19(4):553–566, 1970. <a class="reference external" href="https://doi.org/10.1080/00268977000101561">doi:10.1080/00268977000101561</a>.</p>
 </div>
-<div class="citation" id="id34" role="doc-biblioentry">
+<div class="citation" id="id35" role="doc-biblioentry">
 <span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id1">GAEK10</a><span class="fn-bracket">]</span></span>
 <p>Stefan Grimme, Jens Antony, Stephan Ehrlich, and Helge Krieg. A consistent and accurate ab initio parametrization of density functional dispersion correction (DFT-D) for the 94 elements H-Pu. <em>The Journal of Chemical Physics</em>, 132(15):154104, 2010. <a class="reference external" href="https://doi.org/10.1063/1.3382344">doi:10.1063/1.3382344</a>.</p>
 </div>
-<div class="citation" id="id35" role="doc-biblioentry">
+<div class="citation" id="id56" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id4">New69</a><span class="fn-bracket">]</span></span>
+<p>D. M. Newns. Self-consistent model of hydrogen chemisorption. <em>Physical Review</em>, 178(3):1123–1135, 1969. <a class="reference external" href="https://doi.org/10.1103/PhysRev.178.1123">doi:10.1103/PhysRev.178.1123</a>.</p>
+</div>
+<div class="citation" id="id36" role="doc-biblioentry">
 <span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id2">WLMogelhoj+12</a><span class="fn-bracket">]</span></span>
 <p>Jess Wellendorff, Keld T. Lundgaard, Andreas Møgelhøj, and others. Density functionals for surface science: exchange-correlation model development with Bayesian error estimation. <em>Physical Review B</em>, 85(23):235149, 2012. <a class="reference external" href="https://doi.org/10.1103/PhysRevB.85.235149">doi:10.1103/PhysRevB.85.235149</a>.</p>
 </div>
@@ -1207,6 +1292,10 @@ pairwise <span class="math notranslate nohighlight">\(-C_6/r^6\)</span> picture 
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-4-basis-set-superposition-error-and-the-counterpoise-cure">Exercise 4 — Basis-set superposition error, and the counterpoise cure</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#validation-4-the-signature-of-an-artefact">Validation 4 — the signature of an artefact</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-5-a-model-of-sticking-the-newnsanderson-picture">Exercise 5 — A model of sticking: the Newns–Anderson picture</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#validation-5-a-model-held-to-its-own-closed-forms">Validation 5 — a model held to its own closed forms</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#notebook-summary">Notebook summary</a></li>
