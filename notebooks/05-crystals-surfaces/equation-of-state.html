@@ -516,6 +516,10 @@
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#validation-3-the-ideal-close-packed-axial-ratio">Validation 3 — the ideal close-packed axial ratio</a></li>
 </ul>
 </li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-4-does-the-choice-of-equation-of-state-matter">Exercise 4 — Does the choice of equation of state matter?</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#validation-4-the-answer-does-not-depend-on-the-form">Validation 4 — the answer does not depend on the form</a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#notebook-summary">Notebook summary</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#outlook">Outlook</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#references">References</a></li>
@@ -616,8 +620,8 @@ not proof.</p>
 <div><p><strong>Scope.</strong> Energies use the EMT calculator, a fast classical approximation built
 into ASE; it captures the trends and gives lattice constants within a per cent or
 two, where a full density-functional calculation would be quantitative but far
-slower. For ASE see <span class="bibtex-citation" id="id1">[<a class="reference internal" href="#id31" title="Ask Hjorth Larsen, Jens Jørgen Mortensen, Jakob Blomqvist, and others. The atomic simulation environment—a Python library for working with atoms. Journal of Physics: Condensed Matter, 29(27):273002, 2017. doi:10.1088/1361-648X/aa680e.">HLJorgenMB+17</a>]</span>; for the equation of state, Birch
-<span class="bibtex-citation" id="id2">[<a class="reference internal" href="#id32" title="Francis Birch. Finite elastic strain of cubic crystals. Physical Review, 71(11):809–824, 1947. doi:10.1103/PhysRev.71.809.">Bir47</a>]</span>.</p>
+slower. For ASE see <span class="bibtex-citation" id="id1">[<a class="reference internal" href="#id32" title="Ask Hjorth Larsen, Jens Jørgen Mortensen, Jakob Blomqvist, and others. The atomic simulation environment—a Python library for working with atoms. Journal of Physics: Condensed Matter, 29(27):273002, 2017. doi:10.1088/1361-648X/aa680e.">HLJorgenMB+17</a>]</span>; for the equation of state, Birch
+<span class="bibtex-citation" id="id2">[<a class="reference internal" href="#id33" title="Francis Birch. Finite elastic strain of cubic crystals. Physical Review, 71(11):809–824, 1947. doi:10.1103/PhysRev.71.809.">Bir47</a>]</span>.</p>
 </div></blockquote>
 </section>
 <section id="theory-in-brief">
@@ -631,10 +635,21 @@ the curvature defines the <strong>bulk modulus</strong></p>
 <span class="eqno">(35)<a class="headerlink" href="#equation-eq-bulk" title="Link to this equation">#</a></span>\[B = V\frac{\partial^2 E}{\partial V^2}\bigg|_{V_0},\]</div>
 <p>the pressure needed to change the volume by a given fraction. Real solids are not
 perfectly parabolic, so we fit the <strong>Birch-Murnaghan</strong> equation of state
-<span class="bibtex-citation" id="id3">[<a class="reference internal" href="#id32" title="Francis Birch. Finite elastic strain of cubic crystals. Physical Review, 71(11):809–824, 1947. doi:10.1103/PhysRev.71.809.">Bir47</a>]</span>, a low-order expansion in strain that captures the asymmetry
-between compression and expansion, and read off <span class="math notranslate nohighlight">\(V_0\)</span> and <span class="math notranslate nohighlight">\(B\)</span> from the fit. For a
-cubic crystal the lattice constant follows from <span class="math notranslate nohighlight">\(V_0\)</span> and the number of atoms per
-cell.</p>
+<span class="bibtex-citation" id="id3">[<a class="reference internal" href="#id33" title="Francis Birch. Finite elastic strain of cubic crystals. Physical Review, 71(11):809–824, 1947. doi:10.1103/PhysRev.71.809.">Bir47</a>]</span>, a low-order expansion in <em>strain</em> rather than in volume. The
+natural variable is the Eulerian strain <span class="math notranslate nohighlight">\(f=\tfrac12[(V_0/V)^{2/3}-1]\)</span>, which
+vanishes at equilibrium; expanding the energy to third order in <span class="math notranslate nohighlight">\(f\)</span> and rearranging
+gives</p>
+<div class="math notranslate nohighlight" id="equation-eq-birch-murnaghan">
+<span class="eqno">(36)<a class="headerlink" href="#equation-eq-birch-murnaghan" title="Link to this equation">#</a></span>\[E(V) = E_0 + \frac{9V_0B_0}{16}\left\{\left[\left(\frac{V_0}{V}\right)^{2/3}-1\right]^{3}B_0'
+  + \left[\left(\frac{V_0}{V}\right)^{2/3}-1\right]^{2}\left[6-4\left(\frac{V_0}{V}\right)^{2/3}\right]\right\},\]</div>
+<p>with four parameters: the equilibrium volume <span class="math notranslate nohighlight">\(V_0\)</span> and energy <span class="math notranslate nohighlight">\(E_0\)</span>, the bulk
+modulus <span class="math notranslate nohighlight">\(B_0\)</span>, and its pressure derivative <span class="math notranslate nohighlight">\(B_0'\)</span>. Strain is the right expansion
+variable because a solid stiffens under compression and softens under expansion, an
+asymmetry a polynomial in <span class="math notranslate nohighlight">\(V\)</span> reproduces only badly. Two other forms are in common
+use — <strong>Murnaghan</strong>, which assumes <span class="math notranslate nohighlight">\(B\)</span> varies linearly with pressure, and <strong>Vinet</strong>
+<span class="bibtex-citation" id="id4">[<a class="reference internal" href="#id42" title="P. Vinet, James H. Rose, J. Ferrante, and John R. Smith. Universal features of the equation of state of solids. Journal of Physics: Condensed Matter, 1(11):1941–1963, 1989. doi:10.1088/0953-8984/1/11/002.">VRFS89</a>]</span>, built for large compressions — and Exercise 4 asks whether the
+choice between them matters. For a cubic crystal the lattice constant follows from
+<span class="math notranslate nohighlight">\(V_0\)</span> and the number of atoms per cell.</p>
 </section>
 <section id="close-packed-lattices-and-the-axial-ratio">
 <h3>Close-packed lattices and the axial ratio<a class="headerlink" href="#close-packed-lattices-and-the-axial-ratio" title="Link to this heading">#</a></h3>
@@ -643,7 +658,7 @@ has <strong>two</strong>, <span class="math notranslate nohighlight">\(a\)</span
 must be minimised over a two-dimensional grid. For ideal close packing of hard
 spheres the ratio is fixed at</p>
 <div class="math notranslate nohighlight" id="equation-eq-coa">
-<span class="eqno">(36)<a class="headerlink" href="#equation-eq-coa" title="Link to this equation">#</a></span>\[\frac{c}{a} = \sqrt{\tfrac{8}{3}} \approx 1.633,\]</div>
+<span class="eqno">(37)<a class="headerlink" href="#equation-eq-coa" title="Link to this equation">#</a></span>\[\frac{c}{a} = \sqrt{\tfrac{8}{3}} \approx 1.633,\]</div>
 <p>and how close a real metal sits to this value measures how nearly its bonding is
 isotropic.</p>
 </section>
@@ -651,7 +666,15 @@ isotropic.</p>
 <hr class="docutils" />
 <section id="setup">
 <h2>Setup<a class="headerlink" href="#setup" title="Link to this heading">#</a></h2>
-<div class="cell docutils container">
+<p>The Setup below holds this notebook’s data and instruments — nothing you are asked
+to build. It is collapsed so the building stays yours; expand it whenever you want
+the details.</p>
+<!-- setup-policy: v2 --><div class="cell tag_hide-input docutils container">
+<details class="admonition hide above-input">
+<summary aria-label="Toggle hidden content">
+<p class="collapsed admonition-title">Show code cell source</p>
+<p class="expanded admonition-title">Hide code cell source</p>
+</summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
 
@@ -660,6 +683,7 @@ isotropic.</p>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">ase</span><span class="w"> </span><span class="kn">import</span> <span class="n">Atoms</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">ase.io</span><span class="w"> </span><span class="kn">import</span> <span class="n">read</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">scipy.optimize</span><span class="w"> </span><span class="kn">import</span> <span class="n">curve_fit</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">ase.calculators.emt</span><span class="w"> </span><span class="kn">import</span> <span class="n">EMT</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">ase.optimize</span><span class="w"> </span><span class="kn">import</span> <span class="n">BFGS</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">ase.eos</span><span class="w"> </span><span class="kn">import</span> <span class="n">EquationOfState</span>
@@ -667,7 +691,7 @@ isotropic.</p>
 <span class="kn">from</span><span class="w"> </span><span class="nn">ecp</span><span class="w"> </span><span class="kn">import</span> <span class="n">validate</span>
 
 <span class="n">INK</span><span class="p">,</span> <span class="n">AMBER</span><span class="p">,</span> <span class="n">SOFT</span> <span class="o">=</span> <span class="s2">&quot;#16213e&quot;</span><span class="p">,</span> <span class="s2">&quot;#c0851a&quot;</span><span class="p">,</span> <span class="s2">&quot;#46506b&quot;</span>
-<span class="n">EV_A3_TO_GPA</span> <span class="o">=</span> <span class="mf">160.21766</span>                 <span class="c1"># 1 eV/Å³ in gigapascal</span>
+<span class="n">EV_A3_TO_GPA</span> <span class="o">=</span> <span class="mf">160.21766</span>  <span class="c1"># 1 eV/Å³ in gigapascal</span>
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">data_file</span><span class="p">(</span><span class="n">name</span><span class="p">):</span>
@@ -696,6 +720,7 @@ isotropic.</p>
 </pre></div>
 </div>
 </div>
+</details>
 </div>
 </section>
 <section id="exercise-1-ase-and-the-atomization-energy-of-n2">
@@ -705,12 +730,13 @@ attach a calculator, ask for the energy. The first physical quantity is the
 <strong>atomization energy</strong> of a nitrogen molecule, the energy released when two nitrogen
 atoms bond,</p>
 <div class="math notranslate nohighlight" id="equation-eq-atomization">
-<span class="eqno">(37)<a class="headerlink" href="#equation-eq-atomization" title="Link to this equation">#</a></span>\[E_{\rm atom} = 2\,E(\mathrm{N}) - E(\mathrm{N_2}),\]</div>
+<span class="eqno">(38)<a class="headerlink" href="#equation-eq-atomization" title="Link to this equation">#</a></span>\[E_{\rm atom} = 2\,E(\mathrm{N}) - E(\mathrm{N_2}),\]</div>
 <p>positive because the molecule is more stable than the separated atoms. We relax the
 molecule to its bond length, then compare to two isolated atoms, all with the EMT
 calculator. N₂ is famously hard to pull apart (its triple bond is one of the
 strongest in chemistry), so the atomization energy is large.</p>
-<p><strong>Part a)</strong> Build and relax N₂, and an isolated N atom, with EMT. <strong>Part b)</strong> Compute
+<p><strong>Part a)</strong> Build and relax N₂, and an isolated N atom, with EMT.</p>
+<p><strong>Part b)</strong> Compute
 the atomization energy and confirm it is large and positive.</p>
 <div class="cell tag_solution tag_remove-input docutils container">
 <div class="cell_output docutils container">
@@ -744,17 +770,38 @@ energy-volume curve, fit the <strong>Birch-Murnaghan</strong> equation of state,
 read off the equilibrium volume, the lattice constant, and the bulk modulus <a class="reference internal" href="#equation-eq-bulk">Eq. 35</a>. For FCC
 there are four atoms in the conventional cubic cell, so the lattice constant is
 <span class="math notranslate nohighlight">\(a=(4V_0)^{1/3}\)</span> from the per-atom volume <span class="math notranslate nohighlight">\(V_0\)</span>.</p>
-<p><strong>Part a)</strong> Load <code class="docutils literal notranslate"><span class="pre">Ag-eos.traj</span></code> and fit the equation of state. <strong>Part b)</strong> Extract the
-lattice constant and bulk modulus, and compare to experiment.</p>
+<p><strong>Part a)</strong> Implement <code class="docutils literal notranslate"><span class="pre">birch_murnaghan(V,</span> <span class="pre">V0,</span> <span class="pre">E0,</span> <span class="pre">B0,</span> <span class="pre">Bp)</span></code> from
+<a class="reference internal" href="#equation-eq-birch-murnaghan">Eq. 36</a>. It is a four-parameter nonlinear model, so it cannot be
+fitted by <code class="docutils literal notranslate"><span class="pre">numpy.polyfit</span></code>; that is the whole reason this exercise exists.
+<strong>Write this one yourself</strong> — the implementation is the lesson.</p>
+<p><strong>Part b)</strong> Fit it to the committed <span class="math notranslate nohighlight">\(E(V)\)</span> data with
+<code class="docutils literal notranslate"><span class="pre">scipy.optimize.curve_fit</span></code>. A nonlinear fit needs a starting guess, and a bad one
+converges to nonsense rather than failing loudly, so build the guess rather than
+inventing it: fit a parabola with <code class="docutils literal notranslate"><span class="pre">numpy.polyfit(V,</span> <span class="pre">E,</span> <span class="pre">2)</span></code> first, and read <span class="math notranslate nohighlight">\(V_0\)</span>,
+<span class="math notranslate nohighlight">\(E_0\)</span> and <span class="math notranslate nohighlight">\(B_0 = V_0\,d^2E/dV^2\)</span> off it. Take <span class="math notranslate nohighlight">\(B_0' = 4\)</span>, the usual default.</p>
+<p><strong>Part c)</strong> <code class="docutils literal notranslate"><span class="pre">curve_fit</span></code> returns the parameter covariance matrix as its second
+output. Its diagonal square roots are the one-sigma uncertainties: report <span class="math notranslate nohighlight">\(V_0\)</span>,
+<span class="math notranslate nohighlight">\(B_0\)</span> and the lattice constant <span class="math notranslate nohighlight">\(a=(4V_0)^{1/3}\)</span> each with an error bar, propagating
+to <span class="math notranslate nohighlight">\(a\)</span> by <span class="math notranslate nohighlight">\(\delta a = (4^{1/3}/3)\,V_0^{-2/3}\,\delta V_0\)</span>. Then read the honest
+caveat printed underneath: five data points and four parameters leave one degree of
+freedom, so these uncertainties describe the fit, not the physics.</p>
+<p><strong>Part d)</strong> Compare with experiment, and cross-check the whole fit against ASE’s
+own <code class="docutils literal notranslate"><span class="pre">EquationOfState</span></code>, an implementation written by other people. Agreement there
+is a real check on your algebra; agreement with experiment is a check on the EMT
+calculator that produced the data, which is a different question entirely.</p>
 <div class="cell tag_solution tag_remove-input docutils container">
 <div class="cell_output docutils container">
 <figure class="align-default" id="fig-ag-eos">
-<img alt="../../_images/fe273105de5bce02f7e5cba51fa68006eb5103439392fd7a3a4a5542676a7867.png" src="../../_images/fe273105de5bce02f7e5cba51fa68006eb5103439392fd7a3a4a5542676a7867.png" />
+<img alt="../../_images/76e31e07f296fa1983be2acf1b9f3e0461883009527ac2a9376e57c4ddc5cfc8.png" src="../../_images/76e31e07f296fa1983be2acf1b9f3e0461883009527ac2a9376e57c4ddc5cfc8.png" />
 <figcaption>
 <p><span class="caption-number">Fig. 43 </span><span class="caption-text">Equation of state of face-centred-cubic silver from the course’s committed ASE scan: total energy (eV) versus primitive-cell volume (points), with the Birch-Murnaghan fit (curve). The minimum gives the equilibrium volume, hence the lattice constant <span class="math notranslate nohighlight">\(a=4.06\)</span> Å (experiment 4.09 Å); the curvature gives the bulk modulus <span class="math notranslate nohighlight">\(B=100\)</span> GPa (experiment ~100 GPa).</span><a class="headerlink" href="#fig-ag-eos" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>a(Ag) = 4.064 Å (exp 4.09);  bulk modulus B = 100 GPa (exp ~100)
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>V0 = 16.7825 ± 0.0034 Å³      B0 = 100.04 ± 0.50 GPa      B&#39; = 4.44
+a(Ag) = 4.0642 ± 0.0003 Å   (experiment 4.09 Å)
+ASE EquationOfState: V0 = 16.7825 Å³, B0 = 100.04 GPa
+degrees of freedom = 5 points - 4 parameters = 1;
+  with one degree of freedom these error bars describe the FIT, not the physics.
 </pre></div>
 </div>
 </div>
@@ -766,7 +813,8 @@ bulk modulus near the experimental <span class="math notranslate nohighlight">\(
 <div class="cell tag_validation tag_remove-input docutils container">
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>✓  the fitted lattice constant matches silver&#39;s measured value   [got 4.06418 vs expected 4.09 (rtol=0.02, atol=1e-09)]
-✓  the bulk modulus is in the right range for silver   [B = 100 GPa (experiment ~100 GPa)]
+✓  the bulk modulus is in the right range for silver   [B = 100.0 ± 0.5 GPa (experiment ~100 GPa)]
+✓  and the hand-built fit reproduces ASE&#39;s own EquationOfState to six figures: the algebra of eq-birch-murnaghan and the optimiser are both correct   [max|Δ| = 3.8739e-09 (rtol=1e-05, atol=1e-09)]
 </pre></div>
 </div>
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>True
@@ -783,7 +831,7 @@ in-plane spacing <span class="math notranslate nohighlight">\(a\)</span> and the
 and committed the result as <code class="docutils literal notranslate"><span class="pre">Ni-ac-scan.traj</span></code> (a <span class="math notranslate nohighlight">\(10\times10\)</span> mesh in <span class="math notranslate nohighlight">\(a\)</span> and <span class="math notranslate nohighlight">\(c\)</span>). We load
 it, map the energy surface, and find the minimum to read off both lattice constants
 at once. Their ratio <span class="math notranslate nohighlight">\(c/a\)</span> should land near the ideal close-packed value
-<span class="math notranslate nohighlight">\(\sqrt{8/3}\approx1.633\)</span> <a class="reference internal" href="#equation-eq-coa">Eq. 36</a>.</p>
+<span class="math notranslate nohighlight">\(\sqrt{8/3}\approx1.633\)</span> <a class="reference internal" href="#equation-eq-coa">Eq. 37</a>.</p>
 <p><strong>Part a)</strong> Load <code class="docutils literal notranslate"><span class="pre">Ni-ac-scan.traj</span></code> and plot the energy over the <span class="math notranslate nohighlight">\((a,c)\)</span> grid.
 <strong>Part b)</strong> Locate the minimum and confirm the axial ratio is near ideal.</p>
 <div class="cell tag_solution tag_remove-input docutils container">
@@ -806,6 +854,75 @@ must sit at <span class="math notranslate nohighlight">\(c/a=\sqrt{8/3}\approx1.
 <div class="cell tag_validation tag_remove-input docutils container">
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>✓  the hcp axial ratio c/a is at the ideal close-packed value   [got 1.6233 vs expected 1.63299 (rtol=0.02, atol=1e-09)]
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>True
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="exercise-4-does-the-choice-of-equation-of-state-matter">
+<h2>Exercise 4 — Does the choice of equation of state matter?<a class="headerlink" href="#exercise-4-does-the-choice-of-equation-of-state-matter" title="Link to this heading">#</a></h2>
+<p>Exercise 2 fitted one functional form and read two numbers off it. That should make
+anyone slightly uneasy. Birch-Murnaghan is not derived from first principles; it is
+a truncated expansion, and two other truncations are in equally common use. If the
+lattice constant and bulk modulus we quote depend on which of them we picked, they
+are artefacts of the fitting rather than properties of silver.</p>
+<p>So test it. The <strong>Murnaghan</strong> form assumes the bulk modulus rises linearly with
+pressure,</p>
+<div class="math notranslate nohighlight" id="equation-eq-murnaghan">
+<span class="eqno">(39)<a class="headerlink" href="#equation-eq-murnaghan" title="Link to this equation">#</a></span>\[E(V) = E_0 + \frac{B_0V}{B_0'}\left[\frac{(V_0/V)^{B_0'}}{B_0'-1}+1\right]-\frac{B_0V_0}{B_0'-1},\]</div>
+<p>while the <strong>Vinet</strong> form is built from an interatomic potential of universal shape
+and is the standard choice at large compressions,</p>
+<div class="math notranslate nohighlight" id="equation-eq-vinet">
+<span class="eqno">(40)<a class="headerlink" href="#equation-eq-vinet" title="Link to this equation">#</a></span>\[E(V) = E_0 + \frac{2B_0V_0}{(B_0'-1)^2}\Big\{2-\big[5+3B_0'(x-1)-3x\big]e^{-\eta(x-1)}\Big\},
+\quad x=\left(\frac{V}{V_0}\right)^{1/3},\ \ \eta=\tfrac32(B_0'-1).\]</div>
+<p><strong>Part a)</strong> Implement both forms and fit each to the same data with the same
+parabola-derived starting guess. Watch the signs: an algebra slip in either
+expression does not raise, it simply converges somewhere meaningless, and the first
+symptom is a <em>negative</em> bulk modulus.
+<strong>Write this one yourself</strong> — the implementation is the lesson.</p>
+<p><strong>Part b)</strong> Tabulate <span class="math notranslate nohighlight">\(V_0\)</span>, <span class="math notranslate nohighlight">\(B_0\)</span> and <span class="math notranslate nohighlight">\(a\)</span> from all three forms with their root-mean-square
+residuals, and plot the residuals against volume on a shared axis. Ask two separate
+questions of the numbers: do the forms agree on the <em>observables</em>, and do they
+differ in how well they <em>fit</em>?</p>
+<p><strong>Part c)</strong> Draw the conclusion. Agreement to a fraction of a percent across three
+unrelated functional forms is what licenses quoting a lattice constant from a fit at
+all — and it is a stronger statement than any single fit’s error bar, because it
+probes a systematic the error bar cannot see.</p>
+<div class="cell tag_solution tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>form                        V0 [A^3]          B0 [GPa]    B0p    a [A]   rms [eV]
+Birch-Murnaghan     16.7825 ± 0.0034    100.04 ± 0.50   4.44   4.0642   1.08e-04
+Murnaghan           16.7884 ± 0.0055     99.71 ± 0.85   4.22   4.0647   1.83e-04
+Vinet               16.7795 ± 0.0022    100.22 ± 0.31   4.55   4.0639   6.87e-05
+spread across forms:  a 0.018 %,  B0 0.50 %
+</pre></div>
+</div>
+<figure class="align-default" id="fig-ag-eos-compare">
+<img alt="../../_images/c0112d4b3f7369fcfa321f278fe24bc1ea37584f70af73db09c569ec10f0c504.png" src="../../_images/c0112d4b3f7369fcfa321f278fe24bc1ea37584f70af73db09c569ec10f0c504.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 45 </span><span class="caption-text">Fit residuals <span class="math notranslate nohighlight">\(E_{\rm data}-E_{\rm fit}\)</span> for silver’s committed energy-volume curve under three equations of state: Birch-Murnaghan (navy), Murnaghan (amber), Vinet (grey). All three sit within a tenth of a milli-electronvolt of the data across the whole range, and all three return the same lattice constant to within 0.02 per cent, so the extracted quantities are properties of the data rather than of the chosen functional form.</span><a class="headerlink" href="#fig-ag-eos-compare" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</div>
+</div>
+<section id="validation-4-the-answer-does-not-depend-on-the-form">
+<h3>Validation 4 — the answer does not depend on the form<a class="headerlink" href="#validation-4-the-answer-does-not-depend-on-the-form" title="Link to this heading">#</a></h3>
+<p>Three checks. Every fit must be physical, which for a bound solid means a positive
+bulk modulus — the single number that catches an algebra slip in either new
+expression, since a wrong sign converges happily and announces itself only here.
+The three forms must then agree on the lattice constant far more closely than any of
+them agrees with experiment, which is what makes <span class="math notranslate nohighlight">\(a\)</span> a property of the data. And the
+residuals must be small compared with the energy range being fitted, or the whole
+comparison would be between three equally bad descriptions.</p>
+<div class="cell tag_validation tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>✓  every fitted bulk modulus is positive, so no fit has wandered into an unphysical minimum: the first symptom of a sign slip in eq-murnaghan or eq-vinet, which otherwise converges silently   [Birch-Murnaghan 100.0 GPa, Murnaghan 99.7 GPa, Vinet 100.2 GPa]
+✓  the three unrelated functional forms agree on silver&#39;s lattice constant to far better than any of them agrees with experiment: a is a property of the data, not of the fit   [a = [4.0642, 4.0647, 4.0639] Å, spread 0.018 %]
+✓  and all three describe the data to well under a percent of its energy range, so the comparison is between three good fits rather than three bad ones   [max |residual| = 0.292 meV over a 248 meV range]
 </pre></div>
 </div>
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>True
@@ -843,16 +960,20 @@ combination.</p></li>
 </ul>
 <section id="references">
 <h3>References<a class="headerlink" href="#references" title="Link to this heading">#</a></h3>
-<div class="docutils container" id="id4">
+<div class="docutils container" id="id5">
 <div role="list" class="citation-list">
-<div class="citation" id="id32" role="doc-biblioentry">
+<div class="citation" id="id33" role="doc-biblioentry">
 <span class="label"><span class="fn-bracket">[</span>Bir47<span class="fn-bracket">]</span></span>
 <span class="backrefs">(<a role="doc-backlink" href="#id2">1</a>,<a role="doc-backlink" href="#id3">2</a>)</span>
 <p>Francis Birch. Finite elastic strain of cubic crystals. <em>Physical Review</em>, 71(11):809–824, 1947. <a class="reference external" href="https://doi.org/10.1103/PhysRev.71.809">doi:10.1103/PhysRev.71.809</a>.</p>
 </div>
-<div class="citation" id="id31" role="doc-biblioentry">
+<div class="citation" id="id32" role="doc-biblioentry">
 <span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id1">HLJorgenMB+17</a><span class="fn-bracket">]</span></span>
 <p>Ask Hjorth Larsen, Jens Jørgen Mortensen, Jakob Blomqvist, and others. The atomic simulation environment—a Python library for working with atoms. <em>Journal of Physics: Condensed Matter</em>, 29(27):273002, 2017. <a class="reference external" href="https://doi.org/10.1088/1361-648X/aa680e">doi:10.1088/1361-648X/aa680e</a>.</p>
+</div>
+<div class="citation" id="id42" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id4">VRFS89</a><span class="fn-bracket">]</span></span>
+<p>P. Vinet, James H. Rose, J. Ferrante, and John R. Smith. Universal features of the equation of state of solids. <em>Journal of Physics: Condensed Matter</em>, 1(11):1941–1963, 1989. <a class="reference external" href="https://doi.org/10.1088/0953-8984/1/11/002">doi:10.1088/0953-8984/1/11/002</a>.</p>
 </div>
 </div>
 </div>
@@ -964,6 +1085,10 @@ combination.</p></li>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-3-two-lattice-parameters-hexagonal-nickel">Exercise 3 — Two lattice parameters: hexagonal nickel</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#validation-3-the-ideal-close-packed-axial-ratio">Validation 3 — the ideal close-packed axial ratio</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-4-does-the-choice-of-equation-of-state-matter">Exercise 4 — Does the choice of equation of state matter?</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#validation-4-the-answer-does-not-depend-on-the-form">Validation 4 — the answer does not depend on the form</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#notebook-summary">Notebook summary</a></li>
