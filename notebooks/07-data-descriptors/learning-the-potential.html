@@ -1,0 +1,1340 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta property="og:title" content="7.3 Learning the Potential" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://ramador.me/molecular-materials-modelling-public/notebooks/07-data-descriptors/learning-the-potential.html" />
+<meta property="og:site_name" content="Molecular and Materials Modelling" />
+<meta property="og:description" content="Notebook overview: §7.1 turned an atomic structure into a vector a model can accept, and §7.2 ended on a pointed question: is a training set chosen to cover ..." />
+<meta property="og:image" content="https://ramador.me/molecular-materials-modelling-public/_static/og.png" />
+<meta property="og:image:alt" content="Molecular and Materials Modelling" />
+<meta name="description" content="Notebook overview: §7.1 turned an atomic structure into a vector a model can accept, and §7.2 ended on a pointed question: is a training set chosen to cover ..." />
+
+    <title>7.3 Learning the Potential &#8212; Molecular and Materials Modelling</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=55c26ed414f5f8a31ebb" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=55c26ed414f5f8a31ebb" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=3c74b3bc" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css?v=9c3e77be" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../../_static/ecp.css?v=4837e097" />
+  
+  <!-- So that users can add custom icons -->
+  <script defer src="../../_static/scripts/fontawesome.js?digest=55c26ed414f5f8a31ebb"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=55c26ed414f5f8a31ebb" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=55c26ed414f5f8a31ebb" />
+
+    <script src="../../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?v=fab101a9"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../_static/togglebutton.js?v=b8b12719"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"tex": {"macros": {"dd": "\\mathrm{d}"}}, "options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'notebooks/07-data-descriptors/learning-the-potential';</script>
+    <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
+    <script src="../../_static/home-button.js?v=6d5ef4fc"></script>
+    <script src="../../_static/goatcounter.js?v=ce435452"></script>
+    <link rel="canonical" href="https://ramador.me/molecular-materials-modelling-public/notebooks/07-data-descriptors/learning-the-potential.html" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="prev" title="7.2 Dimensionality Reduction and Farthest-Point Sampling" href="dimensionality-reduction.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  
+    
+    <script src="../../_static/searchtools.js"></script>
+    <script src="../../_static/language_data.js"></script>
+    <script src="../../searchindex.js"></script>
+  
+  </head>
+  <body data-default-mode="">
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+  
+  
+  
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../00-front-matter/preface.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../_static/logo.svg" class="logo__image only-light" alt="Molecular and Materials Modelling - Home"/>
+    <img src="../../_static/logo.svg" class="logo__image only-dark pst-js-only" alt="Molecular and Materials Modelling - Home"/>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../01-monte-carlo-methods/index.html">Volume I — Statistical Mechanics &amp; Monte Carlo</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../01-monte-carlo-methods/ising-model.html">1.1 The Ising Model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../01-monte-carlo-methods/lattice-gas-kmc.html">1.2 Lattice-Gas Monte Carlo and Kinetic Monte Carlo</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../02-energy-landscapes/index.html">Volume II — Energy Landscapes &amp; Optimization</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../02-energy-landscapes/lennard-jones-clusters.html">2.1 Optimizing Lennard-Jones Clusters</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../03-molecular-dynamics/index.html">Volume III — Molecular Dynamics</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../03-molecular-dynamics/lennard-jones-md.html">3.1 Molecular Dynamics of Lennard-Jones Clusters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../03-molecular-dynamics/replica-exchange.html">3.2 Replica Exchange and the Melting of a Cluster</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../04-electronic-structure/index.html">Volume IV — Electronic Structure</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../04-electronic-structure/silicon-band-structure.html">4.1 The Electronic Band Structure of Silicon</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../04-electronic-structure/oxygen-triplet.html">4.2 The Formation of Molecular Oxygen</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../05-crystals-surfaces/index.html">Volume V — Crystals and Surfaces</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../05-crystals-surfaces/equation-of-state.html">5.1 Lattice Constants from an Equation of State</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../05-crystals-surfaces/hydrocarbons-on-platinum.html">5.2 Hydrocarbons on Platinum</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../06-reactions-free-energy/index.html">Volume VI — Reactions and Free Energy</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../06-reactions-free-energy/ethanol-dehydration.html">6.1 The Dehydration of Ethanol</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../06-reactions-free-energy/neb-chloromethane.html">6.2 The S<span class="math notranslate nohighlight">\(_N\)</span>2 Reaction by Nudged Elastic Band</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../06-reactions-free-energy/metadynamics-graphene.html">6.3 Metadynamics: Nitric Acid on Graphene</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="index.html">Volume VII — Data and Descriptors</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="structural-descriptors.html">7.1 Describing an Atomic Structure</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dimensionality-reduction.html">7.2 Dimensionality Reduction and Farthest-Point Sampling</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">7.3 Learning the Potential</a></li>
+</ul>
+</details></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-launch-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
+    <i class="fas fa-rocket"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://mybinder.org/v2/gh/ramador09/molecular-materials-modelling-public/main?urlpath=tree/notebooks/07-data-descriptors/learning-the-potential.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch on Binder"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img alt="Binder logo" src="../../_static/images/logo_binder.svg">
+  </span>
+<span class="btn__text-container">Binder</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://colab.research.google.com/github/ramador09/molecular-materials-modelling-public/blob/main/notebooks/07-data-descriptors/learning-the-potential.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch on Colab"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img alt="Colab logo" src="../../_static/images/logo_colab.png">
+  </span>
+<span class="btn__text-container">Colab</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/ramador09/molecular-materials-modelling-public" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/ramador09/molecular-materials-modelling-public/issues/new?title=Issue%20on%20page%20%2Fnotebooks/07-data-descriptors/learning-the-potential.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../_sources/notebooks/07-data-descriptors/learning-the-potential.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button pst-navbar-icon"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+<button class="sidebar-toggle secondary-toggle btn btn-sm pst-navbar-icon" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>7.3 Learning the Potential</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#notebook-overview">Notebook overview</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#theory-in-brief">Theory in brief</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-supervised-learning-frame">The supervised-learning frame</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#kernel-ridge-regression">Kernel ridge regression</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-the-model-cannot-tell-you">What the model cannot tell you</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#setup">Setup</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1-a-dataset-is-a-curated-object">Exercise 1 — A dataset is a curated object</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-2-kernel-ridge-regression-certified-before-trusted">Exercise 2 — Kernel ridge regression, certified before trusted</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-3-spending-the-labelling-budget">Exercise 3 — Spending the labelling budget</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-4-where-the-model-lies">Exercise 4 — Where the model lies</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#notebook-summary">Notebook summary</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#outlook">Outlook</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#references">References</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="learning-the-potential">
+<h1>7.3 Learning the Potential<a class="headerlink" href="#learning-the-potential" title="Link to this heading">#</a></h1>
+<div class="cell tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<div class="output text_html"><style>@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,900&family=Source+Serif+4:wght@400;600&family=JetBrains+Mono:wght@400;600&display=swap');</style>
+<div style="
+    font-family:'Source Serif 4', 'Iowan Old Style', Georgia, serif;
+    background:#faf7f0;
+    border:1px solid #dcd6c8;
+    border-left:6px solid #c0851a;
+    border-radius:6px;
+    padding:26px 30px 22px 30px;
+    margin:4px 0 26px 0;
+    box-shadow:0 1px 0 rgba(0,0,0,.03), 0 8px 24px -18px rgba(22,33,62,.5);">
+
+  <div style="font-family:'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace;font-size:12px;letter-spacing:.12em;
+              text-transform:uppercase;color:#c0851a;font-weight:600;
+              margin-bottom:4px;">
+    Molecular and Materials Modelling
+  </div>
+
+  <div style="display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;">
+    <span style="font-family:'Fraunces', 'Iowan Old Style', Georgia, serif;font-weight:900;font-size:22px;
+                 line-height:1.1;color:#16213e;
+                 font-variation-settings:'opsz' 144;">
+      Volume VII — Data and Descriptors
+    </span>
+    <span style="font-family:'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace;font-size:12px;letter-spacing:.06em;
+                 color:#46506b;">
+      Notebook&nbsp;7.3
+    </span>
+  </div>
+
+  <div style="font-family:'Source Serif 4', 'Iowan Old Style', Georgia, serif;font-size:15px;color:#46506b;
+                   margin-top:10px;max-width:62ch;">The two previous notebooks built descriptors and asked how to choose training points. This one closes the loop: it actually fits a potential — by exact linear algebra, no black box — and then does the more important thing, which is to find out precisely where and how the fitted model fails.</div>
+
+  <div style="font-family:'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace;font-size:11px;letter-spacing:.04em;
+                   color:#c0851a;margin-top:10px;">Based on FS 2023 · Lectures 10–11 (machine learning for atomistic systems)</div>
+
+  <div style="margin-top:16px;"><div class='ecp-meta' style='font-family:'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#46506b;'>Level&nbsp;&middot;&nbsp;advanced&nbsp;&nbsp;&nbsp;&#8226;&nbsp;&nbsp;&nbsp;Est.&nbsp;&middot;&nbsp;90–120 min</div></div>
+
+  <div style="border-top:1px solid #dcd6c8;margin-top:16px;padding-top:12px;
+              display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;
+              font-family:'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace;font-size:11px;color:#46506b;
+              letter-spacing:.04em;">
+    <span>Raymond Amador</span>
+    <span>v1.2.0 &nbsp;·&nbsp; 2026-07-27 &nbsp;·&nbsp;
+          CC&nbsp;BY&nbsp;4.0 (text) / MIT (code)</span>
+  </div>
+</div></div></div>
+</div>
+<section id="notebook-overview">
+<h2>Notebook overview<a class="headerlink" href="#notebook-overview" title="Link to this heading">#</a></h2>
+<p><a class="reference internal" href="structural-descriptors.html"><span class="std std-doc">§7.1</span></a> turned an atomic structure into a vector a
+model can accept, and <a class="reference internal" href="dimensionality-reduction.html"><span class="std std-doc">§7.2</span></a> ended on a pointed
+question: is a training set chosen to <em>cover</em> descriptor space the set you would
+want to <em>fit a model</em> to? Answering it requires a model, so this notebook builds
+the whole supervised-learning pipeline for a potential energy surface, end to end
+and with nothing imported from a machine-learning library: a labelled dataset of
+Lennard-Jones cluster configurations, a global descriptor assembled from the
+symmetry functions of §7.1, and <strong>kernel ridge regression</strong> solved by exact linear
+algebra <span class="bibtex-citation" id="id1">[<a class="reference internal" href="#id62" title="Matthias Rupp, Alexandre Tkatchenko, Klaus-Robert Müller, and O. Anatole von Lilienfeld. Fast and accurate modeling of molecular atomization energies with machine learning. Physical Review Letters, 108:058301, 2012. doi:10.1103/PhysRevLett.108.058301.">RTMullervL12</a>]</span>. Because the labelling oracle here is the Lennard-Jones
+energy of <a class="reference internal" href="../02-energy-landscapes/lennard-jones-clusters.html"><span class="std std-doc">§2.1</span></a> rather than
+a day of density-functional theory, we can afford the truth for every prediction —
+which makes this the honest laboratory for studying the <em>method</em>, exactly as a
+production team would prototype on a cheap surrogate before spending real compute.</p>
+<p>Three lessons structure the notebook. A dataset is a <em>curated</em> object: one
+careless configuration with two overlapping atoms carries a wall energy of
+thousands of ε and poisons every regression it touches. A kernel model is exact
+linear algebra with two analytic limits, so it can be certified before it is
+trusted. And a fitted potential fails <em>silently</em> outside its training domain,
+returning confident numbers with no error bars; the red flag that exposes the
+failure is not in the predictions at all, but in the distance between the query
+and the training set.</p>
+<blockquote>
+<div><p><strong>Provenance.</strong> This notebook develops <strong>Lecture 10</strong> and <strong>Lecture 11</strong> of the
+course (machine learning for atomistic systems; sampling), an exercise
+<strong>designed by the author (Raymond Amador)</strong> to complete the volume that
+restores those lectures. Like its two companions it uses no committed
+calculation: the oracle, the descriptors, and the model are all built here, so
+every number can be re-derived from scratch. The full course credit is in the
+footer.</p>
+</div></blockquote>
+<blockquote>
+<div><p><strong>Reading a validation.</strong> Each exercise closes with a check against an
+independent fact: a literature minimum energy, an analytic limit of the
+regression, a monotonicity the theory demands, a failure the theory predicts.
+A ✗ flags a mismatch to investigate; a ✓ is strong evidence, not proof.</p>
+</div></blockquote>
+<blockquote>
+<div><p><strong>Scope.</strong> We fit energies of one cluster size with one descriptor and one
+kernel, because the pathologies worth teaching (dataset poisoning,
+regularisation limits, extrapolation failure) appear already in the smallest
+honest example. Forces, multiple elements, and production descriptor sets are
+surveyed in the Outlook.</p>
+</div></blockquote>
+</section>
+<section id="theory-in-brief">
+<h2>Theory in brief<a class="headerlink" href="#theory-in-brief" title="Link to this heading">#</a></h2>
+<section id="the-supervised-learning-frame">
+<h3>The supervised-learning frame<a class="headerlink" href="#the-supervised-learning-frame" title="Link to this heading">#</a></h3>
+<p>Every method in this course computes the energy of a configuration from first
+principles, at a cost that repeats for every configuration. Machine-learning
+potentials <span class="bibtex-citation" id="id2">[<a class="reference internal" href="#id63" title="Albert P. Bartók, Mike C. Payne, Risi Kondor, and Gábor Csányi. Gaussian approximation potentials: the accuracy of quantum mechanics, without the electrons. Physical Review Letters, 104:136403, 2010. doi:10.1103/PhysRevLett.104.136403.">BartokPKCsanyi10</a>, <a class="reference internal" href="#id49" title="Jörg Behler and Michele Parrinello. Generalized neural-network representation of high-dimensional potential-energy surfaces. Physical Review Letters, 98(14):146401, 2007. doi:10.1103/PhysRevLett.98.146401.">BP07</a>]</span> propose to pay that cost only <span class="math notranslate nohighlight">\(n\)</span> times:
+evaluate an expensive oracle on a <strong>training set</strong> of configurations, then fit a
+cheap surrogate that generalises to configurations the oracle never saw. The
+ingredients are a dataset <span class="math notranslate nohighlight">\(\{(\mathbf{x}_i, E_i)\}_{i=1}^{n}\)</span>, where
+<span class="math notranslate nohighlight">\(\mathbf{x}_i\)</span> is a fixed-length descriptor of configuration <span class="math notranslate nohighlight">\(i\)</span> and <span class="math notranslate nohighlight">\(E_i\)</span> its
+oracle energy, and a regression model mapping descriptor to energy. Everything
+in this notebook is about what those two ingredients hide.</p>
+</section>
+<section id="kernel-ridge-regression">
+<h3>Kernel ridge regression<a class="headerlink" href="#kernel-ridge-regression" title="Link to this heading">#</a></h3>
+<p>A linear fit in descriptor space is too rigid for a potential energy surface, but
+a linear fit in a <em>nonlinearly transformed</em> space is not. The kernel trick makes
+that transformation implicit: choose a kernel <span class="math notranslate nohighlight">\(k(\mathbf{x}, \mathbf{x}')\)</span>
+measuring the similarity of two configurations, and write the prediction as a
+kernel expansion over the training set,</p>
+<div class="math notranslate nohighlight" id="equation-eq-lp-krr-model">
+<span class="eqno">(73)<a class="headerlink" href="#equation-eq-lp-krr-model" title="Link to this equation">#</a></span>\[\hat{E}(\mathbf{x}) \;=\; \bar{E} \;+\; \sum_{i=1}^{n} \alpha_i\,
+k(\mathbf{x}_i, \mathbf{x}),\]</div>
+<p>with <span class="math notranslate nohighlight">\(\bar{E}\)</span> the training-set mean, subtracted so the model only has to learn
+deviations from it. Requiring the least-squares residual plus a ridge penalty
+<span class="math notranslate nohighlight">\(\lambda \sum_i \alpha_i^2\)</span> to be minimal gives the coefficients as the solution
+of one linear system <span class="bibtex-citation" id="id3">[<a class="reference internal" href="#id62" title="Matthias Rupp, Alexandre Tkatchenko, Klaus-Robert Müller, and O. Anatole von Lilienfeld. Fast and accurate modeling of molecular atomization energies with machine learning. Physical Review Letters, 108:058301, 2012. doi:10.1103/PhysRevLett.108.058301.">RTMullervL12</a>]</span>,</p>
+<div class="math notranslate nohighlight" id="equation-eq-lp-krr-alpha">
+<span class="eqno">(74)<a class="headerlink" href="#equation-eq-lp-krr-alpha" title="Link to this equation">#</a></span>\[(K + \lambda I)\,\boldsymbol{\alpha} \;=\; \mathbf{E} - \bar{E},
+\qquad K_{ij} = k(\mathbf{x}_i, \mathbf{x}_j),\]</div>
+<p>and for the similarity measure we use the radial-basis-function kernel with a
+single length scale <span class="math notranslate nohighlight">\(\gamma\)</span> in (standardised) descriptor space,</p>
+<div class="math notranslate nohighlight" id="equation-eq-lp-rbf">
+<span class="eqno">(75)<a class="headerlink" href="#equation-eq-lp-rbf" title="Link to this equation">#</a></span>\[k(\mathbf{x}, \mathbf{x}') \;=\;
+\exp\!\left(-\,\frac{\lVert \mathbf{x} - \mathbf{x}' \rVert^2}{2\gamma^2}\right).\]</div>
+<p>The ridge parameter <span class="math notranslate nohighlight">\(\lambda\)</span> is usually introduced as a guard against noise, but
+our labels are <em>exact</em> (the oracle is deterministic), and <span class="math notranslate nohighlight">\(\lambda\)</span> still
+matters, twice over. Analytically it interpolates between two limits the model
+can be certified against: as <span class="math notranslate nohighlight">\(\lambda \to \infty\)</span> the coefficients are crushed to
+zero and Eq. <a class="reference internal" href="#equation-eq-lp-krr-model">Eq. 73</a> returns the constant <span class="math notranslate nohighlight">\(\bar{E}\)</span>, while as
+<span class="math notranslate nohighlight">\(\lambda \to 0\)</span> the system forces <span class="math notranslate nohighlight">\(K\boldsymbol{\alpha} = \mathbf{E} - \bar{E}\)</span>
+and the model passes through every training point exactly. Numerically, <span class="math notranslate nohighlight">\(\lambda\)</span>
+sets the conditioning of the matrix in Eq. <a class="reference internal" href="#equation-eq-lp-krr-alpha">Eq. 74</a>: two nearly
+identical training configurations make two nearly identical rows of <span class="math notranslate nohighlight">\(K\)</span>, and
+without the ridge the solve amplifies rounding error into wild coefficients.
+Both faces of <span class="math notranslate nohighlight">\(\lambda\)</span> appear as measurements below.</p>
+</section>
+<section id="what-the-model-cannot-tell-you">
+<h3>What the model cannot tell you<a class="headerlink" href="#what-the-model-cannot-tell-you" title="Link to this heading">#</a></h3>
+<p>Eq. <a class="reference internal" href="#equation-eq-lp-krr-model">Eq. 73</a> is a weighted sum of Gaussians centred on the training
+points. A query far from every training point in descriptor space sees every
+kernel value near zero, so the prediction relaxes toward <span class="math notranslate nohighlight">\(\bar{E}\)</span> regardless of
+the true energy: the model <em>extrapolates toward its mean</em>, silently. The honest
+companion of a kernel potential is therefore not an error bar it cannot produce,
+but the distance from the query to its nearest training neighbour, which costs
+one row of kernel evaluations and flags the failure before it happens.</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="setup">
+<h2>Setup<a class="headerlink" href="#setup" title="Link to this heading">#</a></h2>
+<p>The Setup below holds this notebook’s data and instruments — nothing you are
+asked to build. It is collapsed so the building stays yours; expand it whenever
+you want the details.</p>
+<!-- setup-policy: v2 --><div class="cell tag_hide-input docutils container">
+<details class="admonition hide above-input">
+<summary aria-label="Toggle hidden content">
+<p class="collapsed admonition-title">Show code cell source</p>
+<p class="expanded admonition-title">Hide code cell source</p>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">scipy.optimize</span><span class="w"> </span><span class="kn">import</span> <span class="n">minimize</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">scipy.stats</span><span class="w"> </span><span class="kn">import</span> <span class="n">spearmanr</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">ecp</span><span class="w"> </span><span class="kn">import</span> <span class="n">validate</span>
+
+<span class="n">INK</span><span class="p">,</span> <span class="n">AMBER</span><span class="p">,</span> <span class="n">SOFT</span> <span class="o">=</span> <span class="s2">&quot;#16213e&quot;</span><span class="p">,</span> <span class="s2">&quot;#c0851a&quot;</span><span class="p">,</span> <span class="s2">&quot;#46506b&quot;</span>
+
+<span class="c1"># data: natural Lennard-Jones units throughout — energies in epsilon, lengths in</span>
+<span class="c1"># sigma. The literature global-minimum energy of the 13-atom cluster (the</span>
+<span class="c1"># icosahedron) is the external anchor for the relaxation of Exercise 1.</span>
+<span class="n">E_LJ13</span> <span class="o">=</span> <span class="o">-</span><span class="mf">44.326801</span>  <span class="c1"># data: LJ13 global minimum, Wales &amp; Doye (1997)</span>
+
+<span class="c1"># data: the descriptor table of §7.1 — eight radial symmetry functions G2, each a</span>
+<span class="c1"># (width eta, centre Rs) pair, cut off at RC. Chosen to tile distances from the</span>
+<span class="c1"># first neighbour shell (r ~ 1.1) out to the cluster diameter.</span>
+<span class="n">G2_ETAS</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.05</span><span class="p">,</span> <span class="mf">0.15</span><span class="p">,</span> <span class="mf">0.35</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">,</span> <span class="mf">1.6</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">,</span> <span class="mf">6.0</span><span class="p">,</span> <span class="mf">12.0</span><span class="p">])</span>
+<span class="n">G2_RS</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.1</span><span class="p">,</span> <span class="mf">1.3</span><span class="p">,</span> <span class="mf">1.6</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">,</span> <span class="mf">2.4</span><span class="p">])</span>
+<span class="n">G2_RC</span> <span class="o">=</span> <span class="mf">2.8</span>  <span class="c1"># data: cutoff radius in sigma; encloses the whole 13-atom cluster</span>
+
+<span class="c1"># data: the dataset design of Exercise 1. Training amplitudes stay inside the</span>
+<span class="c1"># quasi-harmonic regime; the far amplitudes of Exercise 4 are deliberately outside</span>
+<span class="c1"># it. The distance floor DMIN is the curation rule: no configuration enters any</span>
+<span class="c1"># dataset with a pair closer than 0.95 sigma, where the pair repulsion is still a</span>
+<span class="c1"># modest ~2 epsilon rather than the thousands the r^-12 wall reaches at overlap.</span>
+<span class="n">AMPS_TRAIN</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.02</span><span class="p">,</span> <span class="mf">0.04</span><span class="p">,</span> <span class="mf">0.06</span><span class="p">,</span> <span class="mf">0.08</span><span class="p">,</span> <span class="mf">0.10</span><span class="p">,</span> <span class="mf">0.12</span><span class="p">])</span>
+<span class="n">AMPS_FAR</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.18</span><span class="p">,</span> <span class="mf">0.24</span><span class="p">])</span>
+<span class="n">DMIN</span> <span class="o">=</span> <span class="mf">0.95</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">lj_energy_gradient</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Total Lennard-Jones energy and its gradient for a flat coordinate vector.</span>
+
+<span class="sd">    Built from scratch in §2.1; restated here as an instrument — it is this</span>
+<span class="sd">    notebook&#39;s labelling oracle, not its lesson. Natural units (epsilon = sigma</span>
+<span class="sd">    = 1), so V(r) = 4 (r^-12 - r^-6) summed over all pairs.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    x : numpy.ndarray</span>
+<span class="sd">        Flat coordinates, shape (3 n_atoms,).</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    tuple</span>
+<span class="sd">        ``(E, grad)``: the total energy (float, in epsilon) and its gradient</span>
+<span class="sd">        with respect to ``x``, shape (3 n_atoms,).</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Pairwise separations by broadcasting; the infinite diagonal removes the</span>
+    <span class="c1"># self-pair from every sum without an index mask.</span>
+    <span class="n">pos</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+    <span class="n">diff</span> <span class="o">=</span> <span class="n">pos</span><span class="p">[:,</span> <span class="kc">None</span><span class="p">,</span> <span class="p">:]</span> <span class="o">-</span> <span class="n">pos</span><span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="p">:,</span> <span class="p">:]</span>
+    <span class="n">r</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">((</span><span class="n">diff</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=-</span><span class="mi">1</span><span class="p">))</span>
+    <span class="n">np</span><span class="o">.</span><span class="n">fill_diagonal</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">inf</span><span class="p">)</span>
+    <span class="n">inv6</span> <span class="o">=</span> <span class="n">r</span><span class="o">**-</span><span class="mi">6</span>
+    <span class="c1"># Factor 2 (not 4): the full matrix counts every pair twice, so 4/2 = 2.</span>
+    <span class="n">energy</span> <span class="o">=</span> <span class="mf">2.0</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">inv6</span> <span class="o">*</span> <span class="p">(</span><span class="n">inv6</span> <span class="o">-</span> <span class="mf">1.0</span><span class="p">))</span>
+    <span class="c1"># dV/dr assembled on the same matrix; summing the pair forces over j gives</span>
+    <span class="c1"># the gradient on atom i in one contraction.</span>
+    <span class="n">grad</span> <span class="o">=</span> <span class="p">(</span><span class="o">-</span><span class="p">(</span><span class="mf">24.0</span> <span class="o">*</span> <span class="p">(</span><span class="mf">2.0</span> <span class="o">*</span> <span class="n">inv6</span><span class="o">**</span><span class="mi">2</span> <span class="o">-</span> <span class="n">inv6</span><span class="p">)</span> <span class="o">/</span> <span class="n">r</span><span class="o">**</span><span class="mi">2</span><span class="p">)[:,</span> <span class="p">:,</span> <span class="kc">None</span><span class="p">]</span> <span class="o">*</span> <span class="n">diff</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">energy</span><span class="p">,</span> <span class="n">grad</span><span class="o">.</span><span class="n">ravel</span><span class="p">()</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">global_fingerprint</span><span class="p">(</span><span class="n">pos</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Global descriptor: per-atom G2 symmetry functions summed over the cluster.</span>
+
+<span class="sd">    The per-atom G2 of §7.1 (a Gaussian of width eta centred at Rs on the</span>
+<span class="sd">    neighbour distances, smoothly cut off at G2_RC) is built from scratch there;</span>
+<span class="sd">    restated here as an instrument and summed over atoms, which keeps the vector</span>
+<span class="sd">    length fixed and makes it permutation-invariant by construction.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    pos : numpy.ndarray</span>
+<span class="sd">        Atomic positions, shape (n_atoms, 3), in sigma.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    numpy.ndarray</span>
+<span class="sd">        The 8-component fingerprint, one entry per (eta, Rs) row of the table.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">diff</span> <span class="o">=</span> <span class="n">pos</span><span class="p">[:,</span> <span class="kc">None</span><span class="p">,</span> <span class="p">:]</span> <span class="o">-</span> <span class="n">pos</span><span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="p">:,</span> <span class="p">:]</span>
+    <span class="n">r</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">((</span><span class="n">diff</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=-</span><span class="mi">1</span><span class="p">))</span>
+    <span class="n">np</span><span class="o">.</span><span class="n">fill_diagonal</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">inf</span><span class="p">)</span>
+    <span class="c1"># The cutoff is evaluated ONLY where r &lt; G2_RC: the infinite diagonal</span>
+    <span class="c1"># padding must never reach np.cos, which returns NaN at infinity and would</span>
+    <span class="c1"># silently poison every feature.</span>
+    <span class="n">fc</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">r</span><span class="p">)</span>
+    <span class="n">inside</span> <span class="o">=</span> <span class="n">r</span> <span class="o">&lt;</span> <span class="n">G2_RC</span>
+    <span class="n">fc</span><span class="p">[</span><span class="n">inside</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">r</span><span class="p">[</span><span class="n">inside</span><span class="p">]</span> <span class="o">/</span> <span class="n">G2_RC</span><span class="p">)</span> <span class="o">+</span> <span class="mf">1.0</span><span class="p">)</span>
+    <span class="c1"># Factor 1/2 for the double-counted pairs, as in the energy.</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
+        <span class="p">[</span>
+            <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">eta</span> <span class="o">*</span> <span class="p">(</span><span class="n">r</span> <span class="o">-</span> <span class="n">rs</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="n">fc</span><span class="p">)</span> <span class="o">/</span> <span class="mf">2.0</span>
+            <span class="k">for</span> <span class="n">eta</span><span class="p">,</span> <span class="n">rs</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">G2_ETAS</span><span class="p">,</span> <span class="n">G2_RS</span><span class="p">)</span>
+        <span class="p">]</span>
+    <span class="p">)</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">farthest_point_sampling</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">start</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Indices of ``k`` rows of ``X`` chosen by farthest-point sampling.</span>
+
+<span class="sd">    Built from scratch in §7.2; restated here as an instrument. Greedy: each new</span>
+<span class="sd">    point is the one whose distance to the already-selected set is largest.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    X : numpy.ndarray</span>
+<span class="sd">        Data matrix, one point per row.</span>
+<span class="sd">    k : int</span>
+<span class="sd">        Number of points to select.</span>
+<span class="sd">    start : int, optional</span>
+<span class="sd">        Index of the first selected point.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    numpy.ndarray</span>
+<span class="sd">        The ``k`` selected row indices, in selection order.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">selected</span> <span class="o">=</span> <span class="p">[</span><span class="n">start</span><span class="p">]</span>
+    <span class="n">dist</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">X</span> <span class="o">-</span> <span class="n">X</span><span class="p">[</span><span class="n">start</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">k</span> <span class="o">-</span> <span class="mi">1</span><span class="p">):</span>
+        <span class="n">j</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">dist</span><span class="p">))</span>
+        <span class="n">selected</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">j</span><span class="p">)</span>
+        <span class="n">dist</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">minimum</span><span class="p">(</span><span class="n">dist</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">X</span> <span class="o">-</span> <span class="n">X</span><span class="p">[</span><span class="n">j</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">selected</span><span class="p">)</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">min_pair_distance</span><span class="p">(</span><span class="n">pos</span><span class="p">):</span>
+    <span class="c1"># instrument: the curation criterion of Exercise 1 — the smallest interatomic</span>
+    <span class="c1"># distance in a configuration; one broadcast, not the lesson.</span>
+    <span class="n">diff</span> <span class="o">=</span> <span class="n">pos</span><span class="p">[:,</span> <span class="kc">None</span><span class="p">,</span> <span class="p">:]</span> <span class="o">-</span> <span class="n">pos</span><span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="p">:,</span> <span class="p">:]</span>
+    <span class="n">r</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">((</span><span class="n">diff</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=-</span><span class="mi">1</span><span class="p">))</span>
+    <span class="n">np</span><span class="o">.</span><span class="n">fill_diagonal</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">inf</span><span class="p">)</span>
+    <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">min</span><span class="p">())</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">rmse</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
+    <span class="c1"># instrument: root-mean-square difference, the error measure used throughout.</span>
+    <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">a</span><span class="p">)</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">b</span><span class="p">))</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)))</span>
+</pre></div>
+</div>
+</div>
+</details>
+</div>
+</section>
+<hr class="docutils" />
+<section id="exercise-1-a-dataset-is-a-curated-object">
+<h2>Exercise 1 — A dataset is a curated object<a class="headerlink" href="#exercise-1-a-dataset-is-a-curated-object" title="Link to this heading">#</a></h2>
+<p>Before any learning happens, someone has to decide <em>which</em> configurations the
+oracle labels, and this decision is physics, not bookkeeping. Sampling
+displacements around a minimum is the standard way to cover the configurations
+a simulation at modest temperature would visit. But a Gaussian displacement has
+no respect for the <span class="math notranslate nohighlight">\(r^{-12}\)</span> wall: rattle hard enough and eventually two atoms
+land nearly on top of each other, and a single such configuration carries an
+energy of thousands of ε. Fed to a least-squares fit, whose loss is quadratic
+in the residual, that one point outweighs the entire physical dataset. Real
+machine-learning-potential pipelines therefore <em>reject</em> unphysical geometries
+before labelling, exactly as we do here.</p>
+<p><strong>Part a)</strong> Recover the reference structure: minimise the 13-atom Lennard-Jones
+cluster with <code class="docutils literal notranslate"><span class="pre">scipy.optimize.minimize(method=&quot;L-BFGS-B&quot;,</span> <span class="pre">jac=True)</span></code> on the
+<code class="docutils literal notranslate"><span class="pre">lj_energy_gradient</span></code> oracle from the Setup, from 40 random starts drawn as
+<code class="docutils literal notranslate"><span class="pre">numpy.random.default_rng(0).normal(scale=0.8,</span> <span class="pre">size=39)</span></code>. Keep the best
+minimum as the icosahedral reference <span class="math notranslate nohighlight">\(E_0\)</span>, and also keep the lowest minimum
+lying at least <span class="math notranslate nohighlight">\(0.5\,\varepsilon\)</span> above <span class="math notranslate nohighlight">\(E_0\)</span>: Exercise 3 needs a second basin.</p>
+<p><strong>Part b)</strong> Build the curated training pool: for each amplitude <span class="math notranslate nohighlight">\(A\)</span> in
+<code class="docutils literal notranslate"><span class="pre">AMPS_TRAIN</span></code> <span class="math notranslate nohighlight">\(= \{0.02, \dots, 0.12\}\,\sigma\)</span>, draw Gaussian rattles of the
+reference (<code class="docutils literal notranslate"><span class="pre">numpy.random.default_rng(1)</span></code>, <code class="docutils literal notranslate"><span class="pre">scale=A</span></code>) and keep the first 70
+whose <code class="docutils literal notranslate"><span class="pre">min_pair_distance</span></code> is at least <code class="docutils literal notranslate"><span class="pre">DMIN</span></code> <span class="math notranslate nohighlight">\(= 0.95\,\sigma\)</span>, labelling each
+kept configuration with its oracle energy. Then build the cautionary control:
+200 rattles at <span class="math notranslate nohighlight">\(A = 0.12\,\sigma\)</span> from <code class="docutils literal notranslate"><span class="pre">numpy.random.default_rng(7)</span></code> with <strong>no
+distance floor</strong>, labelled the same way. Report the energy range of both sets.</p>
+<p><strong>Part c)</strong> Fingerprint the curated pool with <code class="docutils literal notranslate"><span class="pre">global_fingerprint</span></code> and
+standardise the features: <span class="math notranslate nohighlight">\(Z = (X - \mu)/s\)</span> with <span class="math notranslate nohighlight">\(\mu\)</span> and <span class="math notranslate nohighlight">\(s\)</span> the per-feature
+mean and standard deviation over the pool, applied by broadcasting. (The RBF
+kernel of Eq. <a class="reference internal" href="#equation-eq-lp-rbf">Eq. 75</a> uses one length scale for all features, so
+features must first be brought to a common scale.)</p>
+<div class="cell tag_solution tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>global minimum   E0 = -44.326801 eps   (literature -44.326801)
+second basin     E1 = -41.471980 eps   (E1 - E0 = 2.855)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>curated pool: 420 configs, E in [-43.75, -22.06] eps (8957 rejected by the floor)
+uncurated control: 200 configs, E in [-32.49, 10273.5] eps, 156 above zero
+fingerprints: 420 x 8, all finite: True
+</pre></div>
+</div>
+<figure class="align-default" id="fig-lp-dataset">
+<img alt="../../_images/7b0014a2a51c10763487b02ba5af86c2b7455e285d4545610b3a01a9e3866676.png" src="../../_images/7b0014a2a51c10763487b02ba5af86c2b7455e285d4545610b3a01a9e3866676.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 85 </span><span class="caption-text">The curated dataset and what curation prevents. Left: oracle energies of the 420 curated configurations against their rattle amplitude A (amber; ink squares mark the per-amplitude mean), rising smoothly from the icosahedral minimum at -44.33 epsilon as the rattles stiffen. Right: the uncurated control at A = 0.12 sigma, energy against smallest interatomic distance on a symmetric log axis. The moment a pair slips below the distance floor at 0.95 sigma (dashed), the r^-12 wall takes over and energies climb four orders of magnitude; a quadratic loss would let any one of these points outvote the entire physical dataset.</span><a class="headerlink" href="#fig-lp-dataset" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</div>
+</div>
+<div class="cell tag_validation tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>✓  the 40-restart relaxation recovers the literature global minimum of the 13-atom Lennard-Jones cluster, so the reference structure the whole dataset is rattled from is the true icosahedron   [E0 = -44.326801 vs -44.326801 (Wales &amp; Doye 1997)]
+✓  the restarts also found a genuinely distinct second basin at modest energy above the global minimum, available as the minority structure of Exercise 3   [E1 - E0 = 2.855 eps]
+✓  with the 0.95-sigma distance floor every curated energy stays within a few epsilon of the minimum, the regime a fit can actually represent   [max curated E = -22.06 eps]
+✓  while the uncurated control at the same nominal amplitude contains wall-energy outliers orders of magnitude above the physical range, which a quadratic loss would weight above everything else combined   [max uncurated E = 10273.5 eps]
+✓  and every fingerprint is finite with every feature carrying variance, so standardisation is well defined and no NaN reached the cutoff function   [feature std in [0.207, 1.632]]
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>True
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<hr class="docutils" />
+<section id="exercise-2-kernel-ridge-regression-certified-before-trusted">
+<h2>Exercise 2 — Kernel ridge regression, certified before trusted<a class="headerlink" href="#exercise-2-kernel-ridge-regression-certified-before-trusted" title="Link to this heading">#</a></h2>
+<p>The model is Eqs. <a class="reference internal" href="#equation-eq-lp-krr-model">Eq. 73</a>–<a class="reference internal" href="#equation-eq-lp-rbf">Eq. 75</a>: one kernel matrix, one
+linear solve. That brevity is the point — nothing here is a black box, so every
+behaviour of the model is a theorem about a linear system, and the two analytic
+limits of <span class="math notranslate nohighlight">\(\lambda\)</span> give certification gates that do not depend on any learned
+quantity. Only after the implementation passes both limits do we let
+cross-validation choose the hyperparameters it actually runs with.</p>
+<p><strong>Part a)</strong> Implement KRR as two functions: <code class="docutils literal notranslate"><span class="pre">krr_fit</span></code>, which assembles the RBF
+kernel matrix of Eq. <a class="reference internal" href="#equation-eq-lp-rbf">Eq. 75</a> by broadcasting
+(<code class="docutils literal notranslate"><span class="pre">X[:,</span> <span class="pre">None,</span> <span class="pre">:]</span> <span class="pre">-</span> <span class="pre">X[None,</span> <span class="pre">:,</span> <span class="pre">:]</span></code>) and solves Eq. <a class="reference internal" href="#equation-eq-lp-krr-alpha">Eq. 74</a> with
+<code class="docutils literal notranslate"><span class="pre">np.linalg.solve</span></code> (never an explicit inverse: the solve is backward-stable and
+cheaper), and <code class="docutils literal notranslate"><span class="pre">krr_predict</span></code>, which evaluates Eq. <a class="reference internal" href="#equation-eq-lp-krr-model">Eq. 73</a> on new
+points. <strong>Write this one yourself</strong> — the implementation is the lesson.</p>
+<p><strong>Part b)</strong> Certify the two limits on the curated dataset of Exercise 1, split
+340/80 into train/test by <code class="docutils literal notranslate"><span class="pre">numpy.random.default_rng(2).permutation</span></code>. At
+<span class="math notranslate nohighlight">\(\lambda = 10^{9}\)</span> every prediction must equal the training mean <span class="math notranslate nohighlight">\(\bar{E}\)</span>; at
+<span class="math notranslate nohighlight">\(\lambda = 10^{-10}\)</span> on a 40-point training subset (small, so the solve stays
+well conditioned) the model must interpolate its own training energies.</p>
+<p><strong>Part c)</strong> Choose <span class="math notranslate nohighlight">\((\gamma, \lambda)\)</span> by 5-fold cross-validation on the
+training set (folds by <code class="docutils literal notranslate"><span class="pre">np.arange(n)</span> <span class="pre">%</span> <span class="pre">5</span></code>), over the grid
+<span class="math notranslate nohighlight">\(\gamma \in \{0.6, 1.2, 2.4, 4.8\}\)</span> and <span class="math notranslate nohighlight">\(\lambda \in \{10^{-8}, \dots,
+10^{-2}\}\)</span>, then report the test error of the chosen model against the
+mean-predictor baseline.</p>
+<p><strong>Part d)</strong> Measure the numerical face of <span class="math notranslate nohighlight">\(\lambda\)</span>: the condition number
+(<code class="docutils literal notranslate"><span class="pre">np.linalg.cond</span></code>) of <span class="math notranslate nohighlight">\(K + \lambda I\)</span> on the full 340-point training set at
+<span class="math notranslate nohighlight">\(\lambda = 10^{-6}\)</span> and at the cross-validated <span class="math notranslate nohighlight">\(\lambda\)</span>. The ridge is doing
+work here even though the labels carry no noise at all.</p>
+<div class="cell tag_solution tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>lambda -&gt; inf : max |prediction - mean| = 4.83e-07 eps
+lambda -&gt; 0   : train rmse = 1.83e-05 eps  (label std 5.45)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>CV pick: gamma = 4.8, lambda = 1e-04  (cv rmse 1.073)
+test rmse 0.971 eps vs mean-predictor 5.415 eps (5.6x better)
+cond(K + 1e-6 I) = 2.69e+08   cond(K + 1e-04 I) = 2.69e+06   ratio 100
+</pre></div>
+</div>
+<figure class="align-default" id="fig-lp-cvgrid">
+<img alt="../../_images/d2fcd54e107f02d1619bf9a97a967956ebdad160cf2d7dd424dd0bcb149cff8e.png" src="../../_images/d2fcd54e107f02d1619bf9a97a967956ebdad160cf2d7dd424dd0bcb149cff8e.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 86 </span><span class="caption-text">Five-fold cross-validation error (colour, log scale) over the hyperparameter grid of the kernel ridge regression: kernel length scale gamma against ridge parameter lambda. The amber square marks the selected pair (gamma = 4.8, lambda = 1e-4). The valley is broad and flat, which is typical: many pairs fit almost equally well, and the steep cliff at the smallest lambda values for tight kernels is conditioning, not physics — nearly duplicate rows of the kernel matrix amplify rounding error once the ridge stops protecting the solve.</span><a class="headerlink" href="#fig-lp-cvgrid" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</div>
+</div>
+<div class="cell tag_validation tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>✓  in the infinite-ridge limit the fitted model collapses to the training-mean constant predictor, exactly as the crushed-coefficients algebra demands   [max deviation 4.83e-07 eps]
+✓  while in the vanishing-ridge limit the model interpolates its own training labels, the exact-fit theorem of the unregularised kernel system   [train rmse 1.83e-05 vs label std 5.45 eps]
+✓  and the cross-validated model beats the mean-predictor baseline severalfold on held-out configurations, so the fingerprint carries genuine information about the energy   [5.415 / 0.971 = 5.6x]
+✓  and the cross-validated ridge improves the kernel system&#39;s condition number a hundredfold even though the labels are noise-free: the ridge is chosen for conditioning, not against noise   [cond ratio 100]
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>True
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<hr class="docutils" />
+<section id="exercise-3-spending-the-labelling-budget">
+<h2>Exercise 3 — Spending the labelling budget<a class="headerlink" href="#exercise-3-spending-the-labelling-budget" title="Link to this heading">#</a></h2>
+<p>In production the oracle is the expensive part: each label is a
+density-functional calculation, so “how much data?” and “which data?” are
+questions about compute budget. The learning curve answers the first — error
+against training-set size, on a log-log axis where power-law learning appears
+as a straight line. The second is the question
+<a class="reference internal" href="dimensionality-reduction.html"><span class="std std-doc">§7.2</span></a> closed with: farthest-point sampling
+<span class="bibtex-citation" id="id4">[<a class="reference internal" href="#id53" title="Giulio Imbalzano, Andrea Anelli, Daniele Giofré, Sinja Klees, Jörg Behler, and Michele Ceriotti. Automatic selection of atomic fingerprints and reference configurations for machine-learning potentials. The Journal of Chemical Physics, 148(24):241730, 2018. doi:10.1063/1.5024611.">IAGiofre+18</a>]</span> selects configurations that <em>cover</em> descriptor space, and
+whether coverage is what a fit wants was left open there. With a working model
+we can now measure it, on the homogeneous pool and then on the harder case the
+coverage argument was made for: a pool where one structure is rare.</p>
+<p><strong>Part a)</strong> Measure the learning curve of the cross-validated model from
+Exercise 2: for each size <span class="math notranslate nohighlight">\(n \in \{10, 20, 40, 80, 160, 320\}\)</span>, train on 12
+random subsets of the training set (<code class="docutils literal notranslate"><span class="pre">numpy.random.default_rng(100</span> <span class="pre">+</span> <span class="pre">s).choice</span></code>
+with <code class="docutils literal notranslate"><span class="pre">replace=False</span></code> for <span class="math notranslate nohighlight">\(s = 0, \dots, 11\)</span>) and record the <em>median</em> test rmse
+(the median, because a quadratic error over few draws has a heavy tail).</p>
+<p><strong>Part b)</strong> Repeat with farthest-point sampling: for each <span class="math notranslate nohighlight">\(n\)</span>, train on the
+first <span class="math notranslate nohighlight">\(n\)</span> points of <code class="docutils literal notranslate"><span class="pre">farthest_point_sampling(Z_train,</span> <span class="pre">n,</span> <span class="pre">start=0)</span></code> from the
+Setup and compare against the random median. Watch the smallest budget
+separately: <a class="reference internal" href="dimensionality-reduction.html"><span class="std std-doc">§7.2</span></a> showed that the earliest
+farthest-point picks chase the corners of the distribution, and a training set
+made <em>only</em> of corners is a real cost, not an artefact.</p>
+<p><strong>Part c)</strong> The imbalanced case: build a fresh two-basin pool with
+<code class="docutils literal notranslate"><span class="pre">numpy.random.default_rng(3)</span></code> — for each amplitude in <code class="docutils literal notranslate"><span class="pre">AMPS_TRAIN</span></code>, 60 curated
+rattles of the icosahedral reference and 10 of the second-basin structure from
+Exercise 1, i.e. 420 configurations in all, then hold out the last 45 majority
+and 25 minority configurations as a probe set and keep the first 315 + 35 as
+the selection pool (a 10 % minority). Count how many of 12 random 10-point draws
+(<code class="docutils literal notranslate"><span class="pre">numpy.random.default_rng(200</span> <span class="pre">+</span> <span class="pre">s)</span></code>) contain <em>no</em> minority configuration at
+all, at which selection number farthest-point sampling first picks a minority
+point, and the minority fraction among its first 80 picks against the pool
+fraction of 10 %.</p>
+<div class="cell tag_solution tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>n =  10: random median 3.763 eps   fps 4.394 eps   ratio 0.86
+n =  20: random median 2.188 eps   fps 1.812 eps   ratio 1.21
+n =  40: random median 1.471 eps   fps 1.294 eps   ratio 1.14
+n =  80: random median 1.286 eps   fps 1.161 eps   ratio 1.11
+n = 160: random median 1.077 eps   fps 1.004 eps   ratio 1.07
+n = 320: random median 0.973 eps   fps 0.971 eps   ratio 1.00
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>random draws of 10: 7/12 contain zero minority configs (pool fraction 10%)
+fps: first minority pick at #3; minority fraction in 80 picks 25%
+</pre></div>
+</div>
+<figure class="align-default" id="fig-lp-curves">
+<img alt="../../_images/d04bb722b673c5df54331752d3953e6c3227253745a47638da74aa9d8a4fe475.png" src="../../_images/d04bb722b673c5df54331752d3953e6c3227253745a47638da74aa9d8a4fe475.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 87 </span><span class="caption-text">How to spend a labelling budget. Left: learning curve of the kernel model on the homogeneous pool, test error against training-set size on log-log axes; the band spans the 12 random draws, the ink line is their median, and the amber line is farthest-point sampling — worse at the smallest budget, where its corner-chasing early picks (the animation of the previous notebook showed exactly this) leave the interior unrepresented, and modestly better at every budget beyond, because a homogeneous pool leaves little for coverage to fix. Right: the imbalanced two-basin pool, cumulative number of minority-basin configurations selected against selection step. Random selection (ink, mean of 12 draws) accumulates minority points at the pool rate of one in seven, and more than half of its 10-point draws contain none at all; farthest-point sampling (amber) jumps to the rare basin within its first few picks, because in descriptor space the minority structures are far from everything already selected.</span><a class="headerlink" href="#fig-lp-curves" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</div>
+</div>
+<div class="cell tag_validation tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>✓  the median learning curve decreases monotonically with training-set size, as a curve measured with cross-validated hyperparameters and a median over draws should   [3.76 &gt; 2.19 &gt; 1.47 &gt; 1.29 &gt; 1.08 &gt; 0.97]
+✓  with the full budget improving the ten-point model severalfold, so more oracle calls genuinely buy accuracy in this regime   [rmse(n=10)/rmse(n=320) = 3.9]
+✓  farthest-point selection matches or beats the random median at every budget beyond the smallest on the homogeneous pool (its advantage is modest there, and at n = 10 its corner-chasing start genuinely hurts — both halves of the honest answer to the question of §7.2)   [fps/random at n&gt;=20: max 1.00; at n=10 1.17]
+✓  on the imbalanced pool a sizeable share of small random draws contain no minority-basin configuration at all, the failure mode coverage-based selection exists to prevent   [7/12 ten-point draws are minority-blind]
+✓  while farthest-point sampling reaches the rare basin within its first few selections, because a rare structure is by definition far from everything already chosen in descriptor space   [first minority pick at #3]
+✓  and over-represents the minority basin well beyond its pool fraction, which is precisely the property a training set for a rare-event study needs   [25% selected vs 10% in the pool]
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>True
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<hr class="docutils" />
+<section id="exercise-4-where-the-model-lies">
+<h2>Exercise 4 — Where the model lies<a class="headerlink" href="#exercise-4-where-the-model-lies" title="Link to this heading">#</a></h2>
+<p>A fitted potential returns a number for <em>any</em> input, and nothing in the number
+says whether the model has ever seen anything like the query. This is the
+central operational danger of machine-learning potentials: a molecular-dynamics
+run that wanders outside the training domain does not crash, it just quietly
+produces wrong forces. The theory section predicted the failure mode exactly —
+far from the training set, every kernel entry in Eq. <a class="reference internal" href="#equation-eq-lp-krr-model">Eq. 73</a>
+is small and the prediction relaxes toward the training mean <span class="math notranslate nohighlight">\(\bar{E}\)</span> — and
+it also named the cheap diagnostic: the distance from the query to its nearest
+training neighbour in descriptor space.</p>
+<p><strong>Part a)</strong> Build the out-of-domain probe: with <code class="docutils literal notranslate"><span class="pre">numpy.random.default_rng(4)</span></code>,
+40 curated rattles of the icosahedral reference at each amplitude in
+<code class="docutils literal notranslate"><span class="pre">AMPS_FAR</span></code> <span class="math notranslate nohighlight">\(= \{0.18, 0.24\}\,\sigma\)</span> (same <code class="docutils literal notranslate"><span class="pre">DMIN</span></code> floor, so every probe is a
+physical configuration; what changes is only the distance from the training
+amplitudes). Predict their energies with the Exercise 2 model and compare the
+rmse against the in-domain test error, and compute the Spearman rank
+correlation (<code class="docutils literal notranslate"><span class="pre">scipy.stats.spearmanr</span></code>) between predicted and true energies to
+ask whether the model at least ranks the probes correctly.</p>
+<p><strong>Part b)</strong> Compute the red flag that would have caught it: for every
+in-domain test point and every probe, the Euclidean distance to the nearest
+training point in standardised descriptor space (one broadcast, <code class="docutils literal notranslate"><span class="pre">min</span></code> over the
+training axis). Compare the two distributions and their medians.</p>
+<div class="cell tag_solution tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>rmse: in-domain 0.971 eps, out-of-domain 9.610 eps (9.9x worse)
+out-of-domain rank correlation (Spearman) -0.008
+nearest-training distance, median: in-domain 0.139, out-of-domain 3.773 (27x)
+</pre></div>
+</div>
+<figure class="align-default" id="fig-lp-extrapolation">
+<img alt="../../_images/0710a682422c6bbf3cfa500293760b1a1bd9dcfd9dd5cd91c01e98022099a767.png" src="../../_images/0710a682422c6bbf3cfa500293760b1a1bd9dcfd9dd5cd91c01e98022099a767.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 88 </span><span class="caption-text">Silent failure, and the flag that exposes it. Left: predicted against true energy for the in-domain test set (ink) and the out-of-domain probes at rattle amplitudes 0.18 and 0.24 sigma (amber); the diagonal is perfect prediction. In domain the points hug the diagonal; out of domain the predictions detach and drift toward the training mean (dotted), the generic behaviour of a kernel expansion evaluated far from its centres — and nothing in the numbers themselves warns of it. Right: distribution of the distance from each query to its nearest training point in standardised descriptor space. The in-domain and out-of-domain distributions separate by more than an order of magnitude in the median, so thresholding this one cheap number flags essentially every unreliable prediction before it is used.</span><a class="headerlink" href="#fig-lp-extrapolation" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</div>
+</div>
+<div class="cell tag_validation tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>✓  outside the training amplitudes the prediction error grows severalfold over the in-domain test error even though every probe is a perfectly physical configuration, the silent-extrapolation failure the theory section predicted   [9.61 / 0.97 = 9.9x]
+✓  and the out-of-domain predictions carry essentially no rank information about the true energies: the model does not merely lose precision out there, it stops ordering configurations correctly at all   [Spearman rho = -0.008]
+✓  while the nearest-training-neighbour distance separates the two regimes by an order of magnitude in the median, so the one-number diagnostic would have flagged the unreliable predictions before use   [median 3.77 vs 0.14 (27x)]
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>True
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<hr class="docutils" />
+<section id="notebook-summary">
+<h2>Notebook summary<a class="headerlink" href="#notebook-summary" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>A machine-learning potential is a pipeline, and the first stage is editorial:
+the curated pool stayed within <span class="math notranslate nohighlight">\(\sim 20\,\varepsilon\)</span> of the icosahedral
+minimum, while unrestricted rattling at the <em>same nominal amplitude</em> produced
+wall energies four orders of magnitude larger — single configurations that
+would dominate a quadratic loss outright.</p></li>
+<li><p>Kernel ridge regression is exact linear algebra, and that made it
+certifiable: the fitted model reproduced both analytic ridge limits (mean
+predictor and exact interpolation) before any hyperparameter was chosen, and
+the cross-validated model then beat the mean predictor more than fivefold on
+held-out configurations.</p></li>
+<li><p>The ridge earned its place with noise-free labels: cross-validation selected
+<span class="math notranslate nohighlight">\(\lambda = 10^{-4}\)</span> for <em>conditioning</em>, improving the kernel system’s
+condition number a hundredfold over a nearly unregularised solve.</p></li>
+<li><p>The learning curve fell monotonically, nearly fourfold from 10 to 320
+labels, and farthest-point sampling answered the question §7.2 left open
+with both halves of the truth: on a homogeneous pool coverage helps only
+modestly and its corner-chasing start actually <em>hurts</em> at the smallest
+budget, but on an imbalanced pool it reached the 10 % minority basin by its
+third pick, while more than half of the small random draws never saw that
+basin at all.</p></li>
+<li><p>Out of domain the model failed silently: physically reasonable probes at
+twice the training amplitude were predicted with ten times the in-domain
+error and essentially no rank correlation, while the distance to the
+nearest training point separated the regimes by well over an order of
+magnitude — the one cheap number that turns a silent failure into a loud
+one.</p></li>
+</ul>
+</section>
+<section id="outlook">
+<h2>Outlook<a class="headerlink" href="#outlook" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>Forces, not just energies.</strong> A potential for dynamics must predict forces,
+and Eq. <a class="reference internal" href="#equation-eq-lp-krr-model">Eq. 73</a> obliges: the gradient of a kernel expansion is
+analytic, so forces come from the same coefficients, and training on forces
+(3N labels per oracle call instead of one) is the standard way to make an
+expensive label go further <span class="bibtex-citation" id="id5">[<a class="reference internal" href="#id63" title="Albert P. Bartók, Mike C. Payne, Risi Kondor, and Gábor Csányi. Gaussian approximation potentials: the accuracy of quantum mechanics, without the electrons. Physical Review Letters, 104:136403, 2010. doi:10.1103/PhysRevLett.104.136403.">BartokPKCsanyi10</a>]</span>.</p></li>
+<li><p><strong>Better representations.</strong> Our eight global G2 features cannot separate
+everything (<a class="reference internal" href="structural-descriptors.html"><span class="std std-doc">§7.1</span></a> proved specific blind
+spots); production models use per-atom descriptor sets (many symmetry
+functions <span class="bibtex-citation" id="id6">[<a class="reference internal" href="#id49" title="Jörg Behler and Michele Parrinello. Generalized neural-network representation of high-dimensional potential-energy surfaces. Physical Review Letters, 98(14):146401, 2007. doi:10.1103/PhysRevLett.98.146401.">BP07</a>]</span>, or SOAP <span class="bibtex-citation" id="id7">[<a class="reference internal" href="#id51" title="Albert P. Bartók, Risi Kondor, and Gábor Csányi. On representing chemical environments. Physical Review B, 87(18):184115, 2013. doi:10.1103/PhysRevB.87.184115.">BartokKCsanyi13</a>]</span>) with the energy as
+a sum of atomic contributions, which also makes the model size-transferable.</p></li>
+<li><p><strong>Active learning.</strong> The red flag of Exercise 4 upgrades naturally from
+diagnostic to strategy: run the model, flag the configurations it is least
+sure of, send exactly those to the oracle, retrain. That loop, seeded by a
+farthest-point start like the one measured in Exercise 3, is how modern
+training sets are actually assembled <span class="bibtex-citation" id="id8">[<a class="reference internal" href="#id53" title="Giulio Imbalzano, Andrea Anelli, Daniele Giofré, Sinja Klees, Jörg Behler, and Michele Ceriotti. Automatic selection of atomic fingerprints and reference configurations for machine-learning potentials. The Journal of Chemical Physics, 148(24):241730, 2018. doi:10.1063/1.5024611.">IAGiofre+18</a>]</span>.</p></li>
+<li><p><strong>The oracle in production.</strong> Everything here transfers with the
+Lennard-Jones oracle swapped for density-functional theory — the workflows
+of <a class="reference internal" href="../04-electronic-structure/oxygen-triplet.html"><span class="std std-doc">§4.2</span></a> and
+<a class="reference internal" href="../06-reactions-free-energy/ethanol-dehydration.html"><span class="std std-doc">§6.1</span></a> are precisely
+what the labels cost, which is why dataset curation and label budgeting are
+research skills rather than bookkeeping.</p></li>
+</ul>
+<section id="references">
+<h3>References<a class="headerlink" href="#references" title="Link to this heading">#</a></h3>
+<div class="docutils container" id="id9">
+<div role="list" class="citation-list">
+<div class="citation" id="id51" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id7">BartokKCsanyi13</a><span class="fn-bracket">]</span></span>
+<p>Albert P. Bartók, Risi Kondor, and Gábor Csányi. On representing chemical environments. <em>Physical Review B</em>, 87(18):184115, 2013. <a class="reference external" href="https://doi.org/10.1103/PhysRevB.87.184115">doi:10.1103/PhysRevB.87.184115</a>.</p>
+</div>
+<div class="citation" id="id63" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span>BartokPKCsanyi10<span class="fn-bracket">]</span></span>
+<span class="backrefs">(<a role="doc-backlink" href="#id2">1</a>,<a role="doc-backlink" href="#id5">2</a>)</span>
+<p>Albert P. Bartók, Mike C. Payne, Risi Kondor, and Gábor Csányi. Gaussian approximation potentials: the accuracy of quantum mechanics, without the electrons. <em>Physical Review Letters</em>, 104:136403, 2010. <a class="reference external" href="https://doi.org/10.1103/PhysRevLett.104.136403">doi:10.1103/PhysRevLett.104.136403</a>.</p>
+</div>
+<div class="citation" id="id49" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span>BP07<span class="fn-bracket">]</span></span>
+<span class="backrefs">(<a role="doc-backlink" href="#id2">1</a>,<a role="doc-backlink" href="#id6">2</a>)</span>
+<p>Jörg Behler and Michele Parrinello. Generalized neural-network representation of high-dimensional potential-energy surfaces. <em>Physical Review Letters</em>, 98(14):146401, 2007. <a class="reference external" href="https://doi.org/10.1103/PhysRevLett.98.146401">doi:10.1103/PhysRevLett.98.146401</a>.</p>
+</div>
+<div class="citation" id="id53" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span>IAGiofre+18<span class="fn-bracket">]</span></span>
+<span class="backrefs">(<a role="doc-backlink" href="#id4">1</a>,<a role="doc-backlink" href="#id8">2</a>)</span>
+<p>Giulio Imbalzano, Andrea Anelli, Daniele Giofré, Sinja Klees, Jörg Behler, and Michele Ceriotti. Automatic selection of atomic fingerprints and reference configurations for machine-learning potentials. <em>The Journal of Chemical Physics</em>, 148(24):241730, 2018. <a class="reference external" href="https://doi.org/10.1063/1.5024611">doi:10.1063/1.5024611</a>.</p>
+</div>
+<div class="citation" id="id62" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span>RTMullervL12<span class="fn-bracket">]</span></span>
+<span class="backrefs">(<a role="doc-backlink" href="#id1">1</a>,<a role="doc-backlink" href="#id3">2</a>)</span>
+<p>Matthias Rupp, Alexandre Tkatchenko, Klaus-Robert Müller, and O. Anatole von Lilienfeld. Fast and accurate modeling of molecular atomization energies with machine learning. <em>Physical Review Letters</em>, 108:058301, 2012. <a class="reference external" href="https://doi.org/10.1103/PhysRevLett.108.058301">doi:10.1103/PhysRevLett.108.058301</a>.</p>
+</div>
+</div>
+</div>
+<div class="cell tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<div class="output text_html"><style>@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,900&family=Source+Serif+4:wght@400;600&family=JetBrains+Mono:wght@400;600&display=swap');</style>
+<div style="font-family:'Source Serif 4', 'Iowan Old Style', Georgia, serif;background:#faf7f0;border:1px solid #dcd6c8;
+            border-left:6px solid #c0851a;border-radius:6px;
+            padding:18px 22px;margin:30px 0 8px 0;">
+  <div style="font-family:'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace;font-size:11px;letter-spacing:.12em;
+              text-transform:uppercase;color:#c0851a;font-weight:600;
+              margin-bottom:6px;">Take this notebook with you</div>
+  <div style="font-size:14.5px;color:#16213e;line-height:1.55;max-width:66ch;">
+    Use the download button (&#8595;) in the toolbar above to save this notebook
+    and run it yourself. The published notebooks ship <b>without worked
+    solutions</b>; if you would like the reference solutions &mdash; to teach
+    from or to check your own work &mdash; get in touch: <a href='mailto:hello@ramador.me' style='color:#c0851a;text-decoration:none;border-bottom:1px solid #c0851a;'>hello@ramador.me</a>.
+  </div>
+  <div style="font-size:12px;color:#46506b;line-height:1.5;max-width:66ch;
+              margin-top:10px;border-top:1px solid #dcd6c8;padding-top:8px;">
+    Based on the lecture and exercise materials of <b>Molecular and Materials Modelling</b> (ETH Z&uuml;rich and Empa, FS&nbsp;2023), developed by Prof.&nbsp;Dr.&nbsp;Daniele Passerone (lectures), Dr.&nbsp;Carlo Pignedoli, and the author (exercises); here synthesised, expanded, and restyled by the author.
+  </div>
+</div></div></div>
+</div>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./notebooks/07-data-descriptors"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="dimensionality-reduction.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">7.2 Dimensionality Reduction and Farthest-Point Sampling</p>
+      </div>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item"><div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#notebook-overview">Notebook overview</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#theory-in-brief">Theory in brief</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-supervised-learning-frame">The supervised-learning frame</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#kernel-ridge-regression">Kernel ridge regression</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-the-model-cannot-tell-you">What the model cannot tell you</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#setup">Setup</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1-a-dataset-is-a-curated-object">Exercise 1 — A dataset is a curated object</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-2-kernel-ridge-regression-certified-before-trusted">Exercise 2 — Kernel ridge regression, certified before trusted</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-3-spending-the-labelling-budget">Exercise 3 — Spending the labelling budget</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-4-where-the-model-lies">Exercise 4 — Where the model lies</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#notebook-summary">Notebook summary</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#outlook">Outlook</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#references">References</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Raymond Amador
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2026 · CC BY 4.0 (text) / MIT (code).
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../../_static/scripts/bootstrap.js?digest=55c26ed414f5f8a31ebb"></script>
+<script defer src="../../_static/scripts/pydata-sphinx-theme.js?digest=55c26ed414f5f8a31ebb"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

@@ -5,14 +5,18 @@ solve for the electrons, integrate the equations of motion, sum the hills. Machi
 learning proposes instead to *fit* that map from examples — which changes the central
 question from how to compute the property to how to present the structure.
 
-These two notebooks restore Lectures 10 and 11, which the original exercise set
+These three notebooks restore Lectures 10 and 11, which the original exercise set
 announced but never delivered. The first builds a **descriptor**: a representation of an
 atomic environment that is invariant to translation, rotation and relabelling by
 construction, and whose blind spots can be established by proof rather than discovered
 later in a model that quietly cannot represent what it was asked to. The second takes
 those descriptors as data and asks the questions that follow — how to project a
 high-dimensional set of environments down to something a person can look at, and how to
-choose a small, representative subset of a large ensemble to compute expensively.
+choose a small, representative subset of a large ensemble to compute expensively. The
+third closes the loop and **fits a potential**: a curated dataset, kernel ridge
+regression by exact linear algebra, the learning curve that prices every training
+label, and a precise measurement of where the fitted model fails silently — and of the
+one cheap number that flags the failure before it is used.
 
 Unlike the rest of this course these notebooks use no committed calculation. Every
 structure is built from its lattice definition, so every number can be re-derived from

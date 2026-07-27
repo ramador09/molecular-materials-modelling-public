@@ -259,6 +259,7 @@
 <li class="toctree-l1 current active has-children"><a class="reference internal" href="index.html">Volume VII — Data and Descriptors</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
 <li class="toctree-l2 current active"><a class="current reference internal" href="#">7.1 Describing an Atomic Structure</a></li>
 <li class="toctree-l2"><a class="reference internal" href="dimensionality-reduction.html">7.2 Dimensionality Reduction and Farthest-Point Sampling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="learning-the-potential.html">7.3 Learning the Potential</a></li>
 </ul>
 </details></li>
 </ul>
@@ -526,6 +527,10 @@
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#why-the-smooth-filters-are-blind-at-low">Why the smooth filters are blind at low ζ</a></li>
 </ul>
 </li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-5-soap-lite-the-ell-at-which-the-stackings-separate">Exercise 5 — SOAP-lite: the <span class="math notranslate nohighlight">\(\ell\)</span> at which the stackings separate</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#validation-5-a-theorem-s-worth-of-zeros">Validation 5 — a theorem’s worth of zeros</a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#notebook-summary">Notebook summary</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#outlook">Outlook</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#references">References</a></li>
@@ -588,7 +593,7 @@
               font-family:'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace;font-size:11px;color:#46506b;
               letter-spacing:.04em;">
     <span>Raymond Amador</span>
-    <span>v1.1.0 &nbsp;·&nbsp; 2026-07-27 &nbsp;·&nbsp;
+    <span>v1.2.0 &nbsp;·&nbsp; 2026-07-27 &nbsp;·&nbsp;
           CC&nbsp;BY&nbsp;4.0 (text) / MIT (code)</span>
   </div>
 </div></div></div>
@@ -606,7 +611,7 @@ spending its capacity rediscovering facts we already know.</p>
 <p>The fix is a <strong>descriptor</strong>: a function of the structure that is invariant to
 translation, rotation and permutation by construction. This notebook builds one from
 scratch — the <strong>atom-centred symmetry functions</strong> of Behler and Parrinello
-<span class="bibtex-citation" id="id1">[<a class="reference internal" href="#id48" title="Jörg Behler and Michele Parrinello. Generalized neural-network representation of high-dimensional potential-energy surfaces. Physical Review Letters, 98(14):146401, 2007. doi:10.1103/PhysRevLett.98.146401.">BP07</a>]</span> — verifies its invariance to machine precision, and then asks the
+<span class="bibtex-citation" id="id1">[<a class="reference internal" href="#id49" title="Jörg Behler and Michele Parrinello. Generalized neural-network representation of high-dimensional potential-energy surfaces. Physical Review Letters, 98(14):146401, 2007. doi:10.1103/PhysRevLett.98.146401.">BP07</a>]</span> — verifies its invariance to machine precision, and then asks the
 sharper question: what does it fail to distinguish? The answer turns out to be
 specific and instructive. Radial functions alone cannot tell face-centred cubic from
 hexagonal close packed, <em>provably</em>, because within the first two neighbour shells the
@@ -654,7 +659,7 @@ neighbours, which is the design that follows.</p>
 </section>
 <section id="atom-centred-symmetry-functions">
 <h3>Atom-centred symmetry functions<a class="headerlink" href="#atom-centred-symmetry-functions" title="Link to this heading">#</a></h3>
-<p>Behler and Parrinello <span class="bibtex-citation" id="id2">[<a class="reference internal" href="#id48" title="Jörg Behler and Michele Parrinello. Generalized neural-network representation of high-dimensional potential-energy surfaces. Physical Review Letters, 98(14):146401, 2007. doi:10.1103/PhysRevLett.98.146401.">BP07</a>]</span> describe the environment of each atom <span class="math notranslate nohighlight">\(i\)</span>
+<p>Behler and Parrinello <span class="bibtex-citation" id="id2">[<a class="reference internal" href="#id49" title="Jörg Behler and Michele Parrinello. Generalized neural-network representation of high-dimensional potential-energy surfaces. Physical Review Letters, 98(14):146401, 2007. doi:10.1103/PhysRevLett.98.146401.">BP07</a>]</span> describe the environment of each atom <span class="math notranslate nohighlight">\(i\)</span>
 separately, as a vector of sums over its neighbours. Every sum is cut off smoothly at
 a radius <span class="math notranslate nohighlight">\(R_c\)</span>, so that atoms entering and leaving the environment do not make the
 descriptor jump:</p>
@@ -682,14 +687,14 @@ the angle they subtend at <span class="math notranslate nohighlight">\(i\)</span
 <span class="math notranslate nohighlight">\(\theta = \pi\)</span>, and <span class="math notranslate nohighlight">\(\zeta\)</span> sharpens it: large <span class="math notranslate nohighlight">\(\zeta\)</span> resolves fine angular structure,
 small <span class="math notranslate nohighlight">\(\zeta\)</span> blurs it. The exponential and cutoff factors involve <span class="math notranslate nohighlight">\(r_{jk}\)</span>, the
 distance between the two <em>neighbours</em> — an apparently innocent choice that Exercise 4
-shows is anything but. Behler’s alternative drops it <span class="bibtex-citation" id="id3">[<a class="reference internal" href="#id49" title="Jörg Behler. Atom-centered symmetry functions for constructing high-dimensional neural network potentials. The Journal of Chemical Physics, 134(7):074106, 2011. doi:10.1063/1.3553717.">Beh11</a>]</span>:</p>
+shows is anything but. Behler’s alternative drops it <span class="bibtex-citation" id="id3">[<a class="reference internal" href="#id50" title="Jörg Behler. Atom-centered symmetry functions for constructing high-dimensional neural network potentials. The Journal of Chemical Physics, 134(7):074106, 2011. doi:10.1063/1.3553717.">Beh11</a>]</span>:</p>
 <div class="math notranslate nohighlight" id="equation-eq-bp-g5">
 <span class="eqno">(68)<a class="headerlink" href="#equation-eq-bp-g5" title="Link to this equation">#</a></span>\[G_i^{5} = 2^{1-\zeta} \sum_{j \ne i}\sum_{k &gt; j}
   \left(1 + \lambda \cos\theta_{jik}\right)^{\zeta}
   e^{-\eta\left(r_{ij}^2 + r_{ik}^2\right)}
   f_c(r_{ij})\, f_c(r_{ik}).\]</div>
 <p>Symmetry functions are one descriptor family among several. The <strong>smooth overlap of
-atomic positions</strong> (SOAP) <span class="bibtex-citation" id="id4">[<a class="reference internal" href="#id50" title="Albert P. Bartók, Risi Kondor, and Gábor Csányi. On representing chemical environments. Physical Review B, 87(18):184115, 2013. doi:10.1103/PhysRevB.87.184115.">BartokKCsanyi13</a>]</span> takes a different route to the same
+atomic positions</strong> (SOAP) <span class="bibtex-citation" id="id4">[<a class="reference internal" href="#id51" title="Albert P. Bartók, Risi Kondor, and Gábor Csányi. On representing chemical environments. Physical Review B, 87(18):184115, 2013. doi:10.1103/PhysRevB.87.184115.">BartokKCsanyi13</a>]</span> takes a different route to the same
 requirements: it smears each neighbour into a Gaussian density, expands that density
 in radial functions and spherical harmonics, and builds rotationally invariant
 combinations of the coefficients. It is systematically improvable in a way a
@@ -1092,6 +1097,77 @@ hcp: n = 12, ||Σ r̂|| = 2.89e-15, Σcos θ = -6.000000, predicted -6.000000
 </div>
 </section>
 </section>
+<section id="exercise-5-soap-lite-the-ell-at-which-the-stackings-separate">
+<h2>Exercise 5 — SOAP-lite: the <span class="math notranslate nohighlight">\(\ell\)</span> at which the stackings separate<a class="headerlink" href="#exercise-5-soap-lite-the-ell-at-which-the-stackings-separate" title="Link to this heading">#</a></h2>
+<p>Exercise 4 found the separation by scanning a sharpness parameter; the SOAP
+construction <span class="bibtex-citation" id="id5">[<a class="reference internal" href="#id51" title="Albert P. Bartók, Risi Kondor, and Gábor Csányi. On representing chemical environments. Physical Review B, 87(18):184115, 2013. doi:10.1103/PhysRevB.87.184115.">BartokKCsanyi13</a>]</span> finds it by <em>decomposition</em>. Expand the
+neighbour arrangement in spherical harmonics,</p>
+<div class="math notranslate nohighlight" id="equation-eq-soap">
+<span class="eqno">(70)<a class="headerlink" href="#equation-eq-soap" title="Link to this equation">#</a></span>\[c_{\ell m} \;=\; \sum_j Y_{\ell m}(\hat{\mathbf r}_j),
+\qquad
+p_\ell \;=\; \sum_{m=-\ell}^{\ell} \bigl|c_{\ell m}\bigr|^2,\]</div>
+<p>and the <strong>power spectrum</strong> <span class="math notranslate nohighlight">\(p_\ell\)</span> is rotationally invariant channel by
+channel — under a rotation the <span class="math notranslate nohighlight">\(c_{\ell m}\)</span> mix only within fixed <span class="math notranslate nohighlight">\(\ell\)</span>, by a
+unitary Wigner matrix, so each <span class="math notranslate nohighlight">\(p_\ell\)</span> is untouched. The spectrum therefore
+answers a sharper question than any scalar could: not <em>whether</em> two
+environments differ, but <em>at which angular resolution</em> the difference first
+lives.</p>
+<p>For the two close-packed first shells the answer is a theorem before it is a
+measurement. Under inversion <span class="math notranslate nohighlight">\(Y_{\ell m}(-\hat{\mathbf r}) =
+(-1)^\ell\,Y_{\ell m}(\hat{\mathbf r})\)</span>, so any inversion-symmetric neighbour
+set — the fcc cuboctahedron — has every odd-<span class="math notranslate nohighlight">\(\ell\)</span> coefficient cancel in
+<em>pairs, exactly</em>. The hcp anticuboctahedron has no inversion centre, so its
+odd channels survive. The prediction: <span class="math notranslate nohighlight">\(p_1\)</span> and <span class="math notranslate nohighlight">\(p_2\)</span> vanish for <em>both</em>
+shells (the <span class="math notranslate nohighlight">\(\zeta \le 2\)</span> blindness of Exercise 4, reappearing as absent
+multipoles), and the first channel separating the stackings is <span class="math notranslate nohighlight">\(\ell = 3\)</span> —
+zero for fcc by parity, finite for hcp.</p>
+<p><strong>Part a)</strong> Implement <a class="reference internal" href="#equation-eq-soap">Eq. 70</a> and verify rotational invariance of every
+channel to machine precision. <strong>Write this one yourself</strong> — the
+implementation is the lesson.</p>
+<p><strong>Part b)</strong> Compute the ladder for both first shells and test the theorem:
+identical channels through <span class="math notranslate nohighlight">\(\ell = 2\)</span>, exact zeros at every odd <span class="math notranslate nohighlight">\(\ell\)</span> for
+fcc, and first separation at <span class="math notranslate nohighlight">\(\ell = 3\)</span>.</p>
+<div class="cell tag_solution tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<figure class="align-default" id="fig-desc-soap">
+<img alt="../../_images/d97616e5b93e7aead5aec540780742da2d5db7fab9c50ef3305328c766dd65d0.png" src="../../_images/d97616e5b93e7aead5aec540780742da2d5db7fab9c50ef3305328c766dd65d0.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 80 </span><span class="caption-text">The angular power spectrum of Eq. eq-soap for the fcc and hcp first shells, channel by channel. The two stackings agree exactly through ℓ = 2 — including the exact zeros at ℓ = 1 and 2 that are the multipole face of Exercise 4’s ζ ≤ 2 blindness — and part company first at ℓ = 3, where the fcc cuboctahedron’s inversion symmetry forces an exact zero while the hcp anticuboctahedron, with no inversion centre, keeps a finite octupole. Every odd fcc channel vanishes by the same parity argument. Where the ζ-scan found the separation by turning a knob, the decomposition names the exact angular order at which it lives.</span><a class="headerlink" href="#fig-desc-soap" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>l      :        0        1        2        3        4        5        6
+p_fcc  :  11.4592   0.0000   0.0000   0.0000   3.7600   0.0000  49.1714
+p_hcp  :  11.4592   0.0000   0.0000   0.4642   0.9748   7.9785  35.0068
+rotational invariance 2.8e-14; fcc odd-l max 2.3e-29; first separating channel l = 3
+</pre></div>
+</div>
+</div>
+</div>
+<section id="validation-5-a-theorem-s-worth-of-zeros">
+<h3>Validation 5 — a theorem’s worth of zeros<a class="headerlink" href="#validation-5-a-theorem-s-worth-of-zeros" title="Link to this heading">#</a></h3>
+<p>Four checks. Every channel must be rotationally invariant to machine
+precision — the property the power spectrum exists to provide, and the gate
+that catches a swapped angle convention. Every odd fcc channel must vanish
+<em>exactly</em>, inversion parity cancelling coefficients in pairs. The two shells
+must agree exactly through <span class="math notranslate nohighlight">\(\ell = 2\)</span> — Exercise 4’s <span class="math notranslate nohighlight">\(\zeta \le 2\)</span> blindness,
+now as absent multipoles. And the first separating channel must be <span class="math notranslate nohighlight">\(\ell = 3\)</span>:
+the hcp octupole that no radial function, and no low-order angular filter,
+could ever have seen.</p>
+<div class="cell tag_validation tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>✓  every power-spectrum channel is rotationally invariant to machine precision: the c_lm mix unitarily within fixed l, and their norm cannot notice a rotation   [max change under a random rotation: 2.8e-14]
+✓  every odd-l channel of the fcc shell vanishes exactly: inversion parity cancels Y_lm coefficients in pairs, a theorem the arithmetic merely confirms   [largest odd-l fcc power: 2.3e-29]
+✓  the two stackings agree exactly through l = 2 -- the multipole face of the zeta &lt;= 2 blindness Exercise 4 proved through moments   [max |p_fcc - p_hcp| for l &lt;= 2: 1.3e-30]
+✓  and the first channel that separates them is l = 3: the anticuboctahedron keeps a finite octupole where the cuboctahedron&#39;s parity forbids one   [first separation at l = 3; p_3(hcp) = 0.464]
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>True
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
 <section id="notebook-summary">
 <h2>Notebook summary<a class="headerlink" href="#notebook-summary" title="Link to this heading">#</a></h2>
 <p>We asked what it takes to hand an atomic structure to a fitting method, and found that
@@ -1120,7 +1196,7 @@ that quietly cannot represent what it was asked to.</p>
 <section id="outlook">
 <h2>Outlook<a class="headerlink" href="#outlook" title="Link to this heading">#</a></h2>
 <ul class="simple">
-<li><p><strong>Systematic completeness.</strong> SOAP <span class="bibtex-citation" id="id5">[<a class="reference internal" href="#id50" title="Albert P. Bartók, Risi Kondor, and Gábor Csányi. On representing chemical environments. Physical Review B, 87(18):184115, 2013. doi:10.1103/PhysRevB.87.184115.">BartokKCsanyi13</a>]</span> reaches the same invariances by
+<li><p><strong>Systematic completeness.</strong> SOAP <span class="bibtex-citation" id="id6">[<a class="reference internal" href="#id51" title="Albert P. Bartók, Risi Kondor, and Gábor Csányi. On representing chemical environments. Physical Review B, 87(18):184115, 2013. doi:10.1103/PhysRevB.87.184115.">BartokKCsanyi13</a>]</span> reaches the same invariances by
 expanding a smoothed neighbour density in radial functions and spherical harmonics,
 which can be converged by raising the expansion order rather than by adding
 hand-picked functions. The trade is cost and interpretability.</p></li>
@@ -1130,32 +1206,32 @@ and designed to separate icosahedral from close-packed order — a single-purpos
 ancestor of the vectors built here.</p></li>
 <li><p><strong>From descriptor to potential.</strong> Feeding these vectors to a neural network, one per
 element, and summing the atomic outputs gives a Behler–Parrinello potential
-<span class="bibtex-citation" id="id6">[<a class="reference internal" href="#id48" title="Jörg Behler and Michele Parrinello. Generalized neural-network representation of high-dimensional potential-energy surfaces. Physical Review Letters, 98(14):146401, 2007. doi:10.1103/PhysRevLett.98.146401.">BP07</a>]</span>. Its accuracy is bounded above by what the descriptor can
+<span class="bibtex-citation" id="id7">[<a class="reference internal" href="#id49" title="Jörg Behler and Michele Parrinello. Generalized neural-network representation of high-dimensional potential-energy surfaces. Physical Review Letters, 98(14):146401, 2007. doi:10.1103/PhysRevLett.98.146401.">BP07</a>]</span>. Its accuracy is bounded above by what the descriptor can
 distinguish, which is why this notebook came first.</p></li>
 <li><p><strong>The many-body completeness question.</strong> Two distinct environments can share <em>all</em>
 their two- and three-body correlations, so even angular descriptors have degeneracies
-<span class="bibtex-citation" id="id7">[<a class="reference internal" href="#id51" title="Sergey N. Pozdnyakov, Michael J. Willatt, Albert P. Bartók, Christoph Ortner, Gábor Csányi, and Michele Ceriotti. Incompleteness of atomic structure representations. Physical Review Letters, 125(16):166001, 2020. doi:10.1103/PhysRevLett.125.166001.">PWBartok+20</a>]</span>. The fcc/hcp case here is a mild, curable instance.</p></li>
+<span class="bibtex-citation" id="id8">[<a class="reference internal" href="#id52" title="Sergey N. Pozdnyakov, Michael J. Willatt, Albert P. Bartók, Christoph Ortner, Gábor Csányi, and Michele Ceriotti. Incompleteness of atomic structure representations. Physical Review Letters, 125(16):166001, 2020. doi:10.1103/PhysRevLett.125.166001.">PWBartok+20</a>]</span>. The fcc/hcp case here is a mild, curable instance.</p></li>
 </ul>
 <section id="references">
 <h3>References<a class="headerlink" href="#references" title="Link to this heading">#</a></h3>
-<div class="docutils container" id="id8">
+<div class="docutils container" id="id9">
 <div role="list" class="citation-list">
-<div class="citation" id="id50" role="doc-biblioentry">
+<div class="citation" id="id51" role="doc-biblioentry">
 <span class="label"><span class="fn-bracket">[</span>BartokKCsanyi13<span class="fn-bracket">]</span></span>
-<span class="backrefs">(<a role="doc-backlink" href="#id4">1</a>,<a role="doc-backlink" href="#id5">2</a>)</span>
+<span class="backrefs">(<a role="doc-backlink" href="#id4">1</a>,<a role="doc-backlink" href="#id5">2</a>,<a role="doc-backlink" href="#id6">3</a>)</span>
 <p>Albert P. Bartók, Risi Kondor, and Gábor Csányi. On representing chemical environments. <em>Physical Review B</em>, 87(18):184115, 2013. <a class="reference external" href="https://doi.org/10.1103/PhysRevB.87.184115">doi:10.1103/PhysRevB.87.184115</a>.</p>
 </div>
-<div class="citation" id="id49" role="doc-biblioentry">
+<div class="citation" id="id50" role="doc-biblioentry">
 <span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id3">Beh11</a><span class="fn-bracket">]</span></span>
 <p>Jörg Behler. Atom-centered symmetry functions for constructing high-dimensional neural network potentials. <em>The Journal of Chemical Physics</em>, 134(7):074106, 2011. <a class="reference external" href="https://doi.org/10.1063/1.3553717">doi:10.1063/1.3553717</a>.</p>
 </div>
-<div class="citation" id="id48" role="doc-biblioentry">
+<div class="citation" id="id49" role="doc-biblioentry">
 <span class="label"><span class="fn-bracket">[</span>BP07<span class="fn-bracket">]</span></span>
-<span class="backrefs">(<a role="doc-backlink" href="#id1">1</a>,<a role="doc-backlink" href="#id2">2</a>,<a role="doc-backlink" href="#id6">3</a>)</span>
+<span class="backrefs">(<a role="doc-backlink" href="#id1">1</a>,<a role="doc-backlink" href="#id2">2</a>,<a role="doc-backlink" href="#id7">3</a>)</span>
 <p>Jörg Behler and Michele Parrinello. Generalized neural-network representation of high-dimensional potential-energy surfaces. <em>Physical Review Letters</em>, 98(14):146401, 2007. <a class="reference external" href="https://doi.org/10.1103/PhysRevLett.98.146401">doi:10.1103/PhysRevLett.98.146401</a>.</p>
 </div>
-<div class="citation" id="id51" role="doc-biblioentry">
-<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id7">PWBartok+20</a><span class="fn-bracket">]</span></span>
+<div class="citation" id="id52" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id8">PWBartok+20</a><span class="fn-bracket">]</span></span>
 <p>Sergey N. Pozdnyakov, Michael J. Willatt, Albert P. Bartók, Christoph Ortner, Gábor Csányi, and Michele Ceriotti. Incompleteness of atomic structure representations. <em>Physical Review Letters</em>, 125(16):166001, 2020. <a class="reference external" href="https://doi.org/10.1103/PhysRevLett.125.166001">doi:10.1103/PhysRevLett.125.166001</a>.</p>
 </div>
 </div>
@@ -1273,6 +1349,10 @@ their two- and three-body correlations, so even angular descriptors have degener
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-4-angles-and-a-trap-in-the-standard-form">Exercise 4 — Angles, and a trap in the standard form</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#validation-4-the-angular-functions-and-the-one-that-works">Validation 4 — the angular functions, and the one that works</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#why-the-smooth-filters-are-blind-at-low">Why the smooth filters are blind at low ζ</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-5-soap-lite-the-ell-at-which-the-stackings-separate">Exercise 5 — SOAP-lite: the <span class="math notranslate nohighlight">\(\ell\)</span> at which the stackings separate</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#validation-5-a-theorem-s-worth-of-zeros">Validation 5 — a theorem’s worth of zeros</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#notebook-summary">Notebook summary</a></li>
