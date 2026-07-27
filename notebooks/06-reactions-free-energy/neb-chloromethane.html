@@ -633,9 +633,9 @@ we analyse the band rather than rerun it. For the method see the nudged elastic 
 <p>A reaction follows the <strong>minimum-energy path</strong> on the potential surface: the lowest
 ridge crossing from the reactant valley to the product valley. Its highest point is
 the <strong>transition state</strong>, and the energy there above the reactant is the activation
-barrier <a class="reference internal" href="#equation-eq-barrier-neb">Eq. 54</a>,</p>
+barrier <a class="reference internal" href="#equation-eq-barrier-neb">Eq. 56</a>,</p>
 <div class="math notranslate nohighlight" id="equation-eq-barrier-neb">
-<span class="eqno">(54)<a class="headerlink" href="#equation-eq-barrier-neb" title="Link to this equation">#</a></span>\[\Delta E^{\ddagger} = E_{\rm TS} - E_{\rm reactant}.\]</div>
+<span class="eqno">(56)<a class="headerlink" href="#equation-eq-barrier-neb" title="Link to this equation">#</a></span>\[\Delta E^{\ddagger} = E_{\rm TS} - E_{\rm reactant}.\]</div>
 </section>
 <section id="nudged-elastic-band">
 <h3>Nudged elastic band<a class="headerlink" href="#nudged-elastic-band" title="Link to this heading">#</a></h3>
@@ -848,7 +848,7 @@ swaps between the two (the chlorine that is bonded becomes the one that leaves).
 <figure class="align-default" id="fig-sn2-endpoints">
 <img alt="../../_images/0af79dcf11a592017fc5ab63835cd210c4f5f04f199857839a4165226610d8a9.png" src="../../_images/0af79dcf11a592017fc5ab63835cd210c4f5f04f199857839a4165226610d8a9.png" />
 <figcaption>
-<p><span class="caption-number">Fig. 62 </span><span class="caption-text">The committed Sₙ2 endpoints: chloromethane with an attacking chloride (reactant) and the product after exchange (carbon grey, hydrogen white, chlorine green). The reaction swaps which chlorine is bonded to carbon; along the path between them, the three hydrogens invert through a planar transition state.</span><a class="headerlink" href="#fig-sn2-endpoints" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 64 </span><span class="caption-text">The committed Sₙ2 endpoints: chloromethane with an attacking chloride (reactant) and the product after exchange (carbon grey, hydrogen white, chlorine green). The reaction swaps which chlorine is bonded to carbon; along the path between them, the three hydrogens invert through a planar transition state.</span><a class="headerlink" href="#fig-sn2-endpoints" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>reactant C–Cl distances: 1.76, 2.26 Å;  product: 1.76, 2.26 Å
@@ -887,7 +887,7 @@ the activation barrier and confirm the path is symmetric.</p>
 <figure class="align-default" id="fig-sn2-mep">
 <img alt="../../_images/b617914e2888709e9f170b1991d11e5d672484615745d4dd4ffe4deb535e5eb8.png" src="../../_images/b617914e2888709e9f170b1991d11e5d672484615745d4dd4ffe4deb535e5eb8.png" />
 <figcaption>
-<p><span class="caption-number">Fig. 63 </span><span class="caption-text">Minimum-energy path of the chloride-exchange Sₙ2 reaction from the converged nudged-elastic-band calculation: image energy (kcal/mol, relative to the endpoints) against the reaction coordinate. The path is thermoneutral (equal endpoints) and approximately symmetric, and its single peak, the trigonal-bipyramidal transition state, sits ~8 kcal/mol above the reactant: the gas-phase central barrier of the exchange.</span><a class="headerlink" href="#fig-sn2-mep" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 65 </span><span class="caption-text">Minimum-energy path of the chloride-exchange Sₙ2 reaction from the converged nudged-elastic-band calculation: image energy (kcal/mol, relative to the endpoints) against the reaction coordinate. The path is thermoneutral (equal endpoints) and approximately symmetric, and its single peak, the trigonal-bipyramidal transition state, sits ~8 kcal/mol above the reactant: the gas-phase central barrier of the exchange.</span><a class="headerlink" href="#fig-sn2-mep" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>activation barrier = 8.01 kcal/mol; transition state at image 4 of 9
@@ -931,7 +931,7 @@ converged by the final steps.</p>
 <figure class="align-default" id="fig-sn2-convergence">
 <img alt="../../_images/4c4ce127d02b9a382f80357bc2c0b646eb597d358ed70a8326611fdb1017dad6.png" src="../../_images/4c4ce127d02b9a382f80357bc2c0b646eb597d358ed70a8326611fdb1017dad6.png" />
 <figcaption>
-<p><span class="caption-number">Fig. 64 </span><span class="caption-text">Convergence of the nudged-elastic-band barrier: the activation energy (highest image relative to the endpoints) versus band-optimisation step. The initial straight-line interpolation overestimates the barrier through its strained geometries; as the chain relaxes onto the minimum-energy path the barrier falls and levels off, converged to ~8 kcal/mol after a few tens of iterations.</span><a class="headerlink" href="#fig-sn2-convergence" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 66 </span><span class="caption-text">Convergence of the nudged-elastic-band barrier: the activation energy (highest image relative to the endpoints) versus band-optimisation step. The initial straight-line interpolation overestimates the barrier through its strained geometries; as the chain relaxes onto the minimum-energy path the barrier falls and levels off, converged to ~8 kcal/mol after a few tens of iterations.</span><a class="headerlink" href="#fig-sn2-convergence" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 </div>
@@ -966,7 +966,7 @@ The fix is to <strong>split the forces by direction</strong>. Along the local ta
 <span class="math notranslate nohighlight">\(\hat{\boldsymbol\tau}\)</span> only the spring acts, keeping the images spread out;
 perpendicular to it only the potential acts, pulling the chain down into the valley:</p>
 <div class="math notranslate nohighlight" id="equation-eq-neb-force">
-<span class="eqno">(55)<a class="headerlink" href="#equation-eq-neb-force" title="Link to this equation">#</a></span>\[\mathbf F_i = -\nabla V(\mathbf R_i)\big|_{\perp}
+<span class="eqno">(57)<a class="headerlink" href="#equation-eq-neb-force" title="Link to this equation">#</a></span>\[\mathbf F_i = -\nabla V(\mathbf R_i)\big|_{\perp}
   + k\big(|\mathbf R_{i+1}-\mathbf R_i| - |\mathbf R_i-\mathbf R_{i-1}|\big)\hat{\boldsymbol\tau}_i,
 \qquad
 \nabla V\big|_{\perp} = \nabla V - (\nabla V\cdot\hat{\boldsymbol\tau})\hat{\boldsymbol\tau}.\]</div>
@@ -977,7 +977,7 @@ restriction is the whole method. The tangent itself needs care: the naive choice
 toward whichever neighbour is higher in energy.</p>
 <p>The test surface has a deliberately <em>curved</em> valley,</p>
 <div class="math notranslate nohighlight" id="equation-eq-neb-surface">
-<span class="eqno">(56)<a class="headerlink" href="#equation-eq-neb-surface" title="Link to this equation">#</a></span>\[V(x,y) = (x^2-1)^2 + K\big(y - a(1-x^2)\big)^2 ,\]</div>
+<span class="eqno">(58)<a class="headerlink" href="#equation-eq-neb-surface" title="Link to this equation">#</a></span>\[V(x,y) = (x^2-1)^2 + K\big(y - a(1-x^2)\big)^2 ,\]</div>
 <p>with minima at <span class="math notranslate nohighlight">\((\pm1,0)\)</span> and a valley floor along <span class="math notranslate nohighlight">\(y=a(1-x^2)\)</span>, so the true saddle
 sits at <span class="math notranslate nohighlight">\((0,a)\)</span> with <span class="math notranslate nohighlight">\(V=1\)</span>. A straight line between the minima passes through
 <span class="math notranslate nohighlight">\((0,0)\)</span>, where <span class="math notranslate nohighlight">\(V = 1+Ka^2\)</span> — for <span class="math notranslate nohighlight">\(K=5\)</span>, <span class="math notranslate nohighlight">\(a=1/2\)</span> that is <span class="math notranslate nohighlight">\(2.25\)</span>, more than twice the
@@ -986,7 +986,7 @@ the relaxation worth watching.</p>
 <p><strong>Part a)</strong> Implement <code class="docutils literal notranslate"><span class="pre">neb_relax(band,</span> <span class="pre">k_spring,</span> <span class="pre">n_steps,</span> <span class="pre">dt)</span></code>. For each interior
 image: form the improved tangent, normalise it, project the potential gradient onto
 the plane perpendicular to it with <code class="docutils literal notranslate"><span class="pre">numpy.dot</span></code>, add the spring term along it from
-<a class="reference internal" href="#equation-eq-neb-force">Eq. 55</a>, and step every image by steepest descent. Hold the endpoints
+<a class="reference internal" href="#equation-eq-neb-force">Eq. 57</a>, and step every image by steepest descent. Hold the endpoints
 fixed — they are minima already, and releasing them would let the whole band slide
 into one basin.
 <strong>Write this one yourself</strong> — the implementation is the lesson.</p>
@@ -1193,42 +1193,42 @@ input[type=range].anim-slider {
 </style>
 
 <div class="animation">
-  <img id="_anim_img161002d15fea46b19325206308199522">
+  <img id="_anim_img71501bdbae6d462eae5a0f0d1fdf40ca">
   <div class="anim-controls">
-    <input id="_anim_slider161002d15fea46b19325206308199522" type="range" class="anim-slider"
+    <input id="_anim_slider71501bdbae6d462eae5a0f0d1fdf40ca" type="range" class="anim-slider"
            name="points" min="0" max="1" step="1" value="0"
-           oninput="anim161002d15fea46b19325206308199522.set_frame(parseInt(this.value));">
+           oninput="anim71501bdbae6d462eae5a0f0d1fdf40ca.set_frame(parseInt(this.value));">
     <div class="anim-buttons">
-      <button title="Decrease speed" aria-label="Decrease speed" onclick="anim161002d15fea46b19325206308199522.slower()">
+      <button title="Decrease speed" aria-label="Decrease speed" onclick="anim71501bdbae6d462eae5a0f0d1fdf40ca.slower()">
           <i class="fa fa-minus"></i></button>
-      <button title="First frame" aria-label="First frame" onclick="anim161002d15fea46b19325206308199522.first_frame()">
+      <button title="First frame" aria-label="First frame" onclick="anim71501bdbae6d462eae5a0f0d1fdf40ca.first_frame()">
         <i class="fa fa-fast-backward"></i></button>
-      <button title="Previous frame" aria-label="Previous frame" onclick="anim161002d15fea46b19325206308199522.previous_frame()">
+      <button title="Previous frame" aria-label="Previous frame" onclick="anim71501bdbae6d462eae5a0f0d1fdf40ca.previous_frame()">
           <i class="fa fa-step-backward"></i></button>
-      <button title="Play backwards" aria-label="Play backwards" onclick="anim161002d15fea46b19325206308199522.reverse_animation()">
+      <button title="Play backwards" aria-label="Play backwards" onclick="anim71501bdbae6d462eae5a0f0d1fdf40ca.reverse_animation()">
           <i class="fa fa-play fa-flip-horizontal"></i></button>
-      <button title="Pause" aria-label="Pause" onclick="anim161002d15fea46b19325206308199522.pause_animation()">
+      <button title="Pause" aria-label="Pause" onclick="anim71501bdbae6d462eae5a0f0d1fdf40ca.pause_animation()">
           <i class="fa fa-pause"></i></button>
-      <button title="Play" aria-label="Play" onclick="anim161002d15fea46b19325206308199522.play_animation()">
+      <button title="Play" aria-label="Play" onclick="anim71501bdbae6d462eae5a0f0d1fdf40ca.play_animation()">
           <i class="fa fa-play"></i></button>
-      <button title="Next frame" aria-label="Next frame" onclick="anim161002d15fea46b19325206308199522.next_frame()">
+      <button title="Next frame" aria-label="Next frame" onclick="anim71501bdbae6d462eae5a0f0d1fdf40ca.next_frame()">
           <i class="fa fa-step-forward"></i></button>
-      <button title="Last frame" aria-label="Last frame" onclick="anim161002d15fea46b19325206308199522.last_frame()">
+      <button title="Last frame" aria-label="Last frame" onclick="anim71501bdbae6d462eae5a0f0d1fdf40ca.last_frame()">
           <i class="fa fa-fast-forward"></i></button>
-      <button title="Increase speed" aria-label="Increase speed" onclick="anim161002d15fea46b19325206308199522.faster()">
+      <button title="Increase speed" aria-label="Increase speed" onclick="anim71501bdbae6d462eae5a0f0d1fdf40ca.faster()">
           <i class="fa fa-plus"></i></button>
     </div>
-    <form title="Repetition mode" aria-label="Repetition mode" action="#n" name="_anim_loop_select161002d15fea46b19325206308199522"
+    <form title="Repetition mode" aria-label="Repetition mode" action="#n" name="_anim_loop_select71501bdbae6d462eae5a0f0d1fdf40ca"
           class="anim-state">
-      <input type="radio" name="state" value="once" id="_anim_radio1_161002d15fea46b19325206308199522"
+      <input type="radio" name="state" value="once" id="_anim_radio1_71501bdbae6d462eae5a0f0d1fdf40ca"
              >
-      <label for="_anim_radio1_161002d15fea46b19325206308199522">Once</label>
-      <input type="radio" name="state" value="loop" id="_anim_radio2_161002d15fea46b19325206308199522"
+      <label for="_anim_radio1_71501bdbae6d462eae5a0f0d1fdf40ca">Once</label>
+      <input type="radio" name="state" value="loop" id="_anim_radio2_71501bdbae6d462eae5a0f0d1fdf40ca"
              checked>
-      <label for="_anim_radio2_161002d15fea46b19325206308199522">Loop</label>
-      <input type="radio" name="state" value="reflect" id="_anim_radio3_161002d15fea46b19325206308199522"
+      <label for="_anim_radio2_71501bdbae6d462eae5a0f0d1fdf40ca">Loop</label>
+      <input type="radio" name="state" value="reflect" id="_anim_radio3_71501bdbae6d462eae5a0f0d1fdf40ca"
              >
-      <label for="_anim_radio3_161002d15fea46b19325206308199522">Reflect</label>
+      <label for="_anim_radio3_71501bdbae6d462eae5a0f0d1fdf40ca">Reflect</label>
     </form>
   </div>
 </div>
@@ -1238,9 +1238,9 @@ input[type=range].anim-slider {
   /* Instantiate the Animation class. */
   /* The IDs given should match those used in the template above. */
   (function() {
-    var img_id = "_anim_img161002d15fea46b19325206308199522";
-    var slider_id = "_anim_slider161002d15fea46b19325206308199522";
-    var loop_select_id = "_anim_loop_select161002d15fea46b19325206308199522";
+    var img_id = "_anim_img71501bdbae6d462eae5a0f0d1fdf40ca";
+    var slider_id = "_anim_slider71501bdbae6d462eae5a0f0d1fdf40ca";
+    var loop_select_id = "_anim_loop_select71501bdbae6d462eae5a0f0d1fdf40ca";
     var frames = new Array(52);
     
   frames[0] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAA6gAAAF6CAYAAAAUKHUlAAAAOnRFWHRTb2Z0d2FyZQBNYXRwbG90\
@@ -60253,13 +60253,13 @@ D2L10TLwMih5AAAAAElFTkSuQmCC\
     /* set a timeout to make sure all the above elements are created before
        the object is initialized. */
     setTimeout(function() {
-        anim161002d15fea46b19325206308199522 = new Animation(frames, img_id, slider_id, 33,
+        anim71501bdbae6d462eae5a0f0d1fdf40ca = new Animation(frames, img_id, slider_id, 33,
                                  loop_select_id);
     }, 0);
   })()
 </script>
 </div><figcaption>
-<p><span class="caption-number">Fig. 65 </span><span class="caption-text">Animation of a nudged-elastic-band relaxation on the model surface of Eq. eq-neb-surface, whose minimum-energy path is curved. Left: contours of <span class="math notranslate nohighlight">\(V(x,y)\)</span> with the eleven-image band; it starts as the straight line between the two minima (which cuts the corner and rides far too high) and bends upward onto the valley floor, the images spreading evenly as the spring term equalises their spacing. Right: the energy profile along the band at the same instant, falling from a straight-line peak of 2.25 to the true saddle value of 1.00. The endpoints are held fixed throughout; releasing them would let the whole chain slide into one basin.</span><a class="headerlink" href="#fig-sn2-neb-anim" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 67 </span><span class="caption-text">Animation of a nudged-elastic-band relaxation on the model surface of Eq. eq-neb-surface, whose minimum-energy path is curved. Left: contours of <span class="math notranslate nohighlight">\(V(x,y)\)</span> with the eleven-image band; it starts as the straight line between the two minima (which cuts the corner and rides far too high) and bends upward onto the valley floor, the images spreading evenly as the spring term equalises their spacing. Right: the energy profile along the band at the same instant, falling from a straight-line peak of 2.25 to the true saddle value of 1.00. The endpoints are held fixed throughout; releasing them would let the whole chain slide into one basin.</span><a class="headerlink" href="#fig-sn2-neb-anim" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 </div>

@@ -525,6 +525,14 @@
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#validation-4-the-answer-does-not-depend-on-the-form">Validation 4 — the answer does not depend on the form</a></li>
 </ul>
 </li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-5-more-than-its-minimum-elastic-stability-from-the-same-grid">Exercise 5 — More than its minimum: elastic stability from the same grid</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#validation-5-stable-consistent-and-calibrated">Validation 5 — stable, consistent, and calibrated</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-6-why-crystals-swell-debyegruneisen-thermal-expansion">Exercise 6 — Why crystals swell: Debye–Grüneisen thermal expansion</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#validation-6-expansion-from-a-cold-curve-and-a-chain-of-reasoning">Validation 6 — expansion, from a cold curve and a chain of reasoning</a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#notebook-summary">Notebook summary</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#outlook">Outlook</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#references">References</a></li>
@@ -937,6 +945,138 @@ comparison would be between three equally bad descriptions.</p>
 </div>
 </section>
 </section>
+<section id="exercise-5-more-than-its-minimum-elastic-stability-from-the-same-grid">
+<h2>Exercise 5 — More than its minimum: elastic stability from the same grid<a class="headerlink" href="#exercise-5-more-than-its-minimum-elastic-stability-from-the-same-grid" title="Link to this heading">#</a></h2>
+<p>Exercise 3 read one point off the committed <span class="math notranslate nohighlight">\((a, c)\)</span> grid — its minimum. But a
+hundred energies over a two-parameter cell contain the crystal’s entire
+quadratic response: fit</p>
+<div class="math notranslate nohighlight" id="equation-eq-elastic">
+<span class="eqno">(47)<a class="headerlink" href="#equation-eq-elastic" title="Link to this equation">#</a></span>\[E(x, z) \;=\; E_0 + \tfrac12\!\left(M_{11}x^2 + 2M_{12}\,xz + M_{22}z^2\right),
+\qquad x = \frac{\delta a}{a_0},\; z = \frac{\delta c}{c_0},\]</div>
+<p>and the <span class="math notranslate nohighlight">\(2\times2\)</span> curvature matrix <span class="math notranslate nohighlight">\(\mathbf M\)</span> <em>is</em> a bundle of elastic
+constants: <span class="math notranslate nohighlight">\(M_{11} = 2(C_{11}+C_{12})V_0\)</span>, <span class="math notranslate nohighlight">\(M_{12} = 2C_{13}V_0\)</span>,
+<span class="math notranslate nohighlight">\(M_{22} = C_{33}V_0\)</span> for a hexagonal crystal. Its positive-definiteness is the
+<strong>mechanical stability criterion</strong> — a computable yes/no on whether this
+structure can exist — and contracting it along volume-changing paths yields
+bulk moduli.</p>
+<p>Two estimators, deliberately different in what they consume: the <strong>raw
+diagonal</strong> of the grid (the ten computed points with <span class="math notranslate nohighlight">\(a\)</span> and <span class="math notranslate nohighlight">\(c\)</span> scaled
+together — a genuine uniform-compression series, no model between the data and
+the answer), and the <strong>relaxed path</strong> through the fitted quadratic (at each
+volume, the shape re-optimises; relaxation can only soften). Same data, one
+route model-free and one model-full, and the two must agree — with the relaxed
+value at or below the fixed-shape one, as a variational argument demands.</p>
+<p><strong>Part a)</strong> Fit <a class="reference internal" href="#equation-eq-elastic">Eq. 47</a> to all hundred committed energies and verify
+mechanical stability from the eigenvalues of <span class="math notranslate nohighlight">\(\mathbf M\)</span>.</p>
+<p><strong>Part b)</strong> Extract the bulk modulus both ways, confirm the
+relaxed-below-fixed ordering, and hold the result against the measured bulk
+modulus of nickel — the number the EMT calculator behind this grid was
+calibrated for.</p>
+<div class="cell tag_solution tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>quadratic fit rms 0.66 meV over 100 points; curvature eigenvalues [ 43.8 125.8] eV -&gt; stable: True
+</pre></div>
+</div>
+<figure class="align-default" id="fig-eos-elastic">
+<img alt="../../_images/95d4365708cf7f78537d8fe47b04e56cd037bc300c6418668ff2505929510530.png" src="../../_images/95d4365708cf7f78537d8fe47b04e56cd037bc300c6418668ff2505929510530.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 54 </span><span class="caption-text">The committed Ni (a, c) energy grid as a surface, with the fitted quadratic’s principal curvature directions at the minimum (arrows) and the two volume-changing paths along which the bulk modulus is read: the raw uniform-scaling diagonal of the grid (amber points — computed energies, no model) and the shape-relaxed path through the fitted quadratic (navy). Both land on the measured bulk modulus of nickel to within a few percent, and the relaxed value sits marginally below the fixed-shape one, as the variational argument requires: letting c/a re-optimise under compression can only soften the response, and at EMT nickel’s near-ideal axial ratio it softens it barely at all.</span><a class="headerlink" href="#fig-eos-elastic" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>bulk modulus: raw diagonal 176.4 GPa; relaxed path 177.7 GPa; fixed-shape 177.7 GPa (measured Ni: 180 GPa)
+</pre></div>
+</div>
+</div>
+</div>
+<section id="validation-5-stable-consistent-and-calibrated">
+<h3>Validation 5 — stable, consistent, and calibrated<a class="headerlink" href="#validation-5-stable-consistent-and-calibrated" title="Link to this heading">#</a></h3>
+<p>Four checks. The curvature matrix must be positive definite — mechanical
+stability computed, not presumed, and the reason this crystal structure can
+exist at all. The model-free and model-full bulk moduli must agree, since they
+consume the same data through entirely different amounts of machinery. The
+relaxed value must not exceed the fixed-shape one, which is a variational
+theorem rather than a numerical preference. And both must land near the
+measured bulk modulus of nickel — the quantity EMT was built to reproduce.</p>
+<div class="cell tag_validation tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>✓  the strain-curvature matrix is positive definite: the hcp cell is mechanically stable against every (a, c) deformation the grid spans   [eigenvalues [ 43.8 125.8] eV]
+✓  the model-free diagonal and the fitted relaxed path agree on the bulk modulus: ten raw points and a hundred-point quadratic, one answer   [got 176.425 vs expected 177.671 (rtol=0.05, atol=1e-09)]
+✓  shape relaxation does not stiffen the response -- the variational ordering, with EMT nickel&#39;s near-ideal axial ratio making the softening almost invisibly small   [relaxed 177.7 vs fixed-shape 177.7 GPa]
+✓  and the result lands on the measured bulk modulus of nickel, the number the EMT parametrisation behind this committed grid was calibrated against   [got 177.671 vs expected 180 (rtol=0.1, atol=1e-09)]
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>True
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="exercise-6-why-crystals-swell-debyegruneisen-thermal-expansion">
+<h2>Exercise 6 — Why crystals swell: Debye–Grüneisen thermal expansion<a class="headerlink" href="#exercise-6-why-crystals-swell-debyegruneisen-thermal-expansion" title="Link to this heading">#</a></h2>
+<p>A cold-curve <span class="math notranslate nohighlight">\(E(V)\)</span> says nothing about temperature, yet thermal expansion
+hides inside it. The chain of reasoning is the exercise: vibrations ride on
+the cold curve, their frequencies stiffen under compression, so the
+vibrational free energy prefers larger volumes as temperature grows — and the
+equilibrium volume follows. In the Debye model the entire spectrum is one
+scale <span class="math notranslate nohighlight">\(\theta_D(V)\)</span>, its volume dependence one exponent — the <strong>Grüneisen
+parameter</strong> — for which Slater’s relation reads it off the cold curve itself:</p>
+<div class="math notranslate nohighlight" id="equation-eq-grueneisen">
+<span class="eqno">(48)<a class="headerlink" href="#equation-eq-grueneisen" title="Link to this equation">#</a></span>\[\gamma \;=\; \frac{B'_0}{2} - \frac16,
+\qquad \theta_D(V) = \theta_0\left(\frac{V_0}{V}\right)^{\gamma},\]</div>
+<p>with <span class="math notranslate nohighlight">\(B'_0\)</span> the fitted pressure derivative from Exercise 4. Everything else is
+assembled from this notebook’s own numbers: <span class="math notranslate nohighlight">\(\theta_0\)</span> from the fitted <span class="math notranslate nohighlight">\(B_0\)</span>
+through the Debye sound-velocity construction, and <span class="math notranslate nohighlight">\(F(V, T) = E_{\rm BM}(V) +
+F_{\rm Debye}(\theta_D(V), T)\)</span> minimised over <span class="math notranslate nohighlight">\(V\)</span> at each temperature. This is
+the working principle of every quasi-harmonic thermal-expansion calculation in
+the literature, built here at Debye resolution — the same Debye model ECP
+§7.16 constructs from the phonon side.</p>
+<p><strong>Part a)</strong> Assemble <span class="math notranslate nohighlight">\(\theta_0\)</span> and <span class="math notranslate nohighlight">\(\gamma\)</span> from Exercise 4’s Birch–Murnaghan
+parameters, stating the honest caveat: the sound velocity uses the bulk
+modulus alone, which overestimates <span class="math notranslate nohighlight">\(\theta_D\)</span> for a shear-soft noble metal.</p>
+<p><strong>Part b)</strong> Minimise <span class="math notranslate nohighlight">\(F(V, T)\)</span> over volume at each temperature and read off
+<span class="math notranslate nohighlight">\(a(T)\)</span> and the linear expansion coefficient <span class="math notranslate nohighlight">\(\alpha(300\,{\rm K})\)</span>, holding it
+against the measured value for silver.</p>
+<div class="cell tag_solution tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>theta_0 = 356 K from B0 = 100 GPa (calorimetric Ag: 225 K -- the bulk-only estimate overshoots, as stated); gamma_Slater = 2.05
+</pre></div>
+</div>
+<figure class="align-default" id="fig-eos-debye">
+<img alt="../../_images/ba5760ec4351b7e8039791ca2dd257e37c8bc9b50f4425d026e072f26e039f2a.png" src="../../_images/ba5760ec4351b7e8039791ca2dd257e37c8bc9b50f4425d026e072f26e039f2a.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 55 </span><span class="caption-text">Quasi-harmonic thermal expansion assembled entirely from the notebook’s own fitted cold curve: the free energy E(V) + F_Debye(θ_D(V), T), with θ_D’s volume dependence set by Slater’s Grüneisen parameter read off the fitted B′, minimised over volume at each temperature. Left: the free-energy curves shift their minima (dots) to larger volume as temperature rises — vibrational entropy paying for expansion. Right: the resulting lattice parameter a(T); the slope at 300 K is the linear expansion coefficient, landing at the order of magnitude of the measured value for silver, with the residual overestimate traced to the bulk-modulus-only Debye temperature the caption of Part a warned about.</span><a class="headerlink" href="#fig-eos-debye" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>alpha_linear(300 K) = 1.64e-05 /K (measured Ag: 1.9e-05); V grows monotonically: True
+</pre></div>
+</div>
+</div>
+</div>
+<section id="validation-6-expansion-from-a-cold-curve-and-a-chain-of-reasoning">
+<h3>Validation 6 — expansion, from a cold curve and a chain of reasoning<a class="headerlink" href="#validation-6-expansion-from-a-cold-curve-and-a-chain-of-reasoning" title="Link to this heading">#</a></h3>
+<p>Three checks. The Grüneisen parameter must be positive — frequencies stiffen
+under compression, which is the sign that makes expansion (not contraction)
+the prediction. The equilibrium volume must increase monotonically with
+temperature. And the linear expansion coefficient at room temperature must
+land within a factor of a few of silver’s measured value — order-of-magnitude
+agreement being exactly what a Debye-resolution model with a bulk-only
+<span class="math notranslate nohighlight">\(\theta_D\)</span> can honestly promise, and the direction of its miss being the one
+Part a predicted.</p>
+<div class="cell tag_validation tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>✓  the Slater-Grueneisen parameter is positive: modes stiffen under compression, which is why the free-energy minimum walks toward LARGER volume as temperature rises   [gamma = 2.05]
+✓  the equilibrium volume increases monotonically with temperature across the full scan: thermal expansion, not just a slope at one point   [V: 16.898 -&gt; 17.329 A^3/atom over 50-600 K]
+✓  and the room-temperature linear expansion lands at silver&#39;s order of magnitude -- what a Debye-resolution quasi-harmonic model built from one fitted cold curve can honestly deliver   [alpha(300 K) = 1.64e-05/K vs measured 1.9e-05/K]
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>True
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
 <section id="notebook-summary">
 <h2>Notebook summary<a class="headerlink" href="#notebook-summary" title="Link to this heading">#</a></h2>
 <p>Using the Atomic Simulation Environment, we computed the atomization energy of
@@ -1094,6 +1234,14 @@ combination.</p></li>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-4-does-the-choice-of-equation-of-state-matter">Exercise 4 — Does the choice of equation of state matter?</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#validation-4-the-answer-does-not-depend-on-the-form">Validation 4 — the answer does not depend on the form</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-5-more-than-its-minimum-elastic-stability-from-the-same-grid">Exercise 5 — More than its minimum: elastic stability from the same grid</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#validation-5-stable-consistent-and-calibrated">Validation 5 — stable, consistent, and calibrated</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-6-why-crystals-swell-debyegruneisen-thermal-expansion">Exercise 6 — Why crystals swell: Debye–Grüneisen thermal expansion</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#validation-6-expansion-from-a-cold-curve-and-a-chain-of-reasoning">Validation 6 — expansion, from a cold curve and a chain of reasoning</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#notebook-summary">Notebook summary</a></li>

@@ -636,7 +636,7 @@ BEEF-vdW functional <span class="bibtex-citation" id="id2">[<a class="reference 
 <p>The adsorption energy is the energy released when an isolated molecule binds to a
 clean surface,</p>
 <div class="math notranslate nohighlight" id="equation-eq-eads">
-<span class="eqno">(47)<a class="headerlink" href="#equation-eq-eads" title="Link to this equation">#</a></span>\[E_{\rm ads} = E_{\rm mol+slab} - E_{\rm slab} - E_{\rm mol},\]</div>
+<span class="eqno">(49)<a class="headerlink" href="#equation-eq-eads" title="Link to this equation">#</a></span>\[E_{\rm ads} = E_{\rm mol+slab} - E_{\rm slab} - E_{\rm mol},\]</div>
 <p>negative for a bound state. Each of the three terms is a separate total-energy
 calculation; the adsorption energy is a small difference of three large numbers, so
 it demands consistency and care.</p>
@@ -854,7 +854,7 @@ not a bulk calculation).</p>
 <figure class="align-default" id="fig-pt-system">
 <img alt="../../_images/fdc00338b5d66018c5c4f76360e8131ed2ee73a233a2249727e00ba595225ad7.png" src="../../_images/fdc00338b5d66018c5c4f76360e8131ed2ee73a233a2249727e00ba595225ad7.png" />
 <figcaption>
-<p><span class="caption-number">Fig. 54 </span><span class="caption-text">The committed benzene-on-Pt(111) adsorption system, drawn as shaded spheres sorted by depth. Left, a side view: five Pt(111) layers (silver, deeper layers receding) with the benzene molecule (carbon dark, hydrogen light, bonds drawn) lying flat in the vacuum gap about 2 Å above the top layer — a surface calculation, not a bulk one. Right, a top view down the surface normal: the ring lies parallel to the metal, its whole face in contact, centred over the hexagonal Pt lattice whose lower layers show through the threefold hollows.</span><a class="headerlink" href="#fig-pt-system" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 56 </span><span class="caption-text">The committed benzene-on-Pt(111) adsorption system, drawn as shaded spheres sorted by depth. Left, a side view: five Pt(111) layers (silver, deeper layers receding) with the benzene molecule (carbon dark, hydrogen light, bonds drawn) lying flat in the vacuum gap about 2 Å above the top layer — a surface calculation, not a bulk one. Right, a top view down the surface normal: the ring lies parallel to the metal, its whole face in contact, centred over the hexagonal Pt lattice whose lower layers show through the threefold hollows.</span><a class="headerlink" href="#fig-pt-system" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>benzene sits 2.25 Å above the top Pt layer (180 Pt + 12 molecule atoms)
@@ -881,7 +881,7 @@ not a bulk calculation).</p>
 <section id="exercise-2-the-adsorption-energy-of-benzene">
 <h2>Exercise 2 — The adsorption energy of benzene<a class="headerlink" href="#exercise-2-the-adsorption-energy-of-benzene" title="Link to this heading">#</a></h2>
 <p>The adsorption energy is the difference of three committed total-energy calculations
-<a class="reference internal" href="#equation-eq-eads">Eq. 47</a>: the bare slab, the isolated molecule, and the combined system. Below
+<a class="reference internal" href="#equation-eq-eads">Eq. 49</a>: the bare slab, the isolated molecule, and the combined system. Below
 are the course’s committed totals (Hartree) for benzene on Pt(111). Their difference,
 converted to eV, is the adsorption energy, and it lands close to the experimental
 <span class="math notranslate nohighlight">\(-1.7\,\)</span>eV: benzene binds strongly, its whole <span class="math notranslate nohighlight">\(\pi\)</span>-face in contact with the metal.
@@ -933,7 +933,7 @@ strongly throughout, and the two methods bracket experiment.</p>
 <figure class="align-default" id="fig-pt-functionals">
 <img alt="../../_images/5f6a4419a9a4e047ed1397ec2979393f1107eaeca2f5f18fb730bf23df9830da.png" src="../../_images/5f6a4419a9a4e047ed1397ec2979393f1107eaeca2f5f18fb730bf23df9830da.png" />
 <figcaption>
-<p><span class="caption-number">Fig. 55 </span><span class="caption-text">Adsorption energies of benzene, methane, and ethane on Pt(111) from the course’s committed results: the BEEF-vdW functional (navy) and the Grimme D3 correction (amber) against experiment (grey). Benzene binds far more strongly than the alkanes in every method. BEEF-vdW underbinds so severely that methane and ethane come out unbound (positive); Grimme D3 overbinds. The spread, well over an electron-volt for benzene, is the functional sensitivity the exercise is named for.</span><a class="headerlink" href="#fig-pt-functionals" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 57 </span><span class="caption-text">Adsorption energies of benzene, methane, and ethane on Pt(111) from the course’s committed results: the BEEF-vdW functional (navy) and the Grimme D3 correction (amber) against experiment (grey). Benzene binds far more strongly than the alkanes in every method. BEEF-vdW underbinds so severely that methane and ethane come out unbound (positive); Grimme D3 overbinds. The spread, well over an electron-volt for benzene, is the functional sensitivity the exercise is named for.</span><a class="headerlink" href="#fig-pt-functionals" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>benzene binds most strongly under both functionals: True
@@ -962,7 +962,7 @@ sensitivity.</p>
 </section>
 <section id="exercise-4-basis-set-superposition-error-and-the-counterpoise-cure">
 <h2>Exercise 4 — Basis-set superposition error, and the counterpoise cure<a class="headerlink" href="#exercise-4-basis-set-superposition-error-and-the-counterpoise-cure" title="Link to this heading">#</a></h2>
-<p>The adsorption energy <a class="reference internal" href="#equation-eq-eads">Eq. 47</a> looks unimpeachable: take the bound system,
+<p>The adsorption energy <a class="reference internal" href="#equation-eq-eads">Eq. 49</a> looks unimpeachable: take the bound system,
 subtract the pieces. It hides a systematic error that has embarrassed a great deal
 of published adsorption chemistry, and Lecture 8 names it in its own title.</p>
 <p>The trouble is that a calculation never uses a <em>complete</em> basis. It uses a finite
@@ -978,10 +978,10 @@ artefact to rival it.</p>
 <p>Boys and Bernardi’s <strong>counterpoise</strong> correction <span class="bibtex-citation" id="id3">[<a class="reference internal" href="#id42" title="S. F. Boys and F. Bernardi. The calculation of small molecular interactions by the differences of separate total energies. some procedures with reduced errors. Molecular Physics, 19(4):553–566, 1970. doi:10.1080/00268977000101561.">BB70</a>]</span> removes
 it by refusing the asymmetry. Compute <em>each fragment in the full dimer basis</em> —
 with the partner’s basis functions present but its nuclei and electrons absent,
-so-called <strong>ghost</strong> functions — so that every term in <a class="reference internal" href="#equation-eq-eads">Eq. 47</a> is evaluated in
+so-called <strong>ghost</strong> functions — so that every term in <a class="reference internal" href="#equation-eq-eads">Eq. 49</a> is evaluated in
 one and the same basis:</p>
 <div class="math notranslate nohighlight" id="equation-eq-counterpoise">
-<span class="eqno">(48)<a class="headerlink" href="#equation-eq-counterpoise" title="Link to this equation">#</a></span>\[E_{\rm ads}^{\rm CP} = E_{AB}^{AB} - E_{A}^{AB} - E_{B}^{AB},\]</div>
+<span class="eqno">(50)<a class="headerlink" href="#equation-eq-counterpoise" title="Link to this equation">#</a></span>\[E_{\rm ads}^{\rm CP} = E_{AB}^{AB} - E_{A}^{AB} - E_{B}^{AB},\]</div>
 <p>where the superscript is the basis and the subscript the system.</p>
 <p>We cannot run that on benzene and platinum here. We can build the mechanism from
 scratch, in a model small enough to see all the way through: one particle in one
@@ -1025,7 +1025,7 @@ fragment energy falls monotonically with basis size: [-1.380111 -1.387219 -1.387
 <figure class="align-default" id="fig-pt-bsse">
 <img alt="../../_images/f2312adc6fb2cde26970c4013730964400010692a951ad5c3aee395812a75c10.png" src="../../_images/f2312adc6fb2cde26970c4013730964400010692a951ad5c3aee395812a75c10.png" />
 <figcaption>
-<p><span class="caption-number">Fig. 56 </span><span class="caption-text">Basis-set superposition error in a one-dimensional two-fragment model, computed exactly. Left: BSSE against fragment half-separation on a logarithmic axis; it falls by orders of magnitude once the fragments stop overlapping, because functions too far away cannot be borrowed. Right: BSSE against the number of basis functions per fragment; it collapses as the fragment’s own basis improves, and the collapse comes from adding a DIFFUSE exponent rather than a tight one, since it is the loosely bound tail a fragment borrows from its neighbour. Both behaviours identify BSSE as an artefact of an incomplete basis, not a property of the system.</span><a class="headerlink" href="#fig-pt-bsse" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 58 </span><span class="caption-text">Basis-set superposition error in a one-dimensional two-fragment model, computed exactly. Left: BSSE against fragment half-separation on a logarithmic axis; it falls by orders of magnitude once the fragments stop overlapping, because functions too far away cannot be borrowed. Right: BSSE against the number of basis functions per fragment; it collapses as the fragment’s own basis improves, and the collapse comes from adding a DIFFUSE exponent rather than a tight one, since it is the loosely bound tail a fragment borrows from its neighbour. Both behaviours identify BSSE as an artefact of an incomplete basis, not a property of the system.</span><a class="headerlink" href="#fig-pt-bsse" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 </div>
