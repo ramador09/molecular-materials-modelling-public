@@ -534,6 +534,10 @@
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#validation-6-kinematics-reproduced-degeneracy-lifted">Validation 6 — kinematics reproduced, degeneracy lifted</a></li>
 </ul>
 </li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-7-a-tight-binding-silicon-beside-the-committed-bands">Exercise 7 — A tight-binding silicon beside the committed bands</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#validation-7-anatomy-shared-gaps-owned-by-their-fitters">Validation 7 — anatomy shared, gaps owned by their fitters</a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#notebook-summary">Notebook summary</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#outlook">Outlook</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#references">References</a></li>
@@ -638,8 +642,8 @@ extrema, the measured gap. A ✗ flags a mismatch to track down, not a verdict; 
 <blockquote>
 <div><p><strong>Scope.</strong> Energies are in electronvolts (the QE output is converted from
 Hartree). For the solid-state background see Ashcroft &amp; Mermin
-<span class="bibtex-citation" id="id1">[<a class="reference internal" href="#id27" title="Neil W. Ashcroft and N. David Mermin. Solid State Physics. Holt, Rinehart and Winston, 1976.">AM76</a>]</span> and Martin <span class="bibtex-citation" id="id2">[<a class="reference internal" href="#id28" title="Richard M. Martin. Electronic Structure: Basic Theory and Practical Methods. Cambridge University Press, 2 edition, 2020.">Mar20</a>]</span>; for the code,
-Quantum ESPRESSO <span class="bibtex-citation" id="id3">[<a class="reference internal" href="#id29" title="Paolo Giannozzi and others. Quantum espresso: a modular and open-source software project for quantum simulations of materials. Journal of Physics: Condensed Matter, 21(39):395502, 2009. doi:10.1088/0953-8984/21/39/395502.">G+09</a>]</span>; for the functional, PBE <span class="bibtex-citation" id="id4">[<a class="reference internal" href="#id30" title="John P. Perdew, Kieron Burke, and Matthias Ernzerhof. Generalized gradient approximation made simple. Physical Review Letters, 77(18):3865–3868, 1996. doi:10.1103/PhysRevLett.77.3865.">PBE96</a>]</span>.</p>
+<span class="bibtex-citation" id="id1">[<a class="reference internal" href="#id28" title="Neil W. Ashcroft and N. David Mermin. Solid State Physics. Holt, Rinehart and Winston, 1976.">AM76</a>]</span> and Martin <span class="bibtex-citation" id="id2">[<a class="reference internal" href="#id29" title="Richard M. Martin. Electronic Structure: Basic Theory and Practical Methods. Cambridge University Press, 2 edition, 2020.">Mar20</a>]</span>; for the code,
+Quantum ESPRESSO <span class="bibtex-citation" id="id3">[<a class="reference internal" href="#id30" title="Paolo Giannozzi and others. Quantum espresso: a modular and open-source software project for quantum simulations of materials. Journal of Physics: Condensed Matter, 21(39):395502, 2009. doi:10.1088/0953-8984/21/39/395502.">G+09</a>]</span>; for the functional, PBE <span class="bibtex-citation" id="id4">[<a class="reference internal" href="#id31" title="John P. Perdew, Kieron Burke, and Matthias Ernzerhof. Generalized gradient approximation made simple. Physical Review Letters, 77(18):3865–3868, 1996. doi:10.1103/PhysRevLett.77.3865.">PBE96</a>]</span>.</p>
 </div></blockquote>
 </section>
 <section id="theory-in-brief">
@@ -684,7 +688,7 @@ plane waves and uses pseudopotentials for the core electrons. DFT is remarkably
 good for ground-state energies and structures, but the <strong>Kohn-Sham eigenvalue gap
 systematically underestimates the true gap</strong>, often by a factor of two: the
 band-gap problem, a consequence of the missing derivative discontinuity in
-approximate exchange-correlation functionals <span class="bibtex-citation" id="id5">[<a class="reference internal" href="#id31" title="John P. Perdew and Mel Levy. Physical content of the exact kohn-sham orbital energies: band gaps and derivative discontinuities. Physical Review Letters, 51(20):1884–1887, 1983. doi:10.1103/PhysRevLett.51.1884.">PL83</a>]</span>. We will see
+approximate exchange-correlation functionals <span class="bibtex-citation" id="id5">[<a class="reference internal" href="#id32" title="John P. Perdew and Mel Levy. Physical content of the exact kohn-sham orbital energies: band gaps and derivative discontinuities. Physical Review Letters, 51(20):1884–1887, 1983. doi:10.1103/PhysRevLett.51.1884.">PL83</a>]</span>. We will see
 it directly. The companion Elementary Computational Physics course <em>computes</em> this
 failure from the exact conditions themselves — piecewise linearity and the
 derivative discontinuity, measured on an exactly solvable system — in
@@ -916,7 +920,7 @@ that. This is not a mistake in the run or a lack of convergence: it is the
 <strong>band-gap problem</strong> of density-functional theory. The Kohn-Sham eigenvalues are
 auxiliary quantities chosen to reproduce the <em>density</em>, not the energies to add or
 remove an electron, and approximate exchange-correlation functionals miss a
-<em>derivative discontinuity</em> that the true gap contains <span class="bibtex-citation" id="id6">[<a class="reference internal" href="#id31" title="John P. Perdew and Mel Levy. Physical content of the exact kohn-sham orbital energies: band gaps and derivative discontinuities. Physical Review Letters, 51(20):1884–1887, 1983. doi:10.1103/PhysRevLett.51.1884.">PL83</a>]</span>. The
+<em>derivative discontinuity</em> that the true gap contains <span class="bibtex-citation" id="id6">[<a class="reference internal" href="#id32" title="John P. Perdew and Mel Levy. Physical content of the exact kohn-sham orbital energies: band gaps and derivative discontinuities. Physical Review Letters, 51(20):1884–1887, 1983. doi:10.1103/PhysRevLett.51.1884.">PL83</a>]</span>. The
 upshot is a systematic underestimate, often near a factor of two, that more
 expensive methods (hybrid functionals, <span class="math notranslate nohighlight">\(GW\)</span>) are needed to repair.</p>
 <p><strong>Part a)</strong> Compare the computed gap to experiment.</p>
@@ -1025,6 +1029,85 @@ lattice provably cannot produce, and the reason silicon has a gap at all.</p>
 </div>
 </section>
 </section>
+<section id="exercise-7-a-tight-binding-silicon-beside-the-committed-bands">
+<h2>Exercise 7 — A tight-binding silicon beside the committed bands<a class="headerlink" href="#exercise-7-a-tight-binding-silicon-beside-the-committed-bands" title="Link to this heading">#</a></h2>
+<p>The Quantum ESPRESSO bands were <em>read</em>; nothing in this notebook yet <em>computes</em>
+a band structure. The classic build-it-yourself model is <strong>empirical tight
+binding</strong> in the sp<span class="math notranslate nohighlight">\(^3\)</span>s<span class="math notranslate nohighlight">\(^\ast\)</span> basis of Vogl, Hjalmarson and Dow
+<span class="bibtex-citation" id="id7">[<a class="reference internal" href="#id58" title="P. Vogl, Harold P. Hjalmarson, and John D. Dow. A semi-empirical tight-binding theory of the electronic structure of semiconductors. Journal of Physics and Chemistry of Solids, 44(5):365–378, 1983. doi:10.1016/0022-3697(83)90064-1.">VHD83</a>]</span>: five orbitals per atom, nearest-neighbour couplings only, and
+one deliberately artificial ingredient — the excited <span class="math notranslate nohighlight">\(s^\ast\)</span> orbital, added
+not for chemistry but to stand in for the <span class="math notranslate nohighlight">\(d\)</span> states that push the conduction
+band <em>down</em> along <span class="math notranslate nohighlight">\(\Delta\)</span>. Without it, no nearest-neighbour sp<span class="math notranslate nohighlight">\(^3\)</span> model can
+make silicon’s gap indirect; with it, ten parameters fitted to experiment
+reproduce the gap structure of an entire semiconductor family.</p>
+<p>On the diamond lattice every atom’s four neighbours sit along
+<span class="math notranslate nohighlight">\(\mathbf d_{1..4} = \tfrac a4(1,1,1),\ \tfrac a4(1,\bar1,\bar1),\
+\tfrac a4(\bar1,1,\bar1),\ \tfrac a4(\bar1,\bar1,1)\)</span>, and every coupling in the
+<span class="math notranslate nohighlight">\(10\times10\)</span> Bloch Hamiltonian is one of four <strong>phase sums</strong></p>
+<div class="math notranslate nohighlight" id="equation-eq-tb-phases">
+<span class="eqno">(38)<a class="headerlink" href="#equation-eq-tb-phases" title="Link to this equation">#</a></span>\[g_{0..3}(\mathbf k) = \tfrac14\sum_{j=1}^{4} (\pm)_j\, e^{i\mathbf k\cdot\mathbf d_j},\]</div>
+<p>with sign patterns <span class="math notranslate nohighlight">\((++++)\)</span>, <span class="math notranslate nohighlight">\((++--)\)</span>, <span class="math notranslate nohighlight">\((+-+-)\)</span>, <span class="math notranslate nohighlight">\((+--+)\)</span> — the lattice’s
+geometry, Fourier transformed once and for all. The parity signs matter:
+<span class="math notranslate nohighlight">\(\langle s_a|H|p_c\rangle\)</span> and <span class="math notranslate nohighlight">\(\langle p_a|H|s_c\rangle\)</span> couple with opposite
+sign, and getting one wrong destroys the degeneracy structure at <span class="math notranslate nohighlight">\(\Gamma\)</span>
+that Part c gates.</p>
+<p><strong>Part a)</strong> Build <span class="math notranslate nohighlight">\(H(\mathbf k)\)</span> from the published silicon parameters and
+diagonalise it along the <em>same</em> L–Γ–X path as the committed QE calculation.
+<strong>Write this one yourself</strong> — the implementation is the lesson.</p>
+<p><strong>Part b)</strong> Overlay the ten tight-binding bands on the eight QE bands, both
+hung from their valence-band maxima.</p>
+<p><strong>Part c)</strong> Run the three-way comparison — tight binding, PBE, experiment —
+for the indirect gap, the direct gap at <span class="math notranslate nohighlight">\(\Gamma\)</span>, and the conduction-minimum
+location. The moral is the point of the exercise: the <em>empirical</em> model lands
+on the experimental gaps because it was fitted to them, while the
+<em>first-principles</em> functional misses the gap for reasons no parameter can fix
+(<a class="reference external" href="https://ramador.me/elementary-computational-physics-public/notebooks/08-electronic-structure/exact-conditions-band-gap.html">ECP §8.8</a>
+computes why) — two different meanings of “predict”, and a working scientist
+needs both.</p>
+<div class="cell tag_solution tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<figure class="align-default" id="fig-si-tb">
+<img alt="../../_images/9a8e4a0c4f8d7ecf55c5b585592c4cb0f974eaac08d7a463998e35900b85e17a.png" src="../../_images/9a8e4a0c4f8d7ecf55c5b585592c4cb0f974eaac08d7a463998e35900b85e17a.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 43 </span><span class="caption-text">The sp3s* empirical tight-binding bands of silicon (amber, dashed) overlaid on the committed Quantum ESPRESSO PBE bands (navy) along the same L–Γ–X path, both referenced to their valence-band maxima. The two calculations agree on the qualitative anatomy — a ~12 eV valence manifold, the triple degeneracy at Γ, a conduction minimum inside the Δ line — but part company exactly where their natures dictate: the tight-binding model, fitted to experiment, opens the indirect gap to the measured 1.17 eV where PBE gives 0.58, and puts the direct gap at the measured 3.4 eV where PBE gives 2.6. An empirical model knows what it was told; a first-principles functional knows why it fails.</span><a class="headerlink" href="#fig-si-tb" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>                 TB (fitted) PBE (ab initio)  experiment
+indirect gap           1.172           0.584        1.17
+direct gap (Γ)        3.430           2.574        3.40
+CBM at Γ→X            0.72            0.83       ~0.85
+VBM at Γ (triple, spread 1.0e-15 eV); valence width 12.5 eV (QE 12.0 eV)
+</pre></div>
+</div>
+</div>
+</div>
+<section id="validation-7-anatomy-shared-gaps-owned-by-their-fitters">
+<h3>Validation 7 — anatomy shared, gaps owned by their fitters<a class="headerlink" href="#validation-7-anatomy-shared-gaps-owned-by-their-fitters" title="Link to this heading">#</a></h3>
+<p>Five checks. The Hamiltonian must be Hermitian at every k tested — by
+construction, and verified anyway. The valence-band maximum must sit at Γ
+with its triple degeneracy exact, since Γ₂₅′ degeneracy is symmetry, not
+fitting, and a parity-sign error would break it. The conduction minimum must
+lie strictly inside the Δ line — the indirectness the s* orbital exists to
+produce. The tight-binding gaps must land on the <em>measured</em> values, which is
+what a fit to experiment owes back. And the empirical model must beat the
+first-principles functional on the indirect gap while agreeing with it on the
+valence width — the two meanings of prediction, quantified.</p>
+<div class="cell tag_validation tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>✓  the Bloch Hamiltonian is Hermitian at every k-point tested   [max |H - H^dagger| = 0.0e+00]
+✓  the valence-band maximum sits at Gamma with its triple degeneracy exact to machine precision -- symmetry the model must inherit, and the check that would catch a parity-sign error in the s-p couplings   [VBM at k-index 45 (Gamma 45), degeneracy spread 1.0e-15 eV]
+✓  the conduction minimum lies strictly inside the Delta line, the indirectness the s* orbital was invented to produce   [CBM at 0.72 of Gamma-X (QE: 0.83)]
+✓  the tight-binding indirect gap lands on the measured value -- the model was fitted to experiment, and landing there is the fit doing its one job   [got 1.17188 vs expected 1.17 (rtol=1e-06, atol=0.15)]
+✓  the empirical model beats the ab-initio functional on the gap it was told about, while the two agree on the valence anatomy neither was told about -- what each kind of model actually knows, in two numbers   [gap errors: TB 0.00 eV vs PBE 0.59 eV; valence widths 12.5 vs 12.0 eV]
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>True
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
 <section id="notebook-summary">
 <h2>Notebook summary<a class="headerlink" href="#notebook-summary" title="Link to this heading">#</a></h2>
 <p>We read the course’s real Quantum ESPRESSO output for silicon and turned it into
@@ -1061,28 +1144,32 @@ parabola near each extremum to extract it.</p></li>
 </ul>
 <section id="references">
 <h3>References<a class="headerlink" href="#references" title="Link to this heading">#</a></h3>
-<div class="docutils container" id="id7">
+<div class="docutils container" id="id8">
 <div role="list" class="citation-list">
-<div class="citation" id="id27" role="doc-biblioentry">
+<div class="citation" id="id28" role="doc-biblioentry">
 <span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id1">AM76</a><span class="fn-bracket">]</span></span>
 <p>Neil W. Ashcroft and N. David Mermin. <em>Solid State Physics</em>. Holt, Rinehart and Winston, 1976.</p>
 </div>
-<div class="citation" id="id29" role="doc-biblioentry">
+<div class="citation" id="id30" role="doc-biblioentry">
 <span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id3">G+09</a><span class="fn-bracket">]</span></span>
 <p>Paolo Giannozzi and others. Quantum espresso: a modular and open-source software project for quantum simulations of materials. <em>Journal of Physics: Condensed Matter</em>, 21(39):395502, 2009. <a class="reference external" href="https://doi.org/10.1088/0953-8984/21/39/395502">doi:10.1088/0953-8984/21/39/395502</a>.</p>
 </div>
-<div class="citation" id="id28" role="doc-biblioentry">
+<div class="citation" id="id29" role="doc-biblioentry">
 <span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id2">Mar20</a><span class="fn-bracket">]</span></span>
 <p>Richard M. Martin. <em>Electronic Structure: Basic Theory and Practical Methods</em>. Cambridge University Press, 2 edition, 2020.</p>
 </div>
-<div class="citation" id="id30" role="doc-biblioentry">
+<div class="citation" id="id31" role="doc-biblioentry">
 <span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id4">PBE96</a><span class="fn-bracket">]</span></span>
 <p>John P. Perdew, Kieron Burke, and Matthias Ernzerhof. Generalized gradient approximation made simple. <em>Physical Review Letters</em>, 77(18):3865–3868, 1996. <a class="reference external" href="https://doi.org/10.1103/PhysRevLett.77.3865">doi:10.1103/PhysRevLett.77.3865</a>.</p>
 </div>
-<div class="citation" id="id31" role="doc-biblioentry">
+<div class="citation" id="id32" role="doc-biblioentry">
 <span class="label"><span class="fn-bracket">[</span>PL83<span class="fn-bracket">]</span></span>
 <span class="backrefs">(<a role="doc-backlink" href="#id5">1</a>,<a role="doc-backlink" href="#id6">2</a>)</span>
 <p>John P. Perdew and Mel Levy. Physical content of the exact kohn-sham orbital energies: band gaps and derivative discontinuities. <em>Physical Review Letters</em>, 51(20):1884–1887, 1983. <a class="reference external" href="https://doi.org/10.1103/PhysRevLett.51.1884">doi:10.1103/PhysRevLett.51.1884</a>.</p>
+</div>
+<div class="citation" id="id58" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id7">VHD83</a><span class="fn-bracket">]</span></span>
+<p>P. Vogl, Harold P. Hjalmarson, and John D. Dow. A semi-empirical tight-binding theory of the electronic structure of semiconductors. <em>Journal of Physics and Chemistry of Solids</em>, 44(5):365–378, 1983. <a class="reference external" href="https://doi.org/10.1016/0022-3697(83)90064-1">doi:10.1016/0022-3697(83)90064-1</a>.</p>
 </div>
 </div>
 </div>
@@ -1207,6 +1294,10 @@ parabola near each extremum to extract it.</p></li>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-6-the-empty-lattice-what-comes-from-geometry-alone">Exercise 6 — The empty lattice: what comes from geometry alone</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#validation-6-kinematics-reproduced-degeneracy-lifted">Validation 6 — kinematics reproduced, degeneracy lifted</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-7-a-tight-binding-silicon-beside-the-committed-bands">Exercise 7 — A tight-binding silicon beside the committed bands</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#validation-7-anatomy-shared-gaps-owned-by-their-fitters">Validation 7 — anatomy shared, gaps owned by their fitters</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#notebook-summary">Notebook summary</a></li>

@@ -538,6 +538,10 @@
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#validation-7-the-picture-agrees-with-the-machine">Validation 7 — the picture agrees with the machine</a></li>
 </ul>
 </li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-8-the-deck-reproduced-unrestricted-hartreefock-live">Exercise 8 — The deck reproduced: unrestricted Hartree–Fock, live</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#validation-8-the-deck-s-physics-recomputed-and-re-verdicted">Validation 8 — the deck’s physics, recomputed and re-verdicted</a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#notebook-summary">Notebook summary</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#outlook">Outlook</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#references">References</a></li>
@@ -655,7 +659,7 @@ nuclei, and an out-of-phase <strong>antibonding</strong> combination (starred), 
 energy, with a node between them. For O₂ the valence <span class="math notranslate nohighlight">\(2s\)</span> and <span class="math notranslate nohighlight">\(2p\)</span> orbitals build
 the set</p>
 <div class="math notranslate nohighlight" id="equation-eq-mo-set">
-<span class="eqno">(38)<a class="headerlink" href="#equation-eq-mo-set" title="Link to this equation">#</a></span>\[\sigma_{2s},\ \sigma_{2s}^{*},\ \sigma_{2p},\ \pi_{2p}\,(\times 2),\ \pi_{2p}^{*}\,(\times 2),\ \sigma_{2p}^{*},\]</div>
+<span class="eqno">(39)<a class="headerlink" href="#equation-eq-mo-set" title="Link to this equation">#</a></span>\[\sigma_{2s},\ \sigma_{2s}^{*},\ \sigma_{2p},\ \pi_{2p}\,(\times 2),\ \pi_{2p}^{*}\,(\times 2),\ \sigma_{2p}^{*},\]</div>
 <p>the two <span class="math notranslate nohighlight">\(\pi_{2p}\)</span> and the two <span class="math notranslate nohighlight">\(\pi_{2p}^{*}\)</span> each a degenerate pair. Oxygen brings
 six valence electrons each, twelve in all, which fill the diagram from the bottom
 and leave the last <strong>two electrons in the degenerate <span class="math notranslate nohighlight">\(\pi^*\)</span> pair</strong>.</p>
@@ -974,7 +978,7 @@ a physical density.</p>
 <figure class="align-default" id="fig-o2-density">
 <img alt="../../_images/0d3cd2ac933d2757ad9a8ff41d5737d644f2cd6f07965bc1881de1178867d7b1.png" src="../../_images/0d3cd2ac933d2757ad9a8ff41d5737d644f2cd6f07965bc1881de1178867d7b1.png" />
 <figcaption>
-<p><span class="caption-number">Fig. 43 </span><span class="caption-text">Isosurface of the O₂ electron density from the CP2K calculation (amber, <span class="math notranslate nohighlight">\(\rho=0.05\,e/a_0^3\)</span>), with the two oxygen nuclei marked. The density forms a single connected cloud spanning both atoms, the signature of a bonded molecule. (Cube downsampled for display.)</span><a class="headerlink" href="#fig-o2-density" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 44 </span><span class="caption-text">Isosurface of the O₂ electron density from the CP2K calculation (amber, <span class="math notranslate nohighlight">\(\rho=0.05\,e/a_0^3\)</span>), with the two oxygen nuclei marked. The density forms a single connected cloud spanning both atoms, the signature of a bonded molecule. (Cube downsampled for display.)</span><a class="headerlink" href="#fig-o2-density" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>min ρ = -8.76e-06; ∫ρ d³r = 11.885 (the 12 GTH valence electrons)
@@ -1016,7 +1020,7 @@ is conserved.</p>
 <figure class="align-default" id="fig-o2-diff">
 <img alt="../../_images/e7e01c54a443caf7c9d941d215a0cd2660aadd331b171f12ac75285e3ef365d4.png" src="../../_images/e7e01c54a443caf7c9d941d215a0cd2660aadd331b171f12ac75285e3ef365d4.png" />
 <figcaption>
-<p><span class="caption-number">Fig. 44 </span><span class="caption-text">Electron-density difference <span class="math notranslate nohighlight">\(\Delta\rho=\rho_{\mathrm{O_2}}-2\rho_{\mathrm{O}}\)</span> from the CP2K calculation: amber where charge accumulates on bonding, navy where it is depleted (<span class="math notranslate nohighlight">\(\pm0.004\,e/a_0^3\)</span>). The redistribution into the bonding region is what a Lewis double bond depicts only schematically. (Cube downsampled for display.)</span><a class="headerlink" href="#fig-o2-diff" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 45 </span><span class="caption-text">Electron-density difference <span class="math notranslate nohighlight">\(\Delta\rho=\rho_{\mathrm{O_2}}-2\rho_{\mathrm{O}}\)</span> from the CP2K calculation: amber where charge accumulates on bonding, navy where it is depleted (<span class="math notranslate nohighlight">\(\pm0.004\,e/a_0^3\)</span>). The redistribution into the bonding region is what a Lewis double bond depicts only schematically. (Cube downsampled for display.)</span><a class="headerlink" href="#fig-o2-diff" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 </div>
@@ -1054,7 +1058,7 @@ visible as the change of lobe colour across the bond.</p>
 <figure class="align-default" id="fig-o2-orbitals">
 <img alt="../../_images/6545f8dcd3f5ee0428f0aa3f9468a0b615321ea8810a01b5e73a4b818892bd85.png" src="../../_images/6545f8dcd3f5ee0428f0aa3f9468a0b615321ea8810a01b5e73a4b818892bd85.png" />
 <figcaption>
-<p><span class="caption-number">Fig. 45 </span><span class="caption-text">Three O₂ molecular orbitals from the CP2K calculation (amber/navy = opposite sign of the wavefunction): the bonding <span class="math notranslate nohighlight">\(\pi_{2p}\)</span> and <span class="math notranslate nohighlight">\(\sigma_{2p}\)</span>, which build up amplitude between the nuclei, and the antibonding <span class="math notranslate nohighlight">\(\pi^*\)</span> (the HOMO), whose node between the atoms is the colour change across the bond. The two electrons in this <span class="math notranslate nohighlight">\(\pi^*\)</span> pair are the unpaired ones. (Cubes downsampled for display.)</span><a class="headerlink" href="#fig-o2-orbitals" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 46 </span><span class="caption-text">Three O₂ molecular orbitals from the CP2K calculation (amber/navy = opposite sign of the wavefunction): the bonding <span class="math notranslate nohighlight">\(\pi_{2p}\)</span> and <span class="math notranslate nohighlight">\(\sigma_{2p}\)</span>, which build up amplitude between the nuclei, and the antibonding <span class="math notranslate nohighlight">\(\pi^*\)</span> (the HOMO), whose node between the atoms is the colour change across the bond. The two electrons in this <span class="math notranslate nohighlight">\(\pi^*\)</span> pair are the unpaired ones. (Cubes downsampled for display.)</span><a class="headerlink" href="#fig-o2-orbitals" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>∫|ψ|² d³r = 0.9870, 0.9994, 1.0200
@@ -1097,7 +1101,7 @@ the atom’s electrons.</p>
 <figure class="align-default" id="fig-o-density">
 <img alt="../../_images/c6defcd82263ee3b1ab219dbcc417c69d36ee601c7fbd5c94798c45600ed3c09.png" src="../../_images/c6defcd82263ee3b1ab219dbcc417c69d36ee601c7fbd5c94798c45600ed3c09.png" />
 <figcaption>
-<p><span class="caption-number">Fig. 46 </span><span class="caption-text">Electron density of a single oxygen atom from the CP2K calculation (amber, <span class="math notranslate nohighlight">\(\rho=0.05\,e/a_0^3\)</span>): one cloud about one nucleus, holding its six valence electrons — the 1s core is folded into the GTH pseudopotential — half the molecule’s twelve. (Cube downsampled for display.)</span><a class="headerlink" href="#fig-o-density" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 47 </span><span class="caption-text">Electron density of a single oxygen atom from the CP2K calculation (amber, <span class="math notranslate nohighlight">\(\rho=0.05\,e/a_0^3\)</span>): one cloud about one nucleus, holding its six valence electrons — the 1s core is folded into the GTH pseudopotential — half the molecule’s twelve. (Cube downsampled for display.)</span><a class="headerlink" href="#fig-o-density" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>∫ρ(O₂) = 11.89, ∫ρ(O) = 5.95 valence electrons  -&gt;  ratio 1.998  (12 vs 6; the 1s cores live in the pseudopotential)
@@ -1131,7 +1135,7 @@ degenerate <span class="math notranslate nohighlight">\(\pi^*\)</span> pair with
 of the triplet. Dropping the two core <span class="math notranslate nohighlight">\(1s\)</span> states, we plot the valence levels at
 their real energies and fill them with <span class="math notranslate nohighlight">\(\alpha\)</span> (up) and <span class="math notranslate nohighlight">\(\beta\)</span> (down) electrons,
 reproducing the molecular-orbital schema from the calculation itself.</p>
-<p>One feature departs from the idealised diagram of <a class="reference internal" href="#equation-eq-mo-set">Eq. 38</a>: in the spin-up
+<p>One feature departs from the idealised diagram of <a class="reference internal" href="#equation-eq-mo-set">Eq. 39</a>: in the spin-up
 (<span class="math notranslate nohighlight">\(\alpha\)</span>) channel the bonding <span class="math notranslate nohighlight">\(\pi_{2p}\)</span> pair sits just <em>below</em> <span class="math notranslate nohighlight">\(\sigma_{2p}\)</span>,
 because the two unpaired <span class="math notranslate nohighlight">\(\alpha\)</span> electrons in <span class="math notranslate nohighlight">\(\pi^*\)</span> exchange-stabilise the
 same-spin bonding <span class="math notranslate nohighlight">\(\alpha\,\pi_{2p}\)</span>. The spin-down (<span class="math notranslate nohighlight">\(\beta\)</span>) channel, with <span class="math notranslate nohighlight">\(\pi^*\)</span>
@@ -1145,7 +1149,7 @@ spin imbalance, and the paramagnetic moment it implies.</p>
 <figure class="align-default" id="fig-o2-schema">
 <img alt="../../_images/e766b60015e7eb1404c7eaae6ef0a9abaabe48624ec9537785b9de3f9c62c232.png" src="../../_images/e766b60015e7eb1404c7eaae6ef0a9abaabe48624ec9537785b9de3f9c62c232.png" />
 <figcaption>
-<p><span class="caption-number">Fig. 47 </span><span class="caption-text">Spin-resolved molecular-orbital levels of O₂ from the real CP2K eigenvalues (valence only; the two 1s cores omitted), each level drawn at its own energy: spin-up (α, amber) on the left, spin-down (β, navy) on the right. The α channel fills seven levels — including both π* orbitals — while β fills only five, its π* empty; those two unpaired α electrons in π* are the triplet ground state and the origin of O₂’s paramagnetism. The exchange asymmetry the text describes shows too: the α bonding-π pair sits just below α σ, while β keeps the textbook σ-below-π order.</span><a class="headerlink" href="#fig-o2-schema" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 48 </span><span class="caption-text">Spin-resolved molecular-orbital levels of O₂ from the real CP2K eigenvalues (valence only; the two 1s cores omitted), each level drawn at its own energy: spin-up (α, amber) on the left, spin-down (β, navy) on the right. The α channel fills seven levels — including both π* orbitals — while β fills only five, its π* empty; those two unpaired α electrons in π* are the triplet ground state and the origin of O₂’s paramagnetism. The exchange asymmetry the text describes shows too: the α bonding-π pair sits just below α σ, while β keeps the textbook σ-below-π order.</span><a class="headerlink" href="#fig-o2-schema" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>occupied: 9 α, 7 β  -&gt;  2 unpaired electrons; μ = 2.83 μ_B
@@ -1181,7 +1185,7 @@ let each pair combine into a bonding and an antibonding molecular orbital. For t
 atomic orbitals of the same energy <span class="math notranslate nohighlight">\(\alpha\)</span> coupled by a resonance integral <span class="math notranslate nohighlight">\(\beta\)</span>
 with overlap <span class="math notranslate nohighlight">\(S\)</span>, the secular problem gives</p>
 <div class="math notranslate nohighlight" id="equation-eq-lcao-two-centre">
-<span class="eqno">(39)<a class="headerlink" href="#equation-eq-lcao-two-centre" title="Link to this equation">#</a></span>\[E_{\pm} = \frac{\alpha \pm \beta}{1 \pm S},\]</div>
+<span class="eqno">(40)<a class="headerlink" href="#equation-eq-lcao-two-centre" title="Link to this equation">#</a></span>\[E_{\pm} = \frac{\alpha \pm \beta}{1 \pm S},\]</div>
 <p>with <span class="math notranslate nohighlight">\(\beta&lt;0\)</span>, so <span class="math notranslate nohighlight">\(E_+\)</span> lies below <span class="math notranslate nohighlight">\(\alpha\)</span> and <span class="math notranslate nohighlight">\(E_-\)</span> above it. The overlap in the
 denominator is what makes the antibonding orbital rise <em>more</em> than the bonding one
 falls, which is why filling both is worse than filling neither. Two <span class="math notranslate nohighlight">\(p\)</span> orbitals
@@ -1193,7 +1197,7 @@ principle and Hund’s rule, and the last two land in the degenerate <span class
 parallel spins. That is the triplet — obtained from symmetry, counting and one
 <span class="math notranslate nohighlight">\(2\times2\)</span> secular equation, with no self-consistent field anywhere.</p>
 <p><strong>Part a)</strong> Implement <code class="docutils literal notranslate"><span class="pre">two_centre(alpha,</span> <span class="pre">beta,</span> <span class="pre">overlap)</span></code> returning the bonding and
-antibonding pair of <a class="reference internal" href="#equation-eq-lcao-two-centre">Eq. 39</a>. Confirm on the way that the
+antibonding pair of <a class="reference internal" href="#equation-eq-lcao-two-centre">Eq. 40</a>. Confirm on the way that the
 antibonding orbital is destabilised by more than the bonding one is stabilised,
 which is the whole reason a filled antibonding level cancels more than a bond.
 <strong>Write this one yourself</strong> — the implementation is the lesson.</p>
@@ -1217,7 +1221,7 @@ unpaired electrons measured from the CP2K output (Exercise 6): 2
 <figure class="align-default" id="fig-o2-lcao">
 <img alt="../../_images/c6c275b583a037fa28a7e04d2df5ede00b32dfef696470df7daa994c5835f89a.png" src="../../_images/c6c275b583a037fa28a7e04d2df5ede00b32dfef696470df7daa994c5835f89a.png" />
 <figcaption>
-<p><span class="caption-number">Fig. 48 </span><span class="caption-text">The LCAO molecular-orbital ladder of O₂ built from Eq. eq-lcao-two-centre, with the atomic <span class="math notranslate nohighlight">\(2s\)</span> and <span class="math notranslate nohighlight">\(2p\)</span> levels of each oxygen at the sides and the molecular levels between them. Bonding levels are drawn in navy, antibonding in amber; arrows show the twelve valence electrons filled by Aufbau, with Hund’s rule leaving one electron in each of the degenerate <span class="math notranslate nohighlight">\(\pi^*\)</span> orbitals. Bond order two and two unpaired electrons follow from counting alone – the same conclusion the committed density-functional calculation reaches in Exercise 6.</span><a class="headerlink" href="#fig-o2-lcao" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 49 </span><span class="caption-text">The LCAO molecular-orbital ladder of O₂ built from Eq. eq-lcao-two-centre, with the atomic <span class="math notranslate nohighlight">\(2s\)</span> and <span class="math notranslate nohighlight">\(2p\)</span> levels of each oxygen at the sides and the molecular levels between them. Bonding levels are drawn in navy, antibonding in amber; arrows show the twelve valence electrons filled by Aufbau, with Hund’s rule leaving one electron in each of the degenerate <span class="math notranslate nohighlight">\(\pi^*\)</span> orbitals. Bond order two and two unpaired electrons follow from counting alone – the same conclusion the committed density-functional calculation reaches in Exercise 6.</span><a class="headerlink" href="#fig-o2-lcao" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 </div>
@@ -1234,6 +1238,69 @@ against the spin imbalance measured from the committed CP2K eigenvalues in Exerc
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>✓  the antibonding level rises further than the bonding level falls, the asymmetry the overlap denominator of eq-lcao-two-centre puts there   [up +1.122 eV vs down -0.918 eV]
 ✓  filling the LCAO ladder with 12 valence electrons gives bond order 2, the double bond of O₂   [got 2 vs expected 2 (rtol=1e-12, atol=1e-09)]
 ✓  and Hund&#39;s rule in the degenerate pi* pair predicts exactly the two unpaired electrons the density-functional calculation reports: the picture and the machine agree   [LCAO predicts 2, CP2K output gives 2]
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>True
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="exercise-8-the-deck-reproduced-unrestricted-hartreefock-live">
+<h2>Exercise 8 — The deck reproduced: unrestricted Hartree–Fock, live<a class="headerlink" href="#exercise-8-the-deck-reproduced-unrestricted-hartreefock-live" title="Link to this heading">#</a></h2>
+<p>Everything above analyses the committed CP2K output. This exercise closes the
+loop by <em>running the deck’s calculation</em>, here and now: the committed input
+specified <code class="docutils literal notranslate"><span class="pre">XC_FUNCTIONAL</span> <span class="pre">NONE</span></code> with <code class="docutils literal notranslate"><span class="pre">MULTIPLICITY</span> <span class="pre">3</span></code> and <code class="docutils literal notranslate"><span class="pre">LSD</span></code> — unrestricted
+Hartree–Fock with two more α than β electrons — and PySCF can do exactly that
+in under a second. Two runs, triplet and singlet, and three verdicts to read.</p>
+<p>First the ordering: the triplet must fall below the singlet, Hund’s rule as an
+energy difference rather than a slogan — with the standing caveat that the
+<em>singlet</em> of O<span class="math notranslate nohighlight">\(_2\)</span> is genuinely multireference, so its single-determinant
+energy is only good enough to order, never to quote. Second, the spin: an
+unrestricted determinant is not an eigenstate of <span class="math notranslate nohighlight">\(\hat S^2\)</span>, and the measured
+<span class="math notranslate nohighlight">\(\langle S^2\rangle\)</span> lands <em>slightly above</em> the exact <span class="math notranslate nohighlight">\(S(S+1) = 2\)</span> — that
+excess is <strong>spin contamination</strong>, the price UHF pays for letting α and β
+orbitals differ, and reading its size is part of reading any unrestricted
+calculation. Third, the pattern: the α/β occupation structure must match the
+committed CP2K eigenvalue schema of Exercise 6 — nine α against seven β
+valence electrons, with the β LUMO a <em>degenerate</em> π<span class="math notranslate nohighlight">\(^\ast\)</span> pair, the two holes
+Hund’s rule carved out.</p>
+<p><strong>Part a)</strong> Run UHF for the triplet and the singlet at the experimental bond
+length and report total energies and <span class="math notranslate nohighlight">\(\langle S^2\rangle\)</span>.</p>
+<p><strong>Part b)</strong> Read the three verdicts: ordering, contamination, and the α/β
+level pattern against the committed CP2K schema.</p>
+<div class="cell tag_solution tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<figure class="align-default" id="fig-o2-uhf">
+<img alt="../../_images/06ad192c5adb3bdac2a06234f9db603123de653ad8c94d240485f655810674b1.png" src="../../_images/06ad192c5adb3bdac2a06234f9db603123de653ad8c94d240485f655810674b1.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 50 </span><span class="caption-text">The valence orbital energies of triplet O2 from the live unrestricted Hartree–Fock run, α spin channel (amber) against β (navy), each level drawn at its computed energy. The two channels agree on the deep σ levels, then part company where the physics lives: the α channel holds the degenerate π* pair as its highest occupied levels, while in the β channel that same pair is empty — the two unpaired electrons of the triplet, in the same nine-against-seven pattern as the committed CP2K eigenvalues of Exercise 6. The dashed markers show the empty β π* pair, degenerate to machine precision.</span><a class="headerlink" href="#fig-o2-uhf" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>E(triplet) = -149.545575 Ha, E(singlet) = -149.513527 Ha  -&gt;  triplet lower by 0.87 eV
+&lt;S^2&gt; = 2.0334 (exact S(S+1) = 2; the excess 0.0334 is UHF spin contamination)
+occupations: 9 alpha / 7 beta; beta LUMO pair split 1.97e-15 Ha -- the two degenerate pi* holes of Exercise 6&#39;s committed schema
+</pre></div>
+</div>
+</div>
+</div>
+<section id="validation-8-the-deck-s-physics-recomputed-and-re-verdicted">
+<h3>Validation 8 — the deck’s physics, recomputed and re-verdicted<a class="headerlink" href="#validation-8-the-deck-s-physics-recomputed-and-re-verdicted" title="Link to this heading">#</a></h3>
+<p>Four checks. Both SCF runs must have converged, or nothing downstream means
+anything. The triplet must lie below the singlet — Hund’s rule as an energy
+difference, ordering only, the singlet being multireference. The spin
+contamination must be positive and small: <span class="math notranslate nohighlight">\(\langle S^2\rangle\)</span> just above 2 is
+the signature of a mildly spin-broken unrestricted triplet, and a large excess
+would indict the calculation. And the α/β pattern must reproduce the committed
+CP2K schema — two more α than β, with the empty β π<span class="math notranslate nohighlight">\(^\ast\)</span> pair degenerate to
+machine precision, since that degeneracy is symmetry rather than fitting.</p>
+<div class="cell tag_validation tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>✓  both unrestricted SCF runs converged   [triplet True, singlet True]
+✓  the triplet lies well below the single-determinant singlet: Hund&#39;s rule as a computed energy difference, ordering gated and the singlet&#39;s multireference character left honestly unquoted   [triplet below by 0.87 eV]
+✓  the spin contamination is positive and small: &lt;S^2&gt; sits just above the exact 2, the fingerprint of a mildly spin-broken UHF triplet   [&lt;S^2&gt; - 2 = 0.0334]
+✓  and the alpha/beta structure reproduces the committed CP2K schema: two more alpha electrons than beta, and the beta LUMO a pi* pair degenerate to machine precision -- the two holes Hund&#39;s rule carved   [9 alpha / 7 beta; beta-LUMO split 2.0e-15 Ha]
 </pre></div>
 </div>
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>True
@@ -1403,6 +1470,10 @@ good functionals; Hartree-Fock alone underbinds it badly.</p></li>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-7-the-model-that-predicts-the-triplet">Exercise 7 — The model that predicts the triplet</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#validation-7-the-picture-agrees-with-the-machine">Validation 7 — the picture agrees with the machine</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-8-the-deck-reproduced-unrestricted-hartreefock-live">Exercise 8 — The deck reproduced: unrestricted Hartree–Fock, live</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#validation-8-the-deck-s-physics-recomputed-and-re-verdicted">Validation 8 — the deck’s physics, recomputed and re-verdicted</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#notebook-summary">Notebook summary</a></li>

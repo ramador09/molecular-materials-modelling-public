@@ -641,7 +641,7 @@ PBE <span class="bibtex-citation" id="id1">[<a class="reference internal" href="
 <strong>transition state</strong>, then falls to the <strong>products</strong>. Two numbers summarise it: the
 <strong>activation barrier</strong></p>
 <div class="math notranslate nohighlight" id="equation-eq-barrier">
-<span class="eqno">(48)<a class="headerlink" href="#equation-eq-barrier" title="Link to this equation">#</a></span>\[\Delta E^{\ddagger} = E_{\rm TS} - E_{\rm reactant},\]</div>
+<span class="eqno">(49)<a class="headerlink" href="#equation-eq-barrier" title="Link to this equation">#</a></span>\[\Delta E^{\ddagger} = E_{\rm TS} - E_{\rm reactant},\]</div>
 <p>which controls the rate, and the <strong>reaction energy</strong>
 <span class="math notranslate nohighlight">\(\Delta E = E_{\rm products} - E_{\rm reactant}\)</span>, which says whether the reaction
 absorbs energy (endothermic, <span class="math notranslate nohighlight">\(\Delta E&gt;0\)</span>) or releases it. Ethanol dehydration is
@@ -662,7 +662,7 @@ convergence: barriers are a sensitive probe of both.</p>
 <p>Transition-state theory turns the barrier into a rate constant through the Eyring (or,
 equivalently, Arrhenius) form</p>
 <div class="math notranslate nohighlight" id="equation-eq-eyring">
-<span class="eqno">(49)<a class="headerlink" href="#equation-eq-eyring" title="Link to this equation">#</a></span>\[k(T) \propto \exp\!\left(-\frac{\Delta E^{\ddagger}}{k_B T}\right),\]</div>
+<span class="eqno">(50)<a class="headerlink" href="#equation-eq-eyring" title="Link to this equation">#</a></span>\[k(T) \propto \exp\!\left(-\frac{\Delta E^{\ddagger}}{k_B T}\right),\]</div>
 <p>exponentially sensitive to the barrier, so the few-kcal/mol spread between methods
 becomes orders of magnitude in the predicted rate.</p>
 </section>
@@ -811,7 +811,7 @@ state’s stretched C–O bond.</p>
 <figure class="align-default" id="fig-rxn-structures">
 <img alt="../../_images/4b049ba28efb7b14f778ad91f19eaff935fda4ad899edef77a0013075e65d5c7.png" src="../../_images/4b049ba28efb7b14f778ad91f19eaff935fda4ad899edef77a0013075e65d5c7.png" />
 <figcaption>
-<p><span class="caption-number">Fig. 55 </span><span class="caption-text">The committed CP2K-optimised structures of the ethanol dehydration: the ethanol reactant, the transition state (the C–O bond stretched, a hydrogen migrating to the leaving oxygen), and the ethene + water products. Carbon grey, oxygen red, hydrogen white.</span><a class="headerlink" href="#fig-rxn-structures" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 57 </span><span class="caption-text">The committed CP2K-optimised structures of the ethanol dehydration: the ethanol reactant, the transition state (the C–O bond stretched, a hydrogen migrating to the leaving oxygen), and the ethene + water products. Carbon grey, oxygen red, hydrogen white.</span><a class="headerlink" href="#fig-rxn-structures" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>shortest C–O distance:  ethanol 1.43 Å  -&gt;  transition state 1.90 Å (stretched)
@@ -851,7 +851,7 @@ transition state lies above its reactant.</p>
 <figure class="align-default" id="fig-rxn-profile">
 <img alt="../../_images/e897866c9cbe3fbf0ba9d5f6f941454c155d4ac11aa32b32b5554204dde73e6a.png" src="../../_images/e897866c9cbe3fbf0ba9d5f6f941454c155d4ac11aa32b32b5554204dde73e6a.png" />
 <figcaption>
-<p><span class="caption-number">Fig. 56 </span><span class="caption-text">Reaction-energy profiles for ethanol dehydration, from the course’s committed total energies: energy relative to ethanol (kcal/mol) at the reactant, transition state, and products, for PBE (navy) and B3LYP (amber) across three basis sets. Every path climbs a large barrier to the transition state and ends above the reactant (endothermic). The minimal SZV basis overshoots; DZVP and TZVP nearly coincide.</span><a class="headerlink" href="#fig-rxn-profile" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 58 </span><span class="caption-text">Reaction-energy profiles for ethanol dehydration, from the course’s committed total energies: energy relative to ethanol (kcal/mol) at the reactant, transition state, and products, for PBE (navy) and B3LYP (amber) across three basis sets. Every path climbs a large barrier to the transition state and ends above the reactant (endothermic). The minimal SZV basis overshoots; DZVP and TZVP nearly coincide.</span><a class="headerlink" href="#fig-rxn-profile" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 </div>
@@ -898,7 +898,7 @@ B3LYP-TZVP        66.1      11.4
 <figure class="align-default" id="fig-rxn-convergence">
 <img alt="../../_images/0fef308c62a3aafc73afced008c7b35781a8ead19f92466cad6df16e935d6c06.png" src="../../_images/0fef308c62a3aafc73afced008c7b35781a8ead19f92466cad6df16e935d6c06.png" />
 <figcaption>
-<p><span class="caption-number">Fig. 57 </span><span class="caption-text">Activation barrier of ethanol dehydration versus basis-set size for PBE (navy) and B3LYP (amber). The minimal single-zeta SZV basis overshoots badly; the barrier converges from DZVP to TZVP. At convergence the hybrid B3LYP-TZVP (~66 kcal/mol) sits in the experimental range (grey band, ~65–70 kcal/mol); PBE underestimates it.</span><a class="headerlink" href="#fig-rxn-convergence" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 59 </span><span class="caption-text">Activation barrier of ethanol dehydration versus basis-set size for PBE (navy) and B3LYP (amber). The minimal single-zeta SZV basis overshoots badly; the barrier converges from DZVP to TZVP. At convergence the hybrid B3LYP-TZVP (~66 kcal/mol) sits in the experimental range (grey band, ~65–70 kcal/mol); PBE underestimates it.</span><a class="headerlink" href="#fig-rxn-convergence" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 </div>
@@ -923,7 +923,7 @@ kcal/mol), and the best method, B3LYP-TZVP, must fall in the measured range.</p>
 <section id="exercise-4-from-barrier-to-reaction-rate">
 <h2>Exercise 4 — From barrier to reaction rate<a class="headerlink" href="#exercise-4-from-barrier-to-reaction-rate" title="Link to this heading">#</a></h2>
 <p>The barrier matters because it sets the rate, exponentially. Through transition-state
-theory <a class="reference internal" href="#equation-eq-eyring">Eq. 49</a> the rate constant scales as <span class="math notranslate nohighlight">\(e^{-\Delta E^{\ddagger}/k_BT}\)</span>, so
+theory <a class="reference internal" href="#equation-eq-eyring">Eq. 50</a> the rate constant scales as <span class="math notranslate nohighlight">\(e^{-\Delta E^{\ddagger}/k_BT}\)</span>, so
 the spread of barriers between methods becomes a spread of many orders of magnitude in
 the predicted rate. We show this directly: the relative rate at a typical reaction
 temperature, computed from each method’s barrier, ranges over nearly nine orders of
@@ -936,7 +936,7 @@ magnitude.</p>
 <figure class="align-default" id="fig-rxn-rate">
 <img alt="../../_images/76e4151812b89e4f7a0a8ba16c3ae5b506316baf8b42ed0ec3a7b2aa29164bf1.png" src="../../_images/76e4151812b89e4f7a0a8ba16c3ae5b506316baf8b42ed0ec3a7b2aa29164bf1.png" />
 <figcaption>
-<p><span class="caption-number">Fig. 58 </span><span class="caption-text">Relative reaction rate <span class="math notranslate nohighlight">\(e^{-\Delta E^{\ddagger}/k_BT}\)</span> at 600 K (log scale) for each method, normalised to the fastest. Because the rate depends exponentially on the barrier, the few-kcal/mol differences between functionals and basis sets become many orders of magnitude in rate: a converged method is not optional.</span><a class="headerlink" href="#fig-rxn-rate" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 60 </span><span class="caption-text">Relative reaction rate <span class="math notranslate nohighlight">\(e^{-\Delta E^{\ddagger}/k_BT}\)</span> at 600 K (log scale) for each method, normalised to the fastest. Because the rate depends exponentially on the barrier, the few-kcal/mol differences between functionals and basis sets become many orders of magnitude in rate: a converged method is not optional.</span><a class="headerlink" href="#fig-rxn-rate" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>predicted rate varies by a factor of 9.5e+08 across the six methods at 600 K
@@ -968,15 +968,15 @@ which is enough to show that method choice matters. It is not what a kineticist
 measures. An experiment reports an <strong>Arrhenius activation energy</strong>, obtained by
 fitting</p>
 <div class="math notranslate nohighlight" id="equation-eq-arrhenius-fit">
-<span class="eqno">(50)<a class="headerlink" href="#equation-eq-arrhenius-fit" title="Link to this equation">#</a></span>\[\ln k = \ln A - \frac{E_a}{RT}\]</div>
+<span class="eqno">(51)<a class="headerlink" href="#equation-eq-arrhenius-fit" title="Link to this equation">#</a></span>\[\ln k = \ln A - \frac{E_a}{RT}\]</div>
 <p>to rate constants taken over a range of temperatures, and reading <span class="math notranslate nohighlight">\(E_a\)</span> off the
 slope against <span class="math notranslate nohighlight">\(1/T\)</span>. It is tempting to equate that <span class="math notranslate nohighlight">\(E_a\)</span> with the computed barrier.
 They are not the same number, and the difference is not experimental error.</p>
-<p>Transition-state theory <a class="reference internal" href="#equation-eq-eyring">Eq. 49</a> carries a temperature-dependent prefactor,
+<p>Transition-state theory <a class="reference internal" href="#equation-eq-eyring">Eq. 50</a> carries a temperature-dependent prefactor,
 <span class="math notranslate nohighlight">\(k = (k_BT/h)\,e^{-\Delta E^{\ddagger}/RT}\)</span>. Taking the logarithm and differentiating
 with respect to <span class="math notranslate nohighlight">\(1/T\)</span>, that extra factor of <span class="math notranslate nohighlight">\(T\)</span> contributes its own slope:</p>
 <div class="math notranslate nohighlight" id="equation-eq-ea-offset">
-<span class="eqno">(51)<a class="headerlink" href="#equation-eq-ea-offset" title="Link to this equation">#</a></span>\[E_a \;=\; -R\,\frac{d\ln k}{d(1/T)} \;=\; \Delta E^{\ddagger} + RT .\]</div>
+<span class="eqno">(52)<a class="headerlink" href="#equation-eq-ea-offset" title="Link to this equation">#</a></span>\[E_a \;=\; -R\,\frac{d\ln k}{d(1/T)} \;=\; \Delta E^{\ddagger} + RT .\]</div>
 <p>So the measured activation energy sits <em>above</em> the computed barrier by <span class="math notranslate nohighlight">\(RT\)</span> — about
 1.2 kcal/mol at 600 K. Small next to a 60 kcal/mol barrier, but it is a systematic
 offset, and comparing a computed <span class="math notranslate nohighlight">\(\Delta E^{\ddagger}\)</span> with a measured <span class="math notranslate nohighlight">\(E_a\)</span> without
@@ -985,19 +985,19 @@ it is simply comparing two different quantities.</p>
 an <em>imaginary</em>-frequency mode, and light nuclei tunnel through the barrier rather
 than only passing over it. Wigner’s leading correction multiplies the rate by</p>
 <div class="math notranslate nohighlight" id="equation-eq-wigner">
-<span class="eqno">(52)<a class="headerlink" href="#equation-eq-wigner" title="Link to this equation">#</a></span>\[\kappa(T) = 1 + \frac{1}{24}\left(\frac{h\,|\nu^{\ddagger}|}{k_BT}\right)^{2},\]</div>
+<span class="eqno">(53)<a class="headerlink" href="#equation-eq-wigner" title="Link to this equation">#</a></span>\[\kappa(T) = 1 + \frac{1}{24}\left(\frac{h\,|\nu^{\ddagger}|}{k_BT}\right)^{2},\]</div>
 <p>with <span class="math notranslate nohighlight">\(|\nu^{\ddagger}|\)</span> the magnitude of the imaginary frequency. It is always
 greater than one — tunnelling can only help — and it dies away as temperature rises,
 because a hot enough molecule does not need to tunnel.</p>
-<p><strong>Part a)</strong> Implement <code class="docutils literal notranslate"><span class="pre">eyring_rate(barrier_kcal,</span> <span class="pre">T)</span></code> from <a class="reference internal" href="#equation-eq-eyring">Eq. 49</a>, using
+<p><strong>Part a)</strong> Implement <code class="docutils literal notranslate"><span class="pre">eyring_rate(barrier_kcal,</span> <span class="pre">T)</span></code> from <a class="reference internal" href="#equation-eq-eyring">Eq. 50</a>, using
 <code class="docutils literal notranslate"><span class="pre">scipy.constants</span></code> for <span class="math notranslate nohighlight">\(k_B\)</span>, <span class="math notranslate nohighlight">\(h\)</span> and <span class="math notranslate nohighlight">\(R\)</span> rather than typed digits. Evaluate it for
 the converged B3LYP-TZVP barrier on <code class="docutils literal notranslate"><span class="pre">numpy.linspace(500,</span> <span class="pre">700,</span> <span class="pre">41)</span></code> K.
 <strong>Write this one yourself</strong> — the implementation is the lesson.</p>
-<p><strong>Part b)</strong> Fit <a class="reference internal" href="#equation-eq-arrhenius-fit">Eq. 50</a> to those rates: <code class="docutils literal notranslate"><span class="pre">numpy.polyfit</span></code> of <span class="math notranslate nohighlight">\(\ln k\)</span>
+<p><strong>Part b)</strong> Fit <a class="reference internal" href="#equation-eq-arrhenius-fit">Eq. 51</a> to those rates: <code class="docutils literal notranslate"><span class="pre">numpy.polyfit</span></code> of <span class="math notranslate nohighlight">\(\ln k\)</span>
 against <span class="math notranslate nohighlight">\(1/T\)</span>, degree 1, with <span class="math notranslate nohighlight">\(E_a = -R\times\text{slope}\)</span>. Compare <span class="math notranslate nohighlight">\(E_a\)</span> with the
 barrier you put in, and check the difference against <span class="math notranslate nohighlight">\(RT_0\)</span> at the window’s mean
 inverse temperature <span class="math notranslate nohighlight">\(T_0 = 1/\langle 1/T\rangle\)</span>.</p>
-<p><strong>Part c)</strong> Apply <a class="reference internal" href="#equation-eq-wigner">Eq. 52</a> for an imaginary frequency of <span class="math notranslate nohighlight">\(600\,\)</span>cm<span class="math notranslate nohighlight">\(^{-1}\)</span>, a
+<p><strong>Part c)</strong> Apply <a class="reference internal" href="#equation-eq-wigner">Eq. 53</a> for an imaginary frequency of <span class="math notranslate nohighlight">\(600\,\)</span>cm<span class="math notranslate nohighlight">\(^{-1}\)</span>, a
 representative value for a breaking C–O stretch, and report how much tunnelling
 changes the rate at each end of the window. Plot the Arrhenius line and the
 tunnelling factor together.</p>
@@ -1011,9 +1011,9 @@ Wigner kappa: 1.124 at 500 K -&gt; 1.063 at 700 K
 </pre></div>
 </div>
 <figure class="align-default" id="fig-rxn-arrhenius">
-<img alt="../../_images/77f0958023dfb85393236945c2c8640955b3132ecbf505cd59b6d91dce3f2d7d.png" src="../../_images/77f0958023dfb85393236945c2c8640955b3132ecbf505cd59b6d91dce3f2d7d.png" />
+<img alt="../../_images/6fc76f963bab228e2a899e83d70a49db0874419b68d22f4f0bfd2f1957316baa.png" src="../../_images/6fc76f963bab228e2a899e83d70a49db0874419b68d22f4f0bfd2f1957316baa.png" />
 <figcaption>
-<p><span class="caption-number">Fig. 59 </span><span class="caption-text">Left: the Eyring rate constant for the converged B3LYP-TZVP barrier, plotted as <span class="math notranslate nohighlight">\(\ln k\)</span> against <span class="math notranslate nohighlight">\(1/T\)</span> over 500–700 K, with the straight-line Arrhenius fit. The fit is excellent, yet its slope returns an activation energy <span class="math notranslate nohighlight">\(RT\)</span> ABOVE the barrier that generated it – the temperature-dependent prefactor of transition-state theory contributes its own slope. Right: Wigner’s tunnelling correction <span class="math notranslate nohighlight">\(\kappa(T)\)</span> for an imaginary frequency of 600 cm<span class="math notranslate nohighlight">\(^{-1}\)</span>; it exceeds one at all temperatures, since tunnelling can only speed a reaction up, and decays as thermal energy makes it unnecessary.</span><a class="headerlink" href="#fig-rxn-arrhenius" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 61 </span><span class="caption-text">Left: the Eyring rate constant for the converged B3LYP-TZVP barrier, plotted as <span class="math notranslate nohighlight">\(\ln k\)</span> against <span class="math notranslate nohighlight">\(1/T\)</span> over 500–700 K, with the straight-line Arrhenius fit. The fit is excellent, yet its slope returns an activation energy <span class="math notranslate nohighlight">\(RT\)</span> ABOVE the barrier that generated it – the temperature-dependent prefactor of transition-state theory contributes its own slope. Right: Wigner’s tunnelling correction <span class="math notranslate nohighlight">\(\kappa(T)\)</span> for an imaginary frequency of 600 cm<span class="math notranslate nohighlight">\(^{-1}\)</span>; it exceeds one at all temperatures, since tunnelling can only speed a reaction up, and decays as thermal energy makes it unnecessary.</span><a class="headerlink" href="#fig-rxn-arrhenius" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 </div>
