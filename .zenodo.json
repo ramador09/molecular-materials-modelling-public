@@ -1,7 +1,7 @@
 {
   "title": "Molecular and Materials Modelling",
   "upload_type": "lesson",
-  "description": "<p>Computational companion to the ETH Zürich graduate course <em>Molecular and Materials Modelling</em> (Spring 2023): 14 executable notebooks across seven volumes — the Ising model, lattice-gas kinetic Monte Carlo, Lennard-Jones cluster optimization, molecular dynamics, replica exchange, silicon band structure, the triplet ground state of oxygen, equations of state, adsorption on platinum, the ethanol dehydration, nudged elastic bands, metadynamics, and machine-learning descriptors with dimensionality reduction. Every notebook executes in CI with strict validation gates. Exercise provenance (Dr. Carlo Pignedoli, Prof. Daniele Passerone) is credited in the Preface and notebook footers.</p><p>Read the companion at <a href=\"https://ramador.me/molecular-materials-modelling-public/\">ramador.me/molecular-materials-modelling-public</a>. This archive captures the runnable, solution-stripped public mirror. Text is licensed CC BY 4.0; code cells are MIT.</p>",
+  "description": "<p>Computational companion to the ETH Zürich graduate course <em>Molecular and Materials Modelling</em> (Spring 2023): 15 executable notebooks across seven volumes — the Ising model, lattice-gas kinetic Monte Carlo, Lennard-Jones cluster optimization, molecular dynamics, replica exchange, silicon band structure, the triplet ground state of oxygen, equations of state, adsorption on platinum, the ethanol dehydration, nudged elastic bands, metadynamics, and a machine-learning arc that builds descriptors, dimensionality reduction, and a fitted potential whose failure modes are measured. Every notebook executes in CI with strict validation gates. Exercise provenance (Dr. Carlo Pignedoli, Prof. Daniele Passerone) is credited in the Preface and notebook footers.</p><p>Read the companion at <a href=\"https://ramador.me/molecular-materials-modelling-public/\">ramador.me/molecular-materials-modelling-public</a>. This archive captures the runnable, solution-stripped public mirror. Text is licensed CC BY 4.0; code cells are MIT.</p>",
   "creators": [
     {
       "name": "Amador, Raymond"
@@ -22,5 +22,5 @@
       "scheme": "url"
     }
   ],
-  "version": "1.1.0"
+  "version": "1.2.0"
 }
