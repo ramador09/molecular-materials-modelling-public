@@ -590,7 +590,7 @@
               font-family:'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace;font-size:11px;color:#46506b;
               letter-spacing:.04em;">
     <span>Raymond Amador</span>
-    <span>v1.0.0 &nbsp;·&nbsp; 2026-07-26 &nbsp;·&nbsp;
+    <span>v1.0.0 &nbsp;·&nbsp; 2026-07-27 &nbsp;·&nbsp;
           CC&nbsp;BY&nbsp;4.0 (text) / MIT (code)</span>
   </div>
 </div></div></div>
@@ -695,7 +695,15 @@ bridge to x-ray and neutron scattering.</p>
 <hr class="docutils" />
 <section id="setup">
 <h2>Setup<a class="headerlink" href="#setup" title="Link to this heading">#</a></h2>
-<div class="cell docutils container">
+<p>The Setup below holds this notebook’s data and instruments — nothing you are asked
+to build. It is collapsed so the building stays yours; expand it whenever you want
+the details.</p>
+<!-- setup-policy: v2 --><div class="cell tag_hide-input docutils container">
+<details class="admonition hide above-input">
+<summary aria-label="Toggle hidden content">
+<p class="collapsed admonition-title">Show code cell source</p>
+<p class="expanded admonition-title">Hide code cell source</p>
+</summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
 
@@ -706,36 +714,14 @@ bridge to x-ray and neutron scattering.</p>
 <span class="kn">from</span><span class="w"> </span><span class="nn">ecp</span><span class="w"> </span><span class="kn">import</span> <span class="n">validate</span>
 
 <span class="n">rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
-<span class="n">RMIN</span> <span class="o">=</span> <span class="mf">2.0</span> <span class="o">**</span> <span class="p">(</span><span class="mf">1.0</span> <span class="o">/</span> <span class="mf">6.0</span><span class="p">)</span>            <span class="c1"># Lennard-Jones nearest-neighbour separation</span>
-<span class="n">SIGMA_AR</span><span class="p">,</span> <span class="n">EPS_AR_K</span> <span class="o">=</span> <span class="mf">3.405</span><span class="p">,</span> <span class="mf">119.8</span>    <span class="c1"># argon sigma [Å] and epsilon [K], from the deck</span>
-<span class="n">T_STAR_20K</span> <span class="o">=</span> <span class="mf">20.0</span> <span class="o">/</span> <span class="n">EPS_AR_K</span>         <span class="c1"># reduced temperature of the deck&#39;s 20 K target</span>
+<span class="c1"># data: reduced-unit constants and the deck&#39;s physical targets. The force law and</span>
+<span class="c1"># the velocity sampler are NOT here — they are this notebook&#39;s own machinery and are</span>
+<span class="c1"># built in Exercise 1. What remains below is the cluster geometry, the .xyz reader</span>
+<span class="c1"># that loads it, and two one-line observables.</span>
+<span class="n">RMIN</span> <span class="o">=</span> <span class="mf">2.0</span> <span class="o">**</span> <span class="p">(</span><span class="mf">1.0</span> <span class="o">/</span> <span class="mf">6.0</span><span class="p">)</span>  <span class="c1"># Lennard-Jones nearest-neighbour separation</span>
+<span class="n">SIGMA_AR</span><span class="p">,</span> <span class="n">EPS_AR_K</span> <span class="o">=</span> <span class="mf">3.405</span><span class="p">,</span> <span class="mf">119.8</span>  <span class="c1"># argon sigma [Å] and epsilon [K], from the deck</span>
+<span class="n">T_STAR_20K</span> <span class="o">=</span> <span class="mf">20.0</span> <span class="o">/</span> <span class="n">EPS_AR_K</span>  <span class="c1"># reduced temperature of the deck&#39;s 20 K target</span>
 <span class="n">INK</span><span class="p">,</span> <span class="n">AMBER</span><span class="p">,</span> <span class="n">SOFT</span> <span class="o">=</span> <span class="s2">&quot;#16213e&quot;</span><span class="p">,</span> <span class="s2">&quot;#c0851a&quot;</span><span class="p">,</span> <span class="s2">&quot;#46506b&quot;</span>
-
-
-<span class="k">def</span><span class="w"> </span><span class="nf">lj_forces</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Lennard-Jones potential energy and forces for a configuration.</span>
-
-<span class="sd">    Parameters</span>
-<span class="sd">    ----------</span>
-<span class="sd">    x : numpy.ndarray</span>
-<span class="sd">        Atomic coordinates, shape (N, 3) or flat, in reduced units.</span>
-
-<span class="sd">    Returns</span>
-<span class="sd">    -------</span>
-<span class="sd">    tuple</span>
-<span class="sd">        ``(energy, forces)``: the total energy (float) and the forces -∇E,</span>
-<span class="sd">        shape (N, 3).</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
-    <span class="n">d</span> <span class="o">=</span> <span class="n">x</span><span class="p">[:,</span> <span class="kc">None</span><span class="p">,</span> <span class="p">:]</span> <span class="o">-</span> <span class="n">x</span><span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="p">:,</span> <span class="p">:]</span>
-    <span class="n">r2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">d</span> <span class="o">*</span> <span class="n">d</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
-    <span class="n">np</span><span class="o">.</span><span class="n">fill_diagonal</span><span class="p">(</span><span class="n">r2</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">inf</span><span class="p">)</span>
-    <span class="n">inv6</span> <span class="o">=</span> <span class="n">r2</span> <span class="o">**</span> <span class="o">-</span><span class="mi">3</span>
-    <span class="n">inv12</span> <span class="o">=</span> <span class="n">inv6</span> <span class="o">*</span> <span class="n">inv6</span>
-    <span class="n">energy</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="mf">4.0</span> <span class="o">*</span> <span class="p">(</span><span class="n">inv12</span> <span class="o">-</span> <span class="n">inv6</span><span class="p">))</span> <span class="o">/</span> <span class="mf">2.0</span>
-    <span class="n">coeff</span> <span class="o">=</span> <span class="mf">4.0</span> <span class="o">*</span> <span class="p">(</span><span class="o">-</span><span class="mf">12.0</span> <span class="o">*</span> <span class="n">inv12</span> <span class="o">+</span> <span class="mf">6.0</span> <span class="o">*</span> <span class="n">inv6</span><span class="p">)</span> <span class="o">/</span> <span class="n">r2</span>
-    <span class="n">grad</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">coeff</span><span class="p">[:,</span> <span class="p">:,</span> <span class="kc">None</span><span class="p">]</span> <span class="o">*</span> <span class="n">d</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">energy</span><span class="p">,</span> <span class="o">-</span><span class="n">grad</span>
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">kinetic</span><span class="p">(</span><span class="n">v</span><span class="p">):</span>
@@ -810,7 +796,7 @@ bridge to x-ray and neutron scattering.</p>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">lines</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">data_file</span><span class="p">(</span><span class="n">name</span><span class="p">))</span><span class="o">.</span><span class="n">read</span><span class="p">()</span><span class="o">.</span><span class="n">splitlines</span><span class="p">()</span>
     <span class="n">n</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">lines</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">0</span><span class="p">])</span>
-    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="nb">float</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">ln</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">1</span><span class="p">:</span><span class="mi">4</span><span class="p">]]</span> <span class="k">for</span> <span class="n">ln</span> <span class="ow">in</span> <span class="n">lines</span><span class="p">[</span><span class="mi">2</span><span class="p">:</span><span class="mi">2</span> <span class="o">+</span> <span class="n">n</span><span class="p">]])</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="nb">float</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">ln</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">1</span><span class="p">:</span><span class="mi">4</span><span class="p">]]</span> <span class="k">for</span> <span class="n">ln</span> <span class="ow">in</span> <span class="n">lines</span><span class="p">[</span><span class="mi">2</span> <span class="p">:</span> <span class="mi">2</span> <span class="o">+</span> <span class="n">n</span><span class="p">]])</span>
 
 
 <span class="c1"># The course&#39;s relaxed 38-atom argon cluster, exactly as the MD decks read it in</span>
@@ -819,31 +805,10 @@ bridge to x-ray and neutron scattering.</p>
 <span class="n">cluster_A</span> <span class="o">=</span> <span class="n">read_xyz</span><span class="p">(</span><span class="s2">&quot;38atoms.xyz&quot;</span><span class="p">)</span>
 <span class="n">cluster</span> <span class="o">=</span> <span class="p">(</span><span class="n">cluster_A</span> <span class="o">-</span> <span class="n">cluster_A</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span> <span class="o">/</span> <span class="n">SIGMA_AR</span>
 <span class="n">N</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">cluster</span><span class="p">)</span>
-
-
-<span class="k">def</span><span class="w"> </span><span class="nf">maxwell_velocities</span><span class="p">(</span><span class="n">T_star</span><span class="p">,</span> <span class="n">seed_rng</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Draw Maxwell-Boltzmann velocities at a target temperature, drift removed.</span>
-
-<span class="sd">    Parameters</span>
-<span class="sd">    ----------</span>
-<span class="sd">    T_star : float</span>
-<span class="sd">        Target reduced temperature.</span>
-<span class="sd">    seed_rng : numpy.random.Generator</span>
-<span class="sd">        Random generator to draw from.</span>
-
-<span class="sd">    Returns</span>
-<span class="sd">    -------</span>
-<span class="sd">    numpy.ndarray</span>
-<span class="sd">        Velocities of shape (N, 3) with zero net momentum, rescaled to the exact</span>
-<span class="sd">        target temperature.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">v</span> <span class="o">=</span> <span class="n">seed_rng</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="n">N</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
-    <span class="n">v</span> <span class="o">-=</span> <span class="n">v</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
-    <span class="n">v</span> <span class="o">*=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">T_star</span> <span class="o">/</span> <span class="n">temperature</span><span class="p">(</span><span class="n">v</span><span class="p">))</span>
-    <span class="k">return</span> <span class="n">v</span>
 </pre></div>
 </div>
 </div>
+</details>
 </div>
 </section>
 <section id="exercise-1-velocity-verlet-and-the-microcanonical-ensemble">
@@ -868,9 +833,29 @@ with CP2K, whose <code class="docutils literal notranslate"><span class="pre">th
 (microcanonical, <code class="docutils literal notranslate"><span class="pre">ENSEMBLE</span> <span class="pre">NVE</span></code>, no thermostat). We reproduce them by integrating
 <a class="reference internal" href="#equation-eq-eom">Eq. 25</a> with velocity Verlet <a class="reference internal" href="#equation-eq-verlet">Eq. 26</a>. With no thermostat the run is
 microcanonical, so the conserved quantity to watch is the <em>total</em> energy.</p>
-<p><strong>Part a)</strong> Implement <code class="docutils literal notranslate"><span class="pre">run_md</span></code> (velocity Verlet, optional velocity-rescaling
-thermostat). <strong>Part b)</strong> Run the cluster in <span class="math notranslate nohighlight">\(NVE\)</span> from velocities drawn at
-<span class="math notranslate nohighlight">\(T^\ast=0.1\)</span> and confirm the total energy is conserved.</p>
+<p><strong>Part a)</strong> Implement <code class="docutils literal notranslate"><span class="pre">lj_forces(x)</span></code>, returning the energy and the forces
+<span class="math notranslate nohighlight">\(-\nabla E\)</span> together. It is the same pair sum as §2.1 — broadcast displacements,
+<code class="docutils literal notranslate"><span class="pre">numpy.fill_diagonal</span></code> with <code class="docutils literal notranslate"><span class="pre">inf</span></code> to kill the self-terms, a factor <span class="math notranslate nohighlight">\(1/2\)</span> on the
+energy — but it returns the <em>force</em>, so mind the sign: the force is minus the
+gradient, and a sign slip here produces a beautifully stable trajectory of a
+cluster that flies apart.
+<strong>Write this one yourself</strong> — the implementation is the lesson.</p>
+<p><strong>Part b)</strong> Implement <code class="docutils literal notranslate"><span class="pre">maxwell_velocities(T_star,</span> <span class="pre">seed_rng)</span></code>: draw each component
+from <code class="docutils literal notranslate"><span class="pre">seed_rng.normal</span></code>, subtract the mean so the cluster has no net drift, then
+rescale to hit <span class="math notranslate nohighlight">\(T^\ast\)</span> exactly using <a class="reference internal" href="#equation-eq-temperature">Eq. 27</a>. Removing the drift
+matters — centre-of-mass motion is kinetic energy that never thermalises, so it
+would inflate every temperature you measure afterwards.
+<strong>Write this one yourself</strong> — the implementation is the lesson.</p>
+<p><strong>Part c)</strong> Implement <code class="docutils literal notranslate"><span class="pre">run_md</span></code>, one velocity-Verlet loop <a class="reference internal" href="#equation-eq-verlet">Eq. 26</a> with an
+optional velocity-rescaling thermostat. Verlet’s half-kick/drift/half-kick order
+is not a stylistic choice: it is what makes the map symplectic and the energy
+error bounded rather than growing.
+<strong>Write this one yourself</strong> — the implementation is the lesson.</p>
+<p><strong>Part d)</strong> Run the cluster in <span class="math notranslate nohighlight">\(NVE\)</span> from velocities drawn at <span class="math notranslate nohighlight">\(T^\ast=0.1\)</span> and
+confirm the total energy is conserved, and that the net momentum stays zero — the
+second is an independent check that the forces obey Newton’s third law.</p>
+<div class="cell tag_solution tag_remove-input docutils container">
+</div>
 <div class="cell tag_solution tag_remove-input docutils container">
 <div class="cell_output docutils container">
 <figure class="align-default" id="fig-md-nve">
@@ -889,6 +874,7 @@ integrate it right?”.</p>
 <div class="cell tag_validation tag_remove-input docutils container">
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>✓  velocity-Verlet NVE run conserves total energy   [max relative drift = 2.50255e-05 (limit 0.001)]
+✓  the analytic forces are minus the gradient of the energy they are paired with: sign and normalisation both pinned   [max|Δ| = 4.90212e-08 (rtol=0.0001, atol=1e-05)]
 </pre></div>
 </div>
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>True
@@ -946,7 +932,8 @@ toward equipartition <a class="reference internal" href="#equation-eq-temperatur
 thermostatting to the deck’s target <span class="math notranslate nohighlight">\(T^\ast=20/119.8\approx0.167\)</span>, the temperature
 climbs and then settles, fluctuating about the target.</p>
 <p><strong>Part a)</strong> Thermalize the cluster to <span class="math notranslate nohighlight">\(T^\ast=0.167\)</span> with the velocity-rescaling
-thermostat. <strong>Part b)</strong> Confirm the time-averaged temperature equals the target.</p>
+thermostat.</p>
+<p><strong>Part b)</strong> Confirm the time-averaged temperature equals the target.</p>
 <div class="cell tag_solution tag_remove-input docutils container">
 <div class="cell_output docutils container">
 <figure class="align-default" id="fig-md-thermostat">
@@ -985,7 +972,8 @@ further peaks at the next shells, the fingerprint of an ordered structure.
 Integrating that first peak (Assignment 8) gives the <strong>coordination number</strong>, the
 average count of nearest neighbours, well below the bulk fcc value of 12 for a
 cluster where most atoms sit on the surface.</p>
-<p><strong>Part a)</strong> Implement <code class="docutils literal notranslate"><span class="pre">radial_distribution(frames)</span></code>. <strong>Part b)</strong> Thermalize cold,
+<p><strong>Part a)</strong> Implement <code class="docutils literal notranslate"><span class="pre">radial_distribution(frames)</span></code>.</p>
+<p><strong>Part b)</strong> Thermalize cold,
 run an <span class="math notranslate nohighlight">\(NVE\)</span> production trajectory, and locate the first peak of <span class="math notranslate nohighlight">\(g(r)\)</span>.
 <strong>Part c)</strong> Read off the coordination number.</p>
 <div class="cell tag_solution tag_remove-input docutils container">
@@ -1008,6 +996,7 @@ run an <span class="math notranslate nohighlight">\(NVE\)</span> production traj
 <div class="cell tag_validation tag_remove-input docutils container">
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>✓  g(r) first peak sits at the nearest-neighbour distance   [got 1.11667 vs expected 1.12246 (rtol=0.06, atol=1e-09)]
+✓  and the coordination number sits well below the bulk fcc value of 12, as it must for a 38-atom cluster whose atoms are mostly surface   [coordination = 7.6  (bulk fcc 12, isolated dimer 1)]
 </pre></div>
 </div>
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>True
@@ -1226,42 +1215,42 @@ input[type=range].anim-slider {
 </style>
 
 <div class="animation">
-  <img id="_anim_imgbb9a9b3fa32445c485059dc60e432831">
+  <img id="_anim_img61067317ede74569bed95efe44cb54ff">
   <div class="anim-controls">
-    <input id="_anim_sliderbb9a9b3fa32445c485059dc60e432831" type="range" class="anim-slider"
+    <input id="_anim_slider61067317ede74569bed95efe44cb54ff" type="range" class="anim-slider"
            name="points" min="0" max="1" step="1" value="0"
-           oninput="animbb9a9b3fa32445c485059dc60e432831.set_frame(parseInt(this.value));">
+           oninput="anim61067317ede74569bed95efe44cb54ff.set_frame(parseInt(this.value));">
     <div class="anim-buttons">
-      <button title="Decrease speed" aria-label="Decrease speed" onclick="animbb9a9b3fa32445c485059dc60e432831.slower()">
+      <button title="Decrease speed" aria-label="Decrease speed" onclick="anim61067317ede74569bed95efe44cb54ff.slower()">
           <i class="fa fa-minus"></i></button>
-      <button title="First frame" aria-label="First frame" onclick="animbb9a9b3fa32445c485059dc60e432831.first_frame()">
+      <button title="First frame" aria-label="First frame" onclick="anim61067317ede74569bed95efe44cb54ff.first_frame()">
         <i class="fa fa-fast-backward"></i></button>
-      <button title="Previous frame" aria-label="Previous frame" onclick="animbb9a9b3fa32445c485059dc60e432831.previous_frame()">
+      <button title="Previous frame" aria-label="Previous frame" onclick="anim61067317ede74569bed95efe44cb54ff.previous_frame()">
           <i class="fa fa-step-backward"></i></button>
-      <button title="Play backwards" aria-label="Play backwards" onclick="animbb9a9b3fa32445c485059dc60e432831.reverse_animation()">
+      <button title="Play backwards" aria-label="Play backwards" onclick="anim61067317ede74569bed95efe44cb54ff.reverse_animation()">
           <i class="fa fa-play fa-flip-horizontal"></i></button>
-      <button title="Pause" aria-label="Pause" onclick="animbb9a9b3fa32445c485059dc60e432831.pause_animation()">
+      <button title="Pause" aria-label="Pause" onclick="anim61067317ede74569bed95efe44cb54ff.pause_animation()">
           <i class="fa fa-pause"></i></button>
-      <button title="Play" aria-label="Play" onclick="animbb9a9b3fa32445c485059dc60e432831.play_animation()">
+      <button title="Play" aria-label="Play" onclick="anim61067317ede74569bed95efe44cb54ff.play_animation()">
           <i class="fa fa-play"></i></button>
-      <button title="Next frame" aria-label="Next frame" onclick="animbb9a9b3fa32445c485059dc60e432831.next_frame()">
+      <button title="Next frame" aria-label="Next frame" onclick="anim61067317ede74569bed95efe44cb54ff.next_frame()">
           <i class="fa fa-step-forward"></i></button>
-      <button title="Last frame" aria-label="Last frame" onclick="animbb9a9b3fa32445c485059dc60e432831.last_frame()">
+      <button title="Last frame" aria-label="Last frame" onclick="anim61067317ede74569bed95efe44cb54ff.last_frame()">
           <i class="fa fa-fast-forward"></i></button>
-      <button title="Increase speed" aria-label="Increase speed" onclick="animbb9a9b3fa32445c485059dc60e432831.faster()">
+      <button title="Increase speed" aria-label="Increase speed" onclick="anim61067317ede74569bed95efe44cb54ff.faster()">
           <i class="fa fa-plus"></i></button>
     </div>
-    <form title="Repetition mode" aria-label="Repetition mode" action="#n" name="_anim_loop_selectbb9a9b3fa32445c485059dc60e432831"
+    <form title="Repetition mode" aria-label="Repetition mode" action="#n" name="_anim_loop_select61067317ede74569bed95efe44cb54ff"
           class="anim-state">
-      <input type="radio" name="state" value="once" id="_anim_radio1_bb9a9b3fa32445c485059dc60e432831"
+      <input type="radio" name="state" value="once" id="_anim_radio1_61067317ede74569bed95efe44cb54ff"
              >
-      <label for="_anim_radio1_bb9a9b3fa32445c485059dc60e432831">Once</label>
-      <input type="radio" name="state" value="loop" id="_anim_radio2_bb9a9b3fa32445c485059dc60e432831"
+      <label for="_anim_radio1_61067317ede74569bed95efe44cb54ff">Once</label>
+      <input type="radio" name="state" value="loop" id="_anim_radio2_61067317ede74569bed95efe44cb54ff"
              checked>
-      <label for="_anim_radio2_bb9a9b3fa32445c485059dc60e432831">Loop</label>
-      <input type="radio" name="state" value="reflect" id="_anim_radio3_bb9a9b3fa32445c485059dc60e432831"
+      <label for="_anim_radio2_61067317ede74569bed95efe44cb54ff">Loop</label>
+      <input type="radio" name="state" value="reflect" id="_anim_radio3_61067317ede74569bed95efe44cb54ff"
              >
-      <label for="_anim_radio3_bb9a9b3fa32445c485059dc60e432831">Reflect</label>
+      <label for="_anim_radio3_61067317ede74569bed95efe44cb54ff">Reflect</label>
     </form>
   </div>
 </div>
@@ -1271,9 +1260,9 @@ input[type=range].anim-slider {
   /* Instantiate the Animation class. */
   /* The IDs given should match those used in the template above. */
   (function() {
-    var img_id = "_anim_imgbb9a9b3fa32445c485059dc60e432831";
-    var slider_id = "_anim_sliderbb9a9b3fa32445c485059dc60e432831";
-    var loop_select_id = "_anim_loop_selectbb9a9b3fa32445c485059dc60e432831";
+    var img_id = "_anim_img61067317ede74569bed95efe44cb54ff";
+    var slider_id = "_anim_slider61067317ede74569bed95efe44cb54ff";
+    var loop_select_id = "_anim_loop_select61067317ede74569bed95efe44cb54ff";
     var frames = new Array(120);
     
   frames[0] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAYwAAAGMCAYAAADJOZVKAAAAOnRFWHRTb2Z0d2FyZQBNYXRwbG90\
@@ -23090,7 +23079,7 @@ ABwhGAAARwgGAMARggEAcIRgAAAcIRgAAEcIBgDAkf8HSyr3izsg0mUAAAAASUVORK5CYII=\
     /* set a timeout to make sure all the above elements are created before
        the object is initialized. */
     setTimeout(function() {
-        animbb9a9b3fa32445c485059dc60e432831 = new Animation(frames, img_id, slider_id, 33,
+        anim61067317ede74569bed95efe44cb54ff = new Animation(frames, img_id, slider_id, 33,
                                  loop_select_id);
     }, 0);
   })()
