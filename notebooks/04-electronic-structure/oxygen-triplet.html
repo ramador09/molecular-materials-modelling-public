@@ -529,6 +529,10 @@
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#validation-6-two-unpaired-electrons-a-paramagnetic-triplet">Validation 6 — two unpaired electrons, a paramagnetic triplet</a></li>
 </ul>
 </li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-7-the-model-that-predicts-the-triplet">Exercise 7 — The model that predicts the triplet</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#validation-7-the-picture-agrees-with-the-machine">Validation 7 — the picture agrees with the machine</a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#notebook-summary">Notebook summary</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#outlook">Outlook</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#references">References</a></li>
@@ -677,7 +681,15 @@ build the molecular-orbital schema.</p>
 <hr class="docutils" />
 <section id="setup">
 <h2>Setup<a class="headerlink" href="#setup" title="Link to this heading">#</a></h2>
-<div class="cell docutils container">
+<p>The Setup below holds this notebook’s data and instruments — nothing you are asked
+to build. It is collapsed so the building stays yours; expand it whenever you want
+the details.</p>
+<!-- setup-policy: v2 --><div class="cell tag_hide-input docutils container">
+<details class="admonition hide above-input">
+<summary aria-label="Toggle hidden content">
+<p class="collapsed admonition-title">Show code cell source</p>
+<p class="expanded admonition-title">Hide code cell source</p>
+</summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
 
@@ -690,6 +702,10 @@ build the molecular-orbital schema.</p>
 <span class="n">INK</span><span class="p">,</span> <span class="n">AMBER</span><span class="p">,</span> <span class="n">SOFT</span> <span class="o">=</span> <span class="s2">&quot;#16213e&quot;</span><span class="p">,</span> <span class="s2">&quot;#c0851a&quot;</span><span class="p">,</span> <span class="s2">&quot;#46506b&quot;</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">scipy.constants</span><span class="w"> </span><span class="kn">import</span> <span class="n">physical_constants</span>
 
+<span class="c1"># data: unit conversions for the committed CP2K output. The cube reader and the</span>
+<span class="c1"># isosurface plotter below are instruments — parsing a volumetric file format and</span>
+<span class="c1"># drawing a contour are not the lesson of a molecular-orbital notebook. The model</span>
+<span class="c1"># that PREDICTS what those files show is the lesson, and it is built in Exercise 7.</span>
 <span class="n">HARTREE_EV</span> <span class="o">=</span> <span class="n">physical_constants</span><span class="p">[</span><span class="s2">&quot;Hartree energy in eV&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
 <span class="n">BOHR_A</span> <span class="o">=</span> <span class="n">physical_constants</span><span class="p">[</span><span class="s2">&quot;Bohr radius&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="mf">1e10</span>  <span class="c1"># Bohr radius in Å</span>
 
@@ -740,10 +756,18 @@ build the molecular-orbital schema.</p>
     <span class="n">origin</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">lines</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">1</span><span class="p">:</span><span class="mi">4</span><span class="p">],</span> <span class="nb">float</span><span class="p">)</span>
     <span class="n">vec</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="nb">float</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">lines</span><span class="p">[</span><span class="mi">3</span> <span class="o">+</span> <span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">1</span><span class="p">:</span><span class="mi">4</span><span class="p">]]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">)])</span>
     <span class="n">ng</span> <span class="o">=</span> <span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">lines</span><span class="p">[</span><span class="mi">3</span> <span class="o">+</span> <span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">0</span><span class="p">])</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">)]</span>
-    <span class="n">atoms</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="nb">float</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">lines</span><span class="p">[</span><span class="mi">6</span> <span class="o">+</span> <span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">2</span><span class="p">:</span><span class="mi">5</span><span class="p">]]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_at</span><span class="p">)])</span>
-    <span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">lines</span><span class="p">[</span><span class="mi">6</span> <span class="o">+</span> <span class="n">n_at</span><span class="p">:])</span><span class="o">.</span><span class="n">split</span><span class="p">(),</span> <span class="nb">float</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">ng</span><span class="p">)</span>
-    <span class="k">return</span> <span class="nb">dict</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="n">label</span><span class="p">,</span> <span class="n">origin</span><span class="o">=</span><span class="n">origin</span><span class="p">,</span> <span class="n">vec</span><span class="o">=</span><span class="n">vec</span><span class="p">,</span> <span class="n">atoms</span><span class="o">=</span><span class="n">atoms</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">,</span>
-                <span class="n">dV</span><span class="o">=</span><span class="nb">abs</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">det</span><span class="p">(</span><span class="n">vec</span><span class="p">)))</span>
+    <span class="n">atoms</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
+        <span class="p">[[</span><span class="nb">float</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">lines</span><span class="p">[</span><span class="mi">6</span> <span class="o">+</span> <span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">2</span><span class="p">:</span><span class="mi">5</span><span class="p">]]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_at</span><span class="p">)]</span>
+    <span class="p">)</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">lines</span><span class="p">[</span><span class="mi">6</span> <span class="o">+</span> <span class="n">n_at</span> <span class="p">:])</span><span class="o">.</span><span class="n">split</span><span class="p">(),</span> <span class="nb">float</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">ng</span><span class="p">)</span>
+    <span class="k">return</span> <span class="nb">dict</span><span class="p">(</span>
+        <span class="n">label</span><span class="o">=</span><span class="n">label</span><span class="p">,</span>
+        <span class="n">origin</span><span class="o">=</span><span class="n">origin</span><span class="p">,</span>
+        <span class="n">vec</span><span class="o">=</span><span class="n">vec</span><span class="p">,</span>
+        <span class="n">atoms</span><span class="o">=</span><span class="n">atoms</span><span class="p">,</span>
+        <span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">,</span>
+        <span class="n">dV</span><span class="o">=</span><span class="nb">abs</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">det</span><span class="p">(</span><span class="n">vec</span><span class="p">)),</span>
+    <span class="p">)</span>
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">show_isosurface</span><span class="p">(</span><span class="n">cube</span><span class="p">,</span> <span class="n">levels</span><span class="p">,</span> <span class="n">title</span><span class="p">):</span>
@@ -771,16 +795,30 @@ build the molecular-orbital schema.</p>
         <span class="k">if</span> <span class="n">d</span><span class="o">.</span><span class="n">min</span><span class="p">()</span> <span class="o">&lt;</span> <span class="n">lvl</span> <span class="o">&lt;</span> <span class="n">d</span><span class="o">.</span><span class="n">max</span><span class="p">():</span>
             <span class="n">verts</span><span class="p">,</span> <span class="n">faces</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">marching_cubes</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="n">lvl</span><span class="p">,</span> <span class="n">spacing</span><span class="o">=</span><span class="n">spacing</span><span class="p">)</span>
             <span class="n">verts</span> <span class="o">=</span> <span class="n">verts</span> <span class="o">+</span> <span class="n">origin</span>
-            <span class="n">ax</span><span class="o">.</span><span class="n">plot_trisurf</span><span class="p">(</span><span class="n">verts</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">verts</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">faces</span><span class="p">,</span> <span class="n">verts</span><span class="p">[:,</span> <span class="mi">2</span><span class="p">],</span>
-                            <span class="n">color</span><span class="o">=</span><span class="n">col</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.45</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">cube</span><span class="p">[</span><span class="s2">&quot;atoms&quot;</span><span class="p">][:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">cube</span><span class="p">[</span><span class="s2">&quot;atoms&quot;</span><span class="p">][:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">cube</span><span class="p">[</span><span class="s2">&quot;atoms&quot;</span><span class="p">][:,</span> <span class="mi">2</span><span class="p">],</span>
-               <span class="n">s</span><span class="o">=</span><span class="mi">140</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;#444&quot;</span><span class="p">,</span> <span class="n">depthshade</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+            <span class="n">ax</span><span class="o">.</span><span class="n">plot_trisurf</span><span class="p">(</span>
+                <span class="n">verts</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span>
+                <span class="n">verts</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span>
+                <span class="n">faces</span><span class="p">,</span>
+                <span class="n">verts</span><span class="p">[:,</span> <span class="mi">2</span><span class="p">],</span>
+                <span class="n">color</span><span class="o">=</span><span class="n">col</span><span class="p">,</span>
+                <span class="n">alpha</span><span class="o">=</span><span class="mf">0.45</span><span class="p">,</span>
+                <span class="n">lw</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+            <span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span>
+        <span class="n">cube</span><span class="p">[</span><span class="s2">&quot;atoms&quot;</span><span class="p">][:,</span> <span class="mi">0</span><span class="p">],</span>
+        <span class="n">cube</span><span class="p">[</span><span class="s2">&quot;atoms&quot;</span><span class="p">][:,</span> <span class="mi">1</span><span class="p">],</span>
+        <span class="n">cube</span><span class="p">[</span><span class="s2">&quot;atoms&quot;</span><span class="p">][:,</span> <span class="mi">2</span><span class="p">],</span>
+        <span class="n">s</span><span class="o">=</span><span class="mi">140</span><span class="p">,</span>
+        <span class="n">color</span><span class="o">=</span><span class="s2">&quot;#444&quot;</span><span class="p">,</span>
+        <span class="n">depthshade</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="p">)</span>
     <span class="n">ax</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">xticks</span><span class="o">=</span><span class="p">[],</span> <span class="n">yticks</span><span class="o">=</span><span class="p">[],</span> <span class="n">zticks</span><span class="o">=</span><span class="p">[],</span> <span class="n">title</span><span class="o">=</span><span class="n">title</span><span class="p">)</span>
     <span class="n">ax</span><span class="o">.</span><span class="n">set_box_aspect</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
     <span class="k">return</span> <span class="n">fig</span>
 </pre></div>
 </div>
 </div>
+</details>
 </div>
 </section>
 <section id="exercise-1-the-cp2k-input-file">
@@ -806,7 +844,8 @@ files we will use:</p>
 <p>It ships with this notebook: <a class="reference download internal" download="" href="../../_downloads/bb53ca048881d282c13437edcad1e11d/o2-triplet.inp"><code class="xref download docutils literal notranslate"><span class="pre">triplet.inp</span></code></a>. Those
 two print directives are exactly what generate the density and orbital cubes the
 rest of the exercise visualises.</p>
-<p><strong>Part a)</strong> Read the deck. <strong>Part b)</strong> Confirm it requests a triplet and the cube
+<p><strong>Part a)</strong> Read the deck.</p>
+<p><strong>Part b)</strong> Confirm it requests a triplet and the cube
 output.</p>
 <div class="cell tag_solution tag_remove-input docutils container">
 <div class="cell_output docutils container">
@@ -838,7 +877,8 @@ density cube, the two ingredients the rest of the exercise depends on.</p>
 which the density takes a chosen value, with the two oxygen nuclei marked. The
 density is a single smooth cloud enveloping both atoms, the hallmark of a bound
 molecule rather than two separate ones.</p>
-<p><strong>Part a)</strong> Read and render the O₂ electron-density cube. <strong>Part b)</strong> Confirm it is
+<p><strong>Part a)</strong> Read and render the O₂ electron-density cube.</p>
+<p><strong>Part b)</strong> Confirm it is
 a physical density.</p>
 <div class="cell tag_solution tag_remove-input docutils container">
 <div class="cell_output docutils container">
@@ -876,7 +916,8 @@ isolates exactly the charge that <strong>rearranges when the bond forms</strong>
 electrons accumulate, navy where they are depleted. Because the molecule and the
 two atoms hold the same total number of electrons, the difference must integrate to
 zero, which is our check.</p>
-<p><strong>Part a)</strong> Render the density-difference cube. <strong>Part b)</strong> Confirm electron number
+<p><strong>Part a)</strong> Render the density-difference cube.</p>
+<p><strong>Part b)</strong> Confirm electron number
 is conserved.</p>
 <div class="cell tag_solution tag_remove-input docutils container">
 <div class="cell_output docutils container">
@@ -913,7 +954,8 @@ seeing: a bonding <span class="math notranslate nohighlight">\(\pi_{2p}\)</span>
 <span class="math notranslate nohighlight">\(\pi^*\)</span></strong> that is the HOMO and holds the two unpaired electrons. Bonding orbitals
 concentrate charge between the nuclei; the antibonding <span class="math notranslate nohighlight">\(\pi^*\)</span> has a node there,
 visible as the change of lobe colour across the bond.</p>
-<p><strong>Part a)</strong> Render the three orbitals. <strong>Part b)</strong> Confirm they are proper
+<p><strong>Part a)</strong> Render the three orbitals.</p>
+<p><strong>Part b)</strong> Confirm they are proper
 (normalised) one-electron orbitals.</p>
 <div class="cell tag_solution tag_remove-input docutils container">
 <div class="cell_output docutils container">
@@ -950,7 +992,8 @@ electrons of the molecule. Comparing the integrated densities is a clean,
 downsampling-proof check: the molecule must contain exactly twice the atom’s
 electrons (16 versus 8), so the <em>ratio</em> of the integrals is 2 even though each
 absolute integral is undercounted by the coarse grid.</p>
-<p><strong>Part a)</strong> Render the O-atom density. <strong>Part b)</strong> Confirm the molecule has twice
+<p><strong>Part a)</strong> Render the O-atom density.</p>
+<p><strong>Part b)</strong> Confirm the molecule has twice
 the atom’s electrons.</p>
 <div class="cell tag_solution tag_remove-input docutils container">
 <div class="cell_output docutils container">
@@ -997,7 +1040,8 @@ because the two unpaired <span class="math notranslate nohighlight">\(\alpha\)</
 same-spin bonding <span class="math notranslate nohighlight">\(\alpha\,\pi_{2p}\)</span>. The spin-down (<span class="math notranslate nohighlight">\(\beta\)</span>) channel, with <span class="math notranslate nohighlight">\(\pi^*\)</span>
 empty, keeps the textbook <span class="math notranslate nohighlight">\(\sigma_{2p}\)</span>-below-<span class="math notranslate nohighlight">\(\pi_{2p}\)</span> order. Either way the last
 two electrons occupy the <span class="math notranslate nohighlight">\(\pi^*\)</span> pair, so the triplet conclusion is unchanged.</p>
-<p><strong>Part a)</strong> Build the schema from the real eigenvalues. <strong>Part b)</strong> Confirm the
+<p><strong>Part a)</strong> Build the schema from the real eigenvalues.</p>
+<p><strong>Part b)</strong> Confirm the
 spin imbalance, and the paramagnetic moment it implies.</p>
 <div class="cell tag_solution tag_remove-input docutils container">
 <div class="cell_output docutils container">
@@ -1020,6 +1064,79 @@ paramagnetic triplet, the result a Lewis structure cannot give.</p>
 <div class="cell tag_validation tag_remove-input docutils container">
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>✓  O₂ has two unpaired electrons (S=1) and a non-zero magnetic moment   [2 unpaired → μ = 2.83 μ_B]
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>True
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="exercise-7-the-model-that-predicts-the-triplet">
+<h2>Exercise 7 — The model that predicts the triplet<a class="headerlink" href="#exercise-7-the-model-that-predicts-the-triplet" title="Link to this heading">#</a></h2>
+<p>Everything so far has been <em>read</em> from a calculation. That is the honest way to
+treat density-functional theory, which no notebook can reimplement — but it leaves
+a question standing. Did we need the calculation to know O₂ is a triplet?</p>
+<p>We did not, and the model that gets there is old enough to predate quantum
+chemistry software entirely. Take one <span class="math notranslate nohighlight">\(2s\)</span> and three <span class="math notranslate nohighlight">\(2p\)</span> orbitals on each atom and
+let each pair combine into a bonding and an antibonding molecular orbital. For two
+atomic orbitals of the same energy <span class="math notranslate nohighlight">\(\alpha\)</span> coupled by a resonance integral <span class="math notranslate nohighlight">\(\beta\)</span>
+with overlap <span class="math notranslate nohighlight">\(S\)</span>, the secular problem gives</p>
+<div class="math notranslate nohighlight" id="equation-eq-lcao-two-centre">
+<span class="eqno">(34)<a class="headerlink" href="#equation-eq-lcao-two-centre" title="Link to this equation">#</a></span>\[E_{\pm} = \frac{\alpha \pm \beta}{1 \pm S},\]</div>
+<p>with <span class="math notranslate nohighlight">\(\beta&lt;0\)</span>, so <span class="math notranslate nohighlight">\(E_+\)</span> lies below <span class="math notranslate nohighlight">\(\alpha\)</span> and <span class="math notranslate nohighlight">\(E_-\)</span> above it. The overlap in the
+denominator is what makes the antibonding orbital rise <em>more</em> than the bonding one
+falls, which is why filling both is worse than filling neither. Two <span class="math notranslate nohighlight">\(p\)</span> orbitals
+pointing at each other overlap head-on and split strongly (<span class="math notranslate nohighlight">\(\sigma\)</span>); the two
+perpendicular pairs overlap sideways and split weakly (<span class="math notranslate nohighlight">\(\pi\)</span>), and stay degenerate
+with each other by symmetry.</p>
+<p>Fill the resulting ladder with O₂’s twelve valence electrons under the Aufbau
+principle and Hund’s rule, and the last two land in the degenerate <span class="math notranslate nohighlight">\(\pi^*\)</span> pair with
+parallel spins. That is the triplet — obtained from symmetry, counting and one
+<span class="math notranslate nohighlight">\(2\times2\)</span> secular equation, with no self-consistent field anywhere.</p>
+<p><strong>Part a)</strong> Implement <code class="docutils literal notranslate"><span class="pre">two_centre(alpha,</span> <span class="pre">beta,</span> <span class="pre">overlap)</span></code> returning the bonding and
+antibonding pair of <a class="reference internal" href="#equation-eq-lcao-two-centre">Eq. 34</a>. Confirm on the way that the
+antibonding orbital is destabilised by more than the bonding one is stabilised,
+which is the whole reason a filled antibonding level cancels more than a bond.
+<strong>Write this one yourself</strong> — the implementation is the lesson.</p>
+<p><strong>Part b)</strong> Assemble the valence ladder: <span class="math notranslate nohighlight">\(\sigma_{2s}\)</span>, <span class="math notranslate nohighlight">\(\sigma^*_{2s}\)</span> from the
+<span class="math notranslate nohighlight">\(2s\)</span> pair, and <span class="math notranslate nohighlight">\(\sigma_{2p}\)</span>, <span class="math notranslate nohighlight">\(\pi_{2p}\)</span> (twofold), <span class="math notranslate nohighlight">\(\pi^*_{2p}\)</span> (twofold),
+<span class="math notranslate nohighlight">\(\sigma^*_{2p}\)</span> from the <span class="math notranslate nohighlight">\(2p\)</span> set. Fill twelve electrons with <code class="docutils literal notranslate"><span class="pre">numpy</span></code> bookkeeping,
+applying Hund’s rule within the degenerate <span class="math notranslate nohighlight">\(\pi^*\)</span> level: singly occupy both before
+pairing either.</p>
+<p><strong>Part c)</strong> Read off the bond order <span class="math notranslate nohighlight">\((n_{\rm bonding}-n_{\rm antibonding})/2\)</span> and
+the number of unpaired electrons, and compare both with the calculation. The model
+owes nothing to the CP2K output, so agreement here is a genuine cross-check of the
+picture against the machine.</p>
+<div class="cell tag_solution tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>filled levels: [(&#39;sigma_2s&#39;, 2), (&#39;sigma*_2s&#39;, 2), (&#39;sigma_2p&#39;, 2), (&#39;pi_2p&#39;, 4), (&#39;pi*_2p&#39;, 2)]
+bonding 8, antibonding 4  -&gt;  bond order 2.0
+unpaired electrons predicted by LCAO+Hund: 2
+unpaired electrons measured from the CP2K output (Exercise 6): 2
+</pre></div>
+</div>
+<figure class="align-default" id="fig-o2-lcao">
+<img alt="../../_images/c6c275b583a037fa28a7e04d2df5ede00b32dfef696470df7daa994c5835f89a.png" src="../../_images/c6c275b583a037fa28a7e04d2df5ede00b32dfef696470df7daa994c5835f89a.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 42 </span><span class="caption-text">The LCAO molecular-orbital ladder of O₂ built from Eq. eq-lcao-two-centre, with the atomic <span class="math notranslate nohighlight">\(2s\)</span> and <span class="math notranslate nohighlight">\(2p\)</span> levels of each oxygen at the sides and the molecular levels between them. Bonding levels are drawn in navy, antibonding in amber; arrows show the twelve valence electrons filled by Aufbau, with Hund’s rule leaving one electron in each of the degenerate <span class="math notranslate nohighlight">\(\pi^*\)</span> orbitals. Bond order two and two unpaired electrons follow from counting alone – the same conclusion the committed density-functional calculation reaches in Exercise 6.</span><a class="headerlink" href="#fig-o2-lcao" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</div>
+</div>
+<section id="validation-7-the-picture-agrees-with-the-machine">
+<h3>Validation 7 — the picture agrees with the machine<a class="headerlink" href="#validation-7-the-picture-agrees-with-the-machine" title="Link to this heading">#</a></h3>
+<p>The model is checked on the two things it actually claims, both of them integers
+that follow from symmetry and counting rather than from the illustrative parameter
+values: a bond order of two, and two unpaired electrons. The second is then set
+against the spin imbalance measured from the committed CP2K eigenvalues in Exercise
+6 — two calculations with nothing in common but the physics.</p>
+<div class="cell tag_validation tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>✓  the antibonding level rises further than the bonding level falls, the asymmetry the overlap denominator of eq-lcao-two-centre puts there   [up +1.122 eV vs down -0.918 eV]
+✓  filling the LCAO ladder with 12 valence electrons gives bond order 2, the double bond of O₂   [got 2 vs expected 2 (rtol=1e-12, atol=1e-09)]
+✓  and Hund&#39;s rule in the degenerate pi* pair predicts exactly the two unpaired electrons the density-functional calculation reports: the picture and the machine agree   [LCAO predicts 2, CP2K output gives 2]
 </pre></div>
 </div>
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>True
@@ -1185,6 +1302,10 @@ good functionals; Hartree-Fock alone underbinds it badly.</p></li>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-6-the-eigenvalues-and-the-molecular-orbital-schema-assignment-4">Exercise 6 — The eigenvalues and the molecular-orbital schema (Assignment 4)</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#validation-6-two-unpaired-electrons-a-paramagnetic-triplet">Validation 6 — two unpaired electrons, a paramagnetic triplet</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-7-the-model-that-predicts-the-triplet">Exercise 7 — The model that predicts the triplet</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#validation-7-the-picture-agrees-with-the-machine">Validation 7 — the picture agrees with the machine</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#notebook-summary">Notebook summary</a></li>

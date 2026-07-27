@@ -632,7 +632,7 @@ PBE <span class="bibtex-citation" id="id1">[<a class="reference internal" href="
 <strong>transition state</strong>, then falls to the <strong>products</strong>. Two numbers summarise it: the
 <strong>activation barrier</strong></p>
 <div class="math notranslate nohighlight" id="equation-eq-barrier">
-<span class="eqno">(38)<a class="headerlink" href="#equation-eq-barrier" title="Link to this equation">#</a></span>\[\Delta E^{\ddagger} = E_{\rm TS} - E_{\rm reactant},\]</div>
+<span class="eqno">(39)<a class="headerlink" href="#equation-eq-barrier" title="Link to this equation">#</a></span>\[\Delta E^{\ddagger} = E_{\rm TS} - E_{\rm reactant},\]</div>
 <p>which controls the rate, and the <strong>reaction energy</strong>
 <span class="math notranslate nohighlight">\(\Delta E = E_{\rm products} - E_{\rm reactant}\)</span>, which says whether the reaction
 absorbs energy (endothermic, <span class="math notranslate nohighlight">\(\Delta E&gt;0\)</span>) or releases it. Ethanol dehydration is
@@ -653,7 +653,7 @@ convergence: barriers are a sensitive probe of both.</p>
 <p>Transition-state theory turns the barrier into a rate constant through the Eyring (or,
 equivalently, Arrhenius) form</p>
 <div class="math notranslate nohighlight" id="equation-eq-eyring">
-<span class="eqno">(39)<a class="headerlink" href="#equation-eq-eyring" title="Link to this equation">#</a></span>\[k(T) \propto \exp\!\left(-\frac{\Delta E^{\ddagger}}{k_B T}\right),\]</div>
+<span class="eqno">(40)<a class="headerlink" href="#equation-eq-eyring" title="Link to this equation">#</a></span>\[k(T) \propto \exp\!\left(-\frac{\Delta E^{\ddagger}}{k_B T}\right),\]</div>
 <p>exponentially sensitive to the barrier, so the few-kcal/mol spread between methods
 becomes orders of magnitude in the predicted rate.</p>
 </section>
@@ -776,7 +776,7 @@ state’s stretched C–O bond.</p>
 <figure class="align-default" id="fig-rxn-structures">
 <img alt="../../_images/4b049ba28efb7b14f778ad91f19eaff935fda4ad899edef77a0013075e65d5c7.png" src="../../_images/4b049ba28efb7b14f778ad91f19eaff935fda4ad899edef77a0013075e65d5c7.png" />
 <figcaption>
-<p><span class="caption-number">Fig. 46 </span><span class="caption-text">The committed CP2K-optimised structures of the ethanol dehydration: the ethanol reactant, the transition state (the C–O bond stretched, a hydrogen migrating to the leaving oxygen), and the ethene + water products. Carbon grey, oxygen red, hydrogen white.</span><a class="headerlink" href="#fig-rxn-structures" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 47 </span><span class="caption-text">The committed CP2K-optimised structures of the ethanol dehydration: the ethanol reactant, the transition state (the C–O bond stretched, a hydrogen migrating to the leaving oxygen), and the ethene + water products. Carbon grey, oxygen red, hydrogen white.</span><a class="headerlink" href="#fig-rxn-structures" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>shortest C–O distance:  ethanol 1.43 Å  -&gt;  transition state 1.90 Å (stretched)
@@ -815,7 +815,7 @@ transition state lies above its reactant.</p>
 <figure class="align-default" id="fig-rxn-profile">
 <img alt="../../_images/e897866c9cbe3fbf0ba9d5f6f941454c155d4ac11aa32b32b5554204dde73e6a.png" src="../../_images/e897866c9cbe3fbf0ba9d5f6f941454c155d4ac11aa32b32b5554204dde73e6a.png" />
 <figcaption>
-<p><span class="caption-number">Fig. 47 </span><span class="caption-text">Reaction-energy profiles for ethanol dehydration, from the course’s committed total energies: energy relative to ethanol (kcal/mol) at the reactant, transition state, and products, for PBE (navy) and B3LYP (amber) across three basis sets. Every path climbs a large barrier to the transition state and ends above the reactant (endothermic). The minimal SZV basis overshoots; DZVP and TZVP nearly coincide.</span><a class="headerlink" href="#fig-rxn-profile" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 48 </span><span class="caption-text">Reaction-energy profiles for ethanol dehydration, from the course’s committed total energies: energy relative to ethanol (kcal/mol) at the reactant, transition state, and products, for PBE (navy) and B3LYP (amber) across three basis sets. Every path climbs a large barrier to the transition state and ends above the reactant (endothermic). The minimal SZV basis overshoots; DZVP and TZVP nearly coincide.</span><a class="headerlink" href="#fig-rxn-profile" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 </div>
@@ -861,7 +861,7 @@ B3LYP-TZVP        66.1      11.4
 <figure class="align-default" id="fig-rxn-convergence">
 <img alt="../../_images/0fef308c62a3aafc73afced008c7b35781a8ead19f92466cad6df16e935d6c06.png" src="../../_images/0fef308c62a3aafc73afced008c7b35781a8ead19f92466cad6df16e935d6c06.png" />
 <figcaption>
-<p><span class="caption-number">Fig. 48 </span><span class="caption-text">Activation barrier of ethanol dehydration versus basis-set size for PBE (navy) and B3LYP (amber). The minimal single-zeta SZV basis overshoots badly; the barrier converges from DZVP to TZVP. At convergence the hybrid B3LYP-TZVP (~66 kcal/mol) sits in the experimental range (grey band, ~65–70 kcal/mol); PBE underestimates it.</span><a class="headerlink" href="#fig-rxn-convergence" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 49 </span><span class="caption-text">Activation barrier of ethanol dehydration versus basis-set size for PBE (navy) and B3LYP (amber). The minimal single-zeta SZV basis overshoots badly; the barrier converges from DZVP to TZVP. At convergence the hybrid B3LYP-TZVP (~66 kcal/mol) sits in the experimental range (grey band, ~65–70 kcal/mol); PBE underestimates it.</span><a class="headerlink" href="#fig-rxn-convergence" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 </div>
@@ -886,7 +886,7 @@ kcal/mol), and the best method, B3LYP-TZVP, must fall in the measured range.</p>
 <section id="exercise-4-from-barrier-to-reaction-rate">
 <h2>Exercise 4 — From barrier to reaction rate<a class="headerlink" href="#exercise-4-from-barrier-to-reaction-rate" title="Link to this heading">#</a></h2>
 <p>The barrier matters because it sets the rate, exponentially. Through transition-state
-theory <a class="reference internal" href="#equation-eq-eyring">Eq. 39</a> the rate constant scales as <span class="math notranslate nohighlight">\(e^{-\Delta E^{\ddagger}/k_BT}\)</span>, so
+theory <a class="reference internal" href="#equation-eq-eyring">Eq. 40</a> the rate constant scales as <span class="math notranslate nohighlight">\(e^{-\Delta E^{\ddagger}/k_BT}\)</span>, so
 the spread of barriers between methods becomes a spread of many orders of magnitude in
 the predicted rate. We show this directly: the relative rate at a typical reaction
 temperature, computed from each method’s barrier, ranges over nearly nine orders of
@@ -899,7 +899,7 @@ magnitude.</p>
 <figure class="align-default" id="fig-rxn-rate">
 <img alt="../../_images/76e4151812b89e4f7a0a8ba16c3ae5b506316baf8b42ed0ec3a7b2aa29164bf1.png" src="../../_images/76e4151812b89e4f7a0a8ba16c3ae5b506316baf8b42ed0ec3a7b2aa29164bf1.png" />
 <figcaption>
-<p><span class="caption-number">Fig. 49 </span><span class="caption-text">Relative reaction rate <span class="math notranslate nohighlight">\(e^{-\Delta E^{\ddagger}/k_BT}\)</span> at 600 K (log scale) for each method, normalised to the fastest. Because the rate depends exponentially on the barrier, the few-kcal/mol differences between functionals and basis sets become many orders of magnitude in rate: a converged method is not optional.</span><a class="headerlink" href="#fig-rxn-rate" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 50 </span><span class="caption-text">Relative reaction rate <span class="math notranslate nohighlight">\(e^{-\Delta E^{\ddagger}/k_BT}\)</span> at 600 K (log scale) for each method, normalised to the fastest. Because the rate depends exponentially on the barrier, the few-kcal/mol differences between functionals and basis sets become many orders of magnitude in rate: a converged method is not optional.</span><a class="headerlink" href="#fig-rxn-rate" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>predicted rate varies by a factor of 9.5e+08 across the six methods at 600 K
