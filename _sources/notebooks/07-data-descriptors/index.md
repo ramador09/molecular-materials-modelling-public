@@ -1,6 +1,6 @@
-# Volume VII — Data and Descriptors
+# Chapter VII — Data and Descriptors
 
-The methods of the earlier volumes each compute a property from a structure directly:
+The methods of the earlier chapters each compute a property from a structure directly:
 solve for the electrons, integrate the equations of motion, sum the hills. Machine
 learning proposes instead to *fit* that map from examples — which changes the central
 question from how to compute the property to how to present the structure.
@@ -24,7 +24,7 @@ scratch.
 
 ```{admonition} Source lectures
 :class: note
-This volume develops **Lectures 10 and 11** of *Molecular and Materials
+This chapter develops **Lectures 10 and 11** of *Molecular and Materials
 Modelling* (FS 2023) — *machine learning for atomistic systems* and
 *dimensionality reduction and sampling* — as new exercises designed by the
 author, the original exercise set having announced these lectures without

@@ -1,6 +1,6 @@
-# Volume IV — Electronic Structure
+# Chapter IV — Electronic Structure
 
-The previous volumes treated atoms as classical particles on a potential surface.
+The previous chapters treated atoms as classical particles on a potential surface.
 That potential comes from the electrons, and computing it is the business of
 *electronic-structure theory*: solving the quantum many-electron problem, usually
 by density-functional theory, to obtain energies, forces, and the band structure
@@ -13,10 +13,10 @@ input decks and analyse the **real committed output** of the course calculations
 
 ```{admonition} Source lectures
 :class: note
-This volume develops **Lecture 5** of *Molecular and Materials Modelling*
+This chapter develops **Lecture 5** of *Molecular and Materials Modelling*
 (FS 2023) — *band theory of crystals* — and **Lecture 6** — *molecular orbital
 theory*. The remaining density-functional lectures land where their systems
-live: Lecture 7 in Volume VI and Lecture 8 in Volume V. Each notebook repeats its specific lecture provenance in its
+live: Lecture 7 in Chapter VI and Lecture 8 in Chapter V. Each notebook repeats its specific lecture provenance in its
 overview; the full lecture map is in `manifest.yml`.
 ```
 

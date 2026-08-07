@@ -1,4 +1,4 @@
-# Volume I — Statistical Mechanics & Monte Carlo
+# Chapter I — Statistical Mechanics & Monte Carlo
 
 Lattice models and the Monte Carlo methods that sample them: the Ising model and
 its phase transition, the Metropolis algorithm and detailed balance, the
@@ -10,7 +10,7 @@ algorithm is built on.
 
 ```{admonition} Source lectures
 :class: note
-This volume develops **Lecture 2** of *Molecular and Materials Modelling*
+This chapter develops **Lecture 2** of *Molecular and Materials Modelling*
 (FS 2023) — *the 2D Ising model and the foundations of Monte Carlo* — whose
 exercise was developed by Dr. Carlo Pignedoli. Each notebook repeats its specific
 lecture provenance in its overview; the full lecture map is in `manifest.yml`.
