@@ -1,4 +1,4 @@
-# Data provenance — Volume III — Molecular Dynamics
+# Data provenance — Chapter III — Molecular Dynamics
 
 Every file committed here, with its origin and the licence under which this
 course redistributes it. The gate `tools/check_provenance.py` requires each

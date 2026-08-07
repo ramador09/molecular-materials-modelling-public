@@ -127,7 +127,7 @@ def conserved(
 
     A conserved quantity (total energy, angular momentum) should hold fixed along
     an integrated trajectory; its relative drift is a sharp, physics-based test of
-    an integrator's fidelity, the one used throughout Volumes I–II.
+    an integrator's fidelity, the one used throughout Chapters I–II.
 
     Parameters
     ----------

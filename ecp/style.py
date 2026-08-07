@@ -60,7 +60,7 @@ _FONT_IMPORT = (
 class Notebook:
     """Lightweight metadata describing one notebook in the series."""
 
-    volume: str          # e.g. "Volume I — Elementary Mechanics"
+    volume: str          # e.g. "Chapter I — Statistical Mechanics & Monte Carlo"
     number: str          # e.g. "1.3"
     title: str           # e.g. "The Double Pendulum"
     blurb: str = ""       # one-line description shown under the title

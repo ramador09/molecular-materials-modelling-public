@@ -47,7 +47,7 @@ footer of any page.
 
 ## Organisation, and continuity with the course
 
-The notebooks are grouped **thematically** into volumes rather than in strict
+The notebooks are grouped **thematically** into chapters rather than in strict
 lecture order, because related methods (say, Monte Carlo in equilibrium and in
 real time) belong together. Continuity with the original course is preserved a
 different way: **every notebook states the lecture it develops, with the number
@@ -87,7 +87,7 @@ taken on trust — every exercise ends by checking its result against something 
 computation did *not* assume, so the reader never has to take anyone's word, human
 or machine, for a single number.
 
-## Volumes
+## Chapters
 
 ```{tableofcontents}
 ```

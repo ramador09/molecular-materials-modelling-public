@@ -1,4 +1,4 @@
-# Data provenance — Volume VI — Reactions and Free Energy
+# Data provenance — Chapter VI — Reactions and Free Energy
 
 Every file committed here, with its origin and the licence under which this
 course redistributes it. The gate `tools/check_provenance.py` requires each

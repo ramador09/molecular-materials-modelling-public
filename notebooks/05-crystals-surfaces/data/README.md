@@ -1,4 +1,4 @@
-# Data provenance — Volume V — Crystals and Surfaces
+# Data provenance — Chapter V — Crystals and Surfaces
 
 Every file committed here, with its origin and the licence under which this
 course redistributes it. The gate `tools/check_provenance.py` requires each

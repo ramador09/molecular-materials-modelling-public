@@ -1,4 +1,4 @@
-# Data provenance — Volume II — Energy Landscapes & Optimization
+# Data provenance — Chapter II — Energy Landscapes & Optimization
 
 Every file committed here, with its origin and the licence under which this
 course redistributes it. The gate `tools/check_provenance.py` requires each
