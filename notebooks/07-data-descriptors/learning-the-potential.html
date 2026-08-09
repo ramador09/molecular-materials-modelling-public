@@ -576,7 +576,7 @@
               font-family:'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace;font-size:11px;color:#46506b;
               letter-spacing:.04em;">
     <span>Raymond Amador</span>
-    <span>v1.2.0 &nbsp;·&nbsp; 2026-08-09 &nbsp;·&nbsp;
+    <span>v1.2.1 &nbsp;·&nbsp; 2026-08-09 &nbsp;·&nbsp;
           CC&nbsp;BY&nbsp;4.0 (text) / MIT (code)</span>
   </div>
 </div></div></div>
@@ -881,7 +881,9 @@ features must first be brought to a common scale.)</p>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>global minimum   E0 = -44.326801 eps   (literature -44.326801)
 second basin     E1 = -41.471980 eps   (E1 - E0 = 2.855)
-curated pool: 420 configs, E in [-43.75, -22.06] eps (8957 rejected by the floor)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>curated pool: 420 configs, E in [-43.75, -22.06] eps (8957 rejected by the floor)
 uncurated control: 200 configs, E in [-32.49, 10273.5] eps, 156 above zero
 fingerprints: 420 x 8, all finite: True
 </pre></div>
@@ -1016,11 +1018,11 @@ n = 320: random median 0.973 eps   fps 0.971 eps   ratio 1.00
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>random draws of 10: 7/12 contain zero minority configs (pool fraction 10%)
-fps: first minority pick at #3; minority fraction in 80 picks 22%
+fps: first minority pick at #3; minority fraction in 80 picks 25%
 </pre></div>
 </div>
 <figure class="align-default" id="fig-lp-curves">
-<img alt="../../_images/5f816530bd24039d7fbb37a35f9f03dc4fbc58ebcb06398758c2b51d16deba60.png" src="../../_images/5f816530bd24039d7fbb37a35f9f03dc4fbc58ebcb06398758c2b51d16deba60.png" />
+<img alt="../../_images/d04bb722b673c5df54331752d3953e6c3227253745a47638da74aa9d8a4fe475.png" src="../../_images/d04bb722b673c5df54331752d3953e6c3227253745a47638da74aa9d8a4fe475.png" />
 <figcaption>
 <p><span class="caption-number">Fig. 87 </span><span class="caption-text">How to spend a labelling budget. Left: learning curve of the kernel model on the homogeneous pool, test error against training-set size on log-log axes; the band spans the 12 random draws, the ink line is their median, and the amber line is farthest-point sampling — worse at the smallest budget, where its corner-chasing early picks (the animation of the previous notebook showed exactly this) leave the interior unrepresented, and modestly better at every budget beyond, because a homogeneous pool leaves little for coverage to fix. Right: the imbalanced two-basin pool, cumulative number of minority-basin configurations selected against selection step. Random selection (ink, mean of 12 draws) accumulates minority points at the pool rate of one in ten, and more than half of its 10-point draws contain none at all; farthest-point sampling (amber) jumps to the rare basin within its first few picks, because in descriptor space the minority structures are far from everything already selected.</span><a class="headerlink" href="#fig-lp-curves" title="Link to this image">#</a></p>
 </figcaption>
@@ -1034,7 +1036,7 @@ fps: first minority pick at #3; minority fraction in 80 picks 22%
 ✓  farthest-point selection matches or beats the random median at every budget beyond the smallest on the homogeneous pool (its advantage is modest there, and at n = 10 its corner-chasing start genuinely hurts — both halves of the honest answer to the question of §7.2)   [fps/random at n&gt;=20: max 1.00; at n=10 1.17]
 ✓  on the imbalanced pool a sizeable share of small random draws contain no minority-basin configuration at all, the failure mode coverage-based selection exists to prevent   [7/12 ten-point draws are minority-blind]
 ✓  while farthest-point sampling reaches the rare basin within its first few selections, because a rare structure is by definition far from everything already chosen in descriptor space   [first minority pick at #3]
-✓  and over-represents the minority basin well beyond its pool fraction, which is precisely the property a training set for a rare-event study needs   [22% selected vs 10% in the pool]
+✓  and over-represents the minority basin well beyond its pool fraction, which is precisely the property a training set for a rare-event study needs   [25% selected vs 10% in the pool]
 </pre></div>
 </div>
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>True
@@ -1075,7 +1077,7 @@ nearest-training distance, median: in-domain 0.139, out-of-domain 3.773 (27x)
 </pre></div>
 </div>
 <figure class="align-default" id="fig-lp-extrapolation">
-<img alt="../../_images/35d9d8645a502c6802bbebfbb666d28b6e7344bee562e65fb09ba91ccc07fe40.png" src="../../_images/35d9d8645a502c6802bbebfbb666d28b6e7344bee562e65fb09ba91ccc07fe40.png" />
+<img alt="../../_images/0710a682422c6bbf3cfa500293760b1a1bd9dcfd9dd5cd91c01e98022099a767.png" src="../../_images/0710a682422c6bbf3cfa500293760b1a1bd9dcfd9dd5cd91c01e98022099a767.png" />
 <figcaption>
 <p><span class="caption-number">Fig. 88 </span><span class="caption-text">Silent failure, and the flag that exposes it. Left: predicted against true energy for the in-domain test set (ink) and the out-of-domain probes at rattle amplitudes 0.18 and 0.24 sigma (amber); the diagonal is perfect prediction. In domain the points hug the diagonal; out of domain the predictions detach and drift toward the training mean (dotted), the generic behaviour of a kernel expansion evaluated far from its centres — and nothing in the numbers themselves warns of it. Right: distribution of the distance from each query to its nearest training point in standardised descriptor space. The in-domain and out-of-domain distributions separate by more than an order of magnitude in the median, so thresholding this one cheap number flags essentially every unreliable prediction before it is used.</span><a class="headerlink" href="#fig-lp-extrapolation" title="Link to this image">#</a></p>
 </figcaption>

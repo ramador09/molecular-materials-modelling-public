@@ -607,7 +607,7 @@
               font-family:'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace;font-size:11px;color:#46506b;
               letter-spacing:.04em;">
     <span>Raymond Amador</span>
-    <span>v1.2.0 &nbsp;·&nbsp; 2026-08-09 &nbsp;·&nbsp;
+    <span>v1.2.1 &nbsp;·&nbsp; 2026-08-09 &nbsp;·&nbsp;
           CC&nbsp;BY&nbsp;4.0 (text) / MIT (code)</span>
   </div>
 </div></div></div>
@@ -1280,9 +1280,9 @@ level pattern against the committed CP2K schema.</p>
 <p><span class="caption-number">Fig. 50 </span><span class="caption-text">The valence orbital energies of triplet O2 from the live unrestricted Hartree–Fock run, α spin channel (amber) against β (navy), each level drawn at its computed energy. The two channels agree on the deep σ levels, then part company where the physics lives: the α channel holds the degenerate π* pair as its highest occupied levels, while in the β channel that same pair is empty — the two unpaired electrons of the triplet, in the same nine-against-seven pattern as the committed CP2K eigenvalues of Exercise 6. The dashed markers show the empty β π* pair, degenerate to machine precision.</span><a class="headerlink" href="#fig-o2-uhf" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>E(triplet) = -149.545575 Ha, E(singlet) = -149.461399 Ha  -&gt;  triplet lower by 2.29 eV
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>E(triplet) = -149.545575 Ha, E(singlet) = -149.513527 Ha  -&gt;  triplet lower by 0.87 eV
 &lt;S^2&gt; = 2.0334 (exact S(S+1) = 2; the excess 0.0334 is UHF spin contamination)
-occupations: 9 alpha / 7 beta; beta LUMO pair split 6.38e-16 Ha -- the two degenerate pi* holes of Exercise 6&#39;s committed schema
+occupations: 9 alpha / 7 beta; beta LUMO pair split 1.24e-15 Ha -- the two degenerate pi* holes of Exercise 6&#39;s committed schema
 </pre></div>
 </div>
 </div>
@@ -1300,9 +1300,9 @@ machine precision, since that degeneracy is symmetry rather than fitting.</p>
 <div class="cell tag_validation tag_remove-input docutils container">
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>✓  both unrestricted SCF runs converged   [triplet True, singlet True]
-✓  the triplet lies well below the single-determinant singlet: Hund&#39;s rule as a computed energy difference, ordering gated and the singlet&#39;s multireference character left honestly unquoted   [triplet below by 2.29 eV]
+✓  the triplet lies well below the single-determinant singlet: Hund&#39;s rule as a computed energy difference, ordering gated and the singlet&#39;s multireference character left honestly unquoted   [triplet below by 0.87 eV]
 ✓  the spin contamination is positive and small: &lt;S^2&gt; sits just above the exact 2, the fingerprint of a mildly spin-broken UHF triplet   [&lt;S^2&gt; - 2 = 0.0334]
-✓  and the alpha/beta structure reproduces the committed CP2K schema: two more alpha electrons than beta, and the beta LUMO a pi* pair degenerate to machine precision -- the two holes Hund&#39;s rule carved   [9 alpha / 7 beta; beta-LUMO split 6.4e-16 Ha]
+✓  and the alpha/beta structure reproduces the committed CP2K schema: two more alpha electrons than beta, and the beta LUMO a pi* pair degenerate to machine precision -- the two holes Hund&#39;s rule carved   [9 alpha / 7 beta; beta-LUMO split 1.2e-15 Ha]
 </pre></div>
 </div>
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>True

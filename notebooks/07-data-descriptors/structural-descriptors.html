@@ -593,7 +593,7 @@
               font-family:'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace;font-size:11px;color:#46506b;
               letter-spacing:.04em;">
     <span>Raymond Amador</span>
-    <span>v1.2.0 &nbsp;·&nbsp; 2026-08-09 &nbsp;·&nbsp;
+    <span>v1.2.1 &nbsp;·&nbsp; 2026-08-09 &nbsp;·&nbsp;
           CC&nbsp;BY&nbsp;4.0 (text) / MIT (code)</span>
   </div>
 </div></div></div>
@@ -914,7 +914,7 @@ a slab, where the missing half-space should show up as missing neighbour density
 <div class="cell tag_solution tag_remove-input docutils container">
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>relative change in the descriptor under translation : 1.80e-16
-relative change in the descriptor under rotation    : 7.33e-17
+relative change in the descriptor under rotation    : 1.15e-18
 relative change in the descriptor under permutation : 0.00e+00
 </pre></div>
 </div>
@@ -939,7 +939,7 @@ would be useless. And the surface values must be <em>lower</em> in every compone
 the surface atom is missing neighbours rather than merely rearranged ones.</p>
 <div class="cell tag_validation tag_remove-input docutils container">
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>✓  translation, rotation and relabelling leave the radial descriptor unchanged to machine precision, so the invariance is exact by construction rather than approximately learned from data   [translation: 1.8e-16, rotation: 7.3e-17, permutation: 0.0e+00]
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>✓  translation, rotation and relabelling leave the radial descriptor unchanged to machine precision, so the invariance is exact by construction rather than approximately learned from data   [translation: 1.8e-16, rotation: 1.1e-18, permutation: 0.0e+00]
 ✓  and yet it separates a bulk atom from a surface atom by a wide margin, so the invariance was not bought by throwing the structural information away   [relative difference 0.310]
 ✓  with every component lower at the surface, as it must be when an environment loses neighbours rather than rearranging the ones it has   [largest surviving fraction 54.7 % of the bulk value]
 </pre></div>
@@ -1028,14 +1028,14 @@ hcp first-shell angles: 24@60°  12@90°  3@109°  18@120°  6@146°  3@180°
 </pre></div>
 </div>
 <figure class="align-default" id="fig-desc-angles">
-<img alt="../../_images/2ec1d10e3c7bf68c9f31118ead867a6b8f9e595fd45030878530beda5c57a652.png" src="../../_images/2ec1d10e3c7bf68c9f31118ead867a6b8f9e595fd45030878530beda5c57a652.png" />
+<img alt="../../_images/e723f9a2b33950127c9d338768909dbddbbc66af9f1c6300ccca00c8ac85340a.png" src="../../_images/e723f9a2b33950127c9d338768909dbddbbc66af9f1c6300ccca00c8ac85340a.png" />
 <figcaption>
 <p><span class="caption-number">Fig. 79 </span><span class="caption-text">Left: bond-angle distributions of the twelve nearest neighbours in fcc and hcp. The two agree at 60° and 90° and part company above 100°, where fcc has 24 pairs at 120° and 6 at 180° while hcp spreads its count over 110°, 120°, 146° and 180°. Right: the relative difference between the fcc and hcp angular descriptors as the sharpness ζ is increased, for the standard G4 of Eq. eq-bp-g4 and the G5 variant of Eq. eq-bp-g5. G4 stays at machine zero for every ζ, because its cutoff on the neighbour–neighbour distance rjk discards precisely the wide-angle pairs where the two phases differ. G5, which has no such factor, separates them once ζ is large enough to resolve the angular structure.</span><a class="headerlink" href="#fig-desc-angles" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>widest angle whose pair survives G4&#39;s r_jk cutoff at Rc = 4.0 Å: 90°
 G4 fcc-hcp separation, over ζ = [1.0, 2.0, 4.0, 8.0, 16.0, 32.0]:
-   2.6e-15  2.5e-15  2.8e-15  4.0e-15  4.6e-15  4.9e-15
+   2.4e-15  2.3e-15  2.8e-15  3.7e-15  4.2e-15  4.2e-15
 G5 fcc-hcp separation:
    1.5e-15  1.5e-15  2.9e-03  4.2e-02  2.1e-01  4.1e-01
 </pre></div>
@@ -1054,7 +1054,7 @@ since a blurred angular filter averages the difference away.</p>
 <div class="cell tag_validation tag_remove-input docutils container">
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>✓  the first-shell bond-angle distributions of fcc and hcp genuinely differ, so an angular descriptor has something real to detect where a radial one had nothing   [18 pairs fall in different angle bins]
-✓  yet the standard G4 returns machine zero at every sharpness ζ: its cutoff on the neighbour-neighbour distance rjk is a cutoff on angle in disguise, and at this radius it discards exactly the wide-angle pairs where the two phases differ   [largest G4 separation over the scan: 4.9e-15]
+✓  yet the standard G4 returns machine zero at every sharpness ζ: its cutoff on the neighbour-neighbour distance rjk is a cutoff on angle in disguise, and at this radius it discards exactly the wide-angle pairs where the two phases differ   [largest G4 separation over the scan: 4.2e-15]
 ✓  which the geometry states directly: two neighbours at distance d subtending θ lie 2d sin(θ/2) apart, so the widest angle surviving the rjk cutoff falls below the range where the fcc and hcp distributions separate   [widest surviving angle 90°, while the distributions differ above 100°]
 ✓  and G5, which differs from G4 only by dropping those factors, separates the two stackings — but only for sharp angular filters: at ζ = 1 the difference is still machine zero, because a broad filter averages over precisely what distinguishes them   [G5 separation 1.5e-15 at ζ = 1, 4.1e-01 at ζ = 32]
 </pre></div>
@@ -1080,7 +1080,7 @@ angular distribution — reached by <span class="math notranslate nohighlight">\
 <div class="cell tag_solution tag_remove-input docutils container">
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>fcc: n = 12, ||Σ r̂|| = 3.09e-15, Σcos θ = -6.000000, predicted -6.000000
-hcp: n = 12, ||Σ r̂|| = 2.96e-15, Σcos θ = -6.000000, predicted -6.000000
+hcp: n = 12, ||Σ r̂|| = 2.89e-15, Σcos θ = -6.000000, predicted -6.000000
 </pre></div>
 </div>
 </div>
@@ -1138,7 +1138,7 @@ fcc, and first separation at <span class="math notranslate nohighlight">\(\ell =
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>l      :        0        1        2        3        4        5        6
 p_fcc  :  11.4592   0.0000   0.0000   0.0000   3.7600   0.0000  49.1714
 p_hcp  :  11.4592   0.0000   0.0000   0.4642   0.9748   7.9785  35.0068
-rotational invariance 1.4e-14; fcc odd-l max 2.3e-29; first separating channel l = 3
+rotational invariance 2.8e-14; fcc odd-l max 2.3e-29; first separating channel l = 3
 </pre></div>
 </div>
 </div>
@@ -1155,9 +1155,9 @@ the hcp octupole that no radial function, and no low-order angular filter,
 could ever have seen.</p>
 <div class="cell tag_validation tag_remove-input docutils container">
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>✓  every power-spectrum channel is rotationally invariant to machine precision: the c_lm mix unitarily within fixed l, and their norm cannot notice a rotation   [max change under a random rotation: 1.4e-14]
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>✓  every power-spectrum channel is rotationally invariant to machine precision: the c_lm mix unitarily within fixed l, and their norm cannot notice a rotation   [max change under a random rotation: 2.8e-14]
 ✓  every odd-l channel of the fcc shell vanishes exactly: inversion parity cancels Y_lm coefficients in pairs, a theorem the arithmetic merely confirms   [largest odd-l fcc power: 2.3e-29]
-✓  the two stackings agree exactly through l = 2 -- the multipole face of the zeta &lt;= 2 blindness Exercise 4 proved through moments   [max |p_fcc - p_hcp| for l &lt;= 2: 1.1e-30]
+✓  the two stackings agree exactly through l = 2 -- the multipole face of the zeta &lt;= 2 blindness Exercise 4 proved through moments   [max |p_fcc - p_hcp| for l &lt;= 2: 1.3e-30]
 ✓  and the first channel that separates them is l = 3: the anticuboctahedron keeps a finite octupole where the cuboctahedron&#39;s parity forbids one   [first separation at l = 3; p_3(hcp) = 0.464]
 </pre></div>
 </div>
