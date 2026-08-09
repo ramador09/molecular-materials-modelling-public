@@ -603,7 +603,7 @@
               font-family:'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace;font-size:11px;color:#46506b;
               letter-spacing:.04em;">
     <span>Raymond Amador</span>
-    <span>v1.2.0 &nbsp;·&nbsp; 2026-08-07 &nbsp;·&nbsp;
+    <span>v1.2.0 &nbsp;·&nbsp; 2026-08-09 &nbsp;·&nbsp;
           CC&nbsp;BY&nbsp;4.0 (text) / MIT (code)</span>
   </div>
 </div></div></div>
@@ -938,7 +938,7 @@ fingerprints the bond-orientational order. Plotted against optimization step, th
 energy plunges, the asphericity stays small throughout (the cluster is compact from
 the outset), and <span class="math notranslate nohighlight">\(Q_6\)</span> climbs to the fcc value <span class="math notranslate nohighlight">\(\approx0.57\)</span> as crystalline order
 sets in.</p>
-<p><strong>Part a)</strong> Implement <code class="docutils literal notranslate"><span class="pre">asphericity(x)</span></code> from the gyration-tensor eigenvalues
+<p><strong>Part a)</strong> Implement <code class="docutils literal notranslate"><span class="pre">asphericity(x)</span></code> from the principal moments of inertia
 <a class="reference internal" href="#equation-eq-asphericity">Eq. 25</a>, using <code class="docutils literal notranslate"><span class="pre">numpy.linalg.eigvalsh</span></code> on the <span class="math notranslate nohighlight">\(3\times3\)</span> tensor —
 symmetric by construction, so the symmetric solver is both faster and free of
 spurious imaginary parts.
@@ -989,8 +989,8 @@ downhill optimization is trapped in whichever it starts in. The disconnectivity
 graph, sketched below, is the standard picture of this <span class="bibtex-citation" id="id4">[<a class="reference internal" href="#id22" title="David J. Wales. Energy Landscapes: Applications to Clusters, Biomolecules and Glasses. Cambridge University Press, 2003.">Wal03</a>]</span>.</p>
 <p><strong>Part a)</strong> Relax the icosahedral seed and compare its energy, asphericity and
 <span class="math notranslate nohighlight">\(Q_6\)</span> with the octahedral minimum of Exercise 2. The two are close in energy and
-far apart in <span class="math notranslate nohighlight">\(Q_6\)</span>, which is the whole reason a single order parameter is not
-enough to tell funnels apart.</p>
+far apart in <span class="math notranslate nohighlight">\(Q_6\)</span>, which is why the energy alone cannot tell the two funnels
+apart and a structural fingerprint has to be carried alongside it.</p>
 <p><strong>Part b)</strong> Sketch the two-funnel disconnectivity graph, the standard picture of a
 landscape whose global minimum is not the one a quench usually finds.</p>
 <div class="cell tag_solution tag_remove-input docutils container">
@@ -1232,42 +1232,42 @@ input[type=range].anim-slider {
 </style>
 
 <div class="animation">
-  <img id="_anim_img67234a0bba374153bbbcbc2b1585a5cf">
+  <img id="_anim_img0c611a59093b4d699b88f8703d478e07">
   <div class="anim-controls">
-    <input id="_anim_slider67234a0bba374153bbbcbc2b1585a5cf" type="range" class="anim-slider"
+    <input id="_anim_slider0c611a59093b4d699b88f8703d478e07" type="range" class="anim-slider"
            name="points" min="0" max="1" step="1" value="0"
-           oninput="anim67234a0bba374153bbbcbc2b1585a5cf.set_frame(parseInt(this.value));">
+           oninput="anim0c611a59093b4d699b88f8703d478e07.set_frame(parseInt(this.value));">
     <div class="anim-buttons">
-      <button title="Decrease speed" aria-label="Decrease speed" onclick="anim67234a0bba374153bbbcbc2b1585a5cf.slower()">
+      <button title="Decrease speed" aria-label="Decrease speed" onclick="anim0c611a59093b4d699b88f8703d478e07.slower()">
           <i class="fa fa-minus"></i></button>
-      <button title="First frame" aria-label="First frame" onclick="anim67234a0bba374153bbbcbc2b1585a5cf.first_frame()">
+      <button title="First frame" aria-label="First frame" onclick="anim0c611a59093b4d699b88f8703d478e07.first_frame()">
         <i class="fa fa-fast-backward"></i></button>
-      <button title="Previous frame" aria-label="Previous frame" onclick="anim67234a0bba374153bbbcbc2b1585a5cf.previous_frame()">
+      <button title="Previous frame" aria-label="Previous frame" onclick="anim0c611a59093b4d699b88f8703d478e07.previous_frame()">
           <i class="fa fa-step-backward"></i></button>
-      <button title="Play backwards" aria-label="Play backwards" onclick="anim67234a0bba374153bbbcbc2b1585a5cf.reverse_animation()">
+      <button title="Play backwards" aria-label="Play backwards" onclick="anim0c611a59093b4d699b88f8703d478e07.reverse_animation()">
           <i class="fa fa-play fa-flip-horizontal"></i></button>
-      <button title="Pause" aria-label="Pause" onclick="anim67234a0bba374153bbbcbc2b1585a5cf.pause_animation()">
+      <button title="Pause" aria-label="Pause" onclick="anim0c611a59093b4d699b88f8703d478e07.pause_animation()">
           <i class="fa fa-pause"></i></button>
-      <button title="Play" aria-label="Play" onclick="anim67234a0bba374153bbbcbc2b1585a5cf.play_animation()">
+      <button title="Play" aria-label="Play" onclick="anim0c611a59093b4d699b88f8703d478e07.play_animation()">
           <i class="fa fa-play"></i></button>
-      <button title="Next frame" aria-label="Next frame" onclick="anim67234a0bba374153bbbcbc2b1585a5cf.next_frame()">
+      <button title="Next frame" aria-label="Next frame" onclick="anim0c611a59093b4d699b88f8703d478e07.next_frame()">
           <i class="fa fa-step-forward"></i></button>
-      <button title="Last frame" aria-label="Last frame" onclick="anim67234a0bba374153bbbcbc2b1585a5cf.last_frame()">
+      <button title="Last frame" aria-label="Last frame" onclick="anim0c611a59093b4d699b88f8703d478e07.last_frame()">
           <i class="fa fa-fast-forward"></i></button>
-      <button title="Increase speed" aria-label="Increase speed" onclick="anim67234a0bba374153bbbcbc2b1585a5cf.faster()">
+      <button title="Increase speed" aria-label="Increase speed" onclick="anim0c611a59093b4d699b88f8703d478e07.faster()">
           <i class="fa fa-plus"></i></button>
     </div>
-    <form title="Repetition mode" aria-label="Repetition mode" action="#n" name="_anim_loop_select67234a0bba374153bbbcbc2b1585a5cf"
+    <form title="Repetition mode" aria-label="Repetition mode" action="#n" name="_anim_loop_select0c611a59093b4d699b88f8703d478e07"
           class="anim-state">
-      <input type="radio" name="state" value="once" id="_anim_radio1_67234a0bba374153bbbcbc2b1585a5cf"
+      <input type="radio" name="state" value="once" id="_anim_radio1_0c611a59093b4d699b88f8703d478e07"
              >
-      <label for="_anim_radio1_67234a0bba374153bbbcbc2b1585a5cf">Once</label>
-      <input type="radio" name="state" value="loop" id="_anim_radio2_67234a0bba374153bbbcbc2b1585a5cf"
+      <label for="_anim_radio1_0c611a59093b4d699b88f8703d478e07">Once</label>
+      <input type="radio" name="state" value="loop" id="_anim_radio2_0c611a59093b4d699b88f8703d478e07"
              checked>
-      <label for="_anim_radio2_67234a0bba374153bbbcbc2b1585a5cf">Loop</label>
-      <input type="radio" name="state" value="reflect" id="_anim_radio3_67234a0bba374153bbbcbc2b1585a5cf"
+      <label for="_anim_radio2_0c611a59093b4d699b88f8703d478e07">Loop</label>
+      <input type="radio" name="state" value="reflect" id="_anim_radio3_0c611a59093b4d699b88f8703d478e07"
              >
-      <label for="_anim_radio3_67234a0bba374153bbbcbc2b1585a5cf">Reflect</label>
+      <label for="_anim_radio3_0c611a59093b4d699b88f8703d478e07">Reflect</label>
     </form>
   </div>
 </div>
@@ -1277,9 +1277,9 @@ input[type=range].anim-slider {
   /* Instantiate the Animation class. */
   /* The IDs given should match those used in the template above. */
   (function() {
-    var img_id = "_anim_img67234a0bba374153bbbcbc2b1585a5cf";
-    var slider_id = "_anim_slider67234a0bba374153bbbcbc2b1585a5cf";
-    var loop_select_id = "_anim_loop_select67234a0bba374153bbbcbc2b1585a5cf";
+    var img_id = "_anim_img0c611a59093b4d699b88f8703d478e07";
+    var slider_id = "_anim_slider0c611a59093b4d699b88f8703d478e07";
+    var loop_select_id = "_anim_loop_select0c611a59093b4d699b88f8703d478e07";
     var frames = new Array(120);
     
   frames[0] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAYwAAAGMCAYAAADJOZVKAAAAOnRFWHRTb2Z0d2FyZQBNYXRwbG90\
@@ -71272,7 +71272,7 @@ iJBIwBBCCBESCRhCCCFC8n8ArirZTRvBd4cAAAAASUVORK5CYII=\
     /* set a timeout to make sure all the above elements are created before
        the object is initialized. */
     setTimeout(function() {
-        anim67234a0bba374153bbbcbc2b1585a5cf = new Animation(frames, img_id, slider_id, 33,
+        anim0c611a59093b4d699b88f8703d478e07 = new Animation(frames, img_id, slider_id, 33,
                                  loop_select_id);
     }, 0);
   })()
@@ -71373,8 +71373,8 @@ the saddle must sit above both, as any saddle between them must.</p>
 </section>
 <section id="exercise-7-the-double-funnel-weighed-and-where-its-entropy-actually-lives">
 <h2>Exercise 7 — The double funnel weighed, and where its entropy actually lives<a class="headerlink" href="#exercise-7-the-double-funnel-weighed-and-where-its-entropy-actually-lives" title="Link to this heading">#</a></h2>
-<p>Exercise 4 kept finding icosahedral structures instead of the fcc global
-minimum, and Exercise 5’s basin-hopping needed luck to cross between funnels.
+<p>Exercise 4 relaxed one icosahedral seed and found it a genuine minimum, and
+Exercise 5’s basin-hopping needed luck to cross between the two funnels.
 The thermodynamic question underneath: at temperature <span class="math notranslate nohighlight">\(T\)</span>, which funnel <em>should</em>
 the cluster occupy? The <strong>harmonic superposition approximation</strong>
 <span class="bibtex-citation" id="id6">[<a class="reference internal" href="#id22" title="David J. Wales. Energy Landscapes: Applications to Clusters, Biomolecules and Glasses. Cambridge University Press, 2003.">Wal03</a>]</span> answers it from quantities this notebook can compute
@@ -71393,7 +71393,7 @@ finite-difference Hessians of Exercise 6, and establish which structure is
 vibrationally softer.</p>
 <p><strong>Part b)</strong> Assemble the two-state crossover temperature from <a class="reference internal" href="#equation-eq-hsa">Eq. 27</a> and
 confront it with two reference points: the cluster’s own melting temperature,
-<span class="math notranslate nohighlight">\(T^\ast_{\rm melt} \approx 0.17\)</span> from the replica-exchange data of
+<span class="math notranslate nohighlight">\(T^\ast_{\rm melt} \approx 0.16\)</span> from the replica-exchange data of
 <a class="reference internal" href="../03-molecular-dynamics/replica-exchange.html"><span class="std std-doc">§3.2</span></a>, and the documented
 many-minima solid–solid crossover <span class="math notranslate nohighlight">\(T^\ast_h \approx 0.12\)</span> <span class="bibtex-citation" id="id7">[<a class="reference internal" href="#id57" title="Jonathan P. K. Doye, Mark A. Miller, and David J. Wales. The double-funnel energy landscape of the 38-atom lennard-jones cluster. The Journal of Chemical Physics, 110(14):6896–6906, 1999. doi:10.1063/1.478595.">DMW99</a>]</span>.
 The two-state answer is the finding: symmetry and softness together carry it to
@@ -71409,7 +71409,7 @@ downhill search of Exercise 4 kept landing icosahedral.</p>
 <div class="cell tag_solution tag_remove-input docutils container">
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>internal modes: 108 each; sum ln(omega_fcc/omega_ico) = 2.1385 (ico is softer)
-two-state crossover T* = 0.182: the right scale, but above melting (0.17) and above the documented many-minima value (0.12)
+two-state crossover T* = 0.182: the right scale, but above melting (0.16) and above the documented many-minima value (0.12)
 closing the gap to T*_h = 0.12 takes ~7 effective low-lying icosahedral minima -- Part c asks whether the funnel has them
 </pre></div>
 </div>
@@ -71438,8 +71438,8 @@ supplying that handful many times over.</p>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>✓  both funnel bottoms are true minima: all 108 internal modes positive in each spectrum, so the superposition inputs are sound   [min omega: fcc 3.163, ico 4.144]
 ✓  the icosahedral minimum is vibrationally softer than the fcc global -- the sign of the entropic mechanism that must eventually favour it   [sum ln(omega_fcc/omega_ico) = 2.139]
-✓  the two-state crossover lands at the right scale yet above both melting and the documented many-minima value, and the factor that closes the gap is a handful of effective icosahedral minima -- configurational entropy finishing what symmetry and softness started   [T*_two-state = 0.182 (melting 0.17, documented 0.12); n_eff ~ 7]
-✓  and the census finds exactly that: random starts land in icosahedral-like basins overwhelmingly, the direct measurement of where the landscape&#39;s entropy lives -- and of why Exercise 4 kept finding the wrong funnel   [74 minima: 71 ico-like vs 3 fcc-like]
+✓  the two-state crossover lands at the right scale yet above both melting and the documented many-minima value, and the factor that closes the gap is a handful of effective icosahedral minima -- configurational entropy finishing what symmetry and softness started   [T*_two-state = 0.182 (melting 0.16, documented 0.12); n_eff ~ 7]
+✓  and the census finds exactly that: random starts land in icosahedral-like basins overwhelmingly, the direct measurement of where the landscape&#39;s entropy lives -- and of why a quench so rarely finds the fcc funnel   [74 minima: 71 ico-like vs 3 fcc-like]
 </pre></div>
 </div>
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>True

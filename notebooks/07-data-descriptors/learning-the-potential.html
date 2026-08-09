@@ -576,7 +576,7 @@
               font-family:'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace;font-size:11px;color:#46506b;
               letter-spacing:.04em;">
     <span>Raymond Amador</span>
-    <span>v1.2.0 &nbsp;·&nbsp; 2026-08-07 &nbsp;·&nbsp;
+    <span>v1.2.0 &nbsp;·&nbsp; 2026-08-09 &nbsp;·&nbsp;
           CC&nbsp;BY&nbsp;4.0 (text) / MIT (code)</span>
   </div>
 </div></div></div>
@@ -883,9 +883,7 @@ features must first be brought to a common scale.)</p>
 second basin     E1 = -41.471980 eps   (E1 - E0 = 2.855)
 curated pool: 420 configs, E in [-43.75, -22.06] eps (8957 rejected by the floor)
 uncurated control: 200 configs, E in [-32.49, 10273.5] eps, 156 above zero
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>fingerprints: 420 x 8, all finite: True
+fingerprints: 420 x 8, all finite: True
 </pre></div>
 </div>
 <figure class="align-default" id="fig-lp-dataset">
@@ -1024,7 +1022,7 @@ fps: first minority pick at #3; minority fraction in 80 picks 22%
 <figure class="align-default" id="fig-lp-curves">
 <img alt="../../_images/5f816530bd24039d7fbb37a35f9f03dc4fbc58ebcb06398758c2b51d16deba60.png" src="../../_images/5f816530bd24039d7fbb37a35f9f03dc4fbc58ebcb06398758c2b51d16deba60.png" />
 <figcaption>
-<p><span class="caption-number">Fig. 87 </span><span class="caption-text">How to spend a labelling budget. Left: learning curve of the kernel model on the homogeneous pool, test error against training-set size on log-log axes; the band spans the 12 random draws, the ink line is their median, and the amber line is farthest-point sampling — worse at the smallest budget, where its corner-chasing early picks (the animation of the previous notebook showed exactly this) leave the interior unrepresented, and modestly better at every budget beyond, because a homogeneous pool leaves little for coverage to fix. Right: the imbalanced two-basin pool, cumulative number of minority-basin configurations selected against selection step. Random selection (ink, mean of 12 draws) accumulates minority points at the pool rate of one in seven, and more than half of its 10-point draws contain none at all; farthest-point sampling (amber) jumps to the rare basin within its first few picks, because in descriptor space the minority structures are far from everything already selected.</span><a class="headerlink" href="#fig-lp-curves" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 87 </span><span class="caption-text">How to spend a labelling budget. Left: learning curve of the kernel model on the homogeneous pool, test error against training-set size on log-log axes; the band spans the 12 random draws, the ink line is their median, and the amber line is farthest-point sampling — worse at the smallest budget, where its corner-chasing early picks (the animation of the previous notebook showed exactly this) leave the interior unrepresented, and modestly better at every budget beyond, because a homogeneous pool leaves little for coverage to fix. Right: the imbalanced two-basin pool, cumulative number of minority-basin configurations selected against selection step. Random selection (ink, mean of 12 draws) accumulates minority points at the pool rate of one in ten, and more than half of its 10-point draws contain none at all; farthest-point sampling (amber) jumps to the rare basin within its first few picks, because in descriptor space the minority structures are far from everything already selected.</span><a class="headerlink" href="#fig-lp-curves" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 </div>

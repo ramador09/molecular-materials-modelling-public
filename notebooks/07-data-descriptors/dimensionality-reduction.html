@@ -11,10 +11,10 @@
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://ramador.me/molecular-materials-modelling-public/notebooks/07-data-descriptors/dimensionality-reduction.html" />
 <meta property="og:site_name" content="Molecular and Materials Modelling" />
-<meta property="og:description" content="Notebook overview: §7.1 turned an atomic environment into a sixteen-component vector, invariant to everything the energy is invariant to. That solves the rep..." />
+<meta property="og:description" content="Notebook overview: §7.1 turned an atomic environment into a vector of symmetry functions, invariant to everything the energy is invariant to; pairing its eig..." />
 <meta property="og:image" content="https://ramador.me/molecular-materials-modelling-public/_static/og.png" />
 <meta property="og:image:alt" content="Molecular and Materials Modelling" />
-<meta name="description" content="Notebook overview: §7.1 turned an atomic environment into a sixteen-component vector, invariant to everything the energy is invariant to. That solves the rep..." />
+<meta name="description" content="Notebook overview: §7.1 turned an atomic environment into a vector of symmetry functions, invariant to everything the energy is invariant to; pairing its eig..." />
 
     <title>7.2 Dimensionality Reduction and Farthest-Point Sampling &#8212; Molecular and Materials Modelling</title>
   
@@ -589,16 +589,18 @@
               font-family:'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace;font-size:11px;color:#46506b;
               letter-spacing:.04em;">
     <span>Raymond Amador</span>
-    <span>v1.2.0 &nbsp;·&nbsp; 2026-08-07 &nbsp;·&nbsp;
+    <span>v1.2.0 &nbsp;·&nbsp; 2026-08-09 &nbsp;·&nbsp;
           CC&nbsp;BY&nbsp;4.0 (text) / MIT (code)</span>
   </div>
 </div></div></div>
 </div>
 <section id="notebook-overview">
 <h2>Notebook overview<a class="headerlink" href="#notebook-overview" title="Link to this heading">#</a></h2>
-<p><a class="reference internal" href="structural-descriptors.html"><span class="std std-doc">§7.1</span></a> turned an atomic environment into a
-sixteen-component vector, invariant to everything the energy is invariant to. That
-solves the representation problem and creates two new ones. Sixteen components cannot
+<p><a class="reference internal" href="structural-descriptors.html"><span class="std std-doc">§7.1</span></a> turned an atomic environment into a vector of
+symmetry functions, invariant to everything the energy is invariant to; pairing its
+eight radial components with eight angular ones, as the Setup above does, gives the
+sixteen-component fingerprint used from here on. That solves the representation
+problem and creates two new ones. Sixteen components cannot
 be plotted, so there is no way to <em>look</em> at a dataset of environments and see whether
 it has structure, gaps or duplicates. And a molecular-dynamics run produces environments
 by the million, of which only a handful can be afforded at the level of theory one
@@ -942,7 +944,7 @@ separate — are distinguishable in this projection.</p>
 <figure class="align-default" id="fig-dr-pca">
 <img alt="../../_images/fa89a5a01e31b448f6bf3b39d16761c3c48995ef8ce37228470ca12158b2d179.png" src="../../_images/fa89a5a01e31b448f6bf3b39d16761c3c48995ef8ce37228470ca12158b2d179.png" />
 <figcaption>
-<p><span class="caption-number">Fig. 82 </span><span class="caption-text">Left: the environment dataset projected onto its first two principal components, which together carry 96.5 % of the variance. PC1 separates the under-coordinated surface environments from every bulk phase and PC2 separates body-centred cubic from the close-packed pair, but fcc and hcp land on top of each other. Right: the variance carried by each component, with the correlation between that component and the displacement amplitude marked. Disorder is PC3, carrying only about 2 % of the variance — so the projection that shows the most variation is not the one that answers a question about stacking, and would not have been even if more components were plotted.</span><a class="headerlink" href="#fig-dr-pca" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 82 </span><span class="caption-text">Left: the environment dataset projected onto its first two principal components, which together carry 96.0 % of the variance. PC1 separates the under-coordinated surface environments from every bulk phase and PC2 separates body-centred cubic from the close-packed pair, but fcc and hcp land on top of each other. Right: the variance carried by each component, with the correlation between that component and the displacement amplitude marked. Disorder is PC3, carrying only about 3 % of the variance — so the projection that shows the most variation is not the one that answers a question about stacking, and would not have been even if more components were plotted.</span><a class="headerlink" href="#fig-dr-pca" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>PC1 + PC2 carry 96.0 % of the variance
@@ -1256,42 +1258,42 @@ input[type=range].anim-slider {
 </style>
 
 <div class="animation">
-  <img id="_anim_imgaf77737685e5447493f5114adffd65b5">
+  <img id="_anim_imgad21407a9bca4b2fa8dbfb094d8f3995">
   <div class="anim-controls">
-    <input id="_anim_slideraf77737685e5447493f5114adffd65b5" type="range" class="anim-slider"
+    <input id="_anim_sliderad21407a9bca4b2fa8dbfb094d8f3995" type="range" class="anim-slider"
            name="points" min="0" max="1" step="1" value="0"
-           oninput="animaf77737685e5447493f5114adffd65b5.set_frame(parseInt(this.value));">
+           oninput="animad21407a9bca4b2fa8dbfb094d8f3995.set_frame(parseInt(this.value));">
     <div class="anim-buttons">
-      <button title="Decrease speed" aria-label="Decrease speed" onclick="animaf77737685e5447493f5114adffd65b5.slower()">
+      <button title="Decrease speed" aria-label="Decrease speed" onclick="animad21407a9bca4b2fa8dbfb094d8f3995.slower()">
           <i class="fa fa-minus"></i></button>
-      <button title="First frame" aria-label="First frame" onclick="animaf77737685e5447493f5114adffd65b5.first_frame()">
+      <button title="First frame" aria-label="First frame" onclick="animad21407a9bca4b2fa8dbfb094d8f3995.first_frame()">
         <i class="fa fa-fast-backward"></i></button>
-      <button title="Previous frame" aria-label="Previous frame" onclick="animaf77737685e5447493f5114adffd65b5.previous_frame()">
+      <button title="Previous frame" aria-label="Previous frame" onclick="animad21407a9bca4b2fa8dbfb094d8f3995.previous_frame()">
           <i class="fa fa-step-backward"></i></button>
-      <button title="Play backwards" aria-label="Play backwards" onclick="animaf77737685e5447493f5114adffd65b5.reverse_animation()">
+      <button title="Play backwards" aria-label="Play backwards" onclick="animad21407a9bca4b2fa8dbfb094d8f3995.reverse_animation()">
           <i class="fa fa-play fa-flip-horizontal"></i></button>
-      <button title="Pause" aria-label="Pause" onclick="animaf77737685e5447493f5114adffd65b5.pause_animation()">
+      <button title="Pause" aria-label="Pause" onclick="animad21407a9bca4b2fa8dbfb094d8f3995.pause_animation()">
           <i class="fa fa-pause"></i></button>
-      <button title="Play" aria-label="Play" onclick="animaf77737685e5447493f5114adffd65b5.play_animation()">
+      <button title="Play" aria-label="Play" onclick="animad21407a9bca4b2fa8dbfb094d8f3995.play_animation()">
           <i class="fa fa-play"></i></button>
-      <button title="Next frame" aria-label="Next frame" onclick="animaf77737685e5447493f5114adffd65b5.next_frame()">
+      <button title="Next frame" aria-label="Next frame" onclick="animad21407a9bca4b2fa8dbfb094d8f3995.next_frame()">
           <i class="fa fa-step-forward"></i></button>
-      <button title="Last frame" aria-label="Last frame" onclick="animaf77737685e5447493f5114adffd65b5.last_frame()">
+      <button title="Last frame" aria-label="Last frame" onclick="animad21407a9bca4b2fa8dbfb094d8f3995.last_frame()">
           <i class="fa fa-fast-forward"></i></button>
-      <button title="Increase speed" aria-label="Increase speed" onclick="animaf77737685e5447493f5114adffd65b5.faster()">
+      <button title="Increase speed" aria-label="Increase speed" onclick="animad21407a9bca4b2fa8dbfb094d8f3995.faster()">
           <i class="fa fa-plus"></i></button>
     </div>
-    <form title="Repetition mode" aria-label="Repetition mode" action="#n" name="_anim_loop_selectaf77737685e5447493f5114adffd65b5"
+    <form title="Repetition mode" aria-label="Repetition mode" action="#n" name="_anim_loop_selectad21407a9bca4b2fa8dbfb094d8f3995"
           class="anim-state">
-      <input type="radio" name="state" value="once" id="_anim_radio1_af77737685e5447493f5114adffd65b5"
+      <input type="radio" name="state" value="once" id="_anim_radio1_ad21407a9bca4b2fa8dbfb094d8f3995"
              >
-      <label for="_anim_radio1_af77737685e5447493f5114adffd65b5">Once</label>
-      <input type="radio" name="state" value="loop" id="_anim_radio2_af77737685e5447493f5114adffd65b5"
+      <label for="_anim_radio1_ad21407a9bca4b2fa8dbfb094d8f3995">Once</label>
+      <input type="radio" name="state" value="loop" id="_anim_radio2_ad21407a9bca4b2fa8dbfb094d8f3995"
              checked>
-      <label for="_anim_radio2_af77737685e5447493f5114adffd65b5">Loop</label>
-      <input type="radio" name="state" value="reflect" id="_anim_radio3_af77737685e5447493f5114adffd65b5"
+      <label for="_anim_radio2_ad21407a9bca4b2fa8dbfb094d8f3995">Loop</label>
+      <input type="radio" name="state" value="reflect" id="_anim_radio3_ad21407a9bca4b2fa8dbfb094d8f3995"
              >
-      <label for="_anim_radio3_af77737685e5447493f5114adffd65b5">Reflect</label>
+      <label for="_anim_radio3_ad21407a9bca4b2fa8dbfb094d8f3995">Reflect</label>
     </form>
   </div>
 </div>
@@ -1301,9 +1303,9 @@ input[type=range].anim-slider {
   /* Instantiate the Animation class. */
   /* The IDs given should match those used in the template above. */
   (function() {
-    var img_id = "_anim_imgaf77737685e5447493f5114adffd65b5";
-    var slider_id = "_anim_slideraf77737685e5447493f5114adffd65b5";
-    var loop_select_id = "_anim_loop_selectaf77737685e5447493f5114adffd65b5";
+    var img_id = "_anim_imgad21407a9bca4b2fa8dbfb094d8f3995";
+    var slider_id = "_anim_sliderad21407a9bca4b2fa8dbfb094d8f3995";
+    var loop_select_id = "_anim_loop_selectad21407a9bca4b2fa8dbfb094d8f3995";
     var frames = new Array(16);
     
   frames[0] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAA94AAAGMCAYAAAAstHr+AAAAOnRFWHRTb2Z0d2FyZQBNYXRwbG90\
@@ -15584,7 +15586,7 @@ ywAAAABJRU5ErkJggg==\
     /* set a timeout to make sure all the above elements are created before
        the object is initialized. */
     setTimeout(function() {
-        animaf77737685e5447493f5114adffd65b5 = new Animation(frames, img_id, slider_id, 33,
+        animad21407a9bca4b2fa8dbfb094d8f3995 = new Animation(frames, img_id, slider_id, 33,
                                  loop_select_id);
     }, 0);
   })()

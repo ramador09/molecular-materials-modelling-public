@@ -603,7 +603,7 @@
               font-family:'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace;font-size:11px;color:#46506b;
               letter-spacing:.04em;">
     <span>Raymond Amador</span>
-    <span>v1.2.0 &nbsp;·&nbsp; 2026-08-07 &nbsp;·&nbsp;
+    <span>v1.2.0 &nbsp;·&nbsp; 2026-08-09 &nbsp;·&nbsp;
           CC&nbsp;BY&nbsp;4.0 (text) / MIT (code)</span>
   </div>
 </div></div></div>
@@ -1011,8 +1011,9 @@ bandwidth of the lowest band, free 5.10 eV vs DFT 4.15 eV
 <section id="validation-6-kinematics-reproduced-degeneracy-lifted">
 <h3>Validation 6 — kinematics reproduced, degeneracy lifted<a class="headerlink" href="#validation-6-kinematics-reproduced-degeneracy-lifted" title="Link to this heading">#</a></h3>
 <p>Three checks. The free-electron shell energy at <span class="math notranslate nohighlight">\(\Gamma\)</span> is fixed arithmetic:
-<span class="math notranslate nohighlight">\(3\,(\hbar^2/2m)(2\pi/a)^2\)</span>, and the eight <span class="math notranslate nohighlight">\(\langle111\rangle\)</span> vectors must all land
-on it. The width of the lowest band must come out comparable between the two models,
+<span class="math notranslate nohighlight">\(3\,(\hbar^2/2m)(2\pi/a)^2\)</span>, and the <span class="math notranslate nohighlight">\(\langle111\rangle\)</span> shell must land on it —
+seven of those eight vectors, since keeping only as many free-electron bands as
+the DFT calculation has leaves room for <span class="math notranslate nohighlight">\(G=0\)</span> and seven more. The width of the lowest band must come out comparable between the two models,
 since that width is kinematic rather than a property of the potential. And the DFT
 calculation must show that degeneracy <em>split</em> — which is the one thing the empty
 lattice provably cannot produce, and the reason silicon has a gap at all.</p>
@@ -1050,8 +1051,11 @@ reproduce the gap structure of an entire semiconductor family.</p>
 <p>with sign patterns <span class="math notranslate nohighlight">\((++++)\)</span>, <span class="math notranslate nohighlight">\((++--)\)</span>, <span class="math notranslate nohighlight">\((+-+-)\)</span>, <span class="math notranslate nohighlight">\((+--+)\)</span> — the lattice’s
 geometry, Fourier transformed once and for all. The parity signs matter:
 <span class="math notranslate nohighlight">\(\langle s_a|H|p_c\rangle\)</span> and <span class="math notranslate nohighlight">\(\langle p_a|H|s_c\rangle\)</span> couple with opposite
-sign, and getting one wrong destroys the degeneracy structure at <span class="math notranslate nohighlight">\(\Gamma\)</span>
-that Part c gates.</p>
+sign, and getting one wrong inverts the conduction bands: the indirect gap comes
+out negative and the conduction minimum leaves the <span class="math notranslate nohighlight">\(\Delta\)</span> line, which is what
+Part c’s minimum-location check catches. The degeneracies at <span class="math notranslate nohighlight">\(\Gamma\)</span> do <em>not</em>
+catch it — there every phase is 1, so <span class="math notranslate nohighlight">\(g_1=g_2=g_3=0\)</span> and every <span class="math notranslate nohighlight">\(s\)</span>–<span class="math notranslate nohighlight">\(p\)</span> coupling
+vanishes whatever sign it was given.</p>
 <p><strong>Part a)</strong> Build <span class="math notranslate nohighlight">\(H(\mathbf k)\)</span> from the published silicon parameters and
 diagonalise it along the <em>same</em> L–Γ–X path as the committed QE calculation.
 <strong>Write this one yourself</strong> — the implementation is the lesson.</p>
@@ -1096,7 +1100,7 @@ valence width — the two meanings of prediction, quantified.</p>
 <div class="cell tag_validation tag_remove-input docutils container">
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>✓  the Bloch Hamiltonian is Hermitian at every k-point tested   [max |H - H^dagger| = 0.0e+00]
-✓  the valence-band maximum sits at Gamma with its triple degeneracy exact to machine precision -- symmetry the model must inherit, and the check that would catch a parity-sign error in the s-p couplings   [VBM at k-index 45 (Gamma 45), degeneracy spread 1.0e-15 eV]
+✓  the valence-band maximum sits at Gamma with its triple degeneracy exact to machine precision -- symmetry the model must inherit from the lattice (this one tests the on-site and V_xx structure: at Gamma the s-p couplings vanish identically, so a parity-sign error passes it, and is caught below)   [VBM at k-index 45 (Gamma 45), degeneracy spread 1.0e-15 eV]
 ✓  the conduction minimum lies strictly inside the Delta line, the indirectness the s* orbital was invented to produce   [CBM at 0.72 of Gamma-X (QE: 0.83)]
 ✓  the tight-binding indirect gap lands on the measured value -- the model was fitted to experiment, and landing there is the fit doing its one job   [got 1.17188 vs expected 1.17 (rtol=1e-06, atol=0.15)]
 ✓  the empirical model beats the ab-initio functional on the gap it was told about, while the two agree on the valence anatomy neither was told about -- what each kind of model actually knows, in two numbers   [gap errors: TB 0.00 eV vs PBE 0.59 eV; valence widths 12.5 vs 12.0 eV]

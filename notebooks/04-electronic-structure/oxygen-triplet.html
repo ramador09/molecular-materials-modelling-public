@@ -607,7 +607,7 @@
               font-family:'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace;font-size:11px;color:#46506b;
               letter-spacing:.04em;">
     <span>Raymond Amador</span>
-    <span>v1.2.0 &nbsp;·&nbsp; 2026-08-07 &nbsp;·&nbsp;
+    <span>v1.2.0 &nbsp;·&nbsp; 2026-08-09 &nbsp;·&nbsp;
           CC&nbsp;BY&nbsp;4.0 (text) / MIT (code)</span>
   </div>
 </div></div></div>
@@ -982,7 +982,7 @@ a physical density.</p>
 <p><span class="caption-number">Fig. 44 </span><span class="caption-text">Isosurface of the O₂ electron density from the CP2K calculation (amber, <span class="math notranslate nohighlight">\(\rho=0.05\,e/a_0^3\)</span>), with the two oxygen nuclei marked. The density forms a single connected cloud spanning both atoms, the signature of a bonded molecule. (Cube downsampled for display.)</span><a class="headerlink" href="#fig-o2-density" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>min ρ = -8.76e-06; ∫ρ d³r = 11.885 (the 12 GTH valence electrons)
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>min ρ = -8.76e-06; ∫ρ d³r = 11.885 (the 12 soft valence electrons)
 </pre></div>
 </div>
 </div>
@@ -1069,12 +1069,13 @@ visible as the change of lobe colour across the bond.</p>
 </div>
 <section id="validation-4-proper-one-electron-orbitals">
 <h3>Validation 4 — proper one-electron orbitals<a class="headerlink" href="#validation-4-proper-one-electron-orbitals" title="Link to this heading">#</a></h3>
-<p>Each Hartree-Fock orbital is normalised, so <span class="math notranslate nohighlight">\(\int|\psi|^2\,dV\)</span> must be the same for all
-three (the same value the downsampling preserves), confirming they are genuine
-single-electron molecular orbitals.</p>
+<p>Each Hartree-Fock orbital is normalised, so <span class="math notranslate nohighlight">\(\int|\psi|^2\,dV\)</span> must come out at 1 for
+every one of the three — not merely equal to one another, which three orbitals
+normalised to a half would also satisfy. The tolerance is set by the cube’s grid
+spacing and the downsampling, not by the physics.</p>
 <div class="cell tag_validation tag_remove-input docutils container">
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>✓  the three orbitals share one normalisation (∫|ψ|² equal)   [max|Δ| = 0.0329698 (rtol=0.05, atol=1e-09)]
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>✓  each orbital integrates to one electron (∫|ψ|² = 1), to grid accuracy   [max|Δ| = 0.0199838 (rtol=0.05, atol=1e-09)]
 </pre></div>
 </div>
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>True
@@ -1090,7 +1091,7 @@ single-electron molecular orbitals.</p>
 spherical-ish cloud about a single nucleus, and crucially it holds <strong>half</strong> the
 electrons of the molecule. Comparing the integrated densities is a clean,
 downsampling-proof check: the molecule must contain exactly twice the atom’s
-electrons — 12 valence electrons against 6, since the GTH pseudopotentials fold
+electrons — 12 valence electrons against 6, since the GAPW soft density folds
 each 1s core into the potential and the cubes therefore hold valence density
 only — so the <em>ratio</em> of the integrals is 2, with the per-cent-level shortfall
 of each absolute integral being the coarse grid’s quadrature error.</p>
@@ -1102,10 +1103,10 @@ the atom’s electrons.</p>
 <figure class="align-default" id="fig-o-density">
 <img alt="../../_images/c6defcd82263ee3b1ab219dbcc417c69d36ee601c7fbd5c94798c45600ed3c09.png" src="../../_images/c6defcd82263ee3b1ab219dbcc417c69d36ee601c7fbd5c94798c45600ed3c09.png" />
 <figcaption>
-<p><span class="caption-number">Fig. 47 </span><span class="caption-text">Electron density of a single oxygen atom from the CP2K calculation (amber, <span class="math notranslate nohighlight">\(\rho=0.05\,e/a_0^3\)</span>): one cloud about one nucleus, holding its six valence electrons — the 1s core is folded into the GTH pseudopotential — half the molecule’s twelve. (Cube downsampled for display.)</span><a class="headerlink" href="#fig-o-density" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 47 </span><span class="caption-text">Electron density of a single oxygen atom from the CP2K calculation (amber, <span class="math notranslate nohighlight">\(\rho=0.05\,e/a_0^3\)</span>): one cloud about one nucleus, holding its six valence electrons — the 1s core density lives in GAPW’s hard atomic part, not in the cube — half the molecule’s twelve. (Cube downsampled for display.)</span><a class="headerlink" href="#fig-o-density" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>∫ρ(O₂) = 11.89, ∫ρ(O) = 5.95 valence electrons  -&gt;  ratio 1.998  (12 vs 6; the 1s cores live in the pseudopotential)
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>∫ρ(O₂) = 11.89, ∫ρ(O) = 5.95 valence electrons  -&gt;  ratio 1.998  (12 vs 6; the 1s cores live in GAPW&#39;s hard density)
 </pre></div>
 </div>
 </div>
@@ -1265,7 +1266,7 @@ excess is <strong>spin contamination</strong>, the price UHF pays for letting α
 orbitals differ, and reading its size is part of reading any unrestricted
 calculation. Third, the pattern: the α/β occupation structure must match the
 committed CP2K eigenvalue schema of Exercise 6 — nine α against seven β
-valence electrons, with the β LUMO a <em>degenerate</em> π<span class="math notranslate nohighlight">\(^\ast\)</span> pair, the two holes
+electrons in all, with the β LUMO a <em>degenerate</em> π<span class="math notranslate nohighlight">\(^\ast\)</span> pair, the two holes
 Hund’s rule carved out.</p>
 <p><strong>Part a)</strong> Run UHF for the triplet and the singlet at the experimental bond
 length and report total energies and <span class="math notranslate nohighlight">\(\langle S^2\rangle\)</span>.</p>

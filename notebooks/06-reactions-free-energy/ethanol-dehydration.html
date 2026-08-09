@@ -597,7 +597,7 @@
               font-family:'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace;font-size:11px;color:#46506b;
               letter-spacing:.04em;">
     <span>Raymond Amador</span>
-    <span>v1.2.0 &nbsp;·&nbsp; 2026-08-07 &nbsp;·&nbsp;
+    <span>v1.2.0 &nbsp;·&nbsp; 2026-08-09 &nbsp;·&nbsp;
           CC&nbsp;BY&nbsp;4.0 (text) / MIT (code)</span>
   </div>
 </div></div></div>
@@ -696,8 +696,10 @@ the details.</p>
 
 <span class="n">INK</span><span class="p">,</span> <span class="n">AMBER</span><span class="p">,</span> <span class="n">SOFT</span> <span class="o">=</span> <span class="s2">&quot;#16213e&quot;</span><span class="p">,</span> <span class="s2">&quot;#c0851a&quot;</span><span class="p">,</span> <span class="s2">&quot;#46506b&quot;</span>
 <span class="n">HARTREE_KCAL</span> <span class="o">=</span> <span class="mf">627.503</span>  <span class="c1"># Hartree -&gt; kcal/mol</span>
-<span class="c1"># data: unit conversions and constants, from scipy.constants rather than typed</span>
-<span class="c1"># digits. The reaction energetics come from the committed CP2K outputs; the rate</span>
+<span class="c1"># data: unit conversions and constants — the fundamental ones from scipy.constants,</span>
+<span class="c1"># the definitional ones (the thermochemical kcal, the Hartree in kcal/mol) typed,</span>
+<span class="c1"># since they are exact by definition or fixed by convention. The reaction</span>
+<span class="c1"># energetics come from the committed CP2K outputs; the rate</span>
 <span class="c1"># theory that turns a barrier into something an experiment could measure is built in</span>
 <span class="c1"># Exercise 5.</span>
 <span class="n">K_B_SI</span> <span class="o">=</span> <span class="n">physical_constants</span><span class="p">[</span><span class="s2">&quot;Boltzmann constant&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>  <span class="c1"># J/K</span>
@@ -1034,7 +1036,7 @@ tunnelling had slowed the reaction down.</p>
 <div class="cell tag_validation tag_remove-input docutils container">
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>✓  the Arrhenius activation energy exceeds the barrier that generated the rates: the (k_B T / h) prefactor contributes its own slope, so a measured Ea and a computed barrier are different quantities   [Ea = 67.254 vs barrier 66.080 kcal/mol]
-✓  and the excess is R*T0 exactly, as eq-ea-offset predicts with no free parameters (a finite fit window averages the pointwise relation, hence the sub-percent tolerance)   [got 0.994088 vs expected 1 (rtol=0.03, atol=1e-09)]
+✓  and the excess is R*T0 exactly, as eq-ea-offset predicts with no free parameters (a finite fit window averages the pointwise relation, so the tolerance is a few per cent rather than exact)   [got 0.994088 vs expected 1 (rtol=0.03, atol=1e-09)]
 ✓  and Wigner tunnelling can only speed the reaction up, by less and less as thermal energy makes the detour unnecessary   [kappa from 1.124 at 500 K to 1.063 at 700 K]
 </pre></div>
 </div>
@@ -1055,7 +1057,7 @@ TZVP, are three points on the standard exponential approach to the
 <div class="math notranslate nohighlight" id="equation-eq-cbs">
 <span class="eqno">(57)<a class="headerlink" href="#equation-eq-cbs" title="Link to this equation">#</a></span>\[E_X \;=\; E_{\rm CBS} + A\,r^{\,X}, \qquad X = 1, 2, 3,\]</div>
 <p>with three unknowns — so the extrapolation is <em>solved</em>, not fitted:
-<span class="math notranslate nohighlight">\(r = (E_3 - E_2)/(E_2 - E_1)\)</span>, and <span class="math notranslate nohighlight">\(E_{\rm CBS} = E_3 - (E_3-E_2)\,r/(1-r)\)</span>
+<span class="math notranslate nohighlight">\(r = (E_3 - E_2)/(E_2 - E_1)\)</span>, and <span class="math notranslate nohighlight">\(E_{\rm CBS} = E_3 + (E_3-E_2)\,r/(1-r)\)</span>
 sums the geometric tail. Monotone convergence (<span class="math notranslate nohighlight">\(0 &lt; r &lt; 1\)</span>) is a
 <em>precondition</em> the data must earn before the formula means anything, and the
 committed barriers earn it in both functional families.</p>
@@ -1070,13 +1072,13 @@ the functional gap at SZV against the functional gap at the limit.</p>
 <div class="cell tag_solution tag_remove-input docutils container">
 <div class="cell_output docutils container">
 <figure class="align-default" id="fig-eth-cbs">
-<img alt="../../_images/d60c0a9db57d41120cdaa9493b0b34d8bc4b4286062a9ceac42f7543dd46e3b7.png" src="../../_images/d60c0a9db57d41120cdaa9493b0b34d8bc4b4286062a9ceac42f7543dd46e3b7.png" />
+<img alt="../../_images/58c83757b546244345352387d468dbea05ca3386262e949280b6c06487504f3e.png" src="../../_images/58c83757b546244345352387d468dbea05ca3386262e949280b6c06487504f3e.png" />
 <figcaption>
 <p><span class="caption-number">Fig. 65 </span><span class="caption-text">The committed activation barriers against basis level for both functionals, with the three-point exponential extrapolation of Eq. eq-cbs drawn through each family to its complete-basis-set asymptote (dashed). Both families converge geometrically (0 &lt; r &lt; 1, checked before the formula is trusted), and both limits sit within a kcal/mol of TZVP — the quantitative form of Exercise 3’s convergence claim. What does not extrapolate away is the gap between the two asymptotes: the functional difference survives the basis limit, which is exactly what makes it a statement about the physics of the approximation rather than about the size of the expansion.</span><a class="headerlink" href="#fig-eth-cbs" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>PBE:   r = 0.037, CBS barrier 60.39 kcal/mol (TZVP residual -0.02)
-B3LYP: r = 0.029, CBS barrier 66.10 kcal/mol (TZVP residual -0.02)
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>PBE:   r = 0.037, CBS barrier 60.35 kcal/mol (TZVP residual +0.02)
+B3LYP: r = 0.029, CBS barrier 66.06 kcal/mol (TZVP residual +0.02)
 functional gap: 9.9 kcal/mol at SZV -&gt; 5.7 at the basis-set limit -- the part that is physics
 </pre></div>
 </div>
@@ -1094,7 +1096,7 @@ basis error in disguise.</p>
 <div class="cell tag_validation tag_remove-input docutils container">
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>✓  both functional families converge geometrically with basis level, the precondition that makes eq-cbs an extrapolation rather than a guess   [r = 0.037 (PBE), 0.029 (B3LYP)]
-✓  both CBS limits sit within a kcal/mol of TZVP: Exercise 3&#39;s convergence claim, now with the remaining error quantified rather than declared small   [TZVP residuals -0.02 and -0.02 kcal/mol]
+✓  both CBS limits sit within a kcal/mol of TZVP: Exercise 3&#39;s convergence claim, now with the remaining error quantified rather than declared small   [TZVP residuals +0.02 and +0.02 kcal/mol]
 ✓  the PBE-B3LYP gap survives the basis-set limit at chemical size: the functional difference is physics, not expansion artefact   [limit gap 5.7 kcal/mol]
 ✓  and the apparent method disagreement at SZV was partly basis error in disguise: the gap shrinks by several kcal/mol on the way to the limit   [gap 9.9 (SZV) -&gt; 5.7 (CBS) kcal/mol]
 </pre></div>

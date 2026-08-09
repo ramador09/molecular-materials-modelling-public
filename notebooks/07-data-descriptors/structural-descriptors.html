@@ -593,7 +593,7 @@
               font-family:'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace;font-size:11px;color:#46506b;
               letter-spacing:.04em;">
     <span>Raymond Amador</span>
-    <span>v1.2.0 &nbsp;·&nbsp; 2026-08-07 &nbsp;·&nbsp;
+    <span>v1.2.0 &nbsp;·&nbsp; 2026-08-09 &nbsp;·&nbsp;
           CC&nbsp;BY&nbsp;4.0 (text) / MIT (code)</span>
   </div>
 </div></div></div>
@@ -866,10 +866,10 @@ pairwise system actually depends on.</p>
 <p><span class="caption-number">Fig. 76 </span><span class="caption-text">The same 108-atom copper crystal before (left) and after (right) a rigid rotation, with three atoms marked to show that the structure is unchanged while every coordinate is different. Rotation, translation and relabelling leave the set of interatomic distances — and therefore the energy — exactly invariant, but move the coordinate vector by more than the size of the structure itself, which is why atomic coordinates make a poor input to a fitted model.</span><a class="headerlink" href="#fig-desc-cartesian" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>||X - X(translation)|| =   41.491 Å   ( 7.77 × the structure size)
-||X - X(rotation)|| =   89.511 Å   (16.76 × the structure size)
-||X - X(rotation + relabelling)|| =   80.466 Å   (15.07 × the structure size)
-RMS atomic position (the structure&#39;s own scale) = 5.339 Å
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>||X - X(translation)|| =   41.491 Å   ( 0.75 × ||X||)
+||X - X(rotation)|| =   89.511 Å   ( 1.61 × ||X||)
+||X - X(rotation + relabelling)|| =   80.466 Å   ( 1.45 × ||X||)
+||X|| = 55.488 Å (RMS atomic position 5.339 Å over 108 atoms)
 max change in any pair distance under translation           : 1.78e-15 Å
 max change in any pair distance under rotation              : 5.33e-15 Å
 max change in any pair distance under rotation + relabelling: 5.33e-15 Å
@@ -885,7 +885,7 @@ set of interatomic distances must not move at all. A model fed coordinates would
 to learn to undo the first; a model fed distances gets the second for free.</p>
 <div class="cell tag_validation tag_remove-input docutils container">
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>✓  every symmetry operation displaces the coordinate vector by more than the whole size of the structure, so coordinates encode the arbitrary choice of frame and labelling at least as strongly as they encode the structure   [translation: 7.77×, rotation: 16.76×, rotation + relabelling: 15.07×]
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>✓  every symmetry operation displaces the coordinate vector by a distance comparable to the vector&#39;s own length -- three quarters of it for a plain translation, more than all of it for a rotation -- so coordinates encode the arbitrary choice of frame and labelling at least as strongly as they encode the structure   [translation: 0.75×||X||, rotation: 1.61×||X||, rotation + relabelling: 1.45×||X||]
 ✓  while the multiset of interatomic distances is unchanged to machine precision by all three, which is why every descriptor that follows is built out of distances rather than positions   [largest change in any pair distance: 5.3e-15 Å]
 </pre></div>
 </div>

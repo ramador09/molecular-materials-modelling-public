@@ -596,7 +596,7 @@
               font-family:'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace;font-size:11px;color:#46506b;
               letter-spacing:.04em;">
     <span>Raymond Amador</span>
-    <span>v1.2.0 &nbsp;·&nbsp; 2026-08-07 &nbsp;·&nbsp;
+    <span>v1.2.0 &nbsp;·&nbsp; 2026-08-09 &nbsp;·&nbsp;
           CC&nbsp;BY&nbsp;4.0 (text) / MIT (code)</span>
   </div>
 </div></div></div>
@@ -853,7 +853,7 @@ at once. Their ratio <span class="math notranslate nohighlight">\(c/a\)</span> s
 <figure class="align-default" id="fig-ni-surface">
 <img alt="../../_images/30f063d60a123ea3b8eff2bd83a11070b297ee482c77bf0726d1175e1dbba4b7.png" src="../../_images/30f063d60a123ea3b8eff2bd83a11070b297ee482c77bf0726d1175e1dbba4b7.png" />
 <figcaption>
-<p><span class="caption-number">Fig. 52 </span><span class="caption-text">Energy surface of hexagonal-close-packed nickel over its two lattice parameters, from a committed <span class="math notranslate nohighlight">\(10\times10\)</span> EMT scan that brackets the energy minimum: energy (colour) versus in-plane spacing <span class="math notranslate nohighlight">\(a\)</span> and stacking height <span class="math notranslate nohighlight">\(c\)</span>. The interior minimum (amber marker) sits at <span class="math notranslate nohighlight">\(a\approx2.49\)</span> Å and <span class="math notranslate nohighlight">\(c\approx4.06\)</span> Å, an axial ratio <span class="math notranslate nohighlight">\(c/a\approx1.633\)</span> — essentially the ideal close-packed value <span class="math notranslate nohighlight">\(\sqrt{8/3}=1.633\)</span>.</span><a class="headerlink" href="#fig-ni-surface" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 52 </span><span class="caption-text">Energy surface of hexagonal-close-packed nickel over its two lattice parameters, from a committed <span class="math notranslate nohighlight">\(10\times10\)</span> EMT scan that brackets the energy minimum: energy (colour) versus in-plane spacing <span class="math notranslate nohighlight">\(a\)</span> and stacking height <span class="math notranslate nohighlight">\(c\)</span>. The interior minimum (amber marker) sits at <span class="math notranslate nohighlight">\(a\approx2.47\)</span> Å and <span class="math notranslate nohighlight">\(c\approx4.01\)</span> Å, an axial ratio <span class="math notranslate nohighlight">\(c/a\approx1.623\)</span> — within 0.6 per cent of the ideal close-packed value <span class="math notranslate nohighlight">\(\sqrt{8/3}=1.633\)</span>, which is the point: EMT nickel finds the close-packed ratio without being told it.</span><a class="headerlink" href="#fig-ni-surface" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>a(Ni) = 2.473 Å (exp 2.49), c = 4.014 Å (exp 4.07);  c/a = 1.623 (ideal 1.633)
@@ -918,7 +918,7 @@ spread across forms:  a 0.018 %,  B0 0.50 %
 <figure class="align-default" id="fig-ag-eos-compare">
 <img alt="../../_images/f9bcbb13a54cd2ca4da8e1771f39e6df7945b0cee7d1e9181b454698a7f67f84.png" src="../../_images/f9bcbb13a54cd2ca4da8e1771f39e6df7945b0cee7d1e9181b454698a7f67f84.png" />
 <figcaption>
-<p><span class="caption-number">Fig. 53 </span><span class="caption-text">Fit residuals <span class="math notranslate nohighlight">\(E_{\rm data}-E_{\rm fit}\)</span> for silver’s committed energy-volume curve under three equations of state: Birch-Murnaghan (navy), Murnaghan (amber), Vinet (grey). All three sit within a tenth of a milli-electronvolt of the data across the whole range, and all three return the same lattice constant to within 0.02 per cent, so the extracted quantities are properties of the data rather than of the chosen functional form.</span><a class="headerlink" href="#fig-ag-eos-compare" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 53 </span><span class="caption-text">Fit residuals <span class="math notranslate nohighlight">\(E_{\rm data}-E_{\rm fit}\)</span> for silver’s committed energy-volume curve under three equations of state: Birch-Murnaghan (navy), Murnaghan (amber), Vinet (grey). All three describe the data to a root-mean-square residual under 0.2 meV — the rms column of the table beside the figure, and all three return the same lattice constant to within 0.02 per cent, so the extracted quantities are properties of the data rather than of the chosen functional form.</span><a class="headerlink" href="#fig-ag-eos-compare" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 </div>
@@ -961,7 +961,7 @@ constants: <span class="math notranslate nohighlight">\(M_{11} = 2(C_{11}+C_{12}
 structure can exist — and contracting it along volume-changing paths yields
 bulk moduli.</p>
 <p>Two estimators, deliberately different in what they consume: the <strong>raw
-diagonal</strong> of the grid (the ten computed points with <span class="math notranslate nohighlight">\(a\)</span> and <span class="math notranslate nohighlight">\(c\)</span> scaled
+diagonal</strong> of the grid (the nine computed points with <span class="math notranslate nohighlight">\(a\)</span> and <span class="math notranslate nohighlight">\(c\)</span> scaled
 together — a genuine uniform-compression series, no model between the data and
 the answer), and the <strong>relaxed path</strong> through the fitted quadratic (at each
 volume, the shape re-optimises; relaxation can only soften). Same data, one
@@ -981,7 +981,7 @@ calibrated for.</p>
 <figure class="align-default" id="fig-eos-elastic">
 <img alt="../../_images/95d4365708cf7f78537d8fe47b04e56cd037bc300c6418668ff2505929510530.png" src="../../_images/95d4365708cf7f78537d8fe47b04e56cd037bc300c6418668ff2505929510530.png" />
 <figcaption>
-<p><span class="caption-number">Fig. 54 </span><span class="caption-text">The committed Ni (a, c) energy grid as a surface, with the fitted quadratic’s principal curvature directions at the minimum (arrows) and the two volume-changing paths along which the bulk modulus is read: the raw uniform-scaling diagonal of the grid (amber points — computed energies, no model) and the shape-relaxed path through the fitted quadratic (navy). Both land on the measured bulk modulus of nickel to within a few percent, and the relaxed value sits marginally below the fixed-shape one, as the variational argument requires: letting c/a re-optimise under compression can only soften the response, and at EMT nickel’s near-ideal axial ratio it softens it barely at all.</span><a class="headerlink" href="#fig-eos-elastic" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 54 </span><span class="caption-text">The committed Ni (a, c) energy grid, with the uniform-scaling diagonal marked on it (left) and the energy along that diagonal against cell volume (right): the raw computed energies (amber points — no model between the data and the answer) and the parabola fitted through them (navy), whose curvature is the fixed-shape bulk modulus. The shape-relaxed value, read instead from the hundred-point quadratic, is quoted in the title beside it. Both land on the measured bulk modulus of nickel to within a few percent, and the relaxed value sits marginally below the fixed-shape one, as the variational argument requires: letting c/a re-optimise under compression can only soften the response, and at EMT nickel’s near-ideal axial ratio it softens it barely at all.</span><a class="headerlink" href="#fig-eos-elastic" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>bulk modulus: raw diagonal 176.4 GPa; relaxed path 177.7 GPa; fixed-shape 177.7 GPa (measured Ni: 180 GPa)
@@ -1001,8 +1001,8 @@ measured bulk modulus of nickel — the quantity EMT was built to reproduce.</p>
 <div class="cell tag_validation tag_remove-input docutils container">
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>✓  the strain-curvature matrix is positive definite: the hcp cell is mechanically stable against every (a, c) deformation the grid spans   [eigenvalues [ 43.8 125.8] eV]
-✓  the model-free diagonal and the fitted relaxed path agree on the bulk modulus: ten raw points and a hundred-point quadratic, one answer   [got 176.425 vs expected 177.671 (rtol=0.05, atol=1e-09)]
-✓  shape relaxation does not stiffen the response -- the variational ordering, with EMT nickel&#39;s near-ideal axial ratio making the softening almost invisibly small   [relaxed 177.7 vs fixed-shape 177.7 GPa]
+✓  the model-free diagonal and the fitted relaxed path agree on the bulk modulus: nine raw points and a hundred-point quadratic, one answer   [got 176.425 vs expected 177.671 (rtol=0.05, atol=1e-09)]
+✓  shape relaxation does not stiffen the response -- the variational ordering, with EMT nickel&#39;s near-ideal axial ratio making the softening almost invisibly small. Compared exactly rather than with slack: the gap is a few thousandths of a GPa, so any tolerance wide enough to be safe would have been wide enough to pass the wrong sign too   [relaxed 177.6711 vs fixed-shape 177.6737 GPa (softening 0.0026)]
 ✓  and the result lands on the measured bulk modulus of nickel, the number the EMT parametrisation behind this committed grid was calibrated against   [got 177.671 vs expected 180 (rtol=0.1, atol=1e-09)]
 </pre></div>
 </div>
@@ -1046,7 +1046,7 @@ against the measured value for silver.</p>
 <figure class="align-default" id="fig-eos-debye">
 <img alt="../../_images/ba5760ec4351b7e8039791ca2dd257e37c8bc9b50f4425d026e072f26e039f2a.png" src="../../_images/ba5760ec4351b7e8039791ca2dd257e37c8bc9b50f4425d026e072f26e039f2a.png" />
 <figcaption>
-<p><span class="caption-number">Fig. 55 </span><span class="caption-text">Quasi-harmonic thermal expansion assembled entirely from the notebook’s own fitted cold curve: the free energy E(V) + F_Debye(θ_D(V), T), with θ_D’s volume dependence set by Slater’s Grüneisen parameter read off the fitted B′, minimised over volume at each temperature. Left: the free-energy curves shift their minima (dots) to larger volume as temperature rises — vibrational entropy paying for expansion. Right: the resulting lattice parameter a(T); the slope at 300 K is the linear expansion coefficient, landing at the order of magnitude of the measured value for silver, with the residual overestimate traced to the bulk-modulus-only Debye temperature the caption of Part a warned about.</span><a class="headerlink" href="#fig-eos-debye" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 55 </span><span class="caption-text">Quasi-harmonic thermal expansion assembled entirely from the notebook’s own fitted cold curve: the free energy E(V) + F_Debye(θ_D(V), T), with θ_D’s volume dependence set by Slater’s Grüneisen parameter read off the fitted B′, minimised over volume at each temperature. Left: the free-energy curves shift their minima (dots) to larger volume as temperature rises — vibrational entropy paying for expansion. Right: the resulting lattice parameter a(T); the slope at 300 K is the linear expansion coefficient, landing at the order of magnitude of the measured value for silver, with the residual underestimate traced to the bulk-modulus-only Debye temperature the caption of Part a warned about — too stiff a lattice expands too little.</span><a class="headerlink" href="#fig-eos-debye" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>alpha_linear(300 K) = 1.64e-05 /K (measured Ag: 1.9e-05); V grows monotonically: True
@@ -1085,7 +1085,7 @@ N<span class="math notranslate nohighlight">\(_2\)</span> and fitted equations o
 calculations. The Birch–Murnaghan fit to face-centred-cubic silver returned a
 lattice constant of <span class="math notranslate nohighlight">\(4.06\,\)</span>Å and a bulk modulus near <span class="math notranslate nohighlight">\(100\,\)</span>GPa, both matching
 experiment, and the two-parameter scan of hexagonal nickel found <span class="math notranslate nohighlight">\(a\)</span> and <span class="math notranslate nohighlight">\(c\)</span> in the
-ratio <span class="math notranslate nohighlight">\(c/a=1.633\)</span>, exactly the ideal close-packed value. The lattice constant is an
+ratio <span class="math notranslate nohighlight">\(c/a=1.623\)</span>, within 0.6 per cent of the ideal close-packed value. The lattice constant is an
 output of energy minimisation, not an input.</p>
 </section>
 <section id="outlook">
@@ -1094,12 +1094,14 @@ output of energy minimisation, not an input.</p>
 <li><p><strong>Density functional theory.</strong> Swapping EMT for a DFT calculator (GPAW, Quantum
 ESPRESSO) makes the lattice constants and bulk moduli quantitative, at the price of
 self-consistent electronic-structure cost; the workflow is identical.</p></li>
-<li><p><strong>Finer equations of state.</strong> Beyond Birch-Murnaghan lie the Vinet and Murnaghan
-forms; comparing fits tests how far the data constrain <span class="math notranslate nohighlight">\(B\)</span> and its pressure
-derivative <span class="math notranslate nohighlight">\(B'\)</span>.</p></li>
-<li><p><strong>Thermal expansion.</strong> Repeating the equation of state with vibrational free energy
-added (the quasi-harmonic approximation) gives the lattice constant as a function
-of temperature.</p></li>
+<li><p><strong>Anharmonicity beyond the quasi-harmonic picture.</strong> Exercise 6 lets the Debye
+temperature follow the volume and stops there; real expansion near melting needs
+the phonons themselves recomputed at each volume, or molecular dynamics, which is
+where the quasi-harmonic approximation finally breaks.</p></li>
+<li><p><strong>Pressure, not just volume.</strong> Everything here is read off <span class="math notranslate nohighlight">\(E(V)\)</span> at zero
+pressure. Differentiating the fitted equation of state gives <span class="math notranslate nohighlight">\(P(V)\)</span> directly, and
+with it phase-transition pressures — the quantity a diamond-anvil experiment
+actually measures.</p></li>
 <li><p><strong>Elastic constants.</strong> Straining the cell along independent directions, rather than
 isotropically, gives the full elastic tensor, of which the bulk modulus is one
 combination.</p></li>

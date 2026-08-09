@@ -592,7 +592,7 @@
               font-family:'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace;font-size:11px;color:#46506b;
               letter-spacing:.04em;">
     <span>Raymond Amador</span>
-    <span>v1.2.0 &nbsp;·&nbsp; 2026-08-07 &nbsp;·&nbsp;
+    <span>v1.2.0 &nbsp;·&nbsp; 2026-08-09 &nbsp;·&nbsp;
           CC&nbsp;BY&nbsp;4.0 (text) / MIT (code)</span>
   </div>
 </div></div></div>
@@ -617,7 +617,7 @@ overbinding.</p>
 <div><p><strong>Provenance.</strong> This notebook develops <strong>Lecture 8</strong> of the course (adsorption
 energies and dispersion on Pt(111)), an exercise <strong>designed by the author
 (Raymond Amador)</strong>. The slab and adsorption structures
-(<code class="docutils literal notranslate"><span class="pre">pt_slab.xyz</span></code>, <code class="docutils literal notranslate"><span class="pre">benzene_on_pt.xyz</span></code>, …) and the total energies are the course’s own
+(<code class="docutils literal notranslate"><span class="pre">pt-slab.xyz</span></code>, <code class="docutils literal notranslate"><span class="pre">benzene-on-pt.xyz</span></code>, …) and the total energies are the course’s own
 committed CP2K results (an anonymised course run); the comparison table reproduces
 the exercise’s. The full course credit is in the footer.</p>
 </div></blockquote>
@@ -955,7 +955,8 @@ for benzene (BEEF-vdW above, Grimme D3 below), the signature of the functional
 sensitivity.</p>
 <div class="cell tag_validation tag_remove-input docutils container">
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>✓  benzene binds most strongly, and the two methods bracket experiment   [benzene: BEEF-vdW -0.975, exp -1.72, D3 -2.852 eV]
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>✓  benzene binds most strongly, and the two methods bracket experiment -- an internal consistency check on the tabulated comparison, not a measurement   [benzene: BEEF-vdW -0.975, exp -1.72, D3 -2.852 eV]
+✓  and the adsorption energy assembled from the committed total energies lands on the calorimetric benzene value -- the one claim here that a wrong number in the CP2K outputs could actually break   [computed -1.702 eV vs experiment -1.72 eV]
 </pre></div>
 </div>
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>True
@@ -1002,7 +1003,9 @@ unmistakable.</p>
 potential of a set of Gaussian wells. Use the Gaussian product rule — the product
 of two Gaussians is a third, centred at <span class="math notranslate nohighlight">\(P=(a_iA+a_jB)/(a_i+a_j)\)</span> with exponent
 <span class="math notranslate nohighlight">\(p=a_i+a_j\)</span> and prefactor <span class="math notranslate nohighlight">\(e^{-\mu(A-B)^2}\)</span>, <span class="math notranslate nohighlight">\(\mu=a_ia_j/p\)</span> — so every integral is
-closed-form and nothing is quadrature. Crucially, <code class="docutils literal notranslate"><span class="pre">wells</span></code> lists the wells present in
+closed-form and nothing is quadrature. The kinetic operator is <span class="math notranslate nohighlight">\(-\tfrac12\,d^2/dx^2\)</span>,
+atomic units throughout, which fixes <span class="math notranslate nohighlight">\(T_{ij}=\mu\,[1-2\mu(A-B)^2]\,S_{ij}\)</span> with no
+free constant left to choose. Crucially, <code class="docutils literal notranslate"><span class="pre">wells</span></code> lists the wells present in
 the <em>potential</em>: a basis function whose centre is not among them is a <strong>ghost</strong>,
 contributing variational freedom and no attraction. That single argument is what
 makes the whole experiment possible.
@@ -1019,18 +1022,18 @@ improves</strong>, since there is nothing left to borrow once a fragment is alre
 described. Scan both. Watch <em>which</em> additions help: the diagnosis is in the detail.</p>
 <div class="cell tag_solution tag_remove-input docutils container">
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>E(A, own basis)          = -1.38011138
-E(A, dimer basis, ghost) = -1.38127085
-BSSE                     = 1.159e-03  (positive: spurious stabilisation)
-BSSE vs separation: [1.70e-03 1.16e-03 1.85e-06 7.33e-13 4.44e-16 0.00e+00]
-BSSE vs basis size ([3, 6, 9, 12]): [1.16e-03 1.23e-05 1.17e-05 3.50e-08]
-fragment energy falls monotonically with basis size: [-1.380111 -1.387219 -1.387222 -1.387247]
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>E(A, own basis)          = -1.17805489
+E(A, dimer basis, ghost) = -1.18139209
+BSSE                     = 3.337e-03  (positive: spurious stabilisation)
+BSSE vs separation: [3.87e-03 3.34e-03 4.33e-05 1.24e-11 8.88e-16 0.00e+00]
+BSSE vs basis size ([3, 6, 9, 12]): [3.34e-03 7.52e-04 6.88e-04 1.73e-06]
+fragment energy falls monotonically with basis size: [-1.178055 -1.186043 -1.186259 -1.187717]
 </pre></div>
 </div>
 <figure class="align-default" id="fig-pt-bsse">
-<img alt="../../_images/7216ec2d9adac3a40596f17867d9c6694e8fc6064c43aef9e6a11080d0893334.png" src="../../_images/7216ec2d9adac3a40596f17867d9c6694e8fc6064c43aef9e6a11080d0893334.png" />
+<img alt="../../_images/c7659cb01a5046c505af7dab08c2dc4c3de2303e65bdfbfedbbfdc9838df755f.png" src="../../_images/c7659cb01a5046c505af7dab08c2dc4c3de2303e65bdfbfedbbfdc9838df755f.png" />
 <figcaption>
-<p><span class="caption-number">Fig. 58 </span><span class="caption-text">Basis-set superposition error in a one-dimensional two-fragment model, computed exactly. Left: BSSE against fragment half-separation on a logarithmic axis; it falls by orders of magnitude once the fragments stop overlapping, because functions too far away cannot be borrowed. Right: BSSE against the number of basis functions per fragment; it collapses as the fragment’s own basis improves, and the collapse comes from adding a DIFFUSE exponent rather than a tight one, since it is the loosely bound tail a fragment borrows from its neighbour. Both behaviours identify BSSE as an artefact of an incomplete basis, not a property of the system.</span><a class="headerlink" href="#fig-pt-bsse" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 58 </span><span class="caption-text">Basis-set superposition error in a one-dimensional two-fragment model, computed exactly. Left: BSSE against fragment half-separation on a logarithmic axis; it falls by orders of magnitude once the fragments stop overlapping, because functions too far away cannot be borrowed. Right: BSSE against the number of basis functions per fragment; it collapses as the fragment’s own basis improves, and the collapse is overwhelmingly the work of the DIFFUSE exponent added last: the first tight function buys a factor of about four, the second buys nothing at all, and the diffuse one buys nearly four hundred, because it is the loosely bound tail a fragment borrows from its neighbour. Both behaviours identify BSSE as an artefact of an incomplete basis, not a property of the system.</span><a class="headerlink" href="#fig-pt-bsse" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 </div>
@@ -1046,10 +1049,10 @@ monotonically with basis size, since adding functions can never raise a variatio
 minimum — the check that would catch a wrong sign or a broken matrix element.</p>
 <div class="cell tag_validation tag_remove-input docutils container">
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>✓  ghost functions lower the fragment&#39;s energy: the variational principle guarantees the sign, so this tests the matrices rather than the physics   [BSSE = 1.159e-03]
-✓  and it dies away as the fragments separate — functions too far off cannot be borrowed, which is why BSSE is a short-range artefact   [BSSE falls from 1.7e-03 at d = 1.0 to below 1e-10 by d = 3.5, decreasing at every resolvable separation]
-✓  and it collapses as the fragment&#39;s own basis improves: there is nothing left to borrow once a fragment is already well described, so BSSE vanishes in the complete-basis limit   [BSSE 1.16e-03 -&gt; 3.50e-08 for 3 -&gt; 12 functions per fragment]
-✓  the fragment energy never rises when basis functions are added, as the variational principle requires   [E = [-1.380111 -1.387219 -1.387222 -1.387247]]
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>✓  ghost functions lower the fragment&#39;s energy: the variational principle guarantees the sign, so this tests the matrices rather than the physics   [BSSE = 3.337e-03]
+✓  and it dies away as the fragments separate — functions too far off cannot be borrowed, which is why BSSE is a short-range artefact   [BSSE falls from 3.9e-03 at d = 1.0 to below 1e-10 by d = 3.5, decreasing at every resolvable separation]
+✓  and it collapses as the fragment&#39;s own basis improves: there is nothing left to borrow once a fragment is already well described, so BSSE vanishes in the complete-basis limit   [BSSE 3.34e-03 -&gt; 1.73e-06 for 3 -&gt; 12 functions per fragment]
+✓  the fragment energy never rises when basis functions are added, as the variational principle requires   [E = [-1.178055 -1.186043 -1.186259 -1.187717]]
 </pre></div>
 </div>
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>True
