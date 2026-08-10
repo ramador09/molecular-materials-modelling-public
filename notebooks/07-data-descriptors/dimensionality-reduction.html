@@ -589,7 +589,7 @@
               font-family:'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace;font-size:11px;color:#46506b;
               letter-spacing:.04em;">
     <span>Raymond Amador</span>
-    <span>v1.2.1 &nbsp;·&nbsp; 2026-08-09 &nbsp;·&nbsp;
+    <span>v1.2.1 &nbsp;·&nbsp; 2026-08-10 &nbsp;·&nbsp;
           CC&nbsp;BY&nbsp;4.0 (text) / MIT (code)</span>
   </div>
 </div></div></div>
@@ -1010,11 +1010,11 @@ distances between any real points at all, which shows up as negative eigenvalues
 </figcaption>
 </figure>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>MDS eigenvalues vs PCA squared singular values: max relative difference 2.85e-15
-MDS embedding vs PCA scores:                    relative difference     2.67e-15
+MDS embedding vs PCA scores:                    relative difference     2.65e-15
 
 powering the dissimilarity, d -&gt; d**α:
   α = 0.5: differs from PCA by 2.28e-01, negative spectral weight -0.00 %  (still Euclidean)
-  α = 1.0: differs from PCA by 2.53e-15, negative spectral weight  0.00 %  (still Euclidean)
+  α = 1.0: differs from PCA by 2.51e-15, negative spectral weight  0.00 %  (still Euclidean)
   α = 1.5: differs from PCA by 2.94e-01, negative spectral weight  9.87 %  (NOT Euclidean)
   α = 2.0: differs from PCA by 3.75e-01, negative spectral weight 17.32 %  (NOT Euclidean)
   α = 3.0: differs from PCA by 4.53e-01, negative spectral weight 26.80 %  (NOT Euclidean)
@@ -1034,7 +1034,7 @@ the same method.</p>
 <div class="cell tag_validation tag_remove-input docutils container">
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>✓  the eigenvalues of the double-centred Gram matrix are the squared singular values of the data matrix, to machine precision: for Euclidean distances eq-mds-gram reconstructs Y Yᵀ exactly rather than approximately   [max relative difference 2.9e-15]
-✓  so the embedding built from distances alone reproduces the principal-component projection, having never been shown a coordinate   [relative difference 2.7e-15]
+✓  so the embedding built from distances alone reproduces the principal-component projection, having never been shown a coordinate   [relative difference 2.6e-15]
 ✓  while every other exponent moves the embedding away from the principal-component one: the two methods coincide for the Euclidean distance specifically, and not for monotone rankings of dissimilarity in general   [α=0.5: 2.3e-01, α=1.5: 2.9e-01, α=2.0: 3.8e-01, α=3.0: 4.5e-01]
 ✓  and the two ways of failing are distinct. For α ≤ 1 the dissimilarities are still distances between real points — the spectrum stays non-negative and MDS returns a valid, merely different, embedding. Above α = 1 they stop being embeddable at all and a large share of the spectrum turns negative, which is Schoenberg&#39;s classical result showing up as an eigenvalue sign   [α=0.5: -0.0 %, α=1.0: 0.0 %, α=1.5: 9.9 %, α=2.0: 17.3 %, α=3.0: 26.8 %]
 </pre></div>
@@ -1258,42 +1258,42 @@ input[type=range].anim-slider {
 </style>
 
 <div class="animation">
-  <img id="_anim_img037290571c7a4e32aba130d385002dc7">
+  <img id="_anim_img17a493cf4cd74e04a2d86bd901b3f4d6">
   <div class="anim-controls">
-    <input id="_anim_slider037290571c7a4e32aba130d385002dc7" type="range" class="anim-slider"
+    <input id="_anim_slider17a493cf4cd74e04a2d86bd901b3f4d6" type="range" class="anim-slider"
            name="points" min="0" max="1" step="1" value="0"
-           oninput="anim037290571c7a4e32aba130d385002dc7.set_frame(parseInt(this.value));">
+           oninput="anim17a493cf4cd74e04a2d86bd901b3f4d6.set_frame(parseInt(this.value));">
     <div class="anim-buttons">
-      <button title="Decrease speed" aria-label="Decrease speed" onclick="anim037290571c7a4e32aba130d385002dc7.slower()">
+      <button title="Decrease speed" aria-label="Decrease speed" onclick="anim17a493cf4cd74e04a2d86bd901b3f4d6.slower()">
           <i class="fa fa-minus"></i></button>
-      <button title="First frame" aria-label="First frame" onclick="anim037290571c7a4e32aba130d385002dc7.first_frame()">
+      <button title="First frame" aria-label="First frame" onclick="anim17a493cf4cd74e04a2d86bd901b3f4d6.first_frame()">
         <i class="fa fa-fast-backward"></i></button>
-      <button title="Previous frame" aria-label="Previous frame" onclick="anim037290571c7a4e32aba130d385002dc7.previous_frame()">
+      <button title="Previous frame" aria-label="Previous frame" onclick="anim17a493cf4cd74e04a2d86bd901b3f4d6.previous_frame()">
           <i class="fa fa-step-backward"></i></button>
-      <button title="Play backwards" aria-label="Play backwards" onclick="anim037290571c7a4e32aba130d385002dc7.reverse_animation()">
+      <button title="Play backwards" aria-label="Play backwards" onclick="anim17a493cf4cd74e04a2d86bd901b3f4d6.reverse_animation()">
           <i class="fa fa-play fa-flip-horizontal"></i></button>
-      <button title="Pause" aria-label="Pause" onclick="anim037290571c7a4e32aba130d385002dc7.pause_animation()">
+      <button title="Pause" aria-label="Pause" onclick="anim17a493cf4cd74e04a2d86bd901b3f4d6.pause_animation()">
           <i class="fa fa-pause"></i></button>
-      <button title="Play" aria-label="Play" onclick="anim037290571c7a4e32aba130d385002dc7.play_animation()">
+      <button title="Play" aria-label="Play" onclick="anim17a493cf4cd74e04a2d86bd901b3f4d6.play_animation()">
           <i class="fa fa-play"></i></button>
-      <button title="Next frame" aria-label="Next frame" onclick="anim037290571c7a4e32aba130d385002dc7.next_frame()">
+      <button title="Next frame" aria-label="Next frame" onclick="anim17a493cf4cd74e04a2d86bd901b3f4d6.next_frame()">
           <i class="fa fa-step-forward"></i></button>
-      <button title="Last frame" aria-label="Last frame" onclick="anim037290571c7a4e32aba130d385002dc7.last_frame()">
+      <button title="Last frame" aria-label="Last frame" onclick="anim17a493cf4cd74e04a2d86bd901b3f4d6.last_frame()">
           <i class="fa fa-fast-forward"></i></button>
-      <button title="Increase speed" aria-label="Increase speed" onclick="anim037290571c7a4e32aba130d385002dc7.faster()">
+      <button title="Increase speed" aria-label="Increase speed" onclick="anim17a493cf4cd74e04a2d86bd901b3f4d6.faster()">
           <i class="fa fa-plus"></i></button>
     </div>
-    <form title="Repetition mode" aria-label="Repetition mode" action="#n" name="_anim_loop_select037290571c7a4e32aba130d385002dc7"
+    <form title="Repetition mode" aria-label="Repetition mode" action="#n" name="_anim_loop_select17a493cf4cd74e04a2d86bd901b3f4d6"
           class="anim-state">
-      <input type="radio" name="state" value="once" id="_anim_radio1_037290571c7a4e32aba130d385002dc7"
+      <input type="radio" name="state" value="once" id="_anim_radio1_17a493cf4cd74e04a2d86bd901b3f4d6"
              >
-      <label for="_anim_radio1_037290571c7a4e32aba130d385002dc7">Once</label>
-      <input type="radio" name="state" value="loop" id="_anim_radio2_037290571c7a4e32aba130d385002dc7"
+      <label for="_anim_radio1_17a493cf4cd74e04a2d86bd901b3f4d6">Once</label>
+      <input type="radio" name="state" value="loop" id="_anim_radio2_17a493cf4cd74e04a2d86bd901b3f4d6"
              checked>
-      <label for="_anim_radio2_037290571c7a4e32aba130d385002dc7">Loop</label>
-      <input type="radio" name="state" value="reflect" id="_anim_radio3_037290571c7a4e32aba130d385002dc7"
+      <label for="_anim_radio2_17a493cf4cd74e04a2d86bd901b3f4d6">Loop</label>
+      <input type="radio" name="state" value="reflect" id="_anim_radio3_17a493cf4cd74e04a2d86bd901b3f4d6"
              >
-      <label for="_anim_radio3_037290571c7a4e32aba130d385002dc7">Reflect</label>
+      <label for="_anim_radio3_17a493cf4cd74e04a2d86bd901b3f4d6">Reflect</label>
     </form>
   </div>
 </div>
@@ -1303,9 +1303,9 @@ input[type=range].anim-slider {
   /* Instantiate the Animation class. */
   /* The IDs given should match those used in the template above. */
   (function() {
-    var img_id = "_anim_img037290571c7a4e32aba130d385002dc7";
-    var slider_id = "_anim_slider037290571c7a4e32aba130d385002dc7";
-    var loop_select_id = "_anim_loop_select037290571c7a4e32aba130d385002dc7";
+    var img_id = "_anim_img17a493cf4cd74e04a2d86bd901b3f4d6";
+    var slider_id = "_anim_slider17a493cf4cd74e04a2d86bd901b3f4d6";
+    var loop_select_id = "_anim_loop_select17a493cf4cd74e04a2d86bd901b3f4d6";
     var frames = new Array(16);
     
   frames[0] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAA94AAAGMCAYAAAAstHr+AAAAOnRFWHRTb2Z0d2FyZQBNYXRwbG90\
@@ -15586,7 +15586,7 @@ ywAAAABJRU5ErkJggg==\
     /* set a timeout to make sure all the above elements are created before
        the object is initialized. */
     setTimeout(function() {
-        anim037290571c7a4e32aba130d385002dc7 = new Animation(frames, img_id, slider_id, 33,
+        anim17a493cf4cd74e04a2d86bd901b3f4d6 = new Animation(frames, img_id, slider_id, 33,
                                  loop_select_id);
     }, 0);
   })()
