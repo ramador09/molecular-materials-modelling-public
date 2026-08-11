@@ -607,7 +607,7 @@
               font-family:'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace;font-size:11px;color:#46506b;
               letter-spacing:.04em;">
     <span>Raymond Amador</span>
-    <span>v1.2.1 &nbsp;·&nbsp; 2026-08-10 &nbsp;·&nbsp;
+    <span>v1.2.1 &nbsp;·&nbsp; 2026-08-11 &nbsp;·&nbsp;
           CC&nbsp;BY&nbsp;4.0 (text) / MIT (code)</span>
   </div>
 </div></div></div>
@@ -1282,7 +1282,7 @@ level pattern against the committed CP2K schema.</p>
 </figure>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>E(triplet) = -149.545575 Ha, E(singlet) = -149.513527 Ha  -&gt;  triplet lower by 0.87 eV
 &lt;S^2&gt; = 2.0334 (exact S(S+1) = 2; the excess 0.0334 is UHF spin contamination)
-occupations: 9 alpha / 7 beta; beta LUMO pair split 3.84e-15 Ha -- the two degenerate pi* holes of Exercise 6&#39;s committed schema
+occupations: 9 alpha / 7 beta; beta LUMO pair split 2.22e-16 Ha -- the two degenerate pi* holes of Exercise 6&#39;s committed schema
 </pre></div>
 </div>
 </div>
@@ -1302,7 +1302,7 @@ machine precision, since that degeneracy is symmetry rather than fitting.</p>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>✓  both unrestricted SCF runs converged   [triplet True, singlet True]
 ✓  the triplet lies well below the single-determinant singlet: Hund&#39;s rule as a computed energy difference, ordering gated and the singlet&#39;s multireference character left honestly unquoted   [triplet below by 0.87 eV]
 ✓  the spin contamination is positive and small: &lt;S^2&gt; sits just above the exact 2, the fingerprint of a mildly spin-broken UHF triplet   [&lt;S^2&gt; - 2 = 0.0334]
-✓  and the alpha/beta structure reproduces the committed CP2K schema: two more alpha electrons than beta, and the beta LUMO a pi* pair degenerate to machine precision -- the two holes Hund&#39;s rule carved   [9 alpha / 7 beta; beta-LUMO split 3.8e-15 Ha]
+✓  and the alpha/beta structure reproduces the committed CP2K schema: two more alpha electrons than beta, and the beta LUMO a pi* pair degenerate to machine precision -- the two holes Hund&#39;s rule carved   [9 alpha / 7 beta; beta-LUMO split 2.2e-16 Ha]
 </pre></div>
 </div>
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>True
